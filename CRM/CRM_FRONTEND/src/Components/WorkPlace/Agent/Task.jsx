@@ -1,0 +1,361 @@
+import React, { useEffect, useState } from "react";
+import { urls } from "../../../../links";
+import { DoFetch } from "../../../Utils/DoFetch";
+import { formatDate, parseCustomDate } from "../../../Utils/parseAndFormatDate";
+import { Button, DatePicker, Modal, Table } from "antd";
+
+import GeneralHeader from "../Admin/GeneralHeader";
+import Status from "./Status";
+import DescriptionModel from "./DescriptionModel";
+import Searcher from "./Searcher";
+import AddNote from "./utilComp/AddNote";
+import ViewNote from "./ViewNote";
+import { useNavigate } from "react-router-dom";
+import AddFollow from "./AddFollow";
+import EmailConversation from "./EmailConversation";
+import YardnameSearch from "./YardnameSearch";
+import TextArea from "antd/es/input/TextArea";
+import SendMessages from "./SendMessages";
+import ShowInvoice from "./utilComp/ShowInvoice";
+
+export default function Task({ setload }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setCurrentPageSize] = useState(10);
+  const navigate = useNavigate();
+  const [task, settask] = useState([]);
+  const [TotalData, setTotalData] = useState(0);
+  const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
+
+  // Function to filter tasks based on the selected date
+  const filterByDate = (selectedDate, tasks) => {
+    if (!selectedDate) return tasks; // If no date is selected, return all tasks
+    return tasks.filter((task) => {
+      const taskCreatedDate = new Date(task.createdLead).toLocaleDateString();
+      const selectedDateString = selectedDate.toLocaleDateString();
+      return taskCreatedDate === selectedDateString; // Compare formatted dates
+    });
+  };
+  const fetchTask = async (page, pageRows) => {
+    let url = urls.GetTaskForAgent + `/${page}/${pageRows}`;
+
+    let result = await DoFetch(url);
+
+    if (result.success == true) {
+      let record = [];
+      let idx = 0;
+      result.payload.records.forEach((taskval) => {
+        if (!taskval?.orders) {
+          record.push({
+            key: taskval._id,
+            leadId: taskval.leads[0]._id,
+            _id: (page - 1) * pageRows + idx + 1,
+            name: taskval.leads[0].name,
+            email: taskval.leads[0].email,
+            phone: taskval.leads[0].phone,
+            description: taskval.leads[0].description,
+            origin: taskval.leads[0]?.origin,
+            deadline: parseCustomDate(taskval.deadline),
+            order: false,
+            createdLead: parseCustomDate(taskval.leads[0]?.createdAt),
+            TaskAssignedDate: parseCustomDate(taskval.createdAt),
+            status: taskval.state,
+            type: "leads",
+            yard: taskval.yard,
+            invoice: taskval.invoice,
+            invoiceSaved: taskval.invoiceSaved,
+          });
+        } else {
+          record.push({
+            key: taskval._id,
+            orderId: taskval.orders[0]._id,
+            _id: (page - 1) * pageRows + idx + 1,
+            name: taskval.orders[0].name,
+            email: taskval.orders[0].email,
+            phone: taskval.orders[0].phone,
+            description:
+              taskval.orders[0].description + " " + taskval.orders[0].part,
+            origin: taskval.orders[0]?.origin,
+            order: true,
+            part: taskval.orders[0].part,
+            deadline: parseCustomDate(taskval.deadline),
+            createdLead: parseCustomDate(taskval.orders[0]?.date),
+            TaskAssignedDate: parseCustomDate(taskval.createdAt),
+            status: taskval.state,
+            // additional
+            cvv: taskval.orders[0].CVV,
+            amount: taskval.orders[0].amount,
+            billing_address: taskval.orders[0].billing_address,
+            shipping_address: taskval.orders[0].shipping_address,
+            card_no: taskval.orders[0].card_no,
+            expiry_date: taskval.orders[0].expiry_date,
+            type: "orders",
+            yard: taskval.yard,
+          });
+        }
+
+        idx++;
+      });
+      // Filter tasks by the selected date if any
+      const filteredTasks = filterByDate(selectedDate, record);
+
+      settask(filteredTasks); // Set the filtered tasks
+
+      setTotalData(result.payload.total);
+    } else {
+      alert("Server issue occured");
+    }
+  };
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "_id",
+      key: "_id",
+      width: 50,
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      width: 140,
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      // render: () => {
+      //   return <span>abc@gmail.com</span>;
+      // },
+    },
+    {
+      title: "Send Email",
+      dataIndex: "",
+      key: "send email",
+      width: 120,
+      render: (_, record) => {
+        return <EmailConversation record={record} setload={setload} />;
+      },
+    },
+    {
+      title: "Send Via RingCentral",
+      dataIndex: "",
+      key: "send msg",
+      width: 140,
+      render: (_, record) => {
+        return <SendMessages record={record} />;
+      },
+    },
+    {
+      title: "Send Invoice To Admin",
+      dataIndex: "",
+      key: "send invoice",
+      width: 180,
+      render: (_, record) => {
+        return <ShowInvoice record={record} fetchTask={fetchTask} />;
+      },
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+      width: 120,
+      render: (_, record) => {
+        return (
+          <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
+            <i className="fa-solid fa-phone"></i>
+            {record.phone}
+            {/* .slice(0,5)+"xxxxx"} */}
+          </a>
+        );
+      },
+    },
+
+    {
+      title: "Info",
+      dataIndex: "description",
+      key: "description",
+      // render: (_, record) => {
+      //   return <DescriptionModel record={record} />;
+      // },
+    },
+    {
+      key: "Search",
+      title: "",
+      render: (_, record) => {
+        return <Searcher record={record} setload={setload} />;
+      },
+    },
+    {
+      title: "Yard Names",
+      dataIndex: "yard",
+      key: "yard",
+      render: (_, record) => {
+        return <YardnameSearch record={record} fetchTask={fetchTask} />;
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (_, record) => {
+        return <Status record={record} setload={setload} />;
+      },
+    },
+    {
+      title: "Follow Up",
+      dataIndex: "follow",
+      key: "follow",
+      width: 100,
+      render: (_, record) => {
+        return <AddFollow record={record} setload={setload} />;
+      },
+    },
+    {
+      title: "Type",
+      dataIndex: "order",
+      key: "order",
+      width: 60,
+      render: (_, record) => {
+        return <p>{record.order ? "Order" : "Lead"}</p>;
+      },
+      filters: [
+        { text: "Order", value: true },
+        { text: "Lead", value: false },
+      ],
+      onFilter: (value, record) => record.order === value,
+    },
+    {
+      title: "Origin",
+      dataIndex: "origin",
+      key: "origin",
+    },
+    {
+      title: "Add Note",
+      dataIndex: "datepicker",
+      key: "datepicker",
+      width: 220,
+      render: (_, record) => {
+        return <AddNote record={record} />;
+      },
+    },
+    {
+      title: "Your Notes",
+      dataIndex: "viewnote",
+      key: "viewnote",
+      width: 110,
+      render: (_, record) => {
+        return <ViewNote record={record} setload={setload} />;
+      },
+    },
+
+    {
+      title: "Deadline",
+      dataIndex: "deadline",
+      key: "deadline",
+      width: 150,
+      sorter: (a, b) => {
+        const dateA = new Date(a.deadline);
+        const dateB = new Date(b.deadline);
+
+        // Handle invalid dates
+        if (isNaN(dateA.getTime())) return 1; // Treat invalid dates as later
+        if (isNaN(dateB.getTime())) return -1; // Treat invalid dates as earlier
+
+        return dateA - dateB;
+      },
+      render: (_, record) => {
+        let formattedDate = formatDate(record.deadline);
+        return <p>{formattedDate}</p>;
+      },
+    },
+    {
+      title: "Created Lead",
+      dataIndex: "createdLead",
+      key: "createdLead",
+      width: 150,
+      sorter: (a, b) => new Date(a.createdLead) - new Date(b.createdLead),
+      render: (_, record) => <p>{formatDate(record.createdLead)}</p>,
+    },
+    {
+      title: "Task Assigned Date",
+      dataIndex: "TaskAssignedDate",
+      key: "TaskAssignedDate",
+      width: 180,
+      sorter: (a, b) => {
+        const dateA = new Date(a.created);
+        const dateB = new Date(b.created);
+
+        // Handle invalid dates
+        if (isNaN(dateA.getTime())) return 1; // Treat invalid dates as later
+        if (isNaN(dateB.getTime())) return -1; // Treat invalid dates as earlier
+
+        return dateA - dateB;
+      },
+      render: (_, record) => {
+        let formattedDate = formatDate(record.TaskAssignedDate);
+        return <p>{formattedDate}</p>;
+      },
+    },
+  ];
+  const handleTablePageChange = (pagination) => {
+    setCurrentPage(pagination.current);
+    setCurrentPageSize(pagination.pageSize);
+    fetchTask(pagination.current, pagination.pageSize);
+  };
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("accessT")) {
+      return;
+    }
+    fetchTask(currentPage, pageSize);
+
+    let id = setInterval(() => {
+      fetchTask(currentPage, pageSize);
+    }, 12000);
+    return () => {
+      clearInterval(id);
+    };
+  }, [currentPage, pageSize, selectedDate]);
+
+  return (
+    <>
+      {/* DatePicker for selecting the filter date */}
+      <DatePicker
+        className="overflow-x-hidden py-4"
+        onChange={(date, dateString) =>
+          setSelectedDate(date ? new Date(dateString) : null)
+        }
+      />
+      <div className="h-calc-remaining flex flex-col justify-between ">
+        <div className="h-[80%]">
+          <Table
+            locale={{ emptyText: "No Data available" }}
+            style={{ maxWidth: "100%" }}
+            rowClassName={(record) => {
+              return `${record.status}`;
+            }}
+            // rowSelection={{ type: "checkbox", ...rowSelection }}
+            columns={columns}
+            dataSource={task}
+            pagination={{
+              current: currentPage,
+              pageSize: pageSize,
+              total: TotalData,
+              showSizeChanger: true,
+              pageSizeOptions: ["10", "20", "30", "40", "50", "60", "70"],
+              onChange: (page, pageSize) => {
+                setCurrentPage(page);
+                setCurrentPageSize(pageSize);
+                fetchTask(page, pageSize);
+              },
+            }}
+            onChange={handleTablePageChange}
+            scroll={{ y: 400, x: "max-content" }} // Ensure table content is scrollable
+          />
+        </div>
+        {/* <div className="flex justify-between m-8">
+          <GeneralHeader operations={1} />
+        </div> */}
+      </div>
+    </>
+  );
+}

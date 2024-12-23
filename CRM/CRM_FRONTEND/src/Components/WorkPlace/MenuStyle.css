@@ -1,0 +1,26 @@
+.menuList{
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+    width: 100%;
+    
+}
+.menuList li{
+    width:100%;
+    color:#fff;
+    font-size: 0.9rem;
+    font-family: "Quicksand";
+    display: flex;
+    align-items: center;
+    padding: 0.1rem 0.5rem;
+    cursor: pointer;
+    gap:10px;
+}
+.menuList li i{
+    display: flex;
+    align-items: center;
+    width: 1rem;
+    justify-content: center;
+}
+.menuList li:hover i{
+    color: rgb(255, 97, 118);}
