@@ -1,0 +1,55 @@
+.cardPro {
+  height: 28em; /* Fixed height for all cards */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardPro img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover; /* Ensures consistent image display */
+}
+
+.card-body {
+  padding: 1em;
+  flex: 1; /* Allows content to take up available space */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-body p {
+  margin: 0.5em 0;
+}
+
+.starArea {
+  margin: 0.5em 0;
+  display: flex;
+  gap: 0.2em;
+}
+
+.btnPrice {
+  margin-top: auto; /* Push button to the bottom */
+  text-align: center;
+}
+
+.add-to-cart-btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #0056b3;
+}

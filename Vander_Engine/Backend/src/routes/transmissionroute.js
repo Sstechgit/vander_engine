@@ -54,5 +54,55 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch data' });
   }
 });
+// Route to fetch product by year, make, model, and variant
+router.get('/:year/:make/:model/:variant', async (req, res) => {
+  const { year, make, model, variant } = req.params;
+
+  try {
+    console.log(`Fetching data for ${year}, ${make}, ${model}, ${variant}`);
+
+    const db = connectDB();
+
+    if (!db || typeof db.query !== 'function') {
+      return res.status(500).json({ error: 'Database connection is invalid' });
+    }
+
+    db.query(
+      `
+      SELECT 
+        product_id,
+        TRIM(name) AS name,
+        TRIM(Stock) AS Stock,
+        TRIM(warranty) AS warranty,
+        TRIM(tested_checked) AS tested_checked,
+        TRIM(pricing) AS pricing,
+        TRIM(image) AS image,
+        TRIM(miles) AS miles,
+        TRIM(description) AS description
+      FROM transmission
+      WHERE 
+        year = ? AND make = ? AND model = ? AND variant = ?
+      LIMIT 1
+      `,
+      [year, make, model, variant],
+      (err, results) => {
+        if (err) {
+          console.error('Error querying the database:', err.message);
+          return res.status(500).json({ error: 'Failed to fetch data from the database' });
+        }
+
+        if (results.length === 0) {
+          return res.status(404).json({ error: 'Product not found for the given parameters' });
+        }
+
+        res.json(results[0]);
+      }
+    );
+
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
 
 module.exports = router;
