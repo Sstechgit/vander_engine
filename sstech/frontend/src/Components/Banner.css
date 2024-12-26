@@ -1,0 +1,140 @@
+/* Container */
+.new-banner-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    height: auto; /* Allows the container to grow dynamically */
+    background: linear-gradient(45deg, #0d336b, #5f9eeb);
+
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    padding: 2rem;
+    box-sizing: border-box; /* Ensures padding doesn't overflow the container */
+    margin-bottom: 3%;
+  }
+  
+  /* Background Layers */
+  .background-layer {
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    border-radius: 50%;
+    opacity: 0.4;
+    filter: blur(100px);
+  }
+  
+  .layer-1 {
+   
+    top: 10%;
+    left: 30%;
+  }
+  
+  .layer-2 {
+    background: #a5d6a7;
+    top: 50%;
+    left: 50%;
+  }
+  
+  .layer-3 {
+    background: #81d4fa;
+    top: 80%;
+    left: 20%;
+  }
+  
+  /* Content Box */
+  .banner-content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    padding: 2rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    width: 100%; /* Ensures content box adapts to screen width */
+  }
+  
+  /* Title Styling */
+  .banner-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .banner-title span {
+    display: block;
+    font-size: 2rem;
+    color: black
+  }
+  
+  /* Description Styling */
+  .banner-description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  
+  /* Button Styling */
+  .banner-button {
+    background-color: black;
+    color: white;
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .banner-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 111, 97, 0.5);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .new-banner-container {
+      padding: 1.5rem; /* Reduced padding for smaller screens */
+    }
+  
+    .banner-title {
+      font-size: 2rem; /* Adjusted font size */
+    }
+  
+    .banner-description {
+      font-size: 1rem;
+    }
+  
+    .banner-button {
+      padding: 0.8rem 2rem;
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .new-banner-container {
+      padding: 1rem; /* Even smaller padding for mobile screens */
+    }
+  
+    .banner-title {
+      font-size: 1.5rem;
+    }
+  
+    .banner-description {
+      font-size: 0.9rem;
+    }
+  
+    .banner-button {
+      padding: 0.6rem 1.5rem;
+      font-size: 0.8rem;
+    }
+    .banner-content {
+    margin-left: 0px !important; 
+    }
+  }
+  
