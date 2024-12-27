@@ -48,7 +48,7 @@ export default function Popup() {
     setError(null); // Reset error state
   
     try {
-      const response = await fetch("http://localhost:3000/api/send-email", {
+      const response = await fetch("https://newbackend.sstechservices.net/api/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Use JSON header
