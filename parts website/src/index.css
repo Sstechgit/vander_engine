@@ -1,0 +1,18 @@
+:root {
+  --primarycolor: #ec2324;
+  --lightColor:#fff;
+}
+.main{
+  color: var(--primarycolor);
+}
+.main:hover{
+  color: #fff;
+}
+.footer{
+border-top: 2px solid var(--primarycolor);
+border-bottom: 2px solid var(--primarycolor);
+}
+.first-section{
+border-top: 4px solid var(--primarycolor);
+background-color: var(--primarycolor);
+}
