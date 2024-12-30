@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 
 const imap = new Imap({
   user: "info@vanderengines.com",
-  password: "Sstechservices@123",
+  password: "Shobhitrastogi@881037",
   host: "imap.hostinger.com",
   port: 993,
   tls: true,
@@ -107,10 +107,14 @@ function ExtractFormEmailData(body, regexArr) {
 
   return data;
 }
+
+// Regex to match the subject line and extract the mobile number
+const subjectRegex = /Query Through www\.vanderengines\.com(?: Connect at (\+\d{10,15}))?/;
+
 const StoreFormData = async (mail) => {
   let extractedData = {};
   if (!mail.text.includes("Service") && !mail.text.includes("CVV")) {
-    //means it is simple form contains year etc
+    // Simple form contains year, etc.
     extractedData = ExtractFormEmailData(mail.text, patternsForForm);
   } else if (mail.text.includes("Additional Details:") && !mail.text.includes("CVV")) {
     extractedData = ExtractFormEmailData(mail.text, popup);
@@ -119,44 +123,48 @@ const StoreFormData = async (mail) => {
   } else {
     extractedData = ExtractFormEmailData(mail.text, patternsForOrder);
   }
+
   console.log(extractedData);
   console.log(mail.text);
+
   let origin;
- if (mail.to && mail.to.value && mail.to.value.length > 0) {
-  if (mail.to.value[0].address === process.env.LEAD_ORIGIN_1) {
-    origin = "Vander Engines";
-  } else if (mail.to.value[0].address === process.env.LEAD_ORIGIN_2) {
-    origin = "USA AUTO PARTS";
+  if (mail.to && mail.to.value && mail.to.value.length > 0) {
+    if (mail.to.value[0].address === process.env.LEAD_ORIGIN_1) {
+      origin = "Vander Engines";
+    } else if (mail.to.value[0].address === process.env.LEAD_ORIGIN_2) {
+      origin = "USA AUTO PARTS";
+    } else {
+      origin = "USA AUTO PARTS LLC";
+    }
   } else {
-    origin = "USA AUTO PARTS LLC";
+    console.error("mail.to or mail.to.value is undefined or empty");
+    return;
   }
-} else {
-	console.error("mail.to or mail.to.value is undefined or empty ");
-	return;
-}
+
+  // Extract mobile number from the subject
+  const subjectMatch = mail.subject.match(subjectRegex);
+  const mobileNumber = subjectMatch && subjectMatch[1] ? subjectMatch[1] : null;
 
   try {
     if (!extractedData?.cvv) {
       console.log(extractedData);
       const { name, phone, description, date } = extractedData;
-      let email="";
-     if (mail.from && mail.from.value && mail.from.value.length > 0) {
-      if(mail.from.value[0].address=="info@usaautopartsllc.com"){
-        email=extractedData.email
+      let email = "";
+      if (mail.from && mail.from.value && mail.from.value.length > 0) {
+        if (mail.from.value[0].address == "info@usaautopartsllc.com") {
+          email = extractedData.email;
+        } else {
+          email = mail.from.value[0].address;
+        }
+      } else {
+        console.error("mail.from is undefined or empty");
+        return;
       }
-      else{
-        email=mail.from.value[0].address
-      }
-} else {
-	console.error("mail.from is undefined or empty");
-	return;
-     }
- 
 
       const LeadRecord = await leads.create({
         name,
         email,
-        phone,
+        phone: phone || mobileNumber, // Use the mobile number if the phone is not available
         description,
         origin,
         createdAt: date,
@@ -178,7 +186,7 @@ const StoreFormData = async (mail) => {
       } = extractedData;
       const OrderRecord = await orders.create({
         name,
-        phone,
+        phone: phone || mobileNumber, // Use the mobile number if the phone is not available
         email,
         description,
         part: partName,
@@ -197,6 +205,7 @@ const StoreFormData = async (mail) => {
     WriteData(extractedData, error);
   }
 };
+
 function fetchMessageFromEmail() {
   imap.once("ready", function () {
     console.log("IMAP connection ready.");
@@ -240,12 +249,13 @@ function fetchMessageFromEmail() {
                     mail.text
                   );
                   if (
-                    mail.subject == "Query Through www.vanderengines.com" ||
-                    mail.subject == "Query Through www.usaauto-parts.com" ||
-                    mail.from.value[0].address==="info@usaautopartsllc.com"
+                    subjectRegex.test(mail.subject) || 
+                    mail.subject.includes("Query Through www.usaauto-parts.com") ||
+                    mail.from.value[0].address === "info@usaautopartsllc.com"
                   ) {
                     StoreFormData(mail);
-                  } else {
+                  }
+                  else {
                     if (mail.subject.includes("Re:") && mail.inReplyTo) {
                       //check the in reply to in emails
                       const session = await mongoose.startSession();
