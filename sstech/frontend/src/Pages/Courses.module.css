@@ -1,0 +1,55 @@
+.offers_courses .card {
+  box-shadow: 0 0 5px;
+  border-radius: 10px;
+}
+.offers_courses .card:hover {
+  box-shadow: 0 0 20px;
+  transform: translatey(10px);
+}
+.offers_courses .card img {
+  border-radius: 0 10px 10px 0;
+}
+.offers_courses .card img{
+  float: inline-end;
+  margin-right: -24px;
+}
+.mentors .card {
+  box-shadow: 0 0 5px;
+}
+.mentors .card:hover {
+  box-shadow: 0 0 20px;
+  /* transform: translatey(10px); */
+}
+.mentors .card img {
+  border-radius: 5px 5px 0px 0;
+}
+.future {
+  /* background-color: #f5f5f5; */
+  padding: 40px 0;
+}
+.future .card{
+  background: linear-gradient(rgb(8 24 99 / 99%), rgb(5, 9, 28));
+  box-shadow: 0 0 5px;
+}
+
+.futurecard:hover {
+  box-shadow: 0 10px 20px !important ;
+}
+
+.future .card-body {
+  padding: 20px;
+}
+
+.future .card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  .offers_courses .card img{
+    float: auto;
+    width: 100%;
+    border-radius: 0 0px 10px 10px;
+    margin-right: -10px;
+  }
+  
+}
