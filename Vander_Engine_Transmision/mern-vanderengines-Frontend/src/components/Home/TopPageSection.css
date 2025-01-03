@@ -1,0 +1,76 @@
+/* Default (Desktop/Larger Screens) */
+.top_page_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .top_page_section_emails {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .top_page_section_email_item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .top_page_section_email_item .top_page_section_icon {
+    margin-right: 5px;
+  }
+  
+  .top_page_section_phone {
+    display: flex;
+    align-items: center;
+  }
+  
+  .top_page_section_phone .top_page_section_icon {
+    margin-right: 5px;
+  }
+  
+  .top_page_section_phone span {
+    margin-right: 10px;
+  }
+  
+  /* Responsive Design (Mobile Screens) */
+  @media (max-width: 768px) {
+
+    .top_page_section_emails,
+    .top_page_section_phone {
+        margin: 0px;
+        padding: 0px;
+    }
+  
+    .top_page_section_emails {
+      flex-direction: column;
+      gap: 10px;
+      font-size: 10px;
+    }
+  
+    .top_page_section_phone span {
+      margin-right: 5px; /* Reduce space between items on mobile */
+    }
+    .top_page_section
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .top_page_section_email_item2
+    {
+        display: none;
+    }
+    .top_page_section_phone
+    {
+        flex-direction: column !important;
+        font-size: 10px;
+    }
+    .top_page_section_icon3
+    {
+        display: none;
+    }
+  }
+  

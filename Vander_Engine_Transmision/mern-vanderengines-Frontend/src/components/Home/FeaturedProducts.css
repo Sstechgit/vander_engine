@@ -1,0 +1,94 @@
+/* Container for the scrolling cards */
+.card-scroller {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+  }
+  
+  /* Wrapper for scrolling cards */
+  .scroll-wrapper {
+    display: flex;
+    width: max-content;
+    animation: scroll 150s linear infinite;
+  }
+  
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 220px; /* Smaller card size */
+    margin: 10px;
+    text-align: center;
+    padding: 15px;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  
+  .card.small-card {
+    flex: 0 0 auto; /* Ensures card takes up space in flex container */
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Hover effect to stop the scrolling */
+  .scroll-wrapper:hover {
+    animation-play-state: paused;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .card-body h2 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+     color:  #790cac !important; 
+  }
+  
+  .card-body p {
+    color: #555;
+    font-size: 0.9rem;
+  }
+  
+  .price {
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    color: #000000 !important;
+  }
+  
+  .add-to-cart {
+    background-color:#790cac;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .add-to-cart:hover {
+    background-color: #790cac;
+  }
+  
+  /* Scrolling animation */
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .card {
+      width: 180px;
+    }
+  }
+  

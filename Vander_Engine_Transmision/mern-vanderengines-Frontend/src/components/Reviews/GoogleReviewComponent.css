@@ -1,0 +1,80 @@
+.google-review-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .google-review-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .google-review-summary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .google-review-summary h4 {
+    margin: 0;
+  }
+  
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .stars {
+    color: gold;
+  }
+  
+  .review-button {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .google-review-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .google-review-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px;
+    text-align: left;
+  }
+  
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .review-rating {
+    color: gold;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .review-footer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #4285F4;
+  }
+  

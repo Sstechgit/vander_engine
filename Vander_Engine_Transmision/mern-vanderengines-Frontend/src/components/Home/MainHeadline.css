@@ -1,0 +1,286 @@
+/* Main container styling */
+.main_conatiner_all {
+  background-color: #000000;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  padding-top: 3%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for form inputs with icons */
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000000;
+  font-size: 16px;
+}
+
+/* Dropdown styling */
+.custom-dropdown {
+  color: white;
+  background-color: white ;
+  appearance: none; /* Removes the default arrow in some browsers */
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border-bottom: 2px solid #ffffff;
+  border-radius: 0; /* Ensure no border radius */
+  transition: border-color 0.3s ease;
+  z-index: 10; /* Ensure it stays above other elements */
+}
+
+/* Options inside the dropdown */
+.custom-dropdown option {
+  color: black; /* Ensure option text is visible */
+  background-color: #fff; /* Set background color for options */
+  padding: 10px;
+}
+
+/* Change border color on focus */
+.custom-dropdown:focus {
+  border-bottom: 2px solid #790cac;
+}
+
+/* Optional: Add hover effect */
+.custom-dropdown:hover {
+  border-bottom: 2px solid #790cac; /* Change border color on hover */
+}
+
+/* Form group styling */
+.main_headline-form-group {
+  position: relative;
+  color: transparent;
+  margin-bottom: 20px;
+}
+
+.main_headline-form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: white;
+  font-size: 14px;
+}
+
+.main_headline-form-group input,
+.main_headline-form-group select {
+  width: 100%;
+  padding-left: 40px; /* Space for the icon */
+  height: 40px;
+  border: none; /* Remove default border */
+  border-bottom: 2px solid #ffffff; /* Add bottom border */
+  border-radius: 0; /* Remove default border-radius */
+  background-color: transparent;
+  font-size: 14px;
+  outline: none; /* Remove outline on focus */
+  transition: border-color 0.3s ease;
+}
+
+/* Change border-bottom color when the input or select is focused */
+.main_headline-form-group input:focus,
+.main_headline-form-group select:focus {
+  border-bottom: 2px solid #790cac;
+}
+
+/* Optional: Add hover effect */
+.main_headline-form-group input:hover,
+.main_headline-form-group select:hover {
+  border-bottom: 2px solid #790cac;
+}
+
+/* Styling for checkbox */
+.main_headline-form-group.checkbox {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.main_headline-form-group.checkbox input {
+  margin-right: 10px;
+}
+
+.main_headline-form-group.checkbox label {
+  font-size: 12px;
+  color: #555;
+}
+
+/* Submit button styling */
+.submit-btn {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Form Column Styling */
+.main_form_column,
+.main_form_column_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .conatiner_all {
+      padding: 20px;
+  }
+}
+
+/* Adjustments for image slider */
+.main_slider-container {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main_slider {
+  display: flex;
+  max-width: 100%;
+  height: 100%;
+  width: calc(100% * 3); /* Adjust based on the number of images */
+  animation: main_slide-animation 10s infinite;
+}
+
+.main_slide-image {
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease-in-out;
+}
+
+.main_slide-image:hover {
+  transform: rotateY(15deg) rotateX(2deg) scale(1.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Keyframes for sliding effect */
+@keyframes main_slide-animation {
+  0% {
+      transform: translateX(0);
+  }
+  33% {
+      transform: translateX(-100%);
+  }
+  66% {
+      transform: translateX(-200%);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+
+/* Typing effect */
+.main_typing-text {
+  font-family: 'Courier', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: main_typing 3.5s steps(40, end) infinite;
+  color: #ffffff;
+  text-align: center;
+}
+
+@keyframes main_typing {
+  from {
+      width: 0;
+  }
+  to {
+      width: 100%;
+  }
+}
+
+/* Image text styling */
+.main_image_text h1, .main_image_text h2 {
+  margin: 0;
+  color: white;
+  text-align: center;
+  font-size: 24px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .main_typing-text {
+      font-size: 16px;
+  }
+
+  .main_image_text h1 {
+      font-size: 18px;
+  }
+
+  .main_image_text h2 {
+      font-size: 14px;
+  }
+
+  .main_slider-container {
+      height: 200px;
+  }
+
+  .main_slide-image {
+      max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main_typing-text {
+      font-size: 14px;
+  }
+  .main_headline-form-group input::placeholder
+{
+  font-size: 10px;
+}
+
+  .main_image_text h1 {
+      font-size: 16px;
+  }
+
+  .main_image_text h2 {
+      font-size: 12px;
+  }
+
+  .main_slider-container {
+      height: 150px;
+  }
+
+  .main_slide-image {
+      max-height: 150px;
+  }
+
+  .main_headline-form-group.checkbox {
+      margin: 0;
+  }
+
+  .main_headline-form-group.checkbox input {
+      width: 30px;
+      margin-right: 10px;
+  }
+
+  .main_headline-form-group.checkbox label {
+      font-size: 12px;
+      color: #555;
+  }
+}
+

@@ -1,0 +1,78 @@
+/* Footer with wave background */
+.footer {
+  position: relative;
+  background-color: #f8f9fa;
+  padding-bottom: 20px;
+  border-top: 1px solid #e9ecef;
+  overflow: hidden;
+  width: 100%;
+  margin: 0px !important;
+  
+  margin-top: 2%;
+  /* margin-left: 2%;
+  margin-right: 2%; */
+}
+
+.footer-content {
+  position: relative;
+  z-index: 1; /* Ensure the content is on top of the wave */
+  color: white;
+}
+
+.wave-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleY(3) scaleX(5);
+  transform-origin: bottom;
+  z-index: 0;
+  background-color: black;
+  pointer-events: none; /* Disable pointer events on the background */
+}
+
+.footer-contact a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.footer-contact a:hover {
+  text-decoration: underline;
+}
+
+.footer-social .social-icon {
+  font-size: 1.5rem;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.footer-social .social-icon:hover {
+  color: #007bff;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-links a:hover {
+  color: #007bff;
+}
+
+.footer-note {
+  font-size: 0.875rem;
+  color: white;
+}
+
+@media (max-width: 576px) {
+  .footer-contact, .footer-social, .footer-links, .footer-note {
+    text-align: center;
+  }
+
+  .footer-social .social-icon {
+    margin: 0 10px;
+  }
+}
+

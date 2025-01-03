@@ -1,0 +1,267 @@
+/* Add a background image to the main container */
+
+.quoteform-transmission-wrapper {
+    background-color: #000000; /* Set the background color to black */
+    color: #ffffff; /* White text color to ensure readability */
+    min-height: 100vh; /* Ensure the wrapper takes up full height of the viewport */
+    padding: 1px;
+}
+.Transmission_page_content
+{
+  width: 100%;
+  padding: 3%;
+  overflow-x: hidden; /* Prevents any horizontal overflow */
+  box-sizing: border-box;
+}
+.Transmission_page_content h1
+{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 3rem;
+  font-style: oblique;
+}
+.image_text h1
+{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 2rem;
+  font-style: oblique;
+}
+.image_text h2
+{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.5rem;
+  font-style: oblique;
+}
+.Transmission_page_content p
+{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.2rem;
+  font-style: oblique;
+}
+.tranmission_conatiner_all {
+     /* Add your background image URL */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-bottom:1px solid white ;
+  }
+  
+  .transmission {
+    transition: transform 0.5s ease; /* Smooth transition */
+    transform-style: preserve-3d; /* Preserve 3D effect */
+    perspective: 1000px; /* Adds a 3D perspective */
+  }
+  
+  .transmission:hover {
+    transform: rotateY(30deg); /* Rotate on Y-axis on hover */
+  }
+  
+  .input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+  .input-icon-wrapper input
+  {
+color: white;
+  }
+  .input-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 16px;
+  }
+  .tranmission_form_column_right {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: flex-start; /* Align items to the top */
+  }
+  /* General form container styling */
+  .tranmission_quote-container h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 4rem;
+    font-style: oblique;
+    color: white;
+    text-transform: uppercase;
+  }
+  
+  .tranmission_quote-container h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: oblique;
+    margin-bottom: 30px;
+    color: white;
+  }
+  
+  /* Form Group styling with Icons */
+  .tranmission_form-group {
+    position: relative;
+    color: white;
+    margin-bottom: 20px;
+
+  }
+  
+  .tranmission_form-group label  {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+    font-size: 14px;
+  }
+  .tranmission_form-group ::placeholder
+  {
+    color: white;
+  }
+.custom-dropdown {
+  color: white;
+  background-color: white ;
+  appearance: none; /* Removes the default arrow in some browsers */
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border-bottom: 2px solid #ffffff;
+  border-radius: 0; /* Ensure no border radius */
+  transition: border-color 0.3s ease;
+  z-index: 10; /* Ensure it stays above other elements */
+}
+
+.custom-dropdown option {
+  color: white; /* Set to white for visibility */
+  background-color: #333;
+}
+
+  
+.tranmission_form-group input,
+.tranmission_form-group select {
+    width: 100%; /* Change this from 80% to 100% */
+    padding-left: 40px; /* Space for the icon */
+    height: 40px;
+    border: none; /* Remove default border */
+    border-bottom: 2px solid #ffffff; /* Add bottom border */
+    border-radius: 0; /* Remove default border-radius */
+    background-color: transparent;
+    font-size: 14px;
+    outline: none; /* Remove outline on focus */
+    transition: border-color 0.3s ease;
+}
+  
+/* Change border-bottom color when the input or select is focused */
+.tranmission_form-group input:focus,
+.tranmission_form-group select:focus {
+  border-bottom: 2px solid #790cac; /* Highlight the bottom border on focus */
+}
+  /* Optional: Add hover effect */
+.tranmission_form-group input:hover,
+.tranmission_form-group select:hover {
+  border-bottom: 2px solid #790cac; /* Change border color on hover */
+}
+  /* Adding icons inside input fields */
+  .tranmission_form-group i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #790cac;
+  }
+  
+ /* Checkbox group styling */
+.tranmission_form-group.checkbox {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .tranmission_form-group.checkbox input {
+    margin-right: 10px;
+  }
+  
+  .tranmission_form-group.checkbox label {
+    font-size: 12px;
+    color: #555;
+  }
+  /* Submit button styling */
+  .submit-btn {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #790cac;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #4b056b;
+  }
+  
+  /* Form Column Styling */
+  .tranmission_form_column,
+  .tranmission_form_column_right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .tranmission_form_column
+    {
+      order: 1;
+    }
+    .tranmission_form_column_right
+    {
+      order: 2;
+    }
+    .input-icon-wrapper
+    {
+      width: 100%;
+    }
+  
+    .tranmission_conatiner_all {
+      padding: 20px;
+    }
+  }
+  
+  @media (max-width: 400px)
+  {
+  .Transmission_page_content h1
+{
+  font-size: 2rem;
+  text-align: center;
+}
+  .tranmission_quote-container h2
+  {
+    font-size: 1rem;
+  }
+
+.Transmission_page_content p
+{
+  font-size: 1rem;
+  text-align: center;
+
+}
+}
+@media (max-width: 450px){
+  .tranmission_form-group.checkbox {
+  display: flex;
+  align-items: center;
+  margin: 0px;
+}
+
+.tranmission_form-group.checkbox input {
+   margin-right: 10px;
+   width: 30px;
+}
+
+.tranmission_form-group.checkbox label {
+  font-size: 12px;
+  color: #555;
+}}

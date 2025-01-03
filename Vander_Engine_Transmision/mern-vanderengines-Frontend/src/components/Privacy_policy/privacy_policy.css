@@ -1,0 +1,39 @@
+.privacy-policy-container {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text for contrast */
+    margin: 3%;
+  }
+  
+  .privacy-section {
+    padding: 20px 0;
+    border-bottom: 1px solid #333; /* Subtle separator between sections */
+
+  }
+  
+  .privacy-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .privacy-section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  .parallax-effect {
+    transition: transform 0.5s ease-out;
+  }
+  
+  /* Make it responsive */
+  @media (max-width: 768px) {
+    .privacy-section h2 {
+      font-size: 1.2rem;
+    }
+  
+    .privacy-section p {
+      font-size: .8rem;
+    }
+  }
+  

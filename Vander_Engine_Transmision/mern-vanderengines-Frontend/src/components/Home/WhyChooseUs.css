@@ -1,0 +1,143 @@
+
+.why-choose-us {
+    text-align: center;
+    padding: 2rem;
+    padding-top: 0 !important;
+    background-color: white;
+}
+
+.why-choose-us h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 3.5rem;
+    margin-bottom: .2rem;
+    text-align: left;
+    padding-bottom: 5px;
+    color: black;
+    padding-top: 5%;
+    font-style: oblique;
+}
+
+/* Grid layout */
+.grid-container {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+}
+.whychooseus_pera
+{
+    font-size: 1.2rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: left;
+    font-style: oblique;
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-family: system-ui;
+    padding-bottom: 5%;
+}
+
+.grid-item {
+    position: relative;
+    background: rgb(255,255,255);
+    background-image: radial-gradient( circle farthest-corner at 3.2% 49.6%,  rgba(80,12,139,0.87) 0%, rgba(161,10,144,0.72) 83.6% );
+    color: #fff;
+    border-radius: 12px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.grid-item:hover {
+    transform: scale(1.05);
+}
+
+/* Initially show the logo and title, hide the content */
+.logo-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+.logo-title h3 {
+    font-size: 1.25rem;
+    margin-top: 0.5rem;
+}
+
+.logo {
+
+    width: 50px; /* Adjust the size of the logo */
+    height: auto; /* Optional: give the logo rounded corners */
+}
+.grid-item:hover .logo {
+    display: none;
+}
+/* Initially hide the content */
+.content-container {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: left;
+    width: 100%;
+}
+
+/* On hover, hide the logo and title and show the content */
+.grid-item:hover .logo-title {
+    opacity: 1;
+}
+
+.grid-item:hover .content-container {
+    display: block;
+    opacity: 1;
+}
+
+/* Styling for card number */
+.item-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive layout */
+@media (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+}
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Single column on small screens */
+    }
+    .whychooseus_pera
+{
+    font-size: 14.4px;
+    text-align: center;
+}
+.why-choose-us h2 {
+ font-size: 2.5rem;
+ margin-bottom: 0px;
+}
+}
+@media (max-width: 320px) {
+    .logo-title {
+        display: flex;
+        align-items: center;
+    }
+    .grid-item 
+    {
+        display: flex;
+        align-items: center;
+    }
+}

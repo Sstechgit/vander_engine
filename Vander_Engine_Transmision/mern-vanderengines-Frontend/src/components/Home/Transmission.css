@@ -1,0 +1,113 @@
+/* transmissionSection.css */
+.transmission-section {
+    padding: 40px 0;
+    
+    background: rgb(0,0,0);
+background: linear-gradient(74deg, rgba(0,0,0,1) 0%, rgba(121,12,172,1) 35%);
+}
+
+.transmission-text {
+    flex-basis: 70%; /* Text takes up 70% of the container */
+}
+
+.transmission-text h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 4rem;
+    font-style: oblique;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.transmission-text p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    font-style: oblique;
+}
+.transmission-text button
+{
+    padding: 10px; /* Slightly reduce button padding */
+    background-color:white;
+    color: #790cac;
+    border: none;
+    max-width: 300px;
+    width: 300px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px; /* Ensure spacing between button and inputs */ 
+} 
+
+.transmission-image {
+    flex-basis: 30%; /* Image takes up 30% of the container */
+    text-align: center;
+}
+
+.transmission-gif {
+    max-width: 100%;       /* Make sure the image scales within its container */
+    height: auto;          /* Maintain aspect ratio */
+    border-radius: 10px;   /* Optional: Add rounded corners */
+}
+.space_image
+{
+    margin-bottom: 30px;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For tablets (992px and below) */
+@media (max-width: 992px) {
+    .transmission-text {
+        flex-basis: 60%; /* Text takes up 60% */
+    }
+
+    .transmission-image {
+        flex-basis: 40%; /* Image takes up 40% */
+    }
+}
+
+/* For mobile phones (576px and below) */
+@media (max-width: 576px) {
+    .transmission-section {
+        flex-direction: column; /* Stack content and image vertically */
+        padding: 20px 0;
+    }
+
+    .transmission-text,
+    .transmission-image {
+        flex-basis: 100%;
+        text-align: center;
+         /* Full width for both on mobile */
+    }
+    .transmission-text h2
+    {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    .transmission-text  {
+        
+        order: 1;
+      }
+    .transmission-image {
+        order: 2; /* Image comes below text */
+    }
+    /* .transmission-text {
+        order: 3; 
+    }
+   */
+   .space_image {
+    margin-top: 20px;
+   }
+
+    .transmission-gif {
+        max-width: 100%; /* On smaller screens, ensure the image takes full width of the container */
+    }
+    .transmission-text button
+    {
+        max-width: 250px;
+        align-items: center;
+    }
+    .transmission-text p
+    {
+        font-size: 0.9rem;
+    }
+}

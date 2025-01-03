@@ -1,0 +1,83 @@
+.vd_engines-stats-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: -11px !important;
+    background-color: white;
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+  }
+  
+  .vd_engines-stat-card {
+    background-color:#790cac;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    text-align: center;
+    width: 200px;
+    margin: 10px; /* Space between cards */
+    color: white;
+    transition: transform 0.3s ease;
+    flex: 1; /* Allow cards to shrink/grow based on available space */
+    min-width: 150px; /* Ensure minimum width for cards */
+  }
+  
+  .vd_engines-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .vd_engines-count {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .vd_engines-description {
+    margin-top: 5px;
+    font-size: 16px;
+  }
+  
+  .vd_engines-stat-card:hover {
+    transform: perspective(1000px) rotateY(10deg) scale(1.05);
+  }
+  
+  /* Media Queries for Smaller Screens */
+  @media (max-width: 768px) {
+    .vd_engines-stat-card {
+      width: 45%; /* Reduce the card width on tablets and small screens */
+      font-size: 90%;
+    }
+  
+    .vd_engines-icon {
+      font-size: 40px;
+    }
+  
+    .vd_engines-count {
+      font-size: 20px;
+    }
+  
+    .vd_engines-description {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .vd_engines-stat-card {
+      width: 100%; /* Full width on mobile */
+      font-size: 80%;
+    }
+  
+    .vd_engines-icon {
+      font-size: 35px;
+    }
+  
+    .vd_engines-count {
+      font-size: 18px;
+    }
+  
+    .vd_engines-description {
+      font-size: 13px;
+    }
+  }
+  

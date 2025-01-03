@@ -1,0 +1,99 @@
+/* Container and Title Styles */
+.brands-container {
+    text-align: center;
+    padding: 20px;
+}
+.brands-title {
+    text-align: left;
+    font-size: 4rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: oblique;
+    font-weight: bold;
+    padding-left: 5%;
+    color: white;
+}
+
+.brands-description {
+    text-align: left;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: oblique;
+    padding-left: 5%;
+    color: white;
+}
+
+/* Card Slider Layout */
+.brands-slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Grid layout for larger screens */
+.brands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Grid layout for desktop */
+    gap: 15px;
+    padding: 20px;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card Styles */
+.brand-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 180px; /* Fixed width for desktop */
+    height: 50px; /* Fixed height for compact design */
+    display: flex;
+    border: none;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px 10px; /* Padding for spacing between logo and text */
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+    flex-shrink: 0; /* Prevent cards from shrinking */
+}
+
+.brand-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Logo positioned on the left */
+.brand-logo {
+    width: auto; /* Reduced logo size */
+    height: 30px;
+    margin-right: 10px; /* Space between logo and text */
+}
+
+/* Brand name positioned on the right */
+.brand-card span {
+    font-size: 0.9rem;
+    color: #333;
+    text-align: left;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .brands-grid {
+        grid-template-columns: 1fr; /* One card per row */
+        gap: 10px;
+        padding: 10px;
+        width: 100%; /* Make sure the grid takes the full width */
+    }
+
+    .brand-card {
+        width: 100%; /* Full-width cards on mobile */
+        max-width: none; /* Ensure that the card spans the full width of its container */
+    }
+}
+@media (max-width: 400px)
+{
+    .brands-title
+    {
+    font-size: 2rem !important;
+    }
+}

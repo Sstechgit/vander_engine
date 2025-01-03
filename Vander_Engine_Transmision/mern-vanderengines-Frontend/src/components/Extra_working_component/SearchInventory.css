@@ -1,0 +1,76 @@
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-top: 1px solid white;
+}
+
+.search-bar select, .search-bar button {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-bar button {
+  background-color: #ff4c4c;
+  color: white;
+  cursor: pointer;
+}
+/* Modal Custom Styles */
+.Search_section-modal-content {
+background-color: black !important; /* Light background for better contrast */
+padding: 20px !important; /* Add padding inside the modal */
+border-radius: 8px !important; /* Rounded corners for a modern look */
+}
+
+.Search_section-modal-header {
+border-bottom: none !important; 
+background-color: black;/* Remove default border from the header */
+}
+
+.Search_section-modal-title {
+font-size: 24px !important; /* Increase the title size */
+font-weight: bold !important;
+}
+
+.Search_section-modal-body {
+background-color: black;
+padding: 20px !important; /* Padding inside the body for space between form fields */
+}
+
+.Search_section-form-group {
+margin-bottom: 20px !important; /* Space between form elements */
+}
+
+.Search_section-form-control {
+padding: 10px !important; /* Increase padding inside input fields */
+font-size: 16px !important; /* Increase input field text size */
+border: 1px solid #ccc !important; /* Add border */
+border-radius: 5px !important; /* Rounded corners for input fields */
+}
+
+.Search_section-modal-footer {
+background-color: black;
+display: flex !important;
+justify-content: flex-end !important; /* Align buttons to the right */
+}
+
+.Search_section-modal-footer button {
+margin-left: 10px !important; /* Add space between the buttons */
+}
+
+
+@media screen and (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .search-bar select, .search-bar button {
+    width: 100%;
+  }
+}

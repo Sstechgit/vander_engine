@@ -1,0 +1,106 @@
+.engine-page-features {
+    background-color: #000;
+    color: white;
+    padding: 50px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  .engine-page-features-content {
+    text-align: center;
+  }
+  
+  .engine-page-features-content h1 {
+    font-size: 5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: oblique;
+    font-weight: bold;
+    text-align: left;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .engine-page-features-content p {
+    font-size: 2rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: left;
+    font-style: oblique;
+  }
+  
+  .engine-page-features-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: left;
+  }
+  
+  .engine-page-features-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .engine-page-features-list li {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    position: relative;
+    transform: translateZ(0);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .engine-page-features-list li:hover {
+    transform: translateZ(10px) rotateX(15deg);
+  }
+  
+  .engine-page-features-content:hover h2 {
+    transform: rotateY(20deg);
+  }
+  
+  /* Adding the car image */
+  .car-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    max-width: 400px;  /* Adjust the size */
+    z-index: 1;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .engine-page-features:hover .car-image {
+    transform: rotate(3deg) scale(1.05);  /* Small hover effect on the car */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .engine-page-features-list {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .engine-page-features-list ul {
+      margin-bottom: 20px;
+    }
+  
+    .car-image {
+      max-width: 300px;  /* Smaller image size for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .engine-page-features-content h1 {
+      font-size: 2.5rem;
+    }
+  
+    .engine-page-features-content p {
+      font-size: 1rem;
+    }
+  
+    .car-image {
+      max-width: 200px;  /* Further reduced size for mobile */
+    }
+  }
+  

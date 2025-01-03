@@ -1,0 +1,159 @@
+/* Styles for the star rating */
+.customer-info {
+    display: flex;
+    align-items: center; /* Centers the name and stars vertically */
+    justify-content: center;
+    border-top: 1px solid black;
+    padding-top: 5px;
+    margin-top: 5px; /* Ensure no margins around the container */
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    margin-top: 0; /* Ensure no extra margin between name and stars */
+}
+
+.star {
+    font-size: 1.2rem;
+    color: #ccc;
+}
+
+.star.filled {
+    color: #ffc107; /* Gold color for filled stars */
+}
+
+/* Section styles */
+.testimonials-section {
+    text-align: center;
+    padding: 50px 20px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.testimonials-section h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: oblique;
+    color: black;
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.testimonials-section p {
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+
+/* Carousel wrapper */
+.testimonials-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Track containing the cards */
+.testimonials-track {
+    display: flex;
+    flex-wrap: nowrap; /* Ensure cards stay in one row */
+    animation: scroll 50s linear infinite;
+}
+
+
+/* Testimonial card styles */
+.testimonial-card {
+    min-width: 250px;
+    max-width: 250px;
+    margin: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    height: 320px; /* Adjusted height for star rating */
+    overflow: hidden; /* Hide overflowing content */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.testimonial-card p.feedback {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-style: italic;
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* Limit text to 6 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+}
+
+.customer-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    margin-bottom: 2px;
+}
+
+.customer-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    line-height: 1; /* Reduces extra space within the name text */
+}
+
+/* Pause animation on hover */
+.testimonials-carousel:hover .testimonials-track {
+    animation-play-state: paused;
+}
+
+/* Hover effect for the testimonial card */
+.testimonial-card:hover {
+    background-color: #28a745;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.testimonial-card:hover .customer-info {
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+.testimonial-card:hover .feedback {
+    color: white;
+}
+
+/* Keyframe animation to scroll the cards infinitely */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-250px * 8)); /* Adjust this based on the number of cards */
+    }
+}
+
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .testimonials-track {
+        width: max-content; /* Adjust track size for smaller screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .testimonials-track {
+        width: max-content; /* Further adjust for smaller screens */
+    }
+    .testimonials-section h2 {
+    font-size: 2.5rem;
+    }
+    .testimonials-section p
+    {
+        font-size: 14.4px;
+    }
+}

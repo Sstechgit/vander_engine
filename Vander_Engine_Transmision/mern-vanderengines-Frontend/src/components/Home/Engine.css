@@ -1,0 +1,102 @@
+.engine-section {
+    padding: 40px 0;
+    border-radius: 0px 0px 20px 20px; 
+}
+
+.engine-text {
+    padding-left: 30px;
+    flex-basis: 60%; /* Text takes up 70% of the container */
+}
+
+.engine-text h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    font-style: oblique;
+    color: white;
+}
+
+.engine-text p {
+    font-size: 1.3rem;
+    font-style: oblique;
+    font-weight: lighter !important;
+    padding-bottom: 20px;
+}
+
+.engine-image {
+    flex-basis: 40%; /* Image takes up 30% of the container */
+    text-align: center;
+    
+}
+
+.engine-gif {
+    max-width: 100%;   
+    width: 100%;    /* Make sure the image scales within its container */
+    height: auto;          /* Maintain aspect ratio */
+    border-radius: 200px; 
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    transform-style: preserve-3d;  /* Optional: Add rounded corners */
+}
+.engine-gif:hover {
+    transform: rotateY(18deg) rotateX(1deg) scale(2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+.content button
+{
+    padding: 10px; /* Slightly reduce button padding */
+    color: black;
+    border: none;
+    max-width: 300px;
+    width: 300px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px; /* Ensure spacing between button and inputs */ 
+} 
+/* Media Queries for Responsiveness */
+
+/* For tablets (992px and below) */
+@media (max-width: 992px) {
+    .engine-text {
+        flex-basis: 60%; /* Text takes up 60% */
+    }
+
+    .engine-image {
+        flex-basis: 40%; /* Image takes up 40% */
+    }
+}
+
+/* For mobile phones (576px and below) */
+@media (max-width: 576px) {
+    .engine-section {
+        flex-direction: column; /* Stack content and image vertically */
+        padding: 2px ;
+    }
+
+
+    .engine-text,
+    .engine-image {
+        flex-basis: 100%; /* Full width for both on mobile */
+        padding: 20px;
+        text-align: center;
+
+    }
+    .engine-text h2 {
+        font-size: 2.5rem !important;
+        margin-bottom: 0px !important;
+    }
+
+    .engine-gif {
+        max-width: 100%; /* On smaller screens, ensure the image takes full width of the container */
+    }
+    .content p
+    {
+        font-size: 0.9rem;
+    }
+    .content button
+    {
+        max-width: 250px;
+        margin-left: 0px;
+    }
+
+}

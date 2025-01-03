@@ -1,0 +1,113 @@
+/* Add a background image to the main container */
+.main_container_all {
+    background-color: #000000;
+    background-size: cover;
+    background-position: center;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.main_input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.main_input-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000000;
+    font-size: 16px;
+}
+.main_page_content {
+    padding: 3%;
+}
+.main_page_content h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 4rem;
+    font-style: oblique;
+}
+.main_page_content p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2rem;
+    font-style: oblique;
+}
+.main_form_column_right {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: flex-end;
+    text-align: center;
+}
+.main {
+    max-width: 70%;   
+    width: 100%;    /* Make sure the image scales within its container */
+    height: auto;          /* Maintain aspect ratio */
+    border-radius: 200px; 
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    transform-style: preserve-3d;  /* Optional: Add rounded corners */
+}
+.main:hover {
+    transform: rotateY(18deg) rotateX(1deg) scale(2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+.main_quote-container h2 {
+    font-size: 14px;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+}
+.main_quote-container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: white;
+}
+/* Form Group styling with Icons */
+.main_form-group {
+    position: relative;
+    color: transparent;
+    margin-bottom: 20px;
+}
+.main_form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+    font-size: 14px;
+}
+.main_custom-dropdown {
+    color: white;
+    background-color: #333;
+}
+.main_form-group input,
+.main_form-group select {
+    width: 100%;
+    padding-left: 40px; /* Space for the icon */
+    height: 40px;
+    border: none; /* Remove default border */
+    border-bottom: 2px solid #ffffff; /* Add bottom border */
+    border-radius: 0; /* Remove default border-radius */
+    background-color: transparent;
+    font-size: 14px;
+    outline: none; /* Remove outline on focus */
+    transition: border-color 0.3s ease;
+}
+/* Change border-bottom color when the input or select is focused */
+.main_form-group input:focus,
+.main_form-group select:focus {
+    border-bottom: 2px solid #790cac; /* Highlight the bottom border on focus */
+}
+/* Optional: Add hover effect */
+.main_form-group input:hover,
+.main_form-group select:hover {
+    border-bottom: 2px solid #790cac; /* Change border color on hover */
+}
+/* Adding icons inside input fields */
+.main_form-group i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+}

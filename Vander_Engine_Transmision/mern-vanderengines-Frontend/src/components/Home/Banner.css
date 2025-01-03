@@ -1,0 +1,102 @@
+/* Banner.css */
+.banner-container {
+
+  background-image: radial-gradient( circle farthest-corner at 3.2% 49.6%,  rgba(80,12,139,0.87) 0%, rgba(161,10,144,0.72) 83.6% );
+    padding: 10px 20px; /* Reduce padding to reduce height */
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    max-width: 90%;
+    margin: 20px auto;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .banner-left {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .banner-right {
+    flex: 1;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  .banner-text {
+    font-size: 1.8rem; /* Reduce font size to fit smaller height */
+    font-weight: bold;
+    margin: 5px 0; /* Reduce margin to save space */
+  }
+  
+  .discount-text {
+    font-size: 1.2rem;
+    margin: 5px 0;
+  }
+  
+  .call-to-action {
+    background-color: #fff;
+    color: #ff4e50;
+    padding: 8px 16px; /* Reduce padding for a more compact button */
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+  }
+  
+  .call-to-action:hover {
+    background-color: #ff4e50;
+    color: #fff;
+  }
+  
+  .timer {
+    font-size: 1rem;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    color: white;
+  }
+  
+  .phone-number {
+    font-size: 1.1rem;
+    margin-top: 10px;
+    color: white;
+  }
+  
+  /* Media Query for Responsiveness */
+  @media (max-width: 768px) {
+    .banner-container {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .banner-right {
+      align-items: center;
+    }
+  
+    .banner-text {
+      font-size: 1.4rem;
+    }
+  
+    .discount-text {
+      font-size: 1rem;
+    }
+  
+    .call-to-action {
+      padding: 8px 14px;
+      font-size: 0.9rem;
+    }
+  
+    .timer {
+      font-size: 0.9rem;
+    }
+  }
+  

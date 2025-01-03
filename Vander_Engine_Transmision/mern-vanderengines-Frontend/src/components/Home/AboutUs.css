@@ -1,0 +1,122 @@
+.about-us {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 90px;
+    color: black;
+    margin-top: 10px;
+    background-color: white;
+
+
+}
+.content button
+{
+    padding: 10px; /* Slightly reduce button padding */
+    background-color: #790cac !important;
+    color: white !important;
+    border: none;
+    max-width: 300px;
+    width: 300px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    margin-left: 5px; /* Ensure spacing between button and inputs */ 
+} 
+
+.about-us .content {
+    flex-basis: 70%;
+    padding: 5px;
+    max-width: 100%;
+}
+
+.about-us .content h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding-top: 5%;
+    font-size: 4rem;
+    margin-bottom: 40px;
+    font-style: oblique;
+}
+
+.about-us .content p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    font-style:oblique
+}
+
+.about-us .image {
+    flex-basis: 20%;
+    text-align: center;
+    padding: 20px;
+}
+
+.about-us .image img {
+    max-width: 100%; /* Make sure the image scales responsively */
+    height: fit-content;
+    border-radius: 20px;
+}
+
+.top_section {
+    color:#790cac;
+}
+
+.US {
+    color: #790cac;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For medium screens like tablets */
+@media (max-width: 992px) {
+    .about-us .content {
+        max-width: 100%; /* Make content take full width */
+        padding-left: 0;
+    }
+
+    .about-us .image {
+        max-width: 100%; /* Image container takes full width */
+        margin-top: 20px;
+    }
+
+    .about-us .content h1 {
+        font-size: 3rem;
+        margin-bottom: 0px !important;
+    }
+
+    .about-us .content p {
+        font-size: 1rem;
+    }
+}
+
+/* For small screens like mobile phones */
+@media (max-width: 576px) {
+    .about-us {
+        flex-direction: column; /* Stack content and image vertically */
+        padding-left: 0px;
+    }
+
+    .about-us .content {
+        max-width: 100%; /* Ensure full width for content */
+        text-align: center;
+        padding: 20px; /* Center the text on mobile */
+    }
+
+    .about-us .content h1 {
+        font-size: 2.5rem; /* Adjust font size for mobile */
+    }
+
+    .about-us .content p {
+        font-size: 0.9rem; /* Reduce paragraph size slightly */
+    }
+
+    .about-us .image {
+        display: none;
+        max-width: 100%;
+        margin-top: 20px;
+    }
+    .about-us .content button
+    {
+    max-width: 250px; 
+    }
+}

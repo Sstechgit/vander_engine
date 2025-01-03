@@ -1,0 +1,300 @@
+/* Global box-sizing to control padding overflow */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Main container with a background image and no horizontal overflow */
+.container_all {
+  margin-top: 3%;
+  padding: 20px; /* Adjusted padding for responsiveness */
+  box-sizing: border-box;
+  justify-content: center;
+  background-color: white;
+  color: #000000;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* Form Icon Styling */
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000000;
+  font-size: 16px;
+}
+
+/* Page Content Section */
+.Engine_page_content {
+  width: 100%;
+  padding: 3%;
+  overflow-x: hidden; /* Prevents any horizontal overflow */
+  box-sizing: border-box;
+}
+
+.Engine_page_content h1 {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 4rem;
+  font-style: oblique;
+}
+
+.Engine_page_content p {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.2rem;
+  font-style: oblique;
+}
+
+/* Form Column Styling */
+.engine_form_column_right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.engine {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.engine:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.quote-container h2 {
+  font-size: 14px;
+  color: black;
+  text-transform: uppercase;
+}
+
+.quote-container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: black;
+}
+
+/* Form Group Styling with Icons */
+.Engine-form-group {
+  position: relative;
+  color: transparent;
+  margin-bottom: 20px;
+}
+
+.Engine-form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: white;
+  font-size: 14px;
+}
+
+.custom-dropdown {
+  color: black;
+  background-color: #333;
+}
+
+.custom-dropdown option {
+  color: black !important;
+  background-color: white !important;
+}
+
+.custom-dropdown:hover {
+  color: black;
+  background-color: transparent;
+}
+
+.Engine-form-group input,
+.Engine-form-group select {
+  width: 100%;
+  padding-left: 40px;
+  height: 40px;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: transparent;
+  font-size: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.Engine-form-group input:focus,
+.Engine-form-group select:focus {
+  border-bottom: 2px solid #790cac;
+}
+
+.Engine-form-group input:hover,
+.Engine-form-group select:hover {
+  border-bottom: 2px solid #790cac;
+}
+
+.Engine-form-group i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #790cac;
+}
+
+/* Checkbox Styling */
+.Engine-form-group.checkbox {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.Engine-form-group.checkbox input {
+  margin-right: 10px;
+}
+
+.Engine-form-group.checkbox label {
+  font-size: 12px;
+  color: #555;
+}
+
+/* Submit Button Styling */
+.submit-btn {
+  width: 80%;
+  padding: 12px 15px;
+  background-color: #790cac;
+  color: white;
+  border: none;
+  margin-left: 10%;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #790cac;
+}
+
+.custom-box {
+  background-color: #000000 !important;
+}
+
+/* Responsive Column and Form Adjustments */
+.form_column,
+.form_column_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%; /* Prevent overflow */
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .container_all {
+    padding: 20px;
+  }
+
+  .form_left {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .Engine-form-group.checkbox {
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  .Engine-form-group.checkbox input {
+    margin-right: 10px;
+    width: 30px;
+    text-align: center;
+  }
+
+  .Engine_page_content h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 10px !important;
+  }
+
+  .Engine_page_content p {
+    font-size: 14.4px;
+  }
+
+  .Engine-form-group input::placeholder {
+    font-size: 10px;
+  }
+
+  .Engine-form-group.checkbox label {
+    font-size: 12px;
+    color: #555;
+  }
+}
+
+/* Form Wrapper and Column Styling */
+.engine_form_container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden; /* Prevent overflow issues */
+}
+
+.engine_form_column_left,
+.engine_form_column_right {
+  flex: 1;
+  max-width: 50%; /* Limit column width */
+}
+
+.image_text {
+  text-align: center;
+  padding-top: 20%;
+}
+
+.engine {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.engine:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Border Styling with Bordered Title */
+.form-border {
+  position: relative;
+  border: 2px solid #333;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+}
+
+.form-border::before {
+  content: "Search Your Engine";
+  position: absolute;
+  top: -12px;
+  left: 35%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  padding: 0 10px;
+  font-weight: bold;
+  color: #333;
+}
