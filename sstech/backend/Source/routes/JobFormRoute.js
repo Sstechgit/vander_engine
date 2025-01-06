@@ -1,4 +1,5 @@
 const express = require("express");
+const nodemailer = require("nodemailer");
 const router = express.Router();
 const { sendEmail } = require("../utils/job-form-mail");
 const multer = require("multer");
@@ -7,7 +8,7 @@ const multer = require("multer");
 const upload = multer({ dest: "uploads/" }); // Specify the destination for file uploads
 
 // POST route to handle form submissions with file upload
-router.post("/", upload.single("attachment"), async (req, res) => {
+router.post("/", upload.single("resume"), async (req, res) => {
   const {
     firstName,
     lastName,

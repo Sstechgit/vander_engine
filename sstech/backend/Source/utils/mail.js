@@ -7,14 +7,14 @@ const sendEmail = async ({ name, email, phone, service, website, message }) => {
     port: 465,
     secure: true,
     auth: {
-      user: 'nick@vanderengines.com', // Your Gmail address
-      pass: 'Shobhit@2510',
+      user: 'info@sstechservices.net', // Your Gmail address
+      pass: 'Sstech@123',
     },
   });
 
   const mailOptions = {
-    from: 'nick@vanderengines.com',
-    to: 'anekchauhan28@gmail.com',
+    from: `${email} <info@sstechservices.net>`,
+    to: 'Sstechofficiel@gmail.com, info@sstechservices.net',
     subject: `New Form Submission from ${name}`,
     text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\nWebsite: ${website}\nMessage: ${message}`,
   };
