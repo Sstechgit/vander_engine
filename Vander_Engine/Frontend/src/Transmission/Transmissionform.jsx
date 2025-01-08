@@ -594,10 +594,10 @@ export default function EngineForm({
                     className="find-transmission__img owl-carousel"
                     id="findtransmission"
                   >
-                    <img src="/assets/find-transmission-1.jpg" alt="" />
+                    <img src="/assets/find-transmission-1.png" alt="" />
                     <img src="/assets/find-transmission-2.jpg" alt="" />
                     <img src="/assets/find-transmission-3.jpg" alt="" />
-                    <img src="/assets/find-transmission-4.webp" alt="" />
+                    <img src="/assets/find-transmission-4.jpg" alt="" />
                   </div>
                 </div>
               </div>
@@ -656,7 +656,7 @@ export default function EngineForm({
                     id="findtransmission"
                   >
                     <img
-                      src="/assets/find-transmission-1.jpg"
+                      src="/assets/find-transmission-1.png"
                       alt=""
                       style={{ width: "80%" }}
                     />
@@ -671,7 +671,7 @@ export default function EngineForm({
                       style={{ width: "80%" }}
                     />
                     <img
-                      src="/assets/find-transmission-4.webp"
+                      src="/assets/find-transmission-4.jpg"
                       alt=""
                       style={{ width: "80%" }}
                     />

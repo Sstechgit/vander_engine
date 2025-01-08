@@ -516,7 +516,7 @@ export default function EngineForm({
               </div>
               <div className="col-lg-6">
                 <img
-                  src="/assets/engine-page-2.webp"
+                  src="/assets/engine-page-2.jpg"
                   alt=""
                   className=" mb-4"
                   data-aos="fade-up"

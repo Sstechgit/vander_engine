@@ -44,10 +44,10 @@ export default function FindTransmission() {
                 className="find-transmission__img owl-carousel"
                 id="findtransmission"
               >
-                <img src="/assets/find-transmission-1.jpg" alt="" />
+                <img src="/assets/find-transmission-1.png" alt="" />
                 <img src="/assets/find-transmission-2.jpg" alt="" />
                 <img src="/assets/find-transmission-3.jpg" alt="" />
-                <img src="/assets/find-transmission-4.webp" alt="" />
+                <img src="/assets/find-transmission-4.jpg" alt="" />
               </div>
             </div>
           </div>
