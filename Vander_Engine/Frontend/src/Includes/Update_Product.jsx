@@ -56,7 +56,7 @@ export default function Update_Product() {
                 { headers: { "Content-Type": "multipart/form-data" } }
             );
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 alert("Product updated successfully!");
 
                 // Reset the form fields using the reset method and manually reset state
@@ -296,10 +296,26 @@ export default function Update_Product() {
                             </div>
 
                             <div className="d-grid">
-                                <button type="submit" className="btn btn-block" disabled={loading}>
-                                    {loading ? "Submitting..." : "Submit"}
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary btn-block d-flex align-items-center justify-content-center"
+                                    disabled={loading}
+                                    style={{ height: "3rem" }}
+                                >
+                                    {loading ? (
+                                        <div
+                                            className="spinner-border text-light"
+                                            role="status"
+                                            style={{ width: "1.5rem", height: "1.5rem" }}
+                                        >
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                    ) : (
+                                        "Submit"
+                                    )}
                                 </button>
                             </div>
+
                         </form>
                     </div>
                     <div className="col-lg-5 d-contents">
