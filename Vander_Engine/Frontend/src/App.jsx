@@ -23,7 +23,6 @@ import EngineForm from "./Transmission/Transmissionform";
 import Update_Product from "./Includes/Update_Product";
 import BlogPosts from "./Blog/BlogPosts";
 import BlogPost from "./Blog/BlogPost";
-import { HelmetProvider } from "react-helmet-async";
 
 // Layout component that includes Header and Footer
 function LayoutWithHeaderFooter({ children }) {
@@ -116,9 +115,7 @@ export default function App() {
 
   return (
     <>
-    <HelmetProvider>
       <Router>
-        
         <ScrollToTop />
         <Routes>
           {/* Routes with Header and Footer */}
@@ -211,7 +208,6 @@ export default function App() {
           />
         </Routes>
       </Router>
-      </HelmetProvider>
     </>
   );
 }

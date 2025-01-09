@@ -25,7 +25,7 @@ export default function GeneralHeader() {
                 <div className="col-lg-6">
                   <div className="time-section">
                     <i class="fa-solid fa-business-time me-2"></i>
-                    <span>Sun - Fri (08AM - 10PM)</span>
+                    <span>24*7 Live Inventory Available</span>
                   </div>
                 </div>
               </div>

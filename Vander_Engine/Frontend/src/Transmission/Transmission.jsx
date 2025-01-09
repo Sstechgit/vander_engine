@@ -6,7 +6,8 @@ import "./transmission.css";
 import Transmissionform from "./Transmissionform";
 import ReadMore from "./ReadMore";
 import AOS from "aos";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
+
 export default function Transmission({ handleAddToCart, showproduct }) {
   useEffect(() => {
     // Initialize AOS
@@ -44,15 +45,11 @@ export default function Transmission({ handleAddToCart, showproduct }) {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {year && make && model
-            ? `${year} ${make} ${model} Transmissions | Vander Engines`
-            : "Vander Engines | Quality Used & Remanufactured Transmissions"}
-        </title>
-      </Helmet>
-
+    <Helmet>
+      <title>Vander Engines | Quality Used & Remanufactured Transmissions</title>
+    </Helmet>
       {/*-------------------------Transmission- Hero-----------------------*/}
+      {/* <div className="transmission-hero "></div> */}
       <div className="d-flex flex-column h-100 justify-content-end ">
         <Transmissionform
           searchParams={searchParams}
