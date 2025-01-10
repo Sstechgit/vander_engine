@@ -721,9 +721,9 @@ const [form3SuccessMessage, setForm3SuccessMessage] = useState("");
                     </select>
                       </div>
                       <div class="col-6">
-                        <label for="modal" class="form-label">
+                        <label for="model" class="form-label">
                           <i class="fa-brands fa-bandcamp me-3"></i>
-                          Modal
+                          Model
                         </label>
                         <select
                       className="form-select"

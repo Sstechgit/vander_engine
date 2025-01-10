@@ -473,35 +473,22 @@ export default function Home({ handleAddToCart, showproduct }) {
         <FindEngine />
       </div>
 
-      {/*---------------------------------contact-form-2----------------------------------*/}
-      <div className="contact-form-2 my-5">
+         {/*---------------------------------contact-form-2----------------------------------*/}
+         <div className="contact-form-2 my-5">
         <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-md-8 p-3">
-              <div
-                className="row align-items-center justify-content-between p-3"
-                style={{ border: "1px solid #1eb7c6" }}
-              >
-                <div className="col-lg-3  text-center">
-                  <div className="phone">
-                    <i className="fa fa-phone" aria-hidden="true"></i>
-                    <p>Phone</p>
-                    <p>+18448931760</p>
-                  </div>
-                  <div className="email">
-                    <i className="fa fa-envelope" aria-hidden="true"></i>
-                    <p>Email</p>
-                    <p>billing@vanderengines.com</p>
-                  </div>
-                </div>
-                <div className="col-lg-9">
-                  <form className="form-start" onSubmit={handleSubmite}> 
-                    <div class="row mb-3">
-                      <div class="col-6">
-                        <label for="part" class="form-label">
-                          <i class="fa-regular fa-handshake me-3"></i> Part
-                        </label>
-                     
+          <div
+            className="row align-items-center justify-content-between p-3"
+            style={{ border: "1px solid #1eb7c6" }}
+          >
+            <div className="col-lg-12">
+              <form className="form-start" onSubmit={handleSubmite}>
+                <h3 className="fw-bold mb-3">Search Live Inventory</h3>
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <label for="part" class="form-label">
+                      <i class="fa-regular fa-handshake me-3"></i> Part
+                    </label>
+
                     <select
                       className="form-select"
                       name="part"
@@ -515,13 +502,13 @@ export default function Home({ handleAddToCart, showproduct }) {
                       <option value="Engine">Engine</option>
                       <option value="Transmission">Transmission</option>
                     </select>
-                      </div>
-                      <div class="col-6">
-                        <label for="year" class="form-label">
-                          <i class="fa-regular fa-calendar-days me-3"></i>
-                          Year
-                        </label>
-                        <select
+                  </div>
+                  <div class="col-6">
+                    <label for="year" class="form-label">
+                      <i class="fa-regular fa-calendar-days me-3"></i>
+                      Year
+                    </label>
+                    <select
                       className="form-select"
                       name="year"
                       value={formData.year}
@@ -538,15 +525,15 @@ export default function Home({ handleAddToCart, showproduct }) {
                         </option>
                       ))}
                     </select>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-6">
-                        <label for="make" class="form-label">
-                          <i class="fa-brands fa-magento me-3"></i>
-                          Make
-                        </label>
-                        <select
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <label for="make" class="form-label">
+                      <i class="fa-brands fa-magento me-3"></i>
+                      Make
+                    </label>
+                    <select
                       className="form-select"
                       name="make"
                       value={formData.make}
@@ -563,13 +550,13 @@ export default function Home({ handleAddToCart, showproduct }) {
                         </option>
                       ))}
                     </select>
-                      </div>
-                      <div class="col-6">
-                        <label for="modal" class="form-label">
-                          <i class="fa-brands fa-bandcamp me-3"></i>
-                          Modal
-                        </label>
-                        <select
+                  </div>
+                  <div class="col-6">
+                    <label for="model" class="form-label">
+                      <i class="fa-brands fa-bandcamp me-3"></i>
+                      Model
+                    </label>
+                    <select
                       className="form-select"
                       name="model"
                       value={formData.model}
@@ -586,15 +573,15 @@ export default function Home({ handleAddToCart, showproduct }) {
                         </option>
                       ))}
                     </select>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-6">
-                        <label for="name" class="form-label">
-                          <i class="fa-regular fa-user me-3"></i>
-                          Name
-                        </label>
-                        <input
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <label for="name" class="form-label">
+                      <i class="fa-regular fa-user me-3"></i>
+                      Name
+                    </label>
+                    <input
                       type="text"
                       className="form-control"
                       id="name"
@@ -604,15 +591,17 @@ export default function Home({ handleAddToCart, showproduct }) {
                       placeholder="Enter Name"
                       required
                     />
-                      </div>
-                      <div class="col-6">
-                        <label for="mobile" class="form-label">
-                          <i class="fa-solid fa-phone-volume me-3"></i>
-                          Mobile
-                        </label>
-                        <input
+                  </div>
+                  <div class="col-6">
+                    <label for="mobile" class="form-label">
+                      <i class="fa-solid fa-phone-volume me-3"></i>
+                      Mobile
+                    </label>
+                    <input
                       type="tel"
-                      className={`form-control ${phoneError ? "is-invalid" : ""}`}
+                      className={`form-control ${
+                        phoneError ? "is-invalid" : ""
+                      }`}
                       id="mobile"
                       name="phone"
                       value={formData.phone}
@@ -622,17 +611,17 @@ export default function Home({ handleAddToCart, showproduct }) {
                       required
                     />
                     {phoneError && (
-                        <div className="text-danger">{phoneError}</div>
-                      )}
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-12">
-                        <label for="email" class="form-label">
-                          <i class="fa-solid fa-envelope-open-text me-3"></i>
-                          Email
-                        </label>
-                        <input
+                      <div className="text-danger">{phoneError}</div>
+                    )}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <label for="email" class="form-label">
+                      <i class="fa-solid fa-envelope-open-text me-3"></i>
+                      Email
+                    </label>
+                    <input
                       type="email"
                       className="form-control"
                       id="email"
@@ -642,19 +631,23 @@ export default function Home({ handleAddToCart, showproduct }) {
                       placeholder="Enter Email"
                       required
                     />
-                      </div>
-                    </div>
-                    <div className="d-grid">
-                      <button type="submit" class="btn btn-block " onClick={Homeform1}>
-                        Submit
-                      </button>
-                    </div>
-                    <div>
-                    {submissionMessage2 && <p className="text-success">{submissionMessage2}</p>}
-                    </div>
-                  </form>
+                  </div>
                 </div>
-              </div>
+                <div className="d-grid">
+                  <button
+                    type="submit"
+                    class="btn btn-block "
+                    onClick={Homeform1}
+                  >
+                    Submit
+                  </button>
+                </div>
+                <div>
+                  {submissionMessage2 && (
+                    <p className="text-success">{submissionMessage2}</p>
+                  )}
+                </div>
+              </form>
             </div>
           </div>
         </div>
