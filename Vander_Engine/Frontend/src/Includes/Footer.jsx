@@ -5,6 +5,20 @@ import ScrollText from "./ScrollText";
 import { useEffect } from "react";
 export default function Footer() {
 
+  useEffect(() => {
+    const noscriptTag = document.createElement("noscript");
+    noscriptTag.innerHTML = `
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NRT4R6J" 
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    `;
+    document.body.appendChild(noscriptTag);
+  
+    return () => {
+      document.body.removeChild(noscriptTag);
+    };
+  }, []);
+  
+
   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
   (function(){
   var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];

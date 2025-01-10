@@ -7,6 +7,7 @@ import AOS from "aos";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { color } from "framer-motion";
 
 export default function Contact() {
   useEffect(() => {
@@ -35,6 +36,10 @@ export default function Contact() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false); // Added loading state
   const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
+  const [form1SuccessMessage, setForm1SuccessMessage] = useState("");
+const [form2SuccessMessage, setForm2SuccessMessage] = useState("");
+const [form3SuccessMessage, setForm3SuccessMessage] = useState("");
 
   // Phone number validation function
   const validatePhoneNumber = (number) => {
@@ -153,7 +158,7 @@ export default function Contact() {
   };
 
   // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, formIdentifier) => {
     e.preventDefault();
 
     // Check for phone validation before submitting
@@ -173,7 +178,13 @@ export default function Contact() {
         formData
       );
       console.log(response.data);
-      navigate("/thankyou");
+      if (formIdentifier === "form1") {
+        setForm1SuccessMessage("Form submitted successfully! Thank you.");
+      } else if (formIdentifier === "form2") {
+        setForm2SuccessMessage("Form submitted successfully! Thank you.");
+      } else if (formIdentifier === "form3") {
+        setForm3SuccessMessage("Form submitted successfully! Thank you.");
+      }  
       setFormData({
         part: "",
         make: "",
@@ -240,7 +251,7 @@ export default function Contact() {
         <div className="row align-items-center">
           <div className="col-lg-5">
             <div className="contact-form p-3 ms-5 text-white">
-               <form onSubmit={handleSubmit}>
+               <form onSubmit={(e) => handleSubmit(e, "form1")}>
                <div className="row mb-3">
                   <div className="col-6">
                     <label className="form-label">Part</label>
@@ -382,6 +393,9 @@ export default function Contact() {
                     Submit
                   </button>
                 </div>
+                <div>
+                 {form1SuccessMessage && <p className="text-success">{form1SuccessMessage}</p>}
+                </div>
               </form>
             </div>
           </div>
@@ -451,6 +465,7 @@ export default function Contact() {
                   Call Now "+18448931760"
                 </button>
               </div>
+
             </div>
           </div>
         </div>
@@ -495,7 +510,7 @@ export default function Contact() {
               >
                 <h3 className="question-title">Ask A Question?</h3>
                 <p>Are You Looking for Used Engines for Your Cars or Trucks?</p>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={(e) => handleSubmit(e, "form2")}>
                   <div class="row mb-3 ">
                     <div class="col-6">
                       <label for="part" class="form-label">
@@ -589,6 +604,7 @@ export default function Contact() {
                       Submit
                     </button>
                   </div>
+                  {form2SuccessMessage && <p className="text-success">{form2SuccessMessage}</p>}
                 </form>
               </div>
             </div>
@@ -635,7 +651,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="col-lg-9">
-                  <form className="form-start" onSubmit={handleSubmit}>
+                  <form className="form-start" onSubmit={(e) => handleSubmit(e, "form3")}> 
                     <div class="row mb-3">
                       <div class="col-6">
                         <label for="part" class="form-label">
@@ -788,6 +804,9 @@ export default function Contact() {
                       <button type="submit" class="btn btn-block " onClick={Homeform1}>
                         Submit
                       </button>
+                    </div>
+                    <div>
+                    {form3SuccessMessage && <p className="text-success">{form3SuccessMessage}</p>}
                     </div>
                   </form>
                 </div>

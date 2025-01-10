@@ -32,6 +32,7 @@ export default function EngineForm({
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isFirstSubmit, setIsFirstSubmit] = useState(true);
   const { year, make, model, variant } = useParams();
+  const [form1SuccessMessage, setForm1SuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   const navigate = useNavigate();
@@ -234,7 +235,7 @@ export default function EngineForm({
         formData
       );
       console.log(response.data);
-      // Swal.fire("Success", "Form submitted successfully!", "success");
+      setForm1SuccessMessage("Form submitted successfully! Thank you.");
     } catch (error) {
       console.error("There was an error submitting the form!", error);
       // Swal.fire("Error", "There was an error submitting the form!", "error");
@@ -378,8 +379,11 @@ export default function EngineForm({
                   className="btn btn-block transmission-btn w-100 mt-4"
                   onClick={handlePhoneSubmit}
                 >
-                  Search
+                  Submit
                 </button>
+                <div>
+                 {form1SuccessMessage && <p className="text-success">{form1SuccessMessage}</p>}
+                </div>
               </div>
             </div>
           </form>

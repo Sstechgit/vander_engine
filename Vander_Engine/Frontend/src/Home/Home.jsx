@@ -14,7 +14,6 @@ import Faq from "./Faq";
 import Brands from "../Includes/Brands";
 import Sale from "./Sale";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import CustomerReview from "../Contact/CustomerReview";
 import { Helmet } from "react-helmet";
 export default function Home({ handleAddToCart, showproduct }) {
@@ -38,7 +37,7 @@ export default function Home({ handleAddToCart, showproduct }) {
   const [variants, setVariants] = useState([]);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false); // Added loading state
-  const navigate = useNavigate();
+  const [submissionMessage, setSubmissionMessage] = useState(""); // State for submission message
 
   // Phone number validation function
   const validatePhoneNumber = (number) => {
@@ -179,7 +178,9 @@ export default function Home({ handleAddToCart, showproduct }) {
         formData
       );
       console.log(response.data);
-      navigate("/thankyou");
+      setSubmissionMessage(
+        "Thank you! Your message has been sent successfully."
+      );
       setFormData({
         part: "",
         make: "",
@@ -194,6 +195,7 @@ export default function Home({ handleAddToCart, showproduct }) {
       });
     } catch (error) {
       console.error("There was an error submitting the form!", error);
+      setSubmissionMessage("There was an error submitting the form.");
       alert("There was an error submitting the form!");
     } finally {
       setLoading(false); // Stop loading
@@ -204,7 +206,7 @@ export default function Home({ handleAddToCart, showproduct }) {
     setFormData({ ...formData, agreed: "Homepage1" });
   };
   const Homeform2 = () => {
-    setFormData({ ...formData, agreed: 'Homepage2' });
+    setFormData({ ...formData, agreed: "Homepage2" });
   };
   return (
     <>
@@ -344,8 +346,9 @@ export default function Home({ handleAddToCart, showproduct }) {
                     <div className="col-6">
                       <input
                         type="tel"
-                        className={`form-control ${phoneError ? "is-invalid" : ""
-                          }`}
+                        className={`form-control ${
+                          phoneError ? "is-invalid" : ""
+                        }`}
                         id="mobile"
                         name="phone"
                         value={formData.phone}
@@ -383,6 +386,18 @@ export default function Home({ handleAddToCart, showproduct }) {
                       {loading ? "Submitting..." : "Submit"}
                     </button>
                   </div>
+                  {submissionMessage && (
+                    <div
+                      className={` ${
+                        submissionMessage.includes("successfully")
+                          ? "text-success fw-bold mt-2 "
+                          : "text-danger"
+                      }`}
+                      role="alert"
+                    >
+                      {submissionMessage}
+                    </div>
+                  )}
                 </form>
               </div>
             </div>
@@ -430,7 +445,9 @@ export default function Home({ handleAddToCart, showproduct }) {
       <CustomerReview />
       <div className="AskQuestion my-3">
         <div className="container">
-          <h3 className="question-title fs-1" style={{ color: "#1eb7c6" }}>Ask A Question?</h3>
+          <h3 className="question-title fs-1" style={{ color: "#1eb7c6" }}>
+            Ask A Question?
+          </h3>
           <p>Are You Looking for Used Engines for Your Cars or Trucks?</p>
           <form onSubmit={handleSubmit}>
             <div class="row mb-3 ">

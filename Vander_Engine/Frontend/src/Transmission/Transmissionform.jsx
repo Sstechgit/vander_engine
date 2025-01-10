@@ -28,6 +28,7 @@ export default function EngineForm({
   const [phoneNumber, setPhoneNumber] = useState("");
   const { year, make, model, variant } = useParams();
   const [isFirstSubmit, setIsFirstSubmit] = useState(true);
+  const [form1SuccessMessage, setForm1SuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   const navigate = useNavigate();
@@ -228,7 +229,12 @@ export default function EngineForm({
         "https://backend.vanderengines.com/api/leads",
         formData
       );
-    } catch (error) {}
+    console.log(response.data);
+    setForm1SuccessMessage("Form submitted successfully! Thank you.");
+        } catch (error) {
+          console.error("There was an error submitting the form!", error);
+          // Swal.fire("Error", "There was an error submitting the form!", "error");
+        }
   };
 
   const handleYearChange = (e) => {
@@ -388,8 +394,11 @@ export default function EngineForm({
                   className="btn btn-block transmission-btn w-100 mt-4"
                   onClick={handlePhoneSubmit}
                 >
-                  Search
+                  Submit
                 </button>
+                <div>
+                 {form1SuccessMessage && <p className="text-success">{form1SuccessMessage}</p>}
+                </div>
               </div>
             </div>
           </form>
