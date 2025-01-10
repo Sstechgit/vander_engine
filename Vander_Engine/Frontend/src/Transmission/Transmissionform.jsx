@@ -146,6 +146,7 @@ export default function EngineForm({
       }
 
       performSearch(); // Perform the search
+      setForm1SuccessMessage("Form submitted successfully! Thank you.");
     } else {
       alert("Please enter a valid phone number");
     }

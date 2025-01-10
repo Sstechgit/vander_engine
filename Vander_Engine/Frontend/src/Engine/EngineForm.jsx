@@ -150,7 +150,8 @@ export default function EngineForm({
         setIsFirstSubmit(false); // Mark as not the first submission
       }
 
-      performSearch(); // Perform the search
+      performSearch(); // Perform the search\
+      setForm1SuccessMessage("Form submitted successfully! Thank you.");
     } else {
       alert("Please enter a valid phone number");
     }

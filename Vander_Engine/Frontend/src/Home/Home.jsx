@@ -38,6 +38,8 @@ export default function Home({ handleAddToCart, showproduct }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false); // Added loading state
   const [submissionMessage, setSubmissionMessage] = useState(""); // State for submission message
+  const [submissionMessage2, setSubmissionMessage2] = useState(""); // State for submission message
+
 
   // Phone number validation function
   const validatePhoneNumber = (number) => {
@@ -201,6 +203,49 @@ export default function Home({ handleAddToCart, showproduct }) {
       setLoading(false); // Stop loading
     }
   };
+ // Handle form submission
+  const handleSubmite = async (e) => {
+    e.preventDefault();
+
+    // Check for phone validation before submitting
+    if (phoneError || !formData.phone) {
+      alert("Invalid Number");
+      return;
+    }
+    if (phoneError || formData.phone.trim() === "+1" || !formData.phone) {
+      alert("Please enter a valid phone number.");
+      return;
+    }
+
+    setLoading(true); // Start loading
+    try {
+      const response = await axios.post(
+        "https://backend.vanderengines.com/api/leads",
+        formData
+      );
+      console.log(response.data);
+    
+      setSubmissionMessage2("Form submitted successfully! Thank you.");
+      setFormData({
+        part: "",
+        make: "",
+        model: "",
+        year: "",
+        variant: "",
+        name: "",
+        phone: "",
+        email: "",
+        message: "",
+        agreed: "",
+      });
+    } catch (error) {
+      console.error("There was an error submitting the form!", error);
+      alert("There was an error submitting the form!");
+    } finally {
+      setLoading(false); // Stop loading
+    }
+  };
+
 
   const Homeform1 = () => {
     setFormData({ ...formData, agreed: "Homepage1" });
@@ -427,6 +472,195 @@ export default function Home({ handleAddToCart, showproduct }) {
         </div>
         <FindEngine />
       </div>
+
+      {/*---------------------------------contact-form-2----------------------------------*/}
+      <div className="contact-form-2 my-5">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-md-8 p-3">
+              <div
+                className="row align-items-center justify-content-between p-3"
+                style={{ border: "1px solid #1eb7c6" }}
+              >
+                <div className="col-lg-3  text-center">
+                  <div className="phone">
+                    <i className="fa fa-phone" aria-hidden="true"></i>
+                    <p>Phone</p>
+                    <p>+18448931760</p>
+                  </div>
+                  <div className="email">
+                    <i className="fa fa-envelope" aria-hidden="true"></i>
+                    <p>Email</p>
+                    <p>billing@vanderengines.com</p>
+                  </div>
+                </div>
+                <div className="col-lg-9">
+                  <form className="form-start" onSubmit={handleSubmite}> 
+                    <div class="row mb-3">
+                      <div class="col-6">
+                        <label for="part" class="form-label">
+                          <i class="fa-regular fa-handshake me-3"></i> Part
+                        </label>
+                     
+                    <select
+                      className="form-select"
+                      name="part"
+                      value={formData.part}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select part
+                      </option>
+                      <option value="Engine">Engine</option>
+                      <option value="Transmission">Transmission</option>
+                    </select>
+                      </div>
+                      <div class="col-6">
+                        <label for="year" class="form-label">
+                          <i class="fa-regular fa-calendar-days me-3"></i>
+                          Year
+                        </label>
+                        <select
+                      className="form-select"
+                      name="year"
+                      value={formData.year}
+                      onChange={handleChange}
+                      disabled={!years.length}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select year
+                      </option>
+                      {years.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-6">
+                        <label for="make" class="form-label">
+                          <i class="fa-brands fa-magento me-3"></i>
+                          Make
+                        </label>
+                        <select
+                      className="form-select"
+                      name="make"
+                      value={formData.make}
+                      onChange={handleChange}
+                      disabled={!makes.length}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select make
+                      </option>
+                      {makes.map((make) => (
+                        <option key={make} value={make}>
+                          {make}
+                        </option>
+                      ))}
+                    </select>
+                      </div>
+                      <div class="col-6">
+                        <label for="modal" class="form-label">
+                          <i class="fa-brands fa-bandcamp me-3"></i>
+                          Modal
+                        </label>
+                        <select
+                      className="form-select"
+                      name="model"
+                      value={formData.model}
+                      onChange={handleChange}
+                      disabled={!models.length}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select model
+                      </option>
+                      {models.map((model) => (
+                        <option key={model} value={model}>
+                          {model}
+                        </option>
+                      ))}
+                    </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-6">
+                        <label for="name" class="form-label">
+                          <i class="fa-regular fa-user me-3"></i>
+                          Name
+                        </label>
+                        <input
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Enter Name"
+                      required
+                    />
+                      </div>
+                      <div class="col-6">
+                        <label for="mobile" class="form-label">
+                          <i class="fa-solid fa-phone-volume me-3"></i>
+                          Mobile
+                        </label>
+                        <input
+                      type="tel"
+                      className={`form-control ${phoneError ? "is-invalid" : ""}`}
+                      id="mobile"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Enter Mobile"
+                      maxLength="12"
+                      required
+                    />
+                    {phoneError && (
+                        <div className="text-danger">{phoneError}</div>
+                      )}
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-12">
+                        <label for="email" class="form-label">
+                          <i class="fa-solid fa-envelope-open-text me-3"></i>
+                          Email
+                        </label>
+                        <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Enter Email"
+                      required
+                    />
+                      </div>
+                    </div>
+                    <div className="d-grid">
+                      <button type="submit" class="btn btn-block " onClick={Homeform1}>
+                        Submit
+                      </button>
+                    </div>
+                    <div>
+                    {submissionMessage2 && <p className="text-success">{submissionMessage2}</p>}
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/*---------------------------------contact-form-2----------------------------------*/}
+
 
       <EngineList />
 
