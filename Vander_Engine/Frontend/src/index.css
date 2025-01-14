@@ -399,6 +399,13 @@ body {
     order: 1;
     padding-top: 40px;
   }
+  .transmission-hero{
+    display: none;
+  }
+  .engine-hero{
+    display: none;
+  }
+  
 }
 @media (max-width: 350px) {
   .head1 h3 {
