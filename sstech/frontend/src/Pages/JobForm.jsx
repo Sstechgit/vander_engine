@@ -41,7 +41,7 @@ const JobForm = ({ title }) => {
 
     try {
       const response = await fetch(
-        "https://newbackend.sstechservices.net/api/users",
+        "https://newbackend.sstechservices.net/users",
         {
           method: "POST",
           body: formDataToSubmit,
@@ -88,7 +88,7 @@ const JobForm = ({ title }) => {
         <label>
           Title: <span>*</span>{" "}
         </label>
-        <input type="text" name="title" required value={formData.title} />
+        <input type="text" name="title" required value={title} />
       </div>
       <div className="form-group">
         <label>

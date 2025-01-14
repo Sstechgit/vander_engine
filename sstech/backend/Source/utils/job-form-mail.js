@@ -40,7 +40,7 @@ const sendEmail = async ({
     to: "Sstechofficiel@gmail.com, info@sstechservices.net",
     subject: `New Form Submission from ${firstName}`,
     text: `Title: ${title}
-    First Name: ${firstName}
+First Name: ${firstName}
 Last Name: ${lastName}
 Email: ${email}
 Mobile: ${mobile}
@@ -58,7 +58,6 @@ Notice Period: ${noticePeriod}`,
   try {
     const result = await transporter.sendMail(mailOptions);
     console.log("Email sent:", result);
-
     // Clean up the uploaded file
     if (file && file.path) {
       fs.unlink(file.path, (err) => {
