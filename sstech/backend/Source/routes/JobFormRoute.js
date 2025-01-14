@@ -10,6 +10,7 @@ const upload = multer({ dest: "uploads/" }); // Specify the destination for file
 // POST route to handle form submissions with file upload
 router.post("/", upload.single("resume"), async (req, res) => {
   const {
+    title,
     firstName,
     lastName,
     email,
@@ -27,6 +28,7 @@ router.post("/", upload.single("resume"), async (req, res) => {
 
   try {
     await sendEmail({
+      title,
       firstName,
       lastName,
       email,

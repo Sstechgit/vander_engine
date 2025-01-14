@@ -42,7 +42,7 @@ export const urls = {
   addFollowup:base+"/api/followup",
   getFollowup:base+"/api/followup",
   deleteFollowup:base+"/api/followup",
-
+  
   EditFollowUp:base+"/api/followup" ,//put
   getStatus:base+"/api/status",
   followupKey:base+"/api/followupDetails",

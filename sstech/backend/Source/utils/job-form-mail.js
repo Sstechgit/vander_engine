@@ -2,8 +2,8 @@ const fs = require("fs"); // File system to handle uploads
 const path = require("path"); // Path module to handle file paths
 const nodemailer = require("nodemailer");
 
-
 const sendEmail = async ({
+  title,
   firstName,
   lastName,
   email,
@@ -23,8 +23,8 @@ const sendEmail = async ({
     port: 465,
     secure: true,
     auth: {
-      user: 'info@sstechservices.net',
-      pass: 'Sstech@123',
+      user: "info@sstechservices.net",
+      pass: "Sstech@123",
     },
   });
 
@@ -36,10 +36,11 @@ const sendEmail = async ({
     : null;
 
   const mailOptions = {
-    from:  `${email} <info@sstechservices.net>`,
-    to: 'Sstechofficiel@gmail.com, info@sstechservices.net',
+    from: `${email} <info@sstechservices.net>`,
+    to: "Sstechofficiel@gmail.com, info@sstechservices.net",
     subject: `New Form Submission from ${firstName}`,
-    text: `First Name: ${firstName}
+    text: `Title: ${title}
+    First Name: ${firstName}
 Last Name: ${lastName}
 Email: ${email}
 Mobile: ${mobile}

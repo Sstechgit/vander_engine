@@ -1,7 +1,8 @@
 [
+  
     {
     "id": 1,
-    "title": "International Inbound Sales Executive",
+    "title": "International Sales - US Voice Process",
     "company": "SS Tech Services",
     "location": "Noida Sector 62 (onsite)",
     "experience": "1-3 years in international sales (BPO experience preferred)",
@@ -39,9 +40,46 @@
     }
     },
 
-
     {
       "id": 2,
+      "title": "Hiring FEMALES for International voice process| Sales Executive",
+      "company": "SS Tech Services",
+      "location": "Noida Sector 62 (onsite)",
+      "experience": "1-3 years in international sales || Freshers are welcome to apply!",
+      "skills": [
+        "Strong ability to engage customers, build rapport, and handle negotiations effectively.",
+        "Proven ability to multitask, manage time efficiently, and close sales.",
+        "Strong technical aptitude with a good understanding of automotive technology."
+      ],
+      "shift": "US Shift (24 Days Working)",
+      "salary": {
+        "monthlyCTC": "Up to ₹35,000 per month plus Lucrative Incentives",
+        "incentive": {
+          "max": "Maximum 3 lacs in a month",
+          "average": "20k in a month"
+        }
+      },
+      "workingDays": "24 working days in a month",
+      "process": "Voice & Blended",
+      "rolesAndResponsibilities": [
+
+        "1.Initiate outbound calls to prospective and existing clients, highlighting our latest engine and transmission technology offerings.",
+        "2. Handle incoming inquiries regarding automotive components, providing accurate information and resolving any issues.",
+        "3. Maintain and update client data within the company database, ensuring accuracy and confidentiality.",
+        "4. Provide detailed information on our engine and transmission solutions, including pricing and special offers, to drive interest and sales.",
+        "5. Follow up with customers to ensure their satisfaction and encourage repeat business.",
+        "6. Collaborate with team members to achieve sales goals and improve customer service processes."
+      ],
+      "requiredCandidateProfile": {
+        "education": "Must be a Graduate",
+        "workEnvironment": "Must be comfortable with WORK FROM OFFICE.",
+        "communicationSkills": "Excellent communication skills, both verbal and written, with a focus on clarity and professionalism.",
+        "additionalExperience": "Experience in US Telecom will be an added advantage."
+      }
+      },
+  
+    {
+      "id": 3,
       "title": "Sales Executive - Automobile",
       "company": "SS Tech Services",
       "location": "Noida Sector 62 (onsite)",
@@ -89,7 +127,7 @@
     },
     
     {
-      "id": 3,
+      "id": 4,
       "title": "Digital Marketing Executive",
       "company": "SS Technologies OPC Private Limited",
       "specialties": ["BPO service", "Digital Marketing services"],
@@ -148,14 +186,8 @@
     },
     
 
-
-
-
-
-
-
         {
-          "id": 4,
+          "id": 5,
           "title": "Google Ads Specialist",
           "company": "SS Tech Services",
           "location": "Noida Sector 62 (onsite)",
@@ -199,12 +231,6 @@
           }
         }
         
-
-
-
-
-
-
 
   ]
   
