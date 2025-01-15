@@ -65,44 +65,33 @@ export default function Lead({setload}) {
   });
   //fetch Leads
   const fetchLeads = async (page, pageRows) => {
-  
-    let url = urls.FetchLeads + `/${page}/${pageRows}`;
-    
-    let result = await DoFetch(url);
-    // console.log(result)
-    if (result.success == true) {
-      let records = [];
-
-      result.payload.records.forEach((lead, idx) => {
-        records.push({
-          key: lead._id,
-          _id: (page - 1) * pageRows + idx + 1,
-          name: lead.name,
-          email: lead.email,
-          phone: lead.phone,
-          description: lead.description,
-          origin: lead?.origin,
-          created: parseCustomDate(lead?.createdAt),
-          assigned:lead.task[0]?._id?true:false,
-          agent: lead.user[0],
-          task:lead.task[0]
-        });
-     
-
-      });
-     
-      setLeads(records);
-      const filteredTasks = filterByDate(selectedDate, records);
-
-      setLeads(filteredTasks); // Set the filtered tasks
-  
-    
-      setTotalData(result.payload.total);
-    } else {
-      alert("Server issue occured");
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+        const result = await DoFetch(url);
+        if (result.success) {
+            const records = result.payload.records.map((lead, idx) => ({
+                key: lead._id,
+                _id: (page - 1) * pageRows + idx + 1,
+                name: lead.name,
+                email: lead.email,
+                phone: lead.phone,
+                description: lead.description,
+                origin: lead.origin,
+                created: parseCustomDate(lead.createdAt),
+                assigned: lead.task[0]?._id ? true : false,
+                agent: lead.user[0],
+                task: lead.task[0],
+            }));
+            setLeads(records);
+            setTotalData(result.payload.total);
+        } else {
+            console.error("Failed to fetch leads");
+        }
+    } catch (error) {
+        console.error("Error fetching leads:", error);
     }
-   
-  };
+};
+
   //Delete a lead
   const handleDelete = async (records, Selected = false) => {
     let leadArr = [];
@@ -434,6 +423,20 @@ export default function Lead({setload}) {
           danger: false,
         },  
   })}}, [selectedLeads]);
+
+  useEffect(() => {
+    const handleScroll = (e) => {
+        const { scrollTop, scrollHeight, clientHeight } = e.target.scrollingElement;
+        if (scrollHeight - scrollTop === clientHeight) {
+            // Fetch the next page when scrolled to the bottom
+            fetchLeads(currentPage + 1, pageSize);
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+}, [currentPage, pageSize]);
+
  
 
   useEffect(() => {
