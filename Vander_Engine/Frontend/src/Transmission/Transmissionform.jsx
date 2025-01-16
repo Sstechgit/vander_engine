@@ -122,9 +122,9 @@ export default function EngineForm({
       return;
     }
 
-     // Skip phone validation if we are already on the product page (or if we are not submitting the form)
-     const path = `/transmission/${selectedYear}/${selectedMake}/${selectedModel}`;
-     navigate(path);
+    // Skip phone validation if we are already on the product page (or if we are not submitting the form)
+    const path = `/transmission/${selectedYear}/${selectedMake}/${selectedModel}`;
+    navigate(path);
   };
 
   const handlePhoneSubmit = async () => {
@@ -230,12 +230,12 @@ export default function EngineForm({
         "https://backend.vanderengines.com/api/leads",
         formData
       );
-    console.log(response.data);
-    setForm1SuccessMessage("Form submitted successfully! Thank you.");
-        } catch (error) {
-          console.error("There was an error submitting the form!", error);
-          // Swal.fire("Error", "There was an error submitting the form!", "error");
-        }
+      console.log(response.data);
+      setForm1SuccessMessage("Form submitted successfully! Thank you.");
+    } catch (error) {
+      console.error("There was an error submitting the form!", error);
+      // Swal.fire("Error", "There was an error submitting the form!", "error");
+    }
   };
 
   const handleYearChange = (e) => {
@@ -357,7 +357,6 @@ export default function EngineForm({
                 >
                   <option value="" disabled>
                     Select a variant
-
                   </option>
                   {variants.map((variant) => (
                     <option key={variant} value={variant}>
@@ -386,7 +385,6 @@ export default function EngineForm({
                     borderBottom: "1px solid #cccdd1",
                   }}
                 />
-
                 {phoneError && <div className="text-danger">{phoneError}</div>}
               </div>
               <div className="col-md-4">
@@ -395,10 +393,12 @@ export default function EngineForm({
                   className="btn btn-block transmission-btn w-100 mt-4"
                   onClick={handlePhoneSubmit}
                 >
-                  Search
+                  Submit
                 </button>
                 <div>
-                 {form1SuccessMessage && <p className="text-success">{form1SuccessMessage}</p>}
+                  {form1SuccessMessage && (
+                    <p className="text-success">{form1SuccessMessage}</p>
+                  )}
                 </div>
               </div>
             </div>

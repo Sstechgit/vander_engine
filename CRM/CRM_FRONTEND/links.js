@@ -1,6 +1,7 @@
 //  export const base = "https://sstechcrm.com";
 export const base = "http://backend.sstechcrm.com";
 // export const base = "http://backend.sstechcrm.com";
+// export const base = "http://backend.sstechcrm.com"
 // export const base = "http://crmbackend.ap-south-1.elasticbeanstalk.com"
 // export const base = "http://backend.sstechcrm.com";
 export const urls = {
@@ -45,8 +46,8 @@ export const urls = {
   getFollowup:base+"/api/followup",
   deleteFollowup:base+"/api/followup",
 
-  // EditFollowUp:base+"/api/followup" ,//put
-  // getStatus:base+"/api/status",
+  EditFollowUp:base+"/api/followup" ,//put
+  getStatus:base+"/api/status",
   // followupKey:base+"/api/followupDetails",
   // SearchByName:base+"/api/searchByName",
   // addQuotation:base+"/api/quotation", //post

@@ -66,7 +66,6 @@ export default function Lead({setload}) {
   });
   //fetch Leads
   const fetchLeads = async (page, pageRows) => {
-<<<<<<< HEAD
     setload({
       spin:true,tip:"Loading"
     })
@@ -111,35 +110,6 @@ export default function Lead({setload}) {
     })
    
   };
-=======
-    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
-    try {
-        const result = await DoFetch(url);
-        if (result.success) {
-            const records = result.payload.records.map((lead, idx) => ({
-                key: lead._id,
-                _id: (page - 1) * pageRows + idx + 1,
-                name: lead.name,
-                email: lead.email,
-                phone: lead.phone,
-                description: lead.description,
-                origin: lead.origin,
-                created: parseCustomDate(lead.createdAt),
-                assigned: lead.task[0]?._id ? true : false,
-                agent: lead.user[0],
-                task: lead.task[0],
-            }));
-            setLeads(records);
-            setTotalData(result.payload.total);
-        } else {
-            console.error("Failed to fetch leads");
-        }
-    } catch (error) {
-        console.error("Error fetching leads:", error);
-    }
-};
-
->>>>>>> 4db16621844d1b6b9d0e220cc8e1393da6e79784
   //Delete a lead
   const handleDelete = async (records, Selected = false) => {
     let leadArr = [];
