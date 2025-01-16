@@ -53,7 +53,6 @@ export default function Task({ setload }) {
   });
   //fetch Leads
   const fetchTask = async (page, pageRows) => {
- 
 
     let url = urls.FetchTask + `/${page}/${pageRows}`;
    

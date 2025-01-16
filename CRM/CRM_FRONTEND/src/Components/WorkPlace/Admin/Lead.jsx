@@ -27,6 +27,7 @@ export default function Lead({setload}) {
   const [errors, seterrors] = useState({});
   const [Leads, setLeads] = useState([]);
 
+
   const [messageApi, contextHolder] = message.useMessage();
   //states for lead distribution
   const [selectedLeads, setSelectedLeads] = useState([])
@@ -35,7 +36,7 @@ export default function Lead({setload}) {
   const [redistribute, setredistribute] = useState(false)
   //states for selection
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setCurrentPageSize] = useState(100);
+  const [pageSize, setCurrentPageSize] = useState(50);
   const [TotalData, setTotalData] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
 
@@ -65,6 +66,52 @@ export default function Lead({setload}) {
   });
   //fetch Leads
   const fetchLeads = async (page, pageRows) => {
+<<<<<<< HEAD
+    setload({
+      spin:true,tip:"Loading"
+    })
+  
+    let url = urls.FetchLeads + `/${page}/${pageRows}`;
+    
+    let result = await DoFetch(url);
+    // console.log(result)
+    if (result.success == true) {
+      let records = [];
+
+      result.payload.records.forEach((lead, idx) => {
+        records.push({
+          key: lead._id,
+          _id: (page - 1) * pageRows + idx + 1,
+          name: lead.name,
+          email: lead.email,
+          phone: lead.phone,
+          description: lead.description,
+          origin: lead?.origin,
+          created: parseCustomDate(lead?.createdAt),
+          assigned:lead.task[0]?._id?true:false,
+          agent: lead.user[0],
+          task:lead.task[0]
+        });
+     
+
+      });
+     
+      setLeads(records);
+      const filteredTasks = filterByDate(selectedDate, records);
+
+      setLeads(filteredTasks); // Set the filtered tasks
+  
+    
+      setTotalData(result.payload.total);
+    } else {
+      alert("Server issue occured");
+    }
+    setload({
+      spin:false,tip:""
+    })
+   
+  };
+=======
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
     try {
         const result = await DoFetch(url);
@@ -92,6 +139,7 @@ export default function Lead({setload}) {
     }
 };
 
+>>>>>>> 4db16621844d1b6b9d0e220cc8e1393da6e79784
   //Delete a lead
   const handleDelete = async (records, Selected = false) => {
     let leadArr = [];
@@ -501,7 +549,7 @@ export default function Lead({setload}) {
               pageSize: pageSize,
               total: TotalData,
               showSizeChanger: true,
-              pageSizeOptions: ["100", "200", "300", "400", "500", "600"],
+              pageSizeOptions: ["50", "100", "200", "300", "400", "500"],
               onChange: (page, pageSize) => {
                 setCurrentPage(page);
                 setCurrentPageSize(pageSize);

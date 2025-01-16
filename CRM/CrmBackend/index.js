@@ -33,35 +33,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const PORT = process.env.PORT || 8000 || 8001;
-
-// Add WebSocket event handling
-io.on("connection", (socket) => {
-    console.log("A client connected");
-
-    // Example of custom events
-    socket.on("disconnect", () => {
-        console.log("A client disconnected");
-    });
-});
-
-// Add io instance to app so it can be accessed in other files
-app.set("io", io);
-
-// Routes
-app.use("/api", require("./api/user.js"));
-app.use("/api", require("./api/lead.js")); // Ensure you update lead.js to emit events
-app.use("/api", require("./api/Task.js"));
-app.use("/api", require("./api/client.js"));
-app.use("/api", require("./api/Order.js"));
-app.use("/api", require("./api/OrderTask.js"));
-app.use("/api", require("./api/calendar.js"));
-app.use("/api", require("./api/email.js"));
-app.use("/api", require("./api/FollowUp.js"));
-app.use("/api", require("./api/Quotations.js"));
-app.use("/api", require("./api/search.js"));
-app.use("/api", require("./api/superadmin.js"));
-app.use("/api", require("./api/ringcentral.js"));
-app.use("/api", require("./api/invoice.js"));
+app.use("/api",require("./api/user.js"))
+app.use("/api",require("./api/lead.js"))
+app.use("/api",require("./api/Task.js"))
+app.use("/api",require("./api/client.js"))
+app.use("/api",require("./api/Order.js"))
+app.use("/api",require("./api/OrderTask.js"))
+app.use("/api",require("./api/calendar.js"))
+app.use("/api",require("./api/email.js"))
+app.use("/api",require("./api/FollowUp.js"))
+app.use("/api",require("./api/Quotations.js"))
+app.use("/api",require("./api/search.js"))
+app.use("/api",require("./api/superadmin.js"))
+app.use("/api",require("./api/ringcentral.js"))
+app.use("/api",require("./api/invoice.js"))
 
 let rcsdk = new RingCentral.SDK({
     server: "https://platform.ringcentral.com", // or your RingCentral server URL
@@ -71,52 +56,50 @@ let rcsdk = new RingCentral.SDK({
 });
 let platform = rcsdk.platform();
 
-let expires = null;
-let admin = null;
-tokens.findOne({ email: "vanderengines@gmail.com" }).then((val) => {
-    expires = val.Rexpires;
-    admin = val;
-    cron.schedule("*/5 * * * *", async () => {
-        const currentTime = new Date();
-        let givenTime = new Date(expires);
-        const timeBeforeFiveMinutes = new Date(
-            givenTime.getTime() - 5 * 60 * 1000
-        ); // Subtract 5 minutes
 
-        if (currentTime.getTime() === timeBeforeFiveMinutes.getTime()) {
-            await platform.auth().setData(admin.tokenObj);
-            await platform.refresh();
-            const authResponse = await platform.auth().data();
-
-            const newAccessToken = authResponse.access_token;
-            const newRefreshToken = authResponse.refresh_token;
-            const rExpires = authResponse.refresh_token_expires_in;
-            const expiresIn = authResponse.expires_in;
-
-            const AccessExpiresAt = new Date(
-                Date.now() + expiresIn * 1000
-            );
-            const RefreshExpiresAt = new Date(
-                Date.now() + rExpires * 1000
-            );
-
-            // Update tokens in the database
-            admin = await tokens.findOneAndUpdate(
-                { email: admin.email },
-                {
-                    accessToken: newAccessToken,
-                    refreshToken: newRefreshToken,
-                    Aexpires: AccessExpiresAt,
-                    Rexpires: RefreshExpiresAt,
-                    tokenObj: authResponse,
-                },
-                { upsert: true, new: true }
-            );
-            expires = admin.Rexpires;
-        }
-    });
-});
-
+let expires=null
+let admin=null
+tokens.findOne({email:"vanderengines@gmail.com"}).then((val)=>{
+  expires=val.Rexpires
+  admin=val
+  cron.schedule('*/5 * * * *', async() => {
+    const currentTime = new Date();
+    let givenTime=new Date(expires)
+    const timeBeforeFiveMinutes = new Date(givenTime.getTime() - 5 * 60 * 1000); // Subtract 5 minutes
+  
+    if(currentTime.getTime() === timeBeforeFiveMinutes.getTime()){
+  
+      
+      await platform.auth().setData(admin.tokenObj);
+      await platform.refresh();
+      const authResponse = await platform.auth().data();
+   
+        const newAccessToken = authResponse.access_token;
+        const newRefreshToken = authResponse.refresh_token;
+        const rExpires = authResponse.refresh_token_expires_in;
+        const expiresIn = authResponse.expires_in;
+  
+        const AccessExpiresAt = new Date(Date.now() + expiresIn * 1000);
+        const RefreshExpiresAt = new Date(Date.now() + rExpires * 1000);
+  
+        // Update tokens in the database
+        admin=await tokens.findOneAndUpdate(
+          { email: admin.email },
+          {
+            accessToken: newAccessToken,
+            refreshToken: newRefreshToken,
+            Aexpires: AccessExpiresAt,
+            Rexpires: RefreshExpiresAt,
+            tokenObj: authResponse,
+          },
+          { upsert: true,new:true }
+        );
+        expires=admin.Rexpires
+  
+    };
+  });
+  
+})
 app.get("/api/hello", (req, res) => {
     res.send("Hello from Backend");
 });
