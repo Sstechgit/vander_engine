@@ -1,5 +1,5 @@
 //  export const base = "https://sstechcrm.com";
-export const base = "http://localhost:8000";
+export const base = "http://backend.sstechcrm.com";
 // export const base = "http://crmbackend.ap-south-1.elasticbeanstalk.com"
 export const urls = {
   LOGIN: base+"/api/login",
@@ -24,18 +24,18 @@ export const urls = {
   FetchTask:base+"/api/task", //get /page/pagesize
   ReDistributeOrder:base+"/api/orders/Redistribute",
   GetTaskForAgent:base+"/api/agent/task",
-  // searchProduct:"https://www.vanderengines.com/api/crmSearchApi.php",
-  // changeStatusLead:base+"/api/agent/task/status",
-  // changeStatusOrder:base+"/api/orders/status",
-  // addnote:base+"/api/note" ,//post
-  // editnote:base+"/api/note" ,//put
-  // deletenote:base+"/api/note" ,//delete
-  // getByKey:base+"/api/noteByKey",//get
-  // getbydate:base+"/api/noteByDate",
-  // FetchMail:base+"/api/emails",
-  // sendMail:base+"/api/email",
-  // checkMail:base+"/api/emailCount",
-  // deleteTask:base+"/api/task",
+  searchProduct:"https://www.vanderengines.com/api/crmSearchApi.php",
+  changeStatusLead:base+"/api/agent/task/status",
+  changeStatusOrder:base+"/api/orders/status",
+  addnote:base+"/api/note" ,//post
+  editnote:base+"/api/note" ,//put
+  deletenote:base+"/api/note" ,//delete
+  getByKey:base+"/api/noteByKey",//get
+  getbydate:base+"/api/noteByDate",
+  FetchMail:base+"/api/emails",
+  sendMail:base+"/api/email",
+  checkMail:base+"/api/emailCount",
+  deleteTask:base+"/api/task",
   // //added-
   // getCompletedOrders:base+"/api/CompletedOrder", 
   // getCompletedTasks:base+"/api/CompletedTask",
@@ -52,7 +52,7 @@ export const urls = {
   // deleteQuotion:base+"/api/quotation", //delete
   // fetchQuotation:base+"/api/quotation", //get /1/10
   // addToVander:base+"/api/addToVander",//post
-  // trackAgent:base+"/api/TrackAgent",
+  trackAgent:base+"/api/TrackAgent",
   // TaskOnStatus:base+"/api/TaskOnStatus", //get /1/10
   // getSingleLead:base+"/api/getLead",  search:base+"/api/search", // /:name
   // getReminder:base+"/api/reminder",
