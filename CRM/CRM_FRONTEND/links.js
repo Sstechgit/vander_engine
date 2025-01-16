@@ -1,5 +1,9 @@
 //  export const base = "https://sstechcrm.com";
+<<<<<<< HEAD
 // export const base = "http://backend.sstechcrm.com";
+=======
+export const base = "http://localhost:8000";
+>>>>>>> 4db16621844d1b6b9d0e220cc8e1393da6e79784
 // export const base = "http://crmbackend.ap-south-1.elasticbeanstalk.com"
 // export const base = "http://backend.sstechcrm.com";
 export const base = "http://localhost:8000";

@@ -41,7 +41,7 @@ const JobForm = ({ title }) => {
 
     try {
       const response = await fetch(
-        "https://newbackend.sstechservices.net/users",
+        "https://newbackend.sstechservices.net/api/users",
         {
           method: "POST",
           body: formDataToSubmit,
