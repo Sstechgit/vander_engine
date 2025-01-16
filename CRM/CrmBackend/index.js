@@ -28,9 +28,6 @@ app.use("/api",require("./api/superadmin.js"))
 app.use("/api",require("./api/ringcentral.js"))
 app.use("/api",require("./api/invoice.js"))
 
-
-
-
 let rcsdk = new RingCentral.SDK({
   server: "https://platform.ringcentral.com", // or your RingCentral server URL
   clientId: process.env.clientId,
@@ -83,10 +80,6 @@ tokens.findOne({email:"vanderengines@gmail.com"}).then((val)=>{
   });
   
 })
-
-
-
-
 app.get("/api/hello", (req, res) => {
   res.send("Hello from Backend");
 });

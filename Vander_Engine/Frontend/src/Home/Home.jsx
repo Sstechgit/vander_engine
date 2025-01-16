@@ -15,8 +15,11 @@ import Brands from "../Includes/Brands";
 import Sale from "./Sale";
 import axios from "axios";
 import CustomerReview from "../Contact/CustomerReview";
+import { useNavigate } from "react-router-dom";
+
 import { Helmet } from "react-helmet";
 export default function Home({ handleAddToCart, showproduct }) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     part: "",
     make: "",
@@ -37,7 +40,7 @@ export default function Home({ handleAddToCart, showproduct }) {
   const [variants, setVariants] = useState([]);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false); // Added loading state
-  const [submissionMessage, setSubmissionMessage] = useState(""); // State for submission message
+  // const [submissionMessage, setSubmissionMessage] = useState(""); // State for submission message
   const [submissionMessage2, setSubmissionMessage2] = useState(""); // State for submission message
 
 
@@ -180,9 +183,10 @@ export default function Home({ handleAddToCart, showproduct }) {
         formData
       );
       console.log(response.data);
-      setSubmissionMessage(
-        "Thank you! Your message has been sent successfully."
-      );
+      // setSubmissionMessage(
+      //   "Thank you! Your message has been sent successfully."
+      // );
+      navigate('/thankyou')
       setFormData({
         part: "",
         make: "",
@@ -197,7 +201,7 @@ export default function Home({ handleAddToCart, showproduct }) {
       });
     } catch (error) {
       console.error("There was an error submitting the form!", error);
-      setSubmissionMessage("There was an error submitting the form.");
+      // setSubmissionMessage("There was an error submitting the form.");
       alert("There was an error submitting the form!");
     } finally {
       setLoading(false); // Stop loading
@@ -431,7 +435,7 @@ export default function Home({ handleAddToCart, showproduct }) {
                       {loading ? "Submitting..." : "Submit"}
                     </button>
                   </div>
-                  {submissionMessage && (
+                  {/* {submissionMessage && (
                     <div
                       className={` ${
                         submissionMessage.includes("successfully")
@@ -442,7 +446,7 @@ export default function Home({ handleAddToCart, showproduct }) {
                     >
                       {submissionMessage}
                     </div>
-                  )}
+                  )} */}
                 </form>
               </div>
             </div>
