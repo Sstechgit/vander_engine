@@ -11,7 +11,6 @@ export default function Cardsection1({ showproduct, handleAddToCart }) {
 
   const formatData = (data) => {
     const formattedProducts = [];
-
     Object.keys(data).forEach((year) => {
       const makes = data[year];
       Object.keys(makes).forEach((make) => {
