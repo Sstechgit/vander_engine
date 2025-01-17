@@ -14,7 +14,7 @@ const statusColors = {
   "Already Purchased": "purple",
   Sale: "#52bf3d",
   "Hot Lead": "#ff5722",
-  Closed: "black",
+  "Quotation Given": "black",
   "Exchange":"brown",
   "No Response": "gray",
 };
@@ -34,7 +34,7 @@ const Agent_Home = () => {
     "Already Purchased": 0,
     Sale: 0,
     "Hot Lead": 0,
-    Closed: 0,
+    "Quotation Given": 0,
     "Exchange": 0,
     "No Response": 0,
   });
@@ -49,7 +49,7 @@ const Agent_Home = () => {
     }
 
     const result = await DoFetch(url);
-    // console.log(result);
+    console.log(result);
     if (result.success) {
       const taskData = result.payload.records.map((taskval, idx) => {
         const lead = taskval.leads[0] || {}; // Get the first lead (in case there are multiple)
@@ -106,8 +106,8 @@ const Agent_Home = () => {
         "Hot Lead": result.payload.records.filter(
           (record) => record.state === "Hot Lead"
         ).length,
-        Closed: result.payload.records.filter(
-          (record) => record.state === "Closed"
+        "Quotation Given": result.payload.records.filter(
+          (record) => record.state ===  "Quotation Given"
         ).length,
         "Exchange": result.payload.records.filter(
           (record) => record.state === "Exchange"
@@ -184,7 +184,7 @@ const Agent_Home = () => {
           "Hot Lead",
           "Exchange",
           "No Response",
-          "Closed",
+          "Quotation Given",
           
         ].map((status) => (
           <div className="card" key={status}>

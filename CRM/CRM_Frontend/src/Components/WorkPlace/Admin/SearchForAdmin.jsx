@@ -17,15 +17,15 @@ const SearchForAdmin = () => {
   const [TotalData, setTotalData] = useState(0);
   const onSearch = async (value, _e, info) => {
     setvalue(value);
-    await searchFunction(value,currentPage,pageSize);
+    await searchFunction(value, currentPage, pageSize);
   };
-  const searchFunction = async (val,page,pageRows) => {
+  const searchFunction = async (val, page, pageRows) => {
     const url = urls.search + "/" + selectedType;
     let extHeader = {
       value: val,
     };
     let result = await DoFetch(url, "GET", null, extHeader);
- 
+
     if (result.success === true) {
       if (selectedType == "client") {
         let records = [];
@@ -33,7 +33,7 @@ const SearchForAdmin = () => {
         result.payload.records.forEach((lead, idx) => {
           records.push({
             key: lead._id,
-            _id: ((page - 1) * pageRows) + idx + 1,
+            _id: (page - 1) * pageRows + idx + 1,
             name: lead.name,
             email: lead.email,
             phone: lead.phone,
@@ -41,14 +41,13 @@ const SearchForAdmin = () => {
             origin: lead?.origin,
             created: parseCustomDate(lead?.createdAt),
             assigned: lead.task[0]?._id ? true : false,
-            agent: lead.user[0]||{},
-            task: lead.task[0]||{},
+            agent: lead.user[0] || {},
+            task: lead.task[0] || {},
           });
         });
         setdata(records);
         setTotalData(records.length);
-      } 
-      else {
+      } else {
         let agent = [];
         result.payload.records.forEach((e, idx) => {
           agent.push({
@@ -98,7 +97,7 @@ const SearchForAdmin = () => {
       dataIndex: "last_login",
       width: 150,
       render: (_, record) => {
-        return <span>{_?formatDate(_):""}</span>;
+        return <span>{_ ? formatDate(_) : ""}</span>;
       },
     },
     {
@@ -107,8 +106,7 @@ const SearchForAdmin = () => {
       dataIndex: "last_logout",
       width: 150,
       render: (_, record) => {
-        return <span>{_?formatDate(_):""}</span>;
-
+        return <span>{_ ? formatDate(_) : ""}</span>;
       },
     },
     {
@@ -176,6 +174,14 @@ const SearchForAdmin = () => {
         return <AgentLead status={"Hot Lead"} record={record} />;
       },
     },
+    {
+      title: "Quotation Given",
+      key: "Quotation_Given",
+      dataIndex: "Quotation_Given",
+      render: (_, record) => {
+        return <AgentLead status={"Quotation Given"} record={record} />;
+      },
+    },
   ];
   //header for table
   const columnsforLeads = [
@@ -214,7 +220,7 @@ const SearchForAdmin = () => {
       dataIndex: "Task",
       width: 160,
       render: (_, record) => {
-        return <p>{record.task.state||"Unassigned"}</p>;
+        return <p>{record.task.state || "Unassigned"}</p>;
       },
     },
 
@@ -242,12 +248,11 @@ const SearchForAdmin = () => {
   const handleChange = (value) => {
     setselectedType(value);
 
-    setdata([])
+    setdata([]);
   };
   const handleTablePageChange = (pagination) => {
     setCurrentPage(pagination.current);
     setCurrentPageSize(pagination.pageSize);
-
   };
 
   return (
@@ -272,7 +277,8 @@ const SearchForAdmin = () => {
           options={options}
         />
       </Space>
-      <Table locale={{ emptyText: 'No Data available' }}
+      <Table
+        locale={{ emptyText: "No Data available" }}
         style={{ maxWidth: "100%" }}
         columns={selectedType == "client" ? columnsforLeads : columnsForAgent}
         dataSource={data}

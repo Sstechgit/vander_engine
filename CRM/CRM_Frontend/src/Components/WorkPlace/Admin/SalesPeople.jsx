@@ -13,6 +13,7 @@ export default function SalesPeople({setload}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setCurrentPageSize] = useState(10);
   const [TotalData, setTotalData] = useState(0);
+
   const [IsSelection, setIsSelection] = useState(false);
   //states for modal
   const [open, setOpen] = useState(false);
@@ -31,7 +32,6 @@ export default function SalesPeople({setload}) {
     let url = urls.AllAgents;
 
     let result = await DoFetch(url + `/${page}/${pageRows}`);
-
 
     if (result.success) {
       let records = [];
