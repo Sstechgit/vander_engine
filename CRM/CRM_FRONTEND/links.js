@@ -1,8 +1,8 @@
 //  export const base = "https://sstechcrm.com";
-// export const base = "http://backend.sstechcrm.com"
+export const base = "http://backend.sstechcrm.com"
 // export const base = "http://crmbackend.ap-south-1.elasticbeanstalk.com"
 // export const base = "http://backend.sstechcrm.com";
-export const base = "http://localhost:8000";
+// export const base = "http://localhost:8000";
 export const urls = {
   LOGIN: base + "/api/login",
   REGISTER: base + "/api/user",
@@ -31,32 +31,32 @@ export const urls = {
   changeStatusOrder: base + "/api/orders/status",
   addnote: base + "/api/note", //post
   editnote: base + "/api/note", //put
-  deletenote:base+"/api/note" ,//delete
-  getByKey:base+"/api/noteByKey",//get
-  getbydate:base+"/api/noteByDate",
-  FetchMail:base+"/api/emails",
-  sendMail:base+"/api/email",
-  checkMail:base+"/api/emailCount",
-  deleteTask:base+"/api/task",
+  deletenote: base + "/api/note", //delete
+  getByKey: base + "/api/noteByKey", //get
+  getbydate: base + "/api/noteByDate",
+  FetchMail: base + "/api/emails",
+  sendMail: base + "/api/email",
+  checkMail: base + "/api/emailCount",
+  deleteTask: base + "/api/task",
   // //added-
-  getCompletedOrders:base+"/api/CompletedOrder",
-  getCompletedTasks:base+"/api/CompletedTask",
-  addFollowup:base+"/api/followup",
-  getFollowup:base+"/api/followup",
-  deleteFollowup:base+"/api/followup",
-
-  EditFollowUp:base+"/api/followup" ,//put
-  getStatus:base+"/api/status",
-  // followupKey:base+"/api/followupDetails",
-  // SearchByName:base+"/api/searchByName",
-  // addQuotation:base+"/api/quotation", //post
-  // editQuotation:base+"/api/quotation", //put
-  // deleteQuotion:base+"/api/quotation", //delete
-  // fetchQuotation:base+"/api/quotation", //get /1/10
-  // addToVander:base+"/api/addToVander",//post
+  getCompletedOrders: base + "/api/CompletedOrder",
+  getCompletedTasks: base + "/api/CompletedTask",
+  addFollowup: base + "/api/followup",
+  getFollowup: base + "/api/followup",
+  deleteFollowup: base + "/api/followup",
+  EditFollowUp: base + "/api/followup", //put
+  getStatus: base + "/api/status",
+  followupKey: base + "/api/followupDetails",
+  SearchByName: base + "/api/searchByName",
+  addQuotation: base + "/api/quotation", //post
+  editQuotation: base + "/api/quotation", //put
+  deleteQuotion: base + "/api/quotation", //delete
+  fetchQuotation: base + "/api/quotation", //get /1/10
+  addToVander: base + "/api/addToVander", //post
   trackAgent: base + "/api/TrackAgent",
-  // TaskOnStatus:base+"/api/TaskOnStatus", //get /1/10
-  // getSingleLead:base+"/api/getLead",  search:base+"/api/search", // /:name
+  TaskOnStatus: base + "/api/TaskOnStatus", //get /1/10
+  // getSingleLead:base+"/api/getLead",
+  //  search:base+"/api/search", // /:name
   // getReminder:base+"/api/reminder",
   // // yards
   // addYard:base+"/api/yard", //post

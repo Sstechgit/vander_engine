@@ -14,7 +14,7 @@ const statusColors = {
   "Already Purchased": "purple",
   Sale: "#52bf3d",
   "Hot Lead": "#ff5722",
-  Closed: "black",
+  "Quotation Given": "black",
   "Exchange":"brown",
   "No Response": "gray",
 };
@@ -184,7 +184,7 @@ const Agent_Home = () => {
           "Hot Lead",
           "Exchange",
           "No Response",
-          "Closed",
+          "Quotation Given",
           
         ].map((status) => (
           <div className="card" key={status}>
