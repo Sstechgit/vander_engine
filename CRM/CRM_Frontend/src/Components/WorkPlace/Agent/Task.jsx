@@ -132,7 +132,7 @@ export default function Task({ setload }) {
       key: "send email",
       width: 120,
       render: (_, record) => {
-        return <EmailConversation record={record}  />;
+        return <EmailConversation record={record} setload={setload} />;
       },
     },
     {
@@ -181,7 +181,7 @@ export default function Task({ setload }) {
       key: "Search",
       title: "",
       render: (_, record) => {
-        return <Searcher record={record}  />;
+        return <Searcher record={record} setload={setload} />;
       },
     },
     {
@@ -197,7 +197,7 @@ export default function Task({ setload }) {
       dataIndex: "status",
       key: "status",
       render: (_, record) => {
-        return <Status record={record}  />;
+        return <Status record={record} setload={setload} />;
       },
     },
     {
@@ -206,7 +206,7 @@ export default function Task({ setload }) {
       key: "follow",
       width: 100,
       render: (_, record) => {
-        return <AddFollow record={record}  />;
+        return <AddFollow record={record} setload={setload} />;
       },
     },
     {
@@ -243,7 +243,7 @@ export default function Task({ setload }) {
       key: "viewnote",
       width: 110,
       render: (_, record) => {
-        return <ViewNote record={record}  />;
+        return <ViewNote record={record} setload={setload} />;
       },
     },
 

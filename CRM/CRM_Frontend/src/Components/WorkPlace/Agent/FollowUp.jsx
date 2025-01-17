@@ -99,7 +99,10 @@ export default function FollowUp({setload}) {
   ];
   
   const FetchFollowup = async () => {
-   
+    setload({
+      spin:true,tip:"Loading"
+    })
+
     let url = urls.getFollowup;
     let result = await DoFetch(url);
 
@@ -151,7 +154,9 @@ export default function FollowUp({setload}) {
           });
         }
       });
-      
+      setload({
+        spin:false,tip:""
+      })
       setFollowUp(followup);
     }
   }

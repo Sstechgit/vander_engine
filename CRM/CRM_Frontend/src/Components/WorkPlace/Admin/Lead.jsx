@@ -27,7 +27,6 @@ export default function Lead({setload}) {
   const [errors, seterrors] = useState({});
   const [Leads, setLeads] = useState([]);
 
-
   const [messageApi, contextHolder] = message.useMessage();
   //states for lead distribution
   const [selectedLeads, setSelectedLeads] = useState([])
@@ -36,7 +35,7 @@ export default function Lead({setload}) {
   const [redistribute, setredistribute] = useState(false)
   //states for selection
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setCurrentPageSize] = useState(50);
+  const [pageSize, setCurrentPageSize] = useState(100);
   const [TotalData, setTotalData] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
 
@@ -66,9 +65,6 @@ export default function Lead({setload}) {
   });
   //fetch Leads
   const fetchLeads = async (page, pageRows) => {
-    setload({
-      spin:true,tip:"Loading"
-    })
   
     let url = urls.FetchLeads + `/${page}/${pageRows}`;
     
@@ -78,6 +74,7 @@ export default function Lead({setload}) {
       let records = [];
 
       result.payload.records.forEach((lead, idx) => {
+        console.log(records)
         records.push({
           key: lead._id,
           _id: (page - 1) * pageRows + idx + 1,
@@ -105,9 +102,6 @@ export default function Lead({setload}) {
     } else {
       alert("Server issue occured");
     }
-    setload({
-      spin:false,tip:""
-    })
    
   };
   //Delete a lead
@@ -441,20 +435,6 @@ export default function Lead({setload}) {
           danger: false,
         },  
   })}}, [selectedLeads]);
-
-  useEffect(() => {
-    const handleScroll = (e) => {
-        const { scrollTop, scrollHeight, clientHeight } = e.target.scrollingElement;
-        if (scrollHeight - scrollTop === clientHeight) {
-            // Fetch the next page when scrolled to the bottom
-            fetchLeads(currentPage + 1, pageSize);
-        }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-}, [currentPage, pageSize]);
-
  
 
   useEffect(() => {
@@ -519,7 +499,7 @@ export default function Lead({setload}) {
               pageSize: pageSize,
               total: TotalData,
               showSizeChanger: true,
-              pageSizeOptions: ["50", "100", "200", "300", "400", "500"],
+              pageSizeOptions: ["100", "200", "300", "400", "500", "600"],
               onChange: (page, pageSize) => {
                 setCurrentPage(page);
                 setCurrentPageSize(pageSize);

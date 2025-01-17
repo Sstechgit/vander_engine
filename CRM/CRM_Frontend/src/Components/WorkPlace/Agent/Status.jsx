@@ -77,7 +77,7 @@ export default function Status({ record, setload }) {
           { value: "Hot Lead", label: "Hot Lead" },
           { value: "Exchange", label: "Exchange" },
           { value: "No Response", label: "No Response" },
-          { value: "Quotation Given", label: "Quotation Given" },
+          { value:  "Quotation Given", label:  "Quotation Given" },
         ]}
         value={selectVal}
         onChange={onchange}

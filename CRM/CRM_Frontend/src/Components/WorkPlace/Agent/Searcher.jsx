@@ -92,10 +92,10 @@ export default function Searcher({
 
   const getResult = async () => {
     setOpen(true);
-    setload({
-      spin: true,
-      tip: "Loading",
-    });
+    // setload({
+    //   spin: true,
+    //   tip: "Loading",
+    // });
     let url = urls.searchProduct;
     let order = record.order;
     console.log(record);
@@ -120,10 +120,10 @@ export default function Searcher({
       setproduct(records);
       setTotalData(result.total);
     }
-    setload({
-      spin: false,
-      tip: "",
-    });
+    // setload({
+    //   spin: false,
+    //   tip: "",
+    // });
   };
   let columns = [
     { key: "make", title: "Make", dataIndex: "make" },

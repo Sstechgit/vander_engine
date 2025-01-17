@@ -12,7 +12,7 @@ import DisplayTableModal from "./DisplayTableModal";
 export default function Client({setload}) {
   const [Client, setClient] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setCurrentPageSize] = useState(10);
+  const [pageSize, setCurrentPageSize] = useState(50);
   const [TotalData, setTotalData] = useState(0);
 
   const [IsSelection, setIsSelection] = useState(false);
@@ -30,9 +30,9 @@ export default function Client({setload}) {
   const [recordForViewTask, setRecordForViewTask] = useState([])
   const [openTaskModal, setOpenTaskModal] = useState(false)
   const fetchAgents = async (page, pageRows) => {
-    setload({
-      spin:true,tip:"Loading"
-    })
+    // setload({
+    //   spin:true,tip:"Loading"
+    // })
 
     let url = urls.GetClients;
 
@@ -62,9 +62,9 @@ export default function Client({setload}) {
     } else {
       alert("Server issue occured");
     }
-    setload({
-      spin:false,tip:""
-    })
+    // setload({
+    //   spin:false,tip:""
+    // })
   };
   const AddAgent = () => {
     settitle("Add A New Agent");
@@ -125,13 +125,7 @@ export default function Client({setload}) {
     { key: "description", title: "Lead Description", dataIndex: "description" },
     { key: "agent", title: "Assigned Agent", dataIndex: "user_email" },
     { key: "state", title: "Status", dataIndex: "state" },
-    { key: "origin", title: "Origin", dataIndex: "origin" },
-
-
-
-
-
-    
+    { key: "origin", title: "Origin", dataIndex: "origin" },    
   ]
 
   //Edit Modal function
@@ -206,14 +200,25 @@ export default function Client({setload}) {
             rowSelection={{ type: "checkbox", ...rowSelection }}
             columns={columns}
             dataSource={Client}
-            pagination={false}
+            pagination={{
+              current: currentPage,
+              pageSize: pageSize,
+              total: TotalData,
+              showSizeChanger: true,
+              pageSizeOptions: ["50", "100", "200", "300", "400", "500"],
+              onChange: (page, pageSize) => {
+                setCurrentPage(page);
+                setCurrentPageSize(pageSize);
+                fetchLeads(page, pageSize);
+              },
+            }}
             scroll={{ y: 450 }} // Ensure table content is scrollable
             onChange={handleTablePageChange}
           ></Table>
         </div>
         <div className="flex justify-between m-8">
           <GeneralHeader operations={opArr} />
-          <Pagination
+          {/* <Pagination
             current={currentPage}
             pageSize={pageSize}
             total={TotalData}
@@ -224,7 +229,7 @@ export default function Client({setload}) {
               setCurrentPageSize(pageSize);
               fetchAgents(page, pageSize);
             }}
-          />
+          /> */}
         </div>
       </div>
     </>
