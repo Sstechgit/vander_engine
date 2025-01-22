@@ -16,14 +16,6 @@ const imap = new Imap({
   tls: true,
   tlsOptions: { rejectUnauthorized: false },
 });
-const imap2 = new Imap({
-  user: "info@usaautopartsllc.com", // Replace with the second email
-  password: "Shobhitrastogi@881037",  // Replace with the second email password
-  host: "imap.hostinger.com",       // Same IMAP server or update if different
-  port: 993,
-  tls: true,
-  tlsOptions: { rejectUnauthorized: false },
-});
 const popup = {
   // Matches "Additional Details:" followed by any amount of whitespace and captures everything after it
   additionalDetails: /Additional\s*Details\s*:\s*([\s\S]*)/,
@@ -360,11 +352,10 @@ function fetchMessageFromEmail() {
 
   imap.connect();
 }
-function FindMails() {
-  fetchMessageFromEmail(imap);
-  // fetchMessageFromEmail(imap2);
-}
-
+const FindMails = () => {
+  fetchMessageFromEmail();
+  // fetchMessageFromEmail('Fwd: Query Through www.vanderengines.com'); auto parts
+};
 // Start fetching and monitoring the inbox for new messages
 
 module.exports = { FindMails };

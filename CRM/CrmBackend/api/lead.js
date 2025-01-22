@@ -1,12 +1,18 @@
 const { Router } = require("express");
-const ValidateToken = require("../middleware/token");
-require("dotenv").config();
 const { check } = require("express-validator");
-const io = require("../index").io; // Assuming io is exported from index.js
-const leadController = require("../controller/lead")(io); // Pass io to the exported function
-
+const {
+  AddLead,
+  fetchLead,
+  DeleteLead,
+  EditLead,
+  ShowAllUnAssignedLead,
+  searchByName,
+  getSingleLead,
+} = require("../controller/lead");
+const ValidateToken = require("../middleware/token");
 const route = Router();
 
+//endpoints- insert a new lead, delete a lead, edit a lead ,fetch lead
 route.post(
   "/lead",
   [
@@ -18,28 +24,26 @@ route.post(
     check("description", "Description must be given").exists(),
     check("origin", "Origin must be given").exists(),
   ],
-  leadController.AddLead // Use the controller function
+  AddLead
 );
 
-route.get("/leads/:page/:pageSize", leadController.fetchLead);
-route.post("/DeleteLead", ValidateToken, leadController.DeleteLead);
+route.get("/leads/:page/:pageSize", fetchLead);
+route.post("/DeleteLead", ValidateToken, DeleteLead);
+const phoneNumberPattern = /^(?:\+1\s?)?(?:\d{3}[-.\s]?)?\d{3}[-.\s]?\d{4}$/;
 route.put(
-  "/lead",
-  ValidateToken,
+  "/lead",ValidateToken,
   [
     check("name", "Name must be present").isLength({ min: 1 }),
     check("email", "Email must be valid").isEmail(),
-    check("phone", "Mobile Number must be valid")
-      .isNumeric()
-      .isLength({ min: 10, max: 10 }),
+    check('phone',"Mobile Number must be valid").matches(phoneNumberPattern),
     check("description", "Description must be given").exists(),
     check("origin", "Origin must be given").exists(),
   ],
-  leadController.EditLead
+  EditLead
 );
+route.get("/filterLead/:way",ShowAllUnAssignedLead)
+route.get("/searchByName",searchByName)
+route.get("/getLead",ValidateToken,getSingleLead)
 
-route.get("/filterLead/:way", leadController.ShowAllUnAssignedLead);
-route.get("/searchByName", leadController.searchByName);
-route.get("/getLead", ValidateToken, leadController.getSingleLead);
 
 module.exports = route;
