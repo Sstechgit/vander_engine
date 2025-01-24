@@ -54,7 +54,7 @@ export default function SMO() {
           content="Best Social Media Management Agency in Chicago. find best Social Media Strategy Expert in Chicago . Top SMO of service provider in Chicago."
         />
       </Helmet>
-      <Popup />
+      {/* <Popup /> */}
       <div className="smo py-3">
         <div className="container pt-2 h-100">
           <div className="row align-items-center justify-content-center h-100">

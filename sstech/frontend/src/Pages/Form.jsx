@@ -75,7 +75,7 @@ export default function Form() {
           </div>
           <div className="col-lg-6">
             <form onSubmit={handleSubmit} className="main-form">
-              <h3 className="text-center">Get a Free Consultation</h3>
+              <h3 className="text-center">Connect With Expert</h3>
               <div className="mb-2">
                 <label htmlFor="name" className="form-label">
                   Name <span className="text-danger fw-bold fs-5">*</span>
@@ -121,7 +121,7 @@ export default function Form() {
                   Website URL
                 </label>
                 <input
-                  type="url"
+                  type="text"
                   className="form-control"
                   id="website"
                   value={website}

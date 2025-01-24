@@ -118,14 +118,15 @@ const StoreFormData = async (mail) => {
     extractedData = ExtractFormEmailData(mail.text, patternsForForm);
   } else if (mail.text.includes("Additional Details:") && !mail.text.includes("CVV")) {
     extractedData = ExtractFormEmailData(mail.text, popup);
+    // console.log(extractedData)
   } else if (mail.text.includes("Service")) {
     extractedData = ExtractFormEmailData(mail.text, patternsForContact);
   } else {
     extractedData = ExtractFormEmailData(mail.text, patternsForOrder);
   }
 
-  console.log(extractedData);
-  console.log(mail.text);
+  // console.log(extractedData);
+  // console.log(mail.text);
 
   let origin;
   if (mail.to && mail.to.value && mail.to.value.length > 0) {
@@ -147,19 +148,21 @@ const StoreFormData = async (mail) => {
 
   try {
     if (!extractedData?.cvv) {
-      console.log(extractedData);
-      const { name, phone, description, date } = extractedData;
-      let email = "";
-      if (mail.from && mail.from.value && mail.from.value.length > 0) {
-        if (mail.from.value[0].address == "info@usaautopartsllc.com") {
-          email = extractedData.email;
-        } else {
-          email = mail.from.value[0].address;
-        }
-      } else {
-        console.error("mail.from is undefined or empty");
-        return;
-      }
+     
+      const { name, phone, description, date,email } = extractedData;
+      console.log("test68767678")
+      console.log(extractedData)
+      // let email = "";
+      // if (mail.from && mail.from.value && mail.from.value.length > 0) {
+      //   if (mail.from.value[0].address == "info@usaautopartsllc.com") {
+      //     email = extractedData.email;
+      //   } else {
+      //     email = mail.from.value[0].address;
+      //   }
+      // } else {
+      //   console.error("mail.from is undefined or empty");
+      //   return;
+      // }
 
       const LeadRecord = await leads.create({
         name,
@@ -169,6 +172,7 @@ const StoreFormData = async (mail) => {
         origin,
         createdAt: date,
       });
+      console.log(LeadRecord)
     } else {
       const {
         name,
@@ -213,7 +217,7 @@ function fetchMessageFromEmail() {
     imap.openBox("INBOX", false, function (err, box) {
       if (err) throw err;
 
-      console.log("Opened INBOX.");
+      // console.log("Opened INBOX.");
 
       // Function to fetch unseen messages
       function fetchUnseenMessages() {
@@ -240,21 +244,23 @@ function fetchMessageFromEmail() {
                   //   console.log("HTML Body:", mail.html);
 
                   // console.log(mail.text.mail.messageId, mail.inReplyTo, mail);
-                  console.log(
-                    mail.from,
-                    mail.inReplyTo,
-                    mail.subject,
-                    mail.references,
-                    typeof mail.references,
-                    mail.text
-                  );
+                  // console.log(
+                  //   mail.from,
+                  //   mail.inReplyTo,
+                  //   mail.subject,
+                  //   mail.references,
+                  //   typeof mail.references,
+                  //   mail.text
+                  // );
                   if (
                     subjectRegex.test(mail.subject) || 
                     mail.subject.includes("Query Through www.usaauto-parts.com") ||
                     mail.from.value[0].address === "info@usaautopartsllc.com"
                   ) {
                     StoreFormData(mail);
+                    // console.log(mail);
                   }
+                  
                   else {
                     if (mail.subject.includes("Re:") && mail.inReplyTo) {
                       //check the in reply to in emails
