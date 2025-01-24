@@ -42,7 +42,7 @@ const Career = () => {
 
   return (
     <>
-      <Popup />
+      {/* <Popup /> */}
 
       {/* Hero Section */}
       <div className="job-hero py-4">

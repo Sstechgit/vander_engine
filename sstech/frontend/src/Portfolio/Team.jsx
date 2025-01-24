@@ -30,14 +30,14 @@ const teamMembers = [
 const Team = () => {
   return (
     <section className="team">
-      <div className="container-fluid mx-4">
+      <div className="container-fluid ">
         <h2 className="h1 text-center">
           Meet Our <span style={{ color: "#3b6cb4" }}>Team </span>{" "}
         </h2>
         <div className="row my-5">
           {teamMembers.map((item, index) => (
             <div
-              className="col-lg-3 team-img d-flex flex-column justify-content-center align-items-center"
+              className="col-lg-3 team-img d-flex flex-column justify-content-center align-items-center mb-3"
               key={index}
             >
               <img

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Home_form() {
   const [name, setName] = useState("");
@@ -9,7 +9,7 @@ export default function Home_form() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const location = useLocation();
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -24,13 +24,16 @@ export default function Home_form() {
     };
 
     try {
-      const response = await fetch("https://newbackend.sstechservices.net/api/receive-msg", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Send data as JSON
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://newbackend.sstechservices.net/api/receive-msg",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // Send data as JSON
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to submit the form");
@@ -55,69 +58,92 @@ export default function Home_form() {
       setLoading(false);
     }
   };
-
-
+  const Formtitle = () => {
+    switch (location.pathname) {
+      case "/":
+        return "Get Free Site Audit";
+      case "/web-development-agency-chicago":
+        return "Book A Demo";
+      case "/ppc-company-chicago":
+        return "Connect With PPC Expert";
+      case "/seo-agency-chicago":
+        return "Free Site Audit";
+        case "/contact":
+          return "Get in Touch with Us";
+      default:
+        return "Get a Free Consultation";
+    }
+  };
   return (
     <div>
       {" "}
-      <div className="" >
-        <form onSubmit={handleSubmit} className="main-form text-warning" style={{border:"10px solid rgb(201 195 195)", boxShadow:"none" , borderRadius:"0"}}>
-          <h3 className="text-center">Get a Free Consultation</h3>
+      <div className="">
+        <form
+          onSubmit={handleSubmit}
+          className="main-form text-warning"
+          style={{
+            border: "10px solid rgb(201 195 195)",
+            boxShadow: "none",
+            borderRadius: "0",
+          }}
+        >
+          <h3 className="text-center"> {Formtitle()}</h3>
           <div className="row">
-          <div className="mb-3 col-6">
-            <label htmlFor="name" className="form-label">
-              Name <span className="text-danger fw-bold fs-5">*</span>
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              required
-            />
+            <div className="mb-3 col-6">
+              <label htmlFor="name" className="form-label">
+                Name <span className="text-danger fw-bold fs-5">*</span>
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-3 col-6">
+              <label htmlFor="number" className="form-label">
+                Number <span className="text-danger fw-bold fs-5">*</span>
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="number"
+                value={number}
+                onChange={(event) => setNumber(event.target.value)}
+                required
+              />
+            </div>
           </div>
-          <div className="mb-3 col-6">
-            <label htmlFor="number" className="form-label">
-              Number <span className="text-danger fw-bold fs-5">*</span>
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="number"
-              value={number}
-              onChange={(event) => setNumber(event.target.value)}
-              required
-            />
+          <div className="row">
+            <div className="mb-3 col-6">
+              <label htmlFor="email" className="form-label">
+                Email address{" "}
+                <span className="text-danger fw-bold fs-5">*</span>
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+              />
+            </div>
+            <div className=" col-6">
+              <label htmlFor="website" className="form-label">
+                Website URL
+              </label>
+              <input
+                type="type"
+                className="form-control"
+                id="website"
+                value={website}
+                onChange={(event) => setWebsite(event.target.value)}
+              />
+            </div>
           </div>
-          </div>
-        <div className="row">
-        <div className="mb-3 col-6">
-            <label htmlFor="email" className="form-label">
-              Email address <span className="text-danger fw-bold fs-5">*</span>
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-          </div>
-          <div className=" col-6">
-            <label htmlFor="website" className="form-label">
-              Website URL
-            </label>
-            <input
-              type="url"
-              className="form-control"
-              id="website"
-              value={website}
-              onChange={(event) => setWebsite(event.target.value)}
-            />
-          </div>
-        </div>
           <div className="mb-3">
             <label htmlFor="message" className="form-label">
               Comment or Message

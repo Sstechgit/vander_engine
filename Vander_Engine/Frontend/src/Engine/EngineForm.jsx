@@ -126,7 +126,7 @@ export default function EngineForm({
       alert("Please select all fields before searching.");
       return;
     }
-
+    // handlePhoneSubmit();
     // Skip phone validation if we are already on the product page (or if we are not submitting the form)
     const path = `/engine/${selectedYear}/${selectedMake}/${selectedModel}`;
     navigate(path);
@@ -138,6 +138,11 @@ export default function EngineForm({
       alert(error); // Show the validation error directly
       return;
     }
+      // Ensure the variant field is selected as part of the form submission
+  if (!selectedVariant) {
+ 
+    return;
+  }
 
     if (phoneNumber.trim()) {
       setShowModal(false);
@@ -235,6 +240,7 @@ export default function EngineForm({
         "https://backend.vanderengines.com/api/leads",
         formData
       );
+      console.log(formData)
       console.log(response.data);
       setForm1SuccessMessage("Form submitted successfully! Thank you.");
     } catch (error) {

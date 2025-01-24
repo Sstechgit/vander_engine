@@ -26,7 +26,7 @@ export default function Home() {
         />
       </Helmet>
 
-      <Popup />
+      {/* <Popup /> */}
       <div className="home py-4">
         <div className="container">
           <div className="row align-items-center justify-content-center">

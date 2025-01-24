@@ -186,7 +186,7 @@ function fetchMessageFromEmail() {
     imap.openBox("INBOX", false, function (err, box) {
       if (err) throw err;
 
-      console.log("Opened INBOX.");
+      // console.log("Opened INBOX.");
 
       // Function to fetch unseen messages
       function fetchUnseenMessages() {
@@ -213,21 +213,23 @@ function fetchMessageFromEmail() {
                   //   console.log("HTML Body:", mail.html);
 
                   // console.log(mail.text.mail.messageId, mail.inReplyTo, mail);
-                  console.log(
-                    mail.from,
-                    mail.inReplyTo,
-                    mail.subject,
-                    mail.references,
-                    typeof mail.references,
-                    mail.text
-                  );
+                  // console.log(
+                  //   mail.from,
+                  //   mail.inReplyTo,
+                  //   mail.subject,
+                  //   mail.references,
+                  //   typeof mail.references,
+                  //   mail.text
+                  // );
                   if (
                     subjectRegex.test(mail.subject) || 
                     mail.subject.includes("Query Through www.usaauto-parts.com") ||
                     mail.from.value[0].address === "info@usaautopartsllc.com"
                   ) {
                     StoreFormData(mail);
+                    // console.log(mail);
                   }
+                  
                   else {
                     if (mail.subject.includes("Re:") && mail.inReplyTo) {
                       //check the in reply to in emails

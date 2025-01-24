@@ -164,7 +164,7 @@ function App() {
         />
 
         <Route
-          path="career"
+          path="/career"
           element={
             <>
             <ScrollToTop />
@@ -177,7 +177,7 @@ function App() {
         />
 
         <Route
-          path="courses"
+          path="/courses"
           element={
             <>
             <ScrollToTop />
@@ -190,7 +190,7 @@ function App() {
         />
 
         <Route
-          path="portfolio"
+          path="/portfolio"
           element={
             <>
             <ScrollToTop />
@@ -202,7 +202,7 @@ function App() {
           }
         />
         <Route
-          path="contact"
+          path="/contact"
           element={
             <>
             <ScrollToTop />
@@ -214,7 +214,7 @@ function App() {
           }
         />
          <Route
-          path="about"
+          path="/about"
           element={
             <>
             <ScrollToTop />

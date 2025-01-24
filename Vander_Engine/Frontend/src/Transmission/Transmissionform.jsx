@@ -121,7 +121,7 @@ export default function EngineForm({
       alert("Please select all fields before searching.");
       return;
     }
-
+    // handlePhoneSubmit();
     // Skip phone validation if we are already on the product page (or if we are not submitting the form)
     const path = `/transmission/${selectedYear}/${selectedMake}/${selectedModel}`;
     navigate(path);
@@ -133,7 +133,10 @@ export default function EngineForm({
       alert(error); // Show the validation error directly
       return;
     }
-
+    if (!selectedVariant) {
+     
+      return;
+    }
     if (phoneNumber.trim()) {
       setShowModal(false);
 
@@ -239,27 +242,27 @@ export default function EngineForm({
   };
 
   const handleYearChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    // const { name, value, type, checked } = e.target;
 
-    if (name === "phone") {
-      let updatedValue = value;
+    // if (name === "phone") {
+    //   let updatedValue = value;
 
-      // Ensure '+1' is always present
-      if (!updatedValue.startsWith("+1")) {
-        updatedValue = "+1" + updatedValue.replace(/[^0-9]/g, ""); // Re-add '+1' if missing and remove invalid characters
-      }
+    //   // Ensure '+1' is always present
+    //   if (!updatedValue.startsWith("+1")) {
+    //     updatedValue = "+1" + updatedValue.replace(/[^0-9]/g, ""); // Re-add '+1' if missing and remove invalid characters
+    //   }
 
-      // Validate the phone number
-      const error = validatePhoneNumber(updatedValue);
-      setPhoneError(error); // Set the error message
+    //   // Validate the phone number
+    //   const error = validatePhoneNumber(updatedValue);
+    //   setPhoneError(error); // Set the error message
 
-      setFormData((prev) => ({
-        ...prev,
-        phone: updatedValue, // Update with the corrected value
-      }));
+    //   setFormData((prev) => ({
+    //     ...prev,
+    //     phone: updatedValue, // Update with the corrected value
+    //   }));
 
-      return; // Exit here to avoid further processing for phone
-    }
+    //   return; // Exit here to avoid further processing for phone
+    // }
 
     const year = e.target.value;
     setSelectedYear(year);
@@ -396,9 +399,7 @@ export default function EngineForm({
                   Submit
                 </button>
                 <div>
-                  {form1SuccessMessage && (
-                    <p className="text-success">{form1SuccessMessage}</p>
-                  )}
+                  {form1SuccessMessage && <p className="text-success">{form1SuccessMessage}</p> }
                 </div>
               </div>
             </div>
