@@ -51,7 +51,7 @@ export default function Update_Product() {
 
         try {
             const response = await axios.post(
-                `https://backend.vanderengines.com/api/products/add?Stock=${formData.Stock}`,
+                `http://localhost:4020/api/products/add?Stock=${formData.Stock}`,
                 formDataToSubmit,
                 { headers: { "Content-Type": "multipart/form-data" } }
             );
