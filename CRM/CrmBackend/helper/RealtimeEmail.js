@@ -113,96 +113,69 @@ const subjectRegex = /Query Through www\.vanderengines\.com(?: Connect at (\+\d{
 
 const StoreFormData = async (mail) => {
   let extractedData = {};
-  if (!mail.text.includes("Service") && !mail.text.includes("CVV")) {
-    // Simple form contains year, etc.
-    extractedData = ExtractFormEmailData(mail.text, patternsForForm);
-  } else if (mail.text.includes("Additional Details:") && !mail.text.includes("CVV")) {
-    extractedData = ExtractFormEmailData(mail.text, popup);
-  } else if (mail.text.includes("Service")) {
-    extractedData = ExtractFormEmailData(mail.text, patternsForContact);
-  } else {
-    extractedData = ExtractFormEmailData(mail.text, patternsForOrder);
-  }
 
-  console.log(extractedData);
-  console.log(mail.text);
+  // Determine data type
+  extractedData = ExtractFormEmailData(mail.text, patternsForForm);
 
-  let origin;
-  if (mail.to && mail.to.value && mail.to.value.length > 0) {
-    if (mail.to.value[0].address === process.env.LEAD_ORIGIN_1) {
+  console.log("Extracted Data:", extractedData);
+
+  // Identify origin based on recipient address
+  let origin = "";
+  if (mail.to?.value?.length > 0) {
+    const recipientAddress = mail.to.value[0].address;
+    if (recipientAddress === process.env.LEAD_ORIGIN_1) {
       origin = "Vander Engines";
-    } else if (mail.to.value[0].address === process.env.LEAD_ORIGIN_2) {
+    } else if (recipientAddress === process.env.LEAD_ORIGIN_2) {
       origin = "USA AUTO PARTS";
     } else {
       origin = "USA AUTO PARTS LLC";
     }
   } else {
-    console.error("mail.to or mail.to.value is undefined or empty");
+    console.error("Recipient address missing in the email.");
     return;
   }
 
-  // Extract mobile number from the subject
-  const subjectMatch = mail.subject.match(subjectRegex);
-  const mobileNumber = subjectMatch && subjectMatch[1] ? subjectMatch[1] : null;
+  // Use Reply-To or From address for email
+  let email = "";
+  if (mail.replyTo?.value?.length > 0) {
+    email = mail.replyTo.value[0].address; // Prioritize Reply-To
+  } else if (mail.from?.value?.length > 0) {
+    email = mail.from.value[0].address; // Fallback to From
+  } else {
+    console.error("No valid email found in Reply-To or From.");
+    return;
+  }
 
   try {
-    if (!extractedData?.cvv) {
-      console.log(extractedData);
-      const { name, phone, description, date } = extractedData;
-      let email = "";
-      if (mail.from && mail.from.value && mail.from.value.length > 0) {
-        if (mail.from.value[0].address == "info@usaautopartsllc.com") {
-          email = extractedData.email;
-        } else {
-          email = mail.from.value[0].address;
-        }
-      } else {
-        console.error("mail.from is undefined or empty");
-        return;
-      }
+    const { name, phone, description, year, make, model, part } = extractedData;
 
-      const LeadRecord = await leads.create({
-        name,
-        email,
-        phone: phone || mobileNumber, // Use the mobile number if the phone is not available
-        description,
-        origin,
-        createdAt: date,
-      });
+    // Check if a lead with the same phone exists
+    const existingLead = await leads.findOne({ phone });
+
+    if (existingLead) {
+      // Update lead if email differs
+      if (existingLead.email !== email) {
+        existingLead.email = email;
+        existingLead.origin = origin;
+        await existingLead.save();
+        console.log("Existing lead updated with new email.");
+      } else {
+        console.log("Lead already exists with the same email. Skipping save.");
+      }
     } else {
-      const {
+      // Create new lead
+      await leads.create({
         name,
         email,
         phone,
-        partName,
-        cardNo,
-        expDate,
-        cvv,
-        amt,
-        billingAddress,
-        shippingAddress,
-        description,
-        date,
-      } = extractedData;
-      const OrderRecord = await orders.create({
-        name,
-        phone: phone || mobileNumber, // Use the mobile number if the phone is not available
-        email,
-        description,
-        part: partName,
-        card_no: cardNo,
-        expiry_date: expDate,
-        CVV: cvv,
-        amount: amt,
-        billing_address: billingAddress,
-        shipping_address: shippingAddress,
-        date: mail.date,
+        description: `${year} ${make} ${model} ${part} ${variant}`,
         origin,
+        createdAt: mail.date || new Date(),
       });
+      console.log("New lead created successfully.");
     }
   } catch (error) {
-    console.log(error);
-    WriteData(extractedData, error);
+    console.error("Error saving form data:", error);
   }
 };
 
