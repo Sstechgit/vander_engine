@@ -1,26 +1,25 @@
 import { Button, Radio, Space, Tabs, Input, List } from "antd";
 import React, { useEffect, useState } from "react";
+import { io } from "socket.io-client";
 import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch";
 
 export default function AllNotes() {
-  // State Variables
-  const [agents, setagents] = useState([]);
+  const [agents, setAgents] = useState([]);
   const [tabPosition, setTabPosition] = useState("left");
-  const [selectedAgent, setSelectedAgent] = useState(null); // Holds the selected agent's info
-  const [messages, setMessages] = useState([]); // Holds the messages for chat
-  const [messageInput, setMessageInput] = useState(""); // Input field state for typing messages
-
-  // Pagination state variables
+  const [selectedAgent, setSelectedAgent] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [messageInput, setMessageInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  // Function to change tab position
+  const socket = io("http://backend.sstechcrm.com", {
+    transports: ["websocket"],
+  });
+
   const changeTabPosition = (e) => {
     setTabPosition(e.target.value);
   };
-
-  // Function to fetch agents with pagination
   const fetchTrackedAgents = async () => {
     const url = `${urls.trackAgent}/${currentPage}/${pageSize}`;
     const result = await DoFetch(url, "GET");
@@ -33,86 +32,103 @@ export default function AllNotes() {
           name: e.name,
         });
       });
-      setagents(agent);
+      setAgents(agent);
     }
   };
 
-  // Fetch agents when component mounts or page changes
   useEffect(() => {
     fetchTrackedAgents();
   }, [currentPage, pageSize]);
 
-  // Handle agent selection for chat
-  const handleAgentSelect = (agent) => {
-    setSelectedAgent(agent); // Set the selected agent
-    setMessages(loadMessages(agent.key)); // Load messages from localStorage for the selected agent
+  const loadMessages = async (agentKey) => {
+    const response = await fetch(
+      `http://backend.sstechcrm.com/api/messages/${agentKey}`
+    );
+    if (response.ok) {
+      return await response.json();
+    }
+    return [];
+  };
+  const saveMessages = async (agentKey, message) => {
+    await fetch("http://backend.sstechcrm.com/api/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ agentKey, ...message }),
+    });
   };
 
-  // Handle sending messages
-  const handleSendMessage = () => {
+  const handleAgentSelect = async (agent) => {
+    setSelectedAgent(agent);
+    const messages = await loadMessages(agent.key);
+    setMessages(messages);
+  };
+
+  const handleSendMessage = async () => {
     if (selectedAgent) {
-      // Ensure sender is always a string (check if it's not an object)
       const sender = String(sessionStorage.getItem("name") || "Admin");
-
-      // Create new message
-      const newMessage = { from: sender, text: messageInput };
-
-      // Update state with the new message
-      const newMessages = [...messages, newMessage];
-      setMessages(newMessages);
-
-      // Save updated messages to localStorage
-      saveMessages(selectedAgent.key, newMessages);
-
-      // Clear the input field after sending the message
+      const newMessage = {
+        from: sender,
+        text: messageInput,
+        isSentByClient: true,
+        to: selectedAgent.name,
+      };
+      socket.emit("sendMessage", {
+        agentKey: selectedAgent.key,
+        ...newMessage,
+      });
+      await saveMessages(selectedAgent.key, newMessage);
       setMessageInput("");
     }
   };
 
-  // Function to save messages to localStorage
-  const saveMessages = (agentKey, messages) => {
-    localStorage.setItem(`messages-${agentKey}`, JSON.stringify(messages));
-  };
+  useEffect(() => {
+    const handleNewMessage = (message) => {
+      console.log("New message received:", message);
+      if (
+        selectedAgent &&
+        message.agentKey === selectedAgent.key &&
+        !message.isSentByClient
+      ) {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      }
+    };
 
-  // Function to load messages from localStorage
-  const loadMessages = (agentKey) => {
-    const storedMessages = localStorage.getItem(`messages-${agentKey}`);
-    return storedMessages ? JSON.parse(storedMessages) : [];
-  };
-
+    socket.on("newMessage", handleNewMessage);
+    return () => {
+      socket.off("newMessage", handleNewMessage);
+    };
+  }, [selectedAgent]);
   return (
     <>
-      <div className="board w-[25%] text-center h-full">
+      <div className="board w-[25%] text-center">
         <div className="board-header" style={{ backgroundColor: "#cddff7" }}>
           <h1 className="text-2xl font-bold text-white bg-black py-2">
             Agents
           </h1>
-
           <Space>
             <Radio.Group
               value={tabPosition}
               onChange={changeTabPosition}
             ></Radio.Group>
           </Space>
-
           <Tabs
-            className="w-[100%] px-3 h-full"
+            className="w-[100%] px-3"
             tabPosition={tabPosition}
             onTabClick={(key) => {
-              const agent = agents.find((a) => a.key === key); // Find the selected agent based on tab key
-              handleAgentSelect(agent); // Open chat for selected agent
+              const agent = agents.find((a) => a.key === key);
+              handleAgentSelect(agent);
             }}
             items={agents.map((agent, idx) => ({
               label: (
                 <span className="text-base">
-                  <span style={{ marginRight: "8px" }}>{idx + 1}.</span>
+                  <span style={{ marginRight: "8px" }}>{idx + 1}</span>
                   {agent.name}
                 </span>
               ),
               key: agent.key,
               children: <div></div>,
             }))}
-            tabBarStyle={{ maxHeight: "auto", overflowY: "auto" }}
+            tabBarStyle={{ maxHeight: "500px", overflow: "auto" }}
           />
         </div>
       </div>
@@ -125,7 +141,7 @@ export default function AllNotes() {
             position: "absolute",
             top: "12%",
             left: "38%",
-            width: "60%", 
+            width: "60%",
             height: "85vh",
             padding: "2px",
             display: "flex",
@@ -143,8 +159,7 @@ export default function AllNotes() {
             }}
           >
             <h3>Hello, {selectedAgent.name}</h3>
-
-            {/* Display messages */}
+            {/*Display Messages*/}
             <List
               dataSource={messages}
               renderItem={(message, idx) => (
@@ -154,7 +169,6 @@ export default function AllNotes() {
               )}
             />
           </div>
-
           {/* Input field for typing messages */}
           <div
             style={{

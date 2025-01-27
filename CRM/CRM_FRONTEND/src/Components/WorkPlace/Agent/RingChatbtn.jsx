@@ -55,7 +55,7 @@ export default function RingChatbtn({ record, setload, auth, fetch, to }) {
     setfile(e.target.files[0]);
   };
   const addQuote = (quoteVal, setBody) => {
-    console.log(quoteVal, body);
+    // console.log(quoteVal, body);
     setBody((prev) => {
       // console.log(prev);
       return (
@@ -92,10 +92,10 @@ export default function RingChatbtn({ record, setload, auth, fetch, to }) {
     });
   };
   const handleSend = async () => {
-    setload({
-      spin: true,
-      tip: "Loading",
-    });
+    // setload({
+    //   spin: true,
+    //   tip: "Loading",
+    // });
     const formData = new FormData();
     formData.append("to", to);
     formData.append("text",body)
@@ -132,10 +132,10 @@ export default function RingChatbtn({ record, setload, auth, fetch, to }) {
  
       alert("Server Issue Occured");
     }
-    setload({
-      spin: false,
-      tip: "",
-    });
+    // setload({
+    //   spin: false,
+    //   tip: "",
+    // });
   };
   
   return (

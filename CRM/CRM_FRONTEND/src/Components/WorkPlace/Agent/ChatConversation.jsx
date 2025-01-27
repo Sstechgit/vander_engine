@@ -79,7 +79,7 @@ export default function ChatConversation({setload}) {
         const result = await DoFetch(urls.checksms,"GET",null,{"to":record.phone});
         
   
-  console.log(result)
+  // console.log(result)
         if (result.success) {
           if(result.payload.length==0){
             return

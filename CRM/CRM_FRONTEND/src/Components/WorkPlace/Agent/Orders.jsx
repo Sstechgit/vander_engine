@@ -10,9 +10,9 @@ export default function Orders({setload}) {
   const [task, settask] = useState([]);
   const [TotalData, setTotalData] = useState();
   const fetchTask = async (page, pageRows) => {
-    setload({
-      spin:true,tip:"Loading"
-    })
+    // setload({
+    //   spin:true,tip:"Loading"
+    // })
     let url = urls.getCompletedOrders + `/${page}/${pageRows}`;
     // console.log(url);
     let result = await DoFetch(url);
@@ -20,7 +20,7 @@ export default function Orders({setload}) {
     if (result.success == true) {
       let record = [];
       let idx = 0;
-      console.log(result)
+      // console.log(result)
       result.payload.records.forEach((taskval,idx) => {
           record.push({
             id: idx+1,
@@ -50,9 +50,9 @@ export default function Orders({setload}) {
     } else {
       alert("Server issue occured");
     }
-    setload({
-      spin:false,tip:""
-    })
+    // setload({
+    //   spin:false,tip:""
+    // })
   };
   const columns = [
     {

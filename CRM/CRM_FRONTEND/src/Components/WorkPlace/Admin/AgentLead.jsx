@@ -26,7 +26,7 @@ export default function AgentLead({ record, status }) {
       status: status,
     };
     const result = await DoFetch(url, "GET", null, extHeader);
-    console.log(result);
+    // console.log(result);
     if (result.success == true) {
       let tasks = [];
       result.payload.records.forEach((e, idx) => {

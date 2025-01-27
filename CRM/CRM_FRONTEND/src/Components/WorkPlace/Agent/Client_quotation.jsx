@@ -51,9 +51,9 @@ export default function Client_quotation({setload}) {
     if (!confirmDelete) {
       return;
     }
-    setload({
-      spin:true,tip:"Deleting"
-    })
+    // setload({
+    //   spin:true,tip:"Deleting"
+    // })
     let url = urls.deleteQuotion;
     let extHeader = {
       quotationId: record.key,
@@ -65,9 +65,9 @@ export default function Client_quotation({setload}) {
     } else {
       alert("Server Side Issue");
     }
-    setload({
-      spin:false,tip:""
-    })
+    // setload({
+    //   spin:false,tip:""
+    // })
   };
 
 

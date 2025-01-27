@@ -49,7 +49,7 @@ const Agent_Home = () => {
     }
 
     const result = await DoFetch(url);
-    console.log(result);
+    // console.log(result);
     if (result.success) {
       const taskData = result.payload.records.map((taskval, idx) => {
         const lead = taskval.leads[0] || {}; // Get the first lead (in case there are multiple)

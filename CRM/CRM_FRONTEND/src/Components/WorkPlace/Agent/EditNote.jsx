@@ -26,9 +26,9 @@ export default function EditNote({ record, fetchnotes , setload}) {
   //Edit Modal function
   const EditAgent = async () => {
     // seterrors([]);
-    setload({
-      spin:true,tip:"Loading"
-    })
+    // setload({
+    //   spin:true,tip:"Loading"
+    // })
     let url = urls.editnote;
     let formattedDate = dayjs(date).format("YYYY-MM-DD");
     let body = JSON.stringify({
@@ -46,9 +46,9 @@ export default function EditNote({ record, fetchnotes , setload}) {
     if(result.success==true){
       await fetchnotes()
     }
-    setload({
-      spin:false,tip:""
-    })
+    // setload({
+    //   spin:false,tip:""
+    // })
   };
   //---------------------------------------
   return (

@@ -48,7 +48,7 @@ const [allTasks, setallTasks] = useState([])
       NoteDate: dayjs(value).format("YYYY-MM-DD"),
     };
     const result = await DoFetch(url, "GET", null, extHeader);
-    console.log(result)
+    // console.log(result)
     if (result.success) {
       // console.log(result.payload)
       setallTasks(result.payload)

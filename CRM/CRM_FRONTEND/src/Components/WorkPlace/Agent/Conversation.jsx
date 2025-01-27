@@ -18,9 +18,9 @@ export default function Conversation({setload}) {
     if(recordId==null){
       return
     }
-    setload({
-      spin:true,tip:"Loading"
-    })
+    // setload({
+    //   spin:true,tip:"Loading"
+    // })
     const url=urls.FetchMail
     const extHeader={
       "record":recordId
@@ -32,9 +32,9 @@ export default function Conversation({setload}) {
       setsubject(result.payload.emailChat[0][0].subject)
       setCount(result.payload.conversation[0].count)
     }
-    setload({
-      spin:false,tip:""
-    })
+    // setload({
+    //   spin:false,tip:""
+    // })
   }
   const fetchInfoLead=async(id)=>{
     const url=urls.getSingleLead;
@@ -62,9 +62,9 @@ export default function Conversation({setload}) {
     fetchInfoLead(param.id)
   }, [])
   const sendmail=async(subject,text)=>{
-    setload({
-      spin:true,tip:"Loading"
-    })
+    // setload({
+    //   spin:true,tip:"Loading"
+    // })
 
     let url=urls.sendMail
     alert(origin)
@@ -99,9 +99,9 @@ export default function Conversation({setload}) {
     else{
       alert("Email is not sent.")
     }
-    setload({
-      spin:false,tip:""
-    })
+    // setload({
+    //   spin:false,tip:""
+    // })
   }
   
   const checkEmail=async()=>{

@@ -78,7 +78,7 @@ export default function Lead({ setload }) {
       let records = [];
 
       result.payload.records.forEach((lead, idx) => {
-        console.log(records);
+        // console.log(records);
         records.push({
           key: lead._id,
           _id: (page - 1) * pageRows + idx + 1,
