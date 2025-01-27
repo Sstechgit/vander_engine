@@ -243,6 +243,11 @@ export default function EngineForm({
       console.log(formData)
       console.log(response.data);
       setForm1SuccessMessage("Form submitted successfully! Thank you.");
+      setSelectedYear("");
+      setSelectedMake("");
+      setSelectedModel("");
+      setSelectedVariant("");
+      setPhoneNumber("");
     } catch (error) {
       console.error("There was an error submitting the form!", error);
       // Swal.fire("Error", "There was an error submitting the form!", "error");
