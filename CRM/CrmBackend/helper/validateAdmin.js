@@ -1,7 +1,7 @@
 const ErrorResponse = require("./Error")
 
 const validateAdmin=(req,res,next)=>{
-    if(req.designation=="Admin"){
+    if(req.designation=="Admin"|| "Agent"){
         next()
     }
     else{

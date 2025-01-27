@@ -30,10 +30,10 @@ export default function Client_quotation_function({
     description,
     setErrors,
   }) => {
-    setload({
-      spin: true,
-      tip: "Loading",
-    });
+    // setload({
+    //   spin: true,
+    //   tip: "Loading",
+    // });
     let url = urls.editQuotation;
     let body = JSON.stringify({
       part,
@@ -55,10 +55,10 @@ export default function Client_quotation_function({
   
     if (result.success == true) {
       await Editdata();
-      setload({
-        spin: false,
-        tip: "",
-      });
+      // setload({
+      //   spin: false,
+      //   tip: "",
+      // });
       return true;
     } else {
       let err = getErrors(result, [
@@ -76,10 +76,10 @@ export default function Client_quotation_function({
         alert(err.date);
       }
       setErrors(err);
-      setload({
-        spin: false,
-        tip: "",
-      });
+      // setload({
+      //   spin: false,
+      //   tip: "",
+      // });
       return false;
     }
   };

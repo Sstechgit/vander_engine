@@ -33,7 +33,7 @@ const RingCentralMessengerScript = ({ record }) => {
     if (window.RingCentral) {
       window.RingCentral.sendSMS(phoneNumber, messageContent)
         .then(response => {
-          console.log("Message sent successfully", response);
+          // console.log("Message sent successfully", response);
         })
         .catch(error => {
           console.error("Error sending message", error);

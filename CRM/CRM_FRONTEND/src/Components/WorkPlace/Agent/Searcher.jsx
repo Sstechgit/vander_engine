@@ -98,7 +98,7 @@ export default function Searcher({
     // });
     let url = urls.searchProduct;
     let order = record.order;
-    console.log(record);
+    // console.log(record);
     let formData = new FormData();
     formData.append("description", record.description);
     if (order == true) {
