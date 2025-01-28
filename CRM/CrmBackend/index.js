@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: ["http://localhost:5173", "http://sstechcrm.com"],
+    origin: ["http://localhost:5173", "https://sstechcrm.com"],
     methods: ["GET", "POST"],
   },
 });
