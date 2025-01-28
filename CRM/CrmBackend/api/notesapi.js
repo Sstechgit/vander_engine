@@ -9,10 +9,16 @@ const setIo = (socketIoInstance) => {
 };
 
 notesrouter.get("/messages/:agentkey", async (req, res) => {
-  const { agentKey } = req.params;
-  const messages = await message1.find({ agentKey }).sort({ timestamp: 1 });
-  res.json(messages);
+  const { agentkey } = req.params; // Changed `agentKey` to `agentkey`
+  try {
+    const messages = await message1.find({ agentKey: agentkey }).sort({ timestamp: 1 });
+    res.json(messages);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error fetching messages" });
+  }
 });
+
 
 notesrouter.post("/messages", async (req, res) => {
   const { agentKey, from, text, to } = req.body;

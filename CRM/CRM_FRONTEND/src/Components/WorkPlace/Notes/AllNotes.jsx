@@ -41,14 +41,14 @@ export default function AllNotes() {
   }, [currentPage, pageSize]);
 
   const loadMessages = async (agentKey) => {
-    const response = await fetch(
-      `http://backend.sstechcrm.com/api/messages/${agentKey}`
-    );
+    const response = await fetch(`http://backend.sstechcrm.com/api/messages/${agentKey}`);
     if (response.ok) {
       return await response.json();
     }
+    console.error("Failed to fetch messages");
     return [];
   };
+  
   const saveMessages = async (agentKey, message) => {
     await fetch("http://backend.sstechcrm.com/api/messages", {
       method: "POST",
