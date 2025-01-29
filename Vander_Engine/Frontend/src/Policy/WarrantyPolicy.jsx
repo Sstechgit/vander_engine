@@ -385,7 +385,7 @@ export default function WarrantyPolicy() {
         {`
         h3,h2{
         color:#fff;
-        text-align:center;
+           text-align: center;
         }
         `}
       </style>

@@ -10,7 +10,7 @@ const leadSchema = new mongoose.Schema({
   phone: String,
   email: String,
   Message: String,
-  agreed: Boolean,
+  agreed: String,
 });
 
 const Lead = mongoose.model('Lead', leadSchema);
