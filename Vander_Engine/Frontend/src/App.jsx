@@ -23,6 +23,7 @@ import EngineForm from "./Transmission/Transmissionform";
 import Update_Product from "./Includes/Update_Product";
 import BlogPosts from "./Blog/BlogPosts";
 import BlogPost from "./Blog/BlogPost";
+import Policies from "./Policy/Policies";
 
 // Layout component that includes Header and Footer
 function LayoutWithHeaderFooter({ children }) {
@@ -168,6 +169,9 @@ export default function App() {
           {/* Other routes with Header and Footer */}
           <Route path="financing" element={<LayoutWithHeaderFooter><Financing /></LayoutWithHeaderFooter>} />
           <Route path="contact" element={<LayoutWithHeaderFooter><Contact /></LayoutWithHeaderFooter>} />
+
+          <Route path="/Privacy_Policies" element={<LayoutWithHeaderFooter><Policies /></LayoutWithHeaderFooter>} />
+
           <Route path="shipping" element={<LayoutWithHeaderFooter><ShippingPolicy /></LayoutWithHeaderFooter>} />
           <Route path="return" element={<LayoutWithHeaderFooter><ReturnPolicy /></LayoutWithHeaderFooter>} />
           <Route path="warranty" element={<LayoutWithHeaderFooter><WarrantyPolicy /></LayoutWithHeaderFooter>} />

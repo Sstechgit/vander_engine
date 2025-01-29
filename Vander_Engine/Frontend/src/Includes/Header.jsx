@@ -129,7 +129,17 @@ export default function Header() {
                   Contact
                 </NavLink>
               </li>
-              <li className="nav-item dropdown">
+              <li className="nav-item">
+                <NavLink
+                  to="/Privacy_Policies"
+                  className="nav-link"
+                  activeClassName="active"
+                  onClick={closeNavbar}
+                >
+                 Our Policies
+                </NavLink>
+              </li>
+              {/* <li className="nav-item dropdown">
                 <button
                   className="nav-link dropdown-toggle"
                   id="navbarDropdown"
@@ -191,7 +201,7 @@ export default function Header() {
                     </NavLink>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               <div className="contact align-items-center">
                 <a
                   href="tel:+18448931760"
