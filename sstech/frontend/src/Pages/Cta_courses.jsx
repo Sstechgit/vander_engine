@@ -8,7 +8,7 @@ export default function Cta_courses() {
       <div className="container">
         <h3
           className="text-center fw-bold fs-1 mb-4"
-          style={{ color: "#3b6cb4" }}
+          style={{ color: "#ff9c00" }}
         >
           Looking to Learn Digital Marketing ?
         </h3>
@@ -18,7 +18,7 @@ export default function Cta_courses() {
               className="row align-items-center justify-content-center p-3 m-3 newcta"
               style={{
                 background:
-                  " linear-gradient(rgb(8 24 99 / 99%), rgb(5, 9, 28))",
+                  " linear-gradient(#433c39, #060505)",
                 borderRadius: "10px",
                 boxShadow: "10px 0 10px ",
                 border: "2px solid #41B294",
@@ -30,7 +30,7 @@ export default function Cta_courses() {
               <div className="col-md-3">
                 <button className="btn btn-warning fw-medium btn-lg">
                   {" "}
-                  <a href="#coursebanner">Call Us Now</a>
+                  <a href="#coursebanner" style={{color:"#433c39"}}>Call Us Now</a>
                   
                 </button>
               </div>

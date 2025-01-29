@@ -24,7 +24,7 @@ export default function Future_courses() {
   return (
     <div className={`${styles.future} `}>
   <div className="container">
-    <h3 className="text-center fw-bold fs-1 mb-4" style={{ color: "#3b6cb4" }}>
+    <h3 className="text-center fw-bold fs-1 mb-4" style={{ color: "#ff9c00" }}>
       Unlock the Future of Digital Marketing
     </h3>
     <div className="row">
@@ -33,7 +33,7 @@ export default function Future_courses() {
           <div
             className={`${styles.card} card h-100 d-flex align-items-center flex-column text-white`}
             style={{
-              background: "linear-gradient(rgb(8 24 99 / 99%), rgb(5, 9, 28))", // you can still use inline style if you want
+              background: "linear-gradient(#433c39, #060505)", // you can still use inline style if you want
             }}
           >
             <img src={item.image} alt={item.title} width={100} />

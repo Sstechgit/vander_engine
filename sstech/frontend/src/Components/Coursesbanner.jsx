@@ -99,22 +99,22 @@ const CourseSection = () => {
     >
       <div>
         <button
-          className="btn float-end btn-lg btn-warning mt-3"
+          className="btn float-end btn-lg mt-3 text-white"
           onClick={() => setShowModal(true)}
+          style={{background:"#ff9c00"}}
         >
           Download Brochure
         </button>
       </div>
-
-      <div className={`${styles.row} row d-flex align-items-center w-100`}>
+      <div className={`${styles.row} row d-flex align-items-center w-100 justify-content-center`}>
         {/* Left Side - Content */}
-        <div className="col-md-6 d-flex flex-column justify-content-center align-items-center">
-          <h2 className={styles.title}>Best Digital Marketing Course</h2>
-          <img
+        <div className="col-md-5 d-flex flex-column justify-content-center align-items-center">
+          <h1 className={styles.title}>Advanced Digital Marketing Course</h1>
+          {/* <img
             src="../asset/cousres.png"
             alt="Amazon"
             className={styles.brandLogo}
-          />
+          /> */}
           <p className={styles.subTitle}>
             5+ Capstone Projects | 6 Months Training | 100% Job Placement
             Guarantee
@@ -228,7 +228,7 @@ const CourseSection = () => {
                 </div>
                 <button
                   type="submit"
-                  className={`btn btn-warning w-100 ${styles.submitButton}`}
+                  className={`btn w-100 ${styles.submitButton}`}
                   disabled={isLoading}
                 >
                   {isLoading ? (

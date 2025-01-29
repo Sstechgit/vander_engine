@@ -273,14 +273,14 @@ export default function Home({ handleAddToCart, showproduct }) {
               class="text-line"
               width="71%"
             >
-              <text
+              {/* <text
                 x="50%"
                 dominant-baseline="middle"
                 text-anchor="middle"
                 y="50%"
               >
                 Finance Option Available
-              </text>
+              </text> */}
             </svg>
             <button
               className="btn  custom-btn btn-9"

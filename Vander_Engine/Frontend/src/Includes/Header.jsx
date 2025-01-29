@@ -109,7 +109,7 @@ export default function Header() {
                   Blogs
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink
                   to="/financing"
                   className="nav-link"
@@ -118,7 +118,7 @@ export default function Header() {
                 >
                   Financing
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <NavLink
                   to="/contact"

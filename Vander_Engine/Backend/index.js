@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./src/db/index'); // Import the function
+const connectToDb = require('./src/db/Mongo_db_leads'); // Import the function
 const leadRoutes = require('./src/routes/leads_main_form');
 const appointmentRoutes = require('./src/routes/appointments_form');
 const applyMiddleware = require('./src/middlewares/commonMiddleware');
@@ -14,6 +15,7 @@ const PORT = 4020;
 
 // Initialize the database connection
 connectDB();
+connectToDb();
 
 app.use(express.json());
 applyMiddleware(app);
