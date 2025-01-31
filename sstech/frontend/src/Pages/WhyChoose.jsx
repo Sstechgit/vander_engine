@@ -3,9 +3,9 @@ export default function WhyChoose() {
   return (
     <div className=" py-2">
       <div className="container-fluid px-5">
-        <h3 className="text-center fs-1 fw-bold ">
-          Why Choose <span style={{ color: "#3b6cb4" }}>SS Tech</span>{" "}
-        </h3>
+        <h1 className="text-center fs-1 fw-bold ">
+          Why Choose <span>SS Tech</span>{" "}
+        </h1>
 
         <div className="row align-items-center g-4">
           <div className="col-lg-3">
@@ -28,7 +28,7 @@ export default function WhyChoose() {
                   className="card WhyChoose-card p-2 h-100 "
                   style={{ backgroundColor: "#fdf8e3" }}
                 >
-                  <img src="/asset/why-1.webp" alt="" />
+                  <img src="/assets/tech-1.png" alt="" />
                   <div className="card-title my-3">
                     <h5>Expertise</h5>
                     <p>
@@ -46,7 +46,7 @@ export default function WhyChoose() {
                   className="card WhyChoose-card p-2"
                   style={{ backgroundColor: "#f0f3fa" }}
                 >
-                  <img src="/asset/why-2.webp" alt="" />
+                  <img src="/assets/tech-2.png" alt="" />
                   <div className="card-title my-3">
                     <h5>Innovation</h5>
                     <p>
@@ -64,7 +64,7 @@ export default function WhyChoose() {
                   className="card WhyChoose-card p-2 h-100"
                   style={{ backgroundColor: "#feeff0" }}
                 >
-                  <img src="/asset/why-3.webp" alt="" />
+                  <img src="/assets/tech-3.png" alt="" />
                   <div className="card-title my-3">
                     <h5>Customization</h5>
                     <p>
@@ -83,7 +83,7 @@ export default function WhyChoose() {
                   className="card WhyChoose-card p-2"
                   style={{ backgroundColor: "#f0f3fa" }}
                 >
-                  <img src="/asset/why-4.webp" alt="" />
+                  <img src="/assets/tech-4.png" alt="" />
                   <div className="card-title my-3">
                     <h5>Reliability</h5>
                     <p>
@@ -102,7 +102,7 @@ export default function WhyChoose() {
                   className="card WhyChoose-card p-2"
                   style={{ backgroundColor: "#feeff0" }}
                 >
-                  <img src="/asset/why-5.png" alt="" />
+                  <img src="/assets/tech-5.png" alt="" />
                   <div className="card-title my-3">
                     <h5>Customer Satisfaction</h5>
                     <p>
@@ -121,7 +121,7 @@ export default function WhyChoose() {
                   className="card WhyChoose-card p-2 h-100"
                   style={{ backgroundColor: "#fdf8e3" }}
                 >
-                  <img src="/asset/why-6.png" alt="" />
+                  <img src="/assets/tech-6.png" alt="" />
                   <div className="card-title my-3">
                     <h5>Transparency</h5>
                     <p>

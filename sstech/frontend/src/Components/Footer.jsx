@@ -202,7 +202,7 @@ s0.parentNode.insertBefore(s1,s0);
             rel="noopener noreferrer"
           >
             Copyright © 2024 | Powered by{" "}
-            <span style={{ color: "#3b6cb4" }}>[SS Tech Services]</span>
+            <span style={{ color: "#ff9c00" }}>[SS Tech Services]</span>
           </Link>
         </div>
       </footer>

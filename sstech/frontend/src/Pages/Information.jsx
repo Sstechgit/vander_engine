@@ -63,7 +63,7 @@ export default function Information() {
     <>
       <div className="information my-5">
         <div className="text-content d-flex flex-column justify-content-center align-items-center text-white" style={{ height: "100%" }}>
-          <h4 style={{ color: "#3b6cb4" , fontSize:"34px"}} className="fw-bold">FAQ</h4>
+          <h4 style={{ color: "#ff9c00" , fontSize:"34px"}} className="fw-bold">FAQ</h4>
           <h3 className="fs-1">Find Out Answers Here</h3>
         </div>
       </div>
@@ -90,7 +90,7 @@ export default function Information() {
 
       <style jsx>{`
         .bg-active {
-          background-color: #3b6cb4; /* Change this color as needed */
+          background-color:#ff9c00; /* Change this color as needed */
           color: white;
         }
         .content {

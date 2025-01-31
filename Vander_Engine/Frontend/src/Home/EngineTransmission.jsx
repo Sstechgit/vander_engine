@@ -30,7 +30,7 @@ export default function EngineTransmission() {
                 style={{ maxHeight: "300px", objectFit: "cover" }}
               />
               <h4>USED ENGINES</h4>
-              <Link to='/engine'>
+              <Link to='/engine#engine-form'>
               <button
                 className="btn btn-info text-white"
                 aria-label="Learn more about used engines"
@@ -55,7 +55,7 @@ export default function EngineTransmission() {
                 className="img-fluid engine-trans2 mb-1"
               />
               <h4>USED TRANSMISSIONS</h4>
-              <Link to='/transmission'>
+              <Link to='/transmission#trans-form'>
               
               <button
                 className="btn btn-info text-white"

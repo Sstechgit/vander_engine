@@ -8,17 +8,17 @@ export default function OurAcheivements() {
   }, []);
   const Acheive_card = [
     {
-      imgSrc: "/asset/acheive-01.jpg",
-      head: "471+ Projects",
+      imgSrc:"/assets/achi-1.jpg",
+      head: "471+ Students",
       para: "",
     },
     {
-      imgSrc: "/asset/acheive-02.png",
+      imgSrc: "/assets/achi-2.jpg",
       head: "250+ Satisfied Customers",
       para: "",
     },
     {
-      imgSrc: "/asset/acheive-03.webp",
+      imgSrc: "/assets/achi-3.png",
       head: "5+ years in Business",
       para: "",
     },
@@ -26,7 +26,7 @@ export default function OurAcheivements() {
   return (
     <div>
       <h1 className="fw-bolder text-center acheived">
-        Our <span style={{ color: "#3b6cb4" }}>Achievements</span>
+        Our <span >Achievements</span>
       </h1>
       <div className="container my-4">
         <div className="row justify-content-around">

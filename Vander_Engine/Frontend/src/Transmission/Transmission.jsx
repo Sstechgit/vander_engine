@@ -230,18 +230,11 @@ export default function Transmission({ handleAddToCart, showproduct }) {
           Vander Engines | Quality Used & Remanufactured Transmissions
         </title>
       </Helmet>
-      {/*-------------------------Transmission- Hero-----------------------*/}
-      {/* <div className="transmission-hero "></div> */}
-      <div className="d-flex flex-column h-100 justify-content-end ">
-        <Transmissionform
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
-          handleAddToCart={handleAddToCart}
-          showproduct={showproduct}
-        />
-      </div>
-      {/*---------------------------------contact-form-2----------------------------------*/}
-      <div className="contact-form-2 my-5">
+      <div className="transmission-upper d-flex flex-column">
+        <div className="transmission-hero"></div>
+        </div>
+       {/*---------------------------------contact-form-2----------------------------------*/}
+       <div className="contact-form-2 my-4 px-3">
         <div className="container">
           <div
             className="row align-items-center justify-content-between p-3"
@@ -421,6 +414,18 @@ export default function Transmission({ handleAddToCart, showproduct }) {
       </div>
       {/*---------------------------------contact-form-2----------------------------------*/}
 
+
+      {/*-------------------------Transmission- Hero-----------------------*/}
+      {/* <div className="transmission-hero "></div> */}
+      <div className="d-flex flex-column h-100 justify-content-end ">
+        <Transmissionform
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+          handleAddToCart={handleAddToCart}
+          showproduct={showproduct}
+        />
+      </div>
+   
       {/*-------------------------Content of Transmission------------------------*/}
       <div className="transmission-content">
         <div className="container h-100 d-flex align-items-center justify-content-center">

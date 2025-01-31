@@ -117,13 +117,14 @@ export default function App() {
   return (
     <>
       <Router>
-        <ScrollToTop />
+       
         <Routes>
           {/* Routes with Header and Footer */}
           <Route
             path="/"
             element={
               <LayoutWithHeaderFooter>
+                 <ScrollToTop />
                 <Home handleAddToCart={handleAddToCart} />
               </LayoutWithHeaderFooter>
             }
@@ -160,28 +161,29 @@ export default function App() {
               </LayoutWithHeaderFooter>
             }
           />
-          <Route path="about" element={<LayoutWithHeaderFooter><About /></LayoutWithHeaderFooter>} />
+          <Route path="about" element={<LayoutWithHeaderFooter> <ScrollToTop /> <About /></LayoutWithHeaderFooter>} />
           
           {/* Routes without Header and Footer */}
           <Route path="blog/" element={<BlogPosts />} />
           <Route path="blog/:postId" element={<BlogPost />} />
           
           {/* Other routes with Header and Footer */}
-          <Route path="financing" element={<LayoutWithHeaderFooter><Financing /></LayoutWithHeaderFooter>} />
-          <Route path="contact" element={<LayoutWithHeaderFooter><Contact /></LayoutWithHeaderFooter>} />
+          <Route path="financing" element={<LayoutWithHeaderFooter>  <ScrollToTop /><Financing /></LayoutWithHeaderFooter>} />
+          <Route path="contact" element={<LayoutWithHeaderFooter>  <ScrollToTop /><Contact /></LayoutWithHeaderFooter>} />
 
-          <Route path="/Privacy_Policies" element={<LayoutWithHeaderFooter><Policies /></LayoutWithHeaderFooter>} />
+          <Route path="/Privacy_Policies" element={<LayoutWithHeaderFooter>  <ScrollToTop /><Policies /></LayoutWithHeaderFooter>} />
 
-          <Route path="shipping" element={<LayoutWithHeaderFooter><ShippingPolicy /></LayoutWithHeaderFooter>} />
-          <Route path="return" element={<LayoutWithHeaderFooter><ReturnPolicy /></LayoutWithHeaderFooter>} />
-          <Route path="warranty" element={<LayoutWithHeaderFooter><WarrantyPolicy /></LayoutWithHeaderFooter>} />
-          <Route path="termsofservice" element={<LayoutWithHeaderFooter><TermsOfServices /></LayoutWithHeaderFooter>} />
-          <Route path="/privacy" element={<LayoutWithHeaderFooter><PrivacyPolicy /></LayoutWithHeaderFooter>} />
-          <Route path="/thankyou" element={<LayoutWithHeaderFooter><ThankYou /></LayoutWithHeaderFooter>} />
+          <Route path="shipping" element={<LayoutWithHeaderFooter>  <ScrollToTop /><ShippingPolicy /></LayoutWithHeaderFooter>} />
+          <Route path="return" element={<LayoutWithHeaderFooter>  <ScrollToTop /><ReturnPolicy /></LayoutWithHeaderFooter>} />
+          <Route path="warranty" element={<LayoutWithHeaderFooter>  <ScrollToTop /><WarrantyPolicy /></LayoutWithHeaderFooter>} />
+          <Route path="termsofservice" element={<LayoutWithHeaderFooter> <ScrollToTop /><TermsOfServices /></LayoutWithHeaderFooter>} />
+          <Route path="/privacy" element={<LayoutWithHeaderFooter> <ScrollToTop /><PrivacyPolicy /></LayoutWithHeaderFooter>} />
+          <Route path="/thankyou" element={<LayoutWithHeaderFooter> <ScrollToTop /><ThankYou /></LayoutWithHeaderFooter>} />
           <Route
             path="/addtocart"
             element={
               <LayoutWithHeaderFooter>
+                 <ScrollToTop />
                 <Cart cartItems={cartItems} handleRemoveFromCart={handleRemoveFromCart} handleSaveForLater={handleSaveForLater} />
               </LayoutWithHeaderFooter>
             }
@@ -190,6 +192,7 @@ export default function App() {
             path="/wishlist"
             element={
               <LayoutWithHeaderFooter>
+                 <ScrollToTop />
                 <Wishlist wishlistItems={wishlistItems} handleRemoveFromWishlist={handleRemoveFromWishlist} handleMoveToCart={handleMoveToCart} />
               </LayoutWithHeaderFooter>
             }
@@ -198,17 +201,18 @@ export default function App() {
             path="/product"
             element={
               <LayoutWithHeaderFooter>
+                 <ScrollToTop />
                 <ProductPage productItems={productItems} handleAddToCart={handleAddToCart} />
               </LayoutWithHeaderFooter>
             }
           />
           <Route
             path="/engine/:year?/:make?/:model?/:variant?"
-            element={<LayoutWithHeaderFooter><EngineForm /></LayoutWithHeaderFooter>}
+            element={<LayoutWithHeaderFooter> <ScrollToTop /><EngineForm /></LayoutWithHeaderFooter>}
           />
           <Route
             path="updateproduct"
-            element={<LayoutWithHeaderFooter><Update_Product /></LayoutWithHeaderFooter>}
+            element={<LayoutWithHeaderFooter>  <ScrollToTop /><Update_Product /></LayoutWithHeaderFooter>}
           />
         </Routes>
       </Router>

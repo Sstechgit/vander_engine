@@ -233,20 +233,12 @@ export default function Engine({ handleAddToCart, showproduct }) {
         <title>Vander Engines | Quality Used & Remanufactured Engines </title>
         {/* <meta name="description" content="This is a description of my page." /> */}
       </Helmet>
-      {/*-------------------------Engine Hero Section-----------------------*/}
-
-      <div className=" d-flex flex-column h-100 justify-content-end">
-        <EngineForm
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
-          handleAddToCart={handleAddToCart}
-          showproduct={showproduct}
-          origin="Engine"
-        />
-      </div>
-
+      <div className="engine-upper d-flex flex-column">
+        <div className="engine-hero "></div>
+      
+        </div>
       {/*---------------------------------contact-form-2----------------------------------*/}
-      <div className="contact-form-2 my-5">
+      <div className="contact-form-2 my-4 px-3">
         <div className="container">
           <div
             className="row align-items-center justify-content-between p-3"
@@ -371,9 +363,8 @@ export default function Engine({ handleAddToCart, showproduct }) {
                     </label>
                     <input
                       type="tel"
-                      className={`form-control ${
-                        phoneError ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${phoneError ? "is-invalid" : ""
+                        }`}
                       id="mobile"
                       name="phone"
                       value={formData.phone}
@@ -425,6 +416,21 @@ export default function Engine({ handleAddToCart, showproduct }) {
         </div>
       </div>
       {/*---------------------------------contact-form-2----------------------------------*/}
+
+
+      {/*-------------------------Engine Hero Section-----------------------*/}
+
+      <div className=" d-flex flex-column h-100 justify-content-end">
+        <EngineForm
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+          handleAddToCart={handleAddToCart}
+          showproduct={showproduct}
+          origin="Engine"
+        />
+      </div>
+
+
 
       {/*-------------------------Content of Engine-----------------------*/}
       <div className="transmission-content mt-5">
