@@ -9,7 +9,7 @@ import ReadMore from "../Transmission/ReadMore";
 import AOS from "aos";
 import EngineForm from "./EngineForm";
 import { Helmet } from "react-helmet";
-
+import { useNavigate } from "react-router-dom";
 export default function Engine({ handleAddToCart, showproduct }) {
   const [phoneError, setPhoneError] = useState(""); // Error message for phone
   const [years, setYears] = useState([]);
@@ -18,6 +18,7 @@ export default function Engine({ handleAddToCart, showproduct }) {
   const [variants, setVariants] = useState([]);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false); // Added loading state
+  const navigate = useNavigate();
   // Phone number validation function
   const validatePhoneNumber = (number) => {
     // Ensure the number always starts with '+1'
@@ -194,7 +195,7 @@ export default function Engine({ handleAddToCart, showproduct }) {
         formData
       );
       console.log(response.data);
-
+      navigate('/thankyou')
       setSubmissionMessage2("Form submitted successfully! Thank you.");
       setFormData({
         part: "",
@@ -246,7 +247,7 @@ export default function Engine({ handleAddToCart, showproduct }) {
           >
             <div className="col-lg-12">
               <form className="form-start" onSubmit={handleSubmite}>
-                <h3 className="fw-bold mb-3">Didn't Find Engine ! Connect Us</h3>
+                <h3 className="fw-bold mb-3">Find Your Engine</h3>
                 <div class="row mb-3">
                   <div class="col-6">
                     <label for="part" class="form-label">

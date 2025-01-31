@@ -15,11 +15,11 @@ import Brands from "../Includes/Brands";
 import Sale from "./Sale";
 import axios from "axios";
 import CustomerReview from "../Contact/CustomerReview";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Helmet } from "react-helmet";
 export default function Home({ handleAddToCart, showproduct }) {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     part: "",
     make: "",
@@ -186,7 +186,7 @@ export default function Home({ handleAddToCart, showproduct }) {
       setSubmissionMessage(
         "Thank you! Your message has been sent successfully."
       );
-      // navigate('/thankyou')
+      navigate('/thankyou')
       setFormData({
         part: "",
         make: "",

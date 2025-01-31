@@ -7,7 +7,7 @@ import Transmissionform from "./Transmissionform";
 import ReadMore from "./ReadMore";
 import AOS from "aos";
 import { Helmet } from "react-helmet";
-
+import { useNavigate } from "react-router-dom";
 export default function Transmission({ handleAddToCart, showproduct }) {
   const [phoneError, setPhoneError] = useState(""); // Error message for phone
   const [years, setYears] = useState([]);
@@ -16,6 +16,7 @@ export default function Transmission({ handleAddToCart, showproduct }) {
   const [variants, setVariants] = useState([]);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false); // Added loading state
+  const navigate = useNavigate();
   // Phone number validation function
   const validatePhoneNumber = (number) => {
     // Ensure the number always starts with '+1'
@@ -190,7 +191,7 @@ export default function Transmission({ handleAddToCart, showproduct }) {
         formData
       );
       console.log(response.data);
-
+      navigate('/thankyou')
       setSubmissionMessage2("Form submitted successfully! Thank you.");
       setFormData({
         part: "",
@@ -232,9 +233,9 @@ export default function Transmission({ handleAddToCart, showproduct }) {
       </Helmet>
       <div className="transmission-upper d-flex flex-column">
         <div className="transmission-hero"></div>
-        </div>
-       {/*---------------------------------contact-form-2----------------------------------*/}
-       <div className="contact-form-2 my-4 px-3">
+      </div>
+      {/*---------------------------------contact-form-2----------------------------------*/}
+      <div className="contact-form-2 my-4 px-3">
         <div className="container">
           <div
             className="row align-items-center justify-content-between p-3"
@@ -242,7 +243,7 @@ export default function Transmission({ handleAddToCart, showproduct }) {
           >
             <div className="col-lg-12">
               <form className="form-start" onSubmit={handleSubmite}>
-                <h3 className="fw-bold mb-3">Didn't Find Transmission ! Connect Us</h3>
+                <h3 className="fw-bold mb-3">Find Your Transmission</h3>
                 <div class="row mb-3">
                   <div class="col-6">
                     <label for="part" class="form-label">
@@ -359,9 +360,8 @@ export default function Transmission({ handleAddToCart, showproduct }) {
                     </label>
                     <input
                       type="tel"
-                      className={`form-control ${
-                        phoneError ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${phoneError ? "is-invalid" : ""
+                        }`}
                       id="mobile"
                       name="phone"
                       value={formData.phone}
@@ -425,7 +425,7 @@ export default function Transmission({ handleAddToCart, showproduct }) {
           showproduct={showproduct}
         />
       </div>
-   
+
       {/*-------------------------Content of Transmission------------------------*/}
       <div className="transmission-content">
         <div className="container h-100 d-flex align-items-center justify-content-center">
