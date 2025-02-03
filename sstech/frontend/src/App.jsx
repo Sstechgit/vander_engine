@@ -20,7 +20,7 @@ import ThankYou from "./Pages/ThankYou";
 import PricingBox from "./Components/PricingBox";
 import Courses from "./Pages/Courses";
 import Privacy from "./Pages/Privacy";
-// import Offers_courses from "./Pages/offers_courses";
+import Offers_courses from "./Pages/offers_courses";
 import Mentors_courses from "./Pages/Mentors_courses";
 import ScrollToTop from "./Components/ScrollToTop";
 import Contact from "./Pages/Contact";
@@ -164,7 +164,7 @@ function App() {
         />
 
         <Route
-          path="/career"
+          path="career"
           element={
             <>
             <ScrollToTop />
@@ -177,7 +177,7 @@ function App() {
         />
 
         <Route
-          path="/courses"
+          path="courses"
           element={
             <>
             <ScrollToTop />
@@ -190,7 +190,7 @@ function App() {
         />
 
         <Route
-          path="/portfolio"
+          path="portfolio"
           element={
             <>
             <ScrollToTop />
@@ -202,7 +202,7 @@ function App() {
           }
         />
         <Route
-          path="/contact"
+          path="contact"
           element={
             <>
             <ScrollToTop />
@@ -214,7 +214,7 @@ function App() {
           }
         />
          <Route
-          path="/about"
+          path="about"
           element={
             <>
             <ScrollToTop />

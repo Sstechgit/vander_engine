@@ -59,7 +59,7 @@ export default function Form() {
       <div className="container">
         <div className="row align-items-center">
           <div className="col-lg-6 p-4">
-            <h3 className="text-black">Our Innovative Approach in Digital Marketing</h3>
+            <h3>Our Innovative Approach in Digital Marketing</h3>
             <p>
               At SS Tech Service, we pride ourselves on being a leading digital
               marketing agency. Our innovative approach sets us apart in a
@@ -75,7 +75,7 @@ export default function Form() {
           </div>
           <div className="col-lg-6">
             <form onSubmit={handleSubmit} className="main-form">
-              <h3 className="text-center">Connect With Expert</h3>
+              <h3 className="text-center">Get a Free Consultation</h3>
               <div className="mb-2">
                 <label htmlFor="name" className="form-label">
                   Name <span className="text-danger fw-bold fs-5">*</span>
@@ -121,7 +121,7 @@ export default function Form() {
                   Website URL
                 </label>
                 <input
-                  type="text"
+                  type="url"
                   className="form-control"
                   id="website"
                   value={website}

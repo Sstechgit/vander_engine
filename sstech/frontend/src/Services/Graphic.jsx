@@ -76,7 +76,7 @@ export default function Graphic() {
 
   return (
     <div>
-      {/* <Popup /> */}
+      <Popup />
       <div className="graphic-hero py-4">
         <div className="container h-100">
           <div className="row align-items-center h-100">

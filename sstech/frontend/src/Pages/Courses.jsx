@@ -251,7 +251,7 @@ const Courses = () => {
       <div className="container mt-5" ref={containerRef}>
         <h3
           className="text-center fw-bold fs-1 mb-4"
-          style={{ color: "#ff9c00" }}
+          style={{ color: "#3b6cb4" }}
         >
           Digital Marketing Modules
         </h3>

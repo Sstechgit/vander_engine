@@ -9,7 +9,7 @@ export default function Certificate_courses() {
             <div className="col-lg-6">
               <h3
                 className="text-center fw-bold fs-1 mb-4"
-                style={{ color: "#ff9c00" }}
+                style={{ color: "#3b6cb4" }}
               >
                 Achieve a Valued Digital Marketing Certification with SS Tech
               </h3>

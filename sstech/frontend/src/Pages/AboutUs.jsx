@@ -3,10 +3,10 @@ export default function AboutUs() {
   return (
     <div className="my-2 about-sec p-2">
       <div className="container text-center">
-        <h2 className="fw-bold mb-4 fs-1 text About">About <span style={{color:"#ff9c00"}}> SS Tech</span></h2>
+        <h2 className="fw-bold mb-4 fs-1 text About">About <span style={{color:"#3b6cb4"}}> SS Tech</span></h2>
         <div className="row align-items-center justify-content-center">
           <div className="col-lg-6 text-center p-3 mb-5 mt-4">
-            <h3 style={{ color: "#212529" , fontFamily: "monospace" , fontWeight: "600" }}> Digital Marketing Agency</h3>
+            <h3 style={{ color: "#3b6cb4" , fontFamily: "monospace" , fontWeight: "600" }}> Digital Marketing Agency</h3>
             <p className="text- mt-4">
               SS tech Services stands out in the field of digital marketing that
               provides best digital marketing services. It stands as a beacon of
@@ -30,7 +30,7 @@ export default function AboutUs() {
 
           <div className="col-lg-6">
             <img
-              src="/assets/about.avif"
+              src="/asset/about_us.webp"
               alt=""
               id="about_img"
               width={500}

@@ -140,7 +140,7 @@ export default function WebDevelopment() {
           content="#1 Web Development Agency in Chicago. We offer complete responsive & attractive designs . We offer custom website development. "
         />
       </Helmet>
-      {/* <Popup /> */}
+      <Popup />
       <div className="web">
       <div>
             <img

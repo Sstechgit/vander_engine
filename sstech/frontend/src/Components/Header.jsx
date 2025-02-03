@@ -41,7 +41,7 @@ export default function Header() {
                   Home
                 </Link>
               </li>
-              {/* <li className="nav-item dropdown">
+              <li className="nav-item dropdown">
                 <Link
                   className="nav-link dropdown-toggle"
                   to="#"
@@ -117,14 +117,14 @@ export default function Header() {
                     </Link>
                   </li>
                 </ul>
-              </li> */}
+              </li>
 
               <li className="nav-item">
                 <a className="nav-link" href="/blog" onClick={handleLinkClick}>
                   Blog
                 </a>
               </li>
-              {/* <li className="nav-item">
+              <li className="nav-item">
                 <Link
                   className="nav-link"
                   to="/career"
@@ -132,7 +132,7 @@ export default function Header() {
                 >
                   Career
                 </Link>
-              </li> */}
+              </li>
 
               <li className="nav-item">
                 <Link
@@ -144,7 +144,7 @@ export default function Header() {
                 </Link>
               </li>
 
-              {/* <li className="nav-item">
+              <li className="nav-item">
                 <Link
                   className="nav-link"
                   to="/PricingBox"
@@ -161,7 +161,7 @@ export default function Header() {
                 >
                   Portfolio
                 </Link>
-              </li> */}
+              </li>
               <li className="nav-item">
                 <Link
                   className="nav-link"

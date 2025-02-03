@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import "./Popup.css";
+
 export default function ThankYou() {
   useEffect(() => {
     // Create script element
     const script = document.createElement("script");
     script.innerHTML = `
       gtag('event', 'conversion', {
-        'send_to': 'AW-16768226473/ALzeCO_9yeYZEKmp27s-',
-       
+        'send_to': 'AW-16850714454/MZMRCKj70pgaENb-heM-',
+        'value': 1.0,
+        'currency': 'USD'
       }); 
     `;
     

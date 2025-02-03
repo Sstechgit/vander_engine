@@ -10,7 +10,7 @@ import Popup from "./Popup";
 export default function Portfolio() {
   return (
     <div>
-      {/* <Popup/> */}
+      <Popup/>
       <Header />
       <Services />
       <Expertise />

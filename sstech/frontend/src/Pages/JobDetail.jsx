@@ -154,7 +154,7 @@ const JobDetail = ({ jobData, onClose }) => {
                       </button>
                     </div>
                     <div className="form-card">
-                      <JobForm title={job.title}/>
+                      <JobForm />
                     </div>
                   </div>
                 )}
