@@ -1,0 +1,250 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --main: #3b6cb4;
+  --font: sans-serif;
+}
+.owl-carousel {
+  position: relative;
+  height: 100%;
+  display: block;
+}
+
+.owl-carousel div:not(.owl-controls) {
+  height: 100%;
+}
+
+.owl-carousel .slide-img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.port-head{
+  height: 500px;
+}
+.port-head .slide-img{
+  /* height: 500px; */
+  position: relative;
+  z-index: 1;
+}
+.port-head .slide-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #9E9E9E;
+  opacity: 0.3;
+  z-index: -1;
+}
+.slide-img h1 {
+  font-size: 80px;
+  font-weight: 700;
+  color: var(--main);
+}
+.slide-img p {
+  color: var(--main);
+}
+/*-----------------------------Services-----------------------*/
+.section-title {
+  margin-top: 50px;
+}
+.section-title .sm-title {
+  position: relative;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 15px;
+  display: inline-block;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  color: #000;
+  z-index: 9;
+}
+.section-title .sm-title:before {
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: 80px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #dedede;
+}
+.section-title .sm-title:after {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  border-radius: 50px;
+  background-color: #000;
+  right: 0px;
+  left: auto;
+  bottom: -3px;
+  animation: pulsex 5s ease infinite alternate;
+}
+@keyframes pulsex {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100px);
+  }
+}
+.h1 {
+  font-weight: 700 !important;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  letter-spacing: -0.01em;
+
+}
+.card-style05 {
+  border: 1px solid #e8e8e8;
+  border-radius: 0;
+}
+/*---------------------------------Expertise-----------------------------*/
+.card-style01 {
+  position: relative;
+  margin-bottom: 30px;
+}
+.card-style01 .card-body {
+  margin-left: 30px;
+  position: absolute;
+  background: #fff;
+  bottom: -30px;
+  padding: 15px 30px;
+  -webkit-transition: all 0.45s ease-in-out;
+  transition: all 0.45s ease-in-out;
+  right: 0;
+  left: 0;
+  box-shadow: 0px 16px 32px 0px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-style01:hover .card-body {
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  bottom: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+.card-style01:hover .overlay {
+  top: 0;
+  opacity: 1;
+  visibility: visible;
+  height: 100%;
+}
+.card-style01 .overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 37px;
+  z-index: 1;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.35s ease-in-out;
+  width: 100%;
+  visibility: hidden;
+  opacity: 0;
+}
+.card-style01 .overlay::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background: var(--main);
+  z-index: -1;
+  opacity: 0.7;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+/*--------------Our Team---------------------*/
+.team h6{
+  color: var(--main);
+}
+/*-----------Our Clients---------*/
+.clients {
+  margin-bottom: 100px;
+}
+.client-card .card img {
+  height: 75px;
+  object-fit: contain;
+}
+.client-card:nth-child(1) .card {
+  background: #fff;
+  color: #000;
+}
+.client-card:nth-child(4) .card {
+  background-color: #000;
+  color: #fff;
+}
+.client-card:nth-child(3) .card {
+  background: #1b283a;
+  color: #fff;
+}
+.client-card:nth-child(5) .card {
+  background: #615446;
+  color: #fff;
+}
+.client-card:nth-child(5) {
+  margin-inline: auto;
+}
+
+
+/*------------Responsive---------------*/
+@media (max-width: 768px) {
+.port-head{
+  height: 200px;
+}
+.port-head .col-lg-5{
+  order:2;
+}
+.port-head .col-lg-7{
+  order:1;
+}
+.slide-img h1 {
+  font-size: 30px;
+  margin-left: auto;
+}
+.slide-img p {
+  font-size: 20px;
+  margin-left: 116px;
+
+}
+.clients{
+  margin-bottom: 0;
+}
+.team .container-fluid{
+  margin-left: 0 !important;
+  margin-right: 0   !important ;
+}
+
+#client01{
+  width: 100% !important;
+    margin-right: 0 !important;
+    height: 250px;
+    object-fit: contain;
+    width: -webkit-fill-available;
+}
+#client02{
+  display: none;
+}
+#client03{
+  height: auto !important;
+  margin-left: 0 !important;
+}
+}
+@media (max-width: 576px){
+  .slide-img h1 {
+    font-size: 25px;
+    margin-left: auto;
+  }
+}

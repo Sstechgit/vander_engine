@@ -1,0 +1,23 @@
+.custom-card {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px #d1d1d1, -5px -5px 15px #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 150px;
+  }
+  
+  .custom-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 8px 8px 20px #bbbbbb, -8px -8px 20px #ffffff;
+  }
+  
+  .card-img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .card-title {
+    font-weight: bold;
+    color: #4caf50;
+  }
+  
