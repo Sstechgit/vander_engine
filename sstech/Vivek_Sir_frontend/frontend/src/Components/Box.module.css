@@ -1,0 +1,105 @@
+.pricingCard {
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  width: 300px; /* Fixed width */
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #007bff;
+}
+
+.pricingCard:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Header */
+.cardHeader {
+  color: white;
+  padding: 15px;
+  padding-top: 20px;
+  border-radius: 15px 15px 0 0;
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: #0056b3;
+}
+
+.cardHeader p {
+  font-size: smaller;
+  color: #e6e6e6;
+}
+
+/* Card Body */
+.cardBody {
+  padding: 20px;
+  background-color: #e6e6e6;
+}
+
+.cardTitle {
+  color: #e6e6e6;
+  padding-top: 5px;
+}
+
+.price {
+  font-size: 2rem;
+  margin: 10px 0;
+  text-align: center;
+  color: white;
+}
+
+.priceDuration {
+  font-size: 1rem;
+  color: white;
+}
+
+/* Features List */
+.featuresList {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.featureItem {
+  margin: 10px 0;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Spacing between icon and text */
+}
+
+/* Buttons */
+.button1{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.btnOutlinePrimary {
+  background: transparent;
+  border: 2px solid #007bff;
+  color: #007bff;
+}
+
+.btnOutlinePrimary:hover {
+  background: #007bff;
+  color: white;
+}
+
+.btnPrimary {
+  background: #007bff;
+}
+
+.btnPrimary:hover {
+  background: #0056b3;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .pricingCard {
+    width: 90%; /* Adjust width for small screens */
+  }
+}
