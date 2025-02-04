@@ -8,19 +8,13 @@ const socketIo = require("socket.io");
 const { router: notesrouter, setIo } = require("./api/notesapi.js");
 
 const connectToDb = require("./db_connection");
-const app = express();
-
-const server = http.createServer(app);
-const io = socketIo(server, {
-  cors: {
-    origin: ["http://localhost:5173", "https://sstechcrm.com"],
-    methods: ["GET", "POST"],
-  },
-});
-
-const cors = require("cors");
 const { FindMails } = require("./helper/RealtimeEmail.js");
 const tokens = require("./models/Token.js");
+const cors = require("cors");
+const cron = require("node-cron");
+
+const app = express();
+const server = http.createServer(app);
 const corsOptions = {
   origin: ["http://localhost:5173", "http://sstechcrm.com"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -29,9 +23,18 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-const cron = require("node-cron");
+
+const io = socketIo(server, {
+  cors: {
+    origin: ["http://localhost:5173", "https://sstechcrm.com"],
+    methods: ["GET", "POST"],
+  },
+});
+setIo(io);
+
 const PORT = process.env.PORT || 8000 || 8001;
 app.use("/api", require("./api/user.js"));
 app.use("/api", require("./api/lead.js"));
@@ -47,8 +50,6 @@ app.use("/api", require("./api/search.js"));
 app.use("/api", require("./api/superadmin.js"));
 app.use("/api", require("./api/ringcentral.js"));
 app.use("/api", require("./api/invoice.js"));
-
-setIo(io);
 app.use("/api", notesrouter);
 
 
