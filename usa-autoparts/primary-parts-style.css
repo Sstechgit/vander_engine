@@ -1,0 +1,499 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+}
+.formCont {
+    width: 100%;
+    display: flex;
+    padding: 2rem;
+}
+
+.leftForm,
+.rightForm {
+    width: 60%;
+    min-height: 6rem;
+
+}
+
+.leftForm {
+    width: 40%;
+}
+
+ /* form classes */
+ form {
+    width: 100%;
+    padding: 1rem;
+
+
+}
+
+.flexRow {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    background-color: black;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.flexCol {
+    width: 48%;
+}
+
+.flexCol select,
+.flexCol input {
+    padding: 0.2rem;
+    width: 100%;
+    font-family: "Poppins";
+    font-size: 1.2rem;
+    color: #000;
+    text-indent: 0.5rem;
+    outline: 0;
+    border: 0;
+    border-radius: 0.2rem;
+}
+
+.flexCol input::placeholder {
+    color: #000;
+}
+
+.email {
+    width: 100%;
+}
+
+.centerBtn,
+.centerBtn button {
+    width: 100%;
+}
+
+.centerBtn button {
+    background-color: #2F3967;
+    color: #fff;
+    font-size: 1.2rem;
+    font-family: "Poppins";
+    border: 0;
+    border-radius: 0.2rem;
+    cursor: pointer;
+}
+
+/* Right form */
+.rightForm {
+    padding: 1rem;
+}
+
+.rightForm p {
+    font-size: 2rem;
+    font-family: "Poppins";
+    width: 90%;
+    line-height: 2.4rem;
+    font-weight: bold;
+}
+
+.iconTable {
+    width: fit-content;
+    padding: 1rem 0;
+}
+
+.iconTable div {
+    display: flex;
+    gap: 1rem;
+
+    align-items: center;
+    font-size: 1.3rem;
+    font-family: "Poppins"
+}
+
+.iconTable div span {
+    margin: 0;
+
+}
+
+.iconTable div i {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    color: #BE1111;
+}
+
+.btns {
+    margin-top: 2rem;
+}
+
+.btns button {
+    display: flex;
+    gap: 25px;
+    width: 15rem;
+    font-size: 1.3rem;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    border: 0;
+    outline: none;
+    background-color: #2F3967;
+    font-family: "Poppins";
+    box-shadow: 0 0 1px #000;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+
+.btns button i {
+    color: #fff;
+}
+
+.btns span {
+    color: #fff;
+}
+
+.specialist {
+    margin-top: 1rem;
+    display: flex;
+    gap: 8px;
+}
+
+.call {
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px !important;
+    align-items: flex-start !important;
+
+}
+
+.specialist i {
+    font-size: 2rem !important;
+    padding: 2rem;
+    border-radius: 100%;
+    /* width: 2rem !important;
+    height: 2rem !important; */
+    background-color: #BE1111;
+    color: #fff !important;
+
+
+}
+
+.call span:first-child {
+    font-size: 0.8rem;
+
+}
+
+.call span:nth-child(2) {
+    font-weight: bold;
+    font-family: "Poppins";
+    font-size: 2rem;
+}
+
+ /* stats */
+ .statics {
+    display: flex;
+    width: 100%;
+    
+    /* height: 6rem; */
+    padding: 10px 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat {
+    width: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2F3967;
+    border: 5px solid #fff;
+    padding: 1rem;
+    gap: 10px;
+}
+
+.stat p {
+    font-family: "Poppins";
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 0 !important;
+}
+
+.stat img {
+    filter: invert();
+    height: 4rem;
+    width: 4rem;
+}
+
+.pageCont {
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+    height: fit-content;
+    position: relative;
+    align-items: center;
+}
+
+.leftPage,
+.rightPage {
+    width: 50%;
+}
+
+.leftPage {
+    display: flex;
+    flex-direction: column;
+    /* gap: 15px;
+    padding: 1rem 2rem; */
+    height: fit-content;
+    margin: 20px;
+}
+
+.leftPage p {
+    font-family: "Ubuntu";
+    font-size: 0.95rem;
+    margin-bottom: 0 !important;
+}
+
+.leftPage p:first-child {
+    font-size: 1.6rem;
+    /* font-family: "Poppins"; */
+    font-weight: bold;
+}
+
+.leftPage button {
+    font-size: 1.2rem;
+    font-family: "Poppins";
+    background-color: #2F3967;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5rem 1.3rem;
+    width: fit-content;
+    border: 0;
+    border-radius: 1.5rem;
+    margin-inline: auto;
+    margin-top: 30px;
+}
+
+.rightPage {
+    flex: 1;
+
+    background: no-repeat center center/contain;
+}
+
+.TileCont {
+    width: 100%;
+    background: no-repeat center center/cover;
+    padding: 2.5rem 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.tileParent {
+    width: 50%;
+    height: 100%;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    background-color: #fff;
+}
+
+.tileDiv {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #2F3967;
+    padding: 2rem;
+    border-radius: 2rem;
+}
+
+.tileDiv p {
+    font-family: "Poppins";
+    font-size: 0.95rem;
+    margin-bottom: 0 !important;
+}
+
+.tileDiv p:first-child {
+    font-size: 1.7rem;
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+/*-------------------------------container-2----------------------------------*/
+.container-2 {
+    margin:50px;
+    display: none !important;
+}
+
+.modA {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.models .nav-link,
+.parts .nav-link,
+.series .nav-link {
+    box-shadow: 0 0 5px 1px #5b5b5c8c;
+    z-index: 1;
+    border: 1px solid #2f3967;
+    margin: 10px;
+}
+.nav-link{
+    display:flex !important;
+}
+
+.models .nav-link:hover,
+.series .nav-link:hover,
+.parts .nav-link:hover {
+    color: #2f3967 !important;
+    border-bottom: 3px solid #2f3967;
+}
+
+.modA img {
+    height: 100%;
+    width: 3rem;
+    object-fit: contain;
+}
+
+
+@media screen and (max-width: 1012px) {
+    .formCont {
+        flex-direction: column;
+    }
+
+    .leftForm,
+    .rightForm {
+        width: 100%;
+    }
+
+    .iconTable {
+        margin: auto;
+    }
+    .rightForm {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .statics {
+        flex-direction: column;
+        /* height: 100%; */
+    }
+
+    .modStatics {
+        height: 100% !important;
+        gap: 10px;
+    }
+
+    .stat {
+        width: 100%;
+    }
+
+    .tileStats {
+        width: 100% !important;
+    }
+}
+ /* tile */
+ @media screen and (max-width: 768px) {
+    .TileCont {
+        justify-content: center !important;
+    }
+
+    .tileParent {
+        width: 100% !important;
+    }
+}
+
+/* page */
+@media screen and (max-width: 745px) {
+    .pageCont {
+        flex-direction: column;
+    }
+
+    .leftPage,
+    .rightPage {
+        width: 100% !important;
+        padding: 0.5rem !important;
+    }
+}
+
+@media screen and (max-width: 564px) {
+    .formCont {
+        padding: 1rem;
+    }
+    .btns {
+        justify-content: space-between;
+    }
+
+    .btns button {
+        font-size: 1.2rem !important;
+        width: fit-content;
+        gap: 5px;
+    }
+
+    .iconTable div {
+        font-size: 1.2rem;
+    }
+
+    .iconTable div i {
+        width: 1.2rem;
+        height: 1.2rem;
+        font-size: 1rem;
+    }
+
+    .iconTable div span {
+        font-size: 1rem;
+    }
+
+    .call span:nth-child(2) {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (max-width:440px) {
+    .formCont {
+        padding: 0rem;
+    }
+    .flexRow {
+        gap: 5px;
+    }
+
+    .flexCol {
+        width: 100%;
+
+    }
+
+    .flexCol input,
+    .flexCol select {
+        font-size: 1rem !important;
+    }
+    .rightForm p{
+        font-size: 1.5rem;
+    }
+}
+@media screen and (max-width: 343px) {
+    .flexRow {
+        gap: 5px;
+    }
+
+    .flexCol {
+        width: 100%;
+
+    }
+
+    .flexCol input,
+    .flexCol select {
+        font-size: 1rem !important;
+    }
+    .btns button{
+        padding: 0.5rem 0.5rem;
+    }
+}

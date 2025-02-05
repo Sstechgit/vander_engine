@@ -413,7 +413,7 @@ function LeadCaptureForm() {
                 </Form.Group>
                 
               </Col>
-              <div className="main_headline-form-group checkbox mb-2">
+              {/* <div className="main_headline-form-group checkbox mb-2">
                   <input
                     type="checkbox"
                     name="agreed"
@@ -430,7 +430,7 @@ function LeadCaptureForm() {
                   _text messages from
                   <span className="fw-bold mx-2" style={{ color: "#790cac" }}>     Vander Engines      </span>
                   the number provided. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. You can unsubscribe at any time by replying STOP. Text HELP to get help.
-                </label>
+                </label> */}
             </Row>
 
             {/* Full Width Optional Message */}

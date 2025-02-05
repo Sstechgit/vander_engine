@@ -1,0 +1,141 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+/*-------------------------primary-hero----------------------*/
+.primaryHero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/bgEngine.jpg') no-repeat center center /cover;
+    min-height: 30rem;
+}
+
+.container {
+    height: 100%;
+}
+
+form {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    border-radius: 20px;
+}
+
+.form-control {
+    border-radius: 5px !important;
+    -webkit-appearance: auto !important;
+    -moz-appearance: unset !important;
+    appearance: auto !important;
+}
+
+.form-control:hover {
+    box-shadow: none !important;
+}
+
+.submit .btn {
+    background-color: #2F3967;
+    color: #fff !important;
+    border-radius: 10px;
+}
+
+.submit .btn:hover {
+    background-color: #ff9600 !important;
+    color: #000 !important;
+}
+
+.left p {
+    font-family: "Poppins";
+    font-size: 3rem;
+    color: #fff;
+    text-align: center;
+    animation: slideup 1s ease forwards;
+    transition: all 1s ease;
+}
+
+@keyframes slideup {
+    0% {
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+#typed {
+    font-size: calc(16px + 1rem);
+    font-family: "Poppins" !important;
+    color: rgb(245, 183, 84);
+    text-shadow: 0;
+    color: #1fa910;
+    text-shadow: 0 0 0.7rem #000;
+}
+
+#partSpan {
+    color: #e40000;
+    font-weight: bold;
+    text-shadow: 0 0 10px black;
+}
+
+/*-------------WRAPTEXT-----------------------*/
+.WrapText p {
+    font-family: 'Quicksand';
+}
+
+.WrapText h1 {
+    color: #000;
+    font-family: 'Philosopher';
+    padding: 0 0.5rem;
+    border-radius: 2rem;
+}
+
+.WrapText h1 {
+    border-bottom: 1px dashed #000;
+    box-shadow: 0.1rem 0.1rem 0.4rem #0000004d;
+}
+.WrapText h2{
+    background-color: #2F3967 !important;
+    color: #fff;
+    border-radius: 1rem;
+    font-family: 'Philosopher';
+    width: fit-content;
+    padding: 0.5rem;
+}
+.WrapText h3 {
+    background-color: #2F3967 !important;
+    color: #fff;
+    border-radius: 1rem;
+    font-family: 'Philosopher';
+    width: fit-content;
+    padding: 0.5rem;
+}
+
+/*---------------------sub-childs----------------*/
+.child {
+    text-align: center;
+    padding: 1rem;
+    border: 0.1px solid #000;
+    font-family: "Quicksand";
+    background-color: #2F3967;
+    color: #fff;
+    border-radius: 2rem;
+
+}
+
+.child a {
+    color: inherit;
+}
+
+@media screen and (max-width:768px) {
+    .left p {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width:300px) {
+    .left {
+        display: none;
+    }
+
+}
