@@ -22,7 +22,7 @@ export default function Menu() {
             style={current == "Admin_Home" ? focusStyle : {}}
             onClick={() => {
               setCurrent("Admin_Home");
-              navigate("/crm/Admin_Home");
+              navigate("/crm/admin");
             }}
           >
             <i class="fa-solid fa-house"></i>
@@ -130,7 +130,7 @@ export default function Menu() {
             style={current == "agent-home" ? focusStyle : {}}
             onClick={() => {
               setCurrent("agent-home");
-              navigate("/crm/agent/Agent_Home");
+              navigate("/crm/agent");
             }}
           >
             <i class="fa-solid fa-house"></i>

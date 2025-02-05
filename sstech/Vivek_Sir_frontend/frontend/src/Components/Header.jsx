@@ -14,7 +14,7 @@ export default function Header() {
       <nav className="navbar navbar-expand-lg sticky-header">
         <div className="container-fluid d-flex header-content">
           <Link className="navbar-brand" to="/">
-            <img src="/asset/logo.png" alt="" width={250} />
+            <img src="/asset/logo-no-background.png" alt="" width={340} />
           </Link>
           <button
             className="navbar-toggler"

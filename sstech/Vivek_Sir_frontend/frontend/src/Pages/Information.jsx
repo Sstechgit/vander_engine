@@ -38,13 +38,13 @@ const faqData = [
     answer: (
       <>
         <p>
-          SS Tech is a dynamic digital marketing company offering a wide array of services tailored to meet the diverse needs of businesses seeking to establish a strong online presence and drive growth in the digital realm. With a focus on innovation, creativity, and results-driven strategies, SS Tech provides comprehensive solutions across various digital marketing channels.
+          Future Skills Academyis a dynamic digital marketing company offering a wide array of services tailored to meet the diverse needs of businesses seeking to establish a strong online presence and drive growth in the digital realm. With a focus on innovation, creativity, and results-driven strategies, Future Skills Academyprovides comprehensive solutions across various digital marketing channels.
         </p>
         <p>
-          At SS Tech, we specialize in leveraging the power of platforms like Google Ads and Facebook Ads to help businesses reach their target audience effectively and maximize their ROI.
+          At Future Skills Academy, we specialize in leveraging the power of platforms like Google Ads and Facebook Ads to help businesses reach their target audience effectively and maximize their ROI.
         </p>
         <p>
-          In addition to advertising services, SS Tech excels in web development, creating visually stunning and user-friendly websites.
+          In addition to advertising services, Future Skills Academyexcels in web development, creating visually stunning and user-friendly websites.
         </p>
       </>
     ),

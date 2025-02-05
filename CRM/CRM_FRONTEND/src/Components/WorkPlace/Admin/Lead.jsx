@@ -436,7 +436,7 @@ export default function Lead({ setload }) {
           danger: false,
         },
         AddLead: {
-          name: <i className="fa-solid fa-file-circle-plus"></i>,
+          name: <p><i className="fa-solid fa-file-circle-plus"></i> Add a Lead</p>,
           func: AddandEditLead,
           parameters: [],
           danger: false,

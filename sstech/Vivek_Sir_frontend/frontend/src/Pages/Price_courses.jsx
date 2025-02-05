@@ -14,7 +14,7 @@ export default function Price_courses() {
                 >
                   <div className="box bg-white p-5 m-3">
                     <h4>TOTAL PROGRAM FEE</h4>
-                    <h3 style={{color:"#ff9c00"}} className="fw-bold fs-1">₹60,000</h3>
+                    <h3 style={{color:"#ff9c00"}} className="fw-bold fs-1">₹30,000</h3>
                   </div>
                 </div>
                 <div className="col-lg-8 d-flex flex-column justify-content-center">

@@ -5,7 +5,7 @@ export default function Specialization() {
         { imgSrc: "/assets/ex-1.png", head: "Digital Marketing Course", list1: "  50+ Modules ", list2: " 180 Hrs Training" },
         { imgSrc: "/assets/ex-2.png", head: "Special Session", list1: "Case Study Analysis", list2: "Dropshipping Strategies" },
         { imgSrc: "/assets/ex-3.png", head: "Tools & Projects", list1: "Tools & Themes", list2: "Hands-On Projects" },
-        { imgSrc: "/assets/ex-4.png", head: "Certifications", list1: "Google Certifications", list2: "MIDM Qualification" },
+        { imgSrc: "/assets/ex-4.png", head: "Certifications", list1: "Google Certifications",  },
     ]
     return (
         <div className="specialization py-2 mt-4">

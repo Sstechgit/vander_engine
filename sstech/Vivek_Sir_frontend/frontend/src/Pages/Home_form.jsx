@@ -61,7 +61,7 @@ export default function Home_form() {
   const Formtitle = () => {
     switch (location.pathname) {
       case "/":
-        return "Get Free Site Audit";
+        return "Connect With Us";
       case "/web-development-agency-chicago":
         return "Book A Demo";
       case "/ppc-company-chicago":
@@ -117,7 +117,7 @@ export default function Home_form() {
             </div>
           </div>
           <div className="row">
-            <div className="mb-3 col-6">
+            <div className="mb-3">
               <label htmlFor="email" className="form-label">
                 Email address{" "}
                 <span className="text-danger fw-bold fs-5">*</span>
@@ -131,7 +131,7 @@ export default function Home_form() {
                 required
               />
             </div>
-            <div className=" col-6">
+            {/* <div className=" col-6">
               <label htmlFor="website" className="form-label">
                 Website URL
               </label>
@@ -142,7 +142,7 @@ export default function Home_form() {
                 value={website}
                 onChange={(event) => setWebsite(event.target.value)}
               />
-            </div>
+            </div> */}
           </div>
           <div className="mb-3">
             <label htmlFor="message" className="form-label">
@@ -155,7 +155,7 @@ export default function Home_form() {
               onChange={(event) => setMessage(event.target.value)}
             />
           </div>
-          <div className="mb-2 form-check">
+          {/* <div className="mb-2 form-check">
             <input
               type="checkbox"
               className="form-check-input"
@@ -165,7 +165,7 @@ export default function Home_form() {
             <label className="form-check-label" htmlFor="exampleCheck1">
               Check me out
             </label>
-          </div>
+          </div> */}
           <button type="submit" className="btn btn-primary">
             {loading ? (
               <span>

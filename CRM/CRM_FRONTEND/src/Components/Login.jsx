@@ -54,7 +54,12 @@ const Login = () => {
       sessionStorage.setItem("name", result.payload.name);
       sessionStorage.setItem("designation", result.payload.designation);
 
-      navigate("crm");
+      // Redirect based on designation
+      if (result.payload.designation === 'Admin') {
+        navigate("/crm/admin");  // Navigate to /admin
+      } else if (result.payload.designation === 'Agent') {
+        navigate("/crm/agent");  // Navigate to /agent
+      }
     } else {
       let errorObj = getErrors(result, ["email", "password", "designation"]);
       seterrors((prev) => {
@@ -134,9 +139,8 @@ const Login = () => {
           >
             {/* Sign Up Form */}
             <div
-              className={`signup ${
-                isSignUp ? "" : "nodisplay"
-              } flex flex-col items-center justify-center`}
+              className={`signup ${isSignUp ? "" : "nodisplay"
+                } flex flex-col items-center justify-center`}
             >
               {contextHolder}
               {/* <h1>register</h1> */}
@@ -231,9 +235,8 @@ const Login = () => {
 
             {/* Sign In Form */}
             <div
-              className={`signin ${
-                isSignUp ? "nodisplay" : ""
-              } flex flex-col items-center justify-center`}
+              className={`signin ${isSignUp ? "nodisplay" : ""
+                } flex flex-col items-center justify-center`}
             >
               {/* <h1>Log In</h1> */}
               <img
@@ -255,7 +258,7 @@ const Login = () => {
                     value={email}
                     error={errors?.email}
                     changeValue={setEmail}
-              
+
                   />
                   <InputField
                     placeholder="Enter Password"

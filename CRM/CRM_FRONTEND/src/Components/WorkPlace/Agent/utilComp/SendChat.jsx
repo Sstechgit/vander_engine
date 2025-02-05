@@ -117,6 +117,7 @@ export default function SendChat({
           <TextArea
             placeholder="Enter Your Body"
             value={body}
+            rows={6}
             onChange={(e) => {
               setBody(e.target.value);
             }}

@@ -1,6 +1,6 @@
 //  export const base = "https://sstechcrm.com";
-// export const base = "http://backend.sstechcrm.com";
- export const base = "http://localhost:8000";
+export const base = "http://backend.sstechcrm.com";
+//  export const base = "http://localhost:8000";
 
 // export const base = "http://crmbackend.ap-south-1.elasticbeanstalk.com"
 export const urls = {
@@ -26,7 +26,7 @@ export const urls = {
   FetchTask:base+"/api/task", //get /page/pagesize
   ReDistributeOrder:base+"/api/orders/Redistribute",
   GetTaskForAgent:base+"/api/agent/task",
-  searchProduct:"https://www.vanderengines.com/api/crmSearchApi.php",
+  searchProduct:"https://backend.vanderengines.com/api/crmsearchroute",
   changeStatusLead:base+"/api/agent/task/status",
   changeStatusOrder:base+"/api/orders/status",
   addnote:base+"/api/note" ,//post
