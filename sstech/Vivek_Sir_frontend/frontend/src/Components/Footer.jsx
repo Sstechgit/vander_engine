@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 export default function Footer() {
 
 
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/672e984c4304e3196adf7e51/1ic705qrg';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
+  // var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+  // (function () {
+  //   var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+  //   s1.async = true;
+  //   s1.src = 'https://embed.tawk.to/672e984c4304e3196adf7e51/1ic705qrg';
+  //   s1.charset = 'UTF-8';
+  //   s1.setAttribute('crossorigin', '*');
+  //   s0.parentNode.insertBefore(s1, s0);
+  // })();
 
 
   // useEffect(() => {
@@ -38,34 +38,56 @@ s0.parentNode.insertBefore(s1,s0);
           </div>
 
           <div className="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-end social-link">
-            <Link
-              to="https://www.facebook.com/people/SS-TECH-Services/61561744207853/"
+            <a
+              href="https://www.facebook.com/share/14q4TABVYYP/?mibextid=wwXIfr"
               className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <i class="fa-brands fa-facebook-f"></i>
-            </Link>
-            <Link to="https://twitter.com" className="me-3 text-reset">
-              <i class="fa-brands fa-twitter"></i>
-            </Link>
-            <Link to="https://youtube.com" className="me-3 text-reset">
-              <i class="fa-brands fa-youtube"></i>
-            </Link>
-            <Link to="https://g.co/kgs/a8rqPoj" className="me-3 text-reset">
-              <i class="fa-brands fa-google"></i>
-            </Link>
-            <Link
-              to="https://www.instagram.com/sstech_service/"
+              <i className="fa-brands fa-facebook-f"></i>
+            </a>
+            <a
+              href="https://twitter.com"
               className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <i class="fa-brands fa-instagram"></i>
-            </Link>
-            <Link
-              to="https://www.linkedin.com/company/104136889/admin/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3BytFSASSwRwK1igydrXUAOA%3D%3D"
+              <i className="fa-brands fa-twitter"></i>
+            </a>
+            <a
+              href="https://youtube.com"
               className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <i class="fa-brands fa-linkedin"></i>
-            </Link>
+              <i className="fa-brands fa-youtube"></i>
+            </a>
+            <a
+              href="#"
+              className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fa-brands fa-google"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/futureskills__academy/profilecard/?igsh=ajQ0ZG12cGlrc3U1"
+              className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fa-brands fa-instagram"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/company/saranlights/"
+              className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fa-brands fa-linkedin"></i>
+            </a>
           </div>
+
         </section>
 
         <section className="footer pt-1">
@@ -74,10 +96,10 @@ s0.parentNode.insertBefore(s1,s0);
               <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">
                   <span>&#128924;</span>
-                  SSTECHSERVICES
+                  Future Skills Academy
                 </h6>
                 <p>
-                  SS Tech Services is a leading Digital Marketing Services
+                  Future Skills Academy is a leading Digital Marketing Services
                   provider. We provide SEO, SMO, Google Ads, Meta Ads, and Web
                   Development services.
                 </p>
@@ -102,24 +124,29 @@ s0.parentNode.insertBefore(s1,s0);
                     Contact Us
                   </Link>
                 </p>
+
+              </div>
+              <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                <h6 className="text-uppercase fw-bold mb-4 footer-link">
+                  Section
+                </h6>
                 <p>
                   <Link to="/blog" className="text-reset">
                     Blog
                   </Link>
                 </p>
                 <p>
-                  <Link to="/career" className="text-reset">
-                    Career
+                  <Link to="/courses" className="text-reset">
+                    Courses
                   </Link>
                 </p>
                 <p>
-                  <Link to="/portfolio" className="text-reset">
-                    Portfolio
+                  <Link to="/Privacy" className="text-reset">
+                    Privacy
                   </Link>
                 </p>
               </div>
-
-              <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+              {/* <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                 <h6 className="text-uppercase fw-bold mb-4 footer-link">
                   Our Services
                 </h6>
@@ -167,9 +194,9 @@ s0.parentNode.insertBefore(s1,s0);
                     SEO
                   </Link>
                 </p>
-              </div>
+              </div> */}
 
-              <div className="col-md-4 col-lg-3 col-xl-4 mb-4">
+              <div className="col-md-4 col-lg-3 col-xl-5 mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
                 <p class="social-link">
                   <i class="fa-solid fa-location-pin me-1"></i>
@@ -181,10 +208,10 @@ s0.parentNode.insertBefore(s1,s0);
                 </p>
                 <p className="social-link">
                   <i class="fa-solid fa-envelope me-1"></i>
-                  info@sstechservices.net
+                  info@futureskillsacademy.in
                 </p>
                 <p className="social-link">
-                  <i class="fa-solid fa-phone me-1"></i>+16302425508, +91 8810374145
+                  <i class="fa-solid fa-phone me-1"></i> +918810374145
                 </p>
               </div>
             </div>
@@ -202,7 +229,7 @@ s0.parentNode.insertBefore(s1,s0);
             rel="noopener noreferrer"
           >
             Copyright © 2024 | Powered by{" "}
-            <span style={{ color: "#ff9c00" }}>[SS Tech Services]</span>
+            <span style={{ color: "#ff9c00" }}>[Future Skills Academy]</span>
           </Link>
         </div>
       </footer>

@@ -247,7 +247,7 @@ const Courses = () => {
       <Future_courses />
       <Cta_courses />
       <Price_courses />
-      <Certificate_courses/>
+      <Certificate_courses />
       <div className="container mt-5" ref={containerRef}>
         <h3
           className="text-center fw-bold fs-1 mb-4"
@@ -286,17 +286,34 @@ const Courses = () => {
           {[...Array(totalPages)].map((_, index) => (
             <button
               key={index + 1}
-              className={`btn mx-1 ${
-                currentPage === index + 1
+              className={`btn mx-1 ${currentPage === index + 1
                   ? "btn-primary"
                   : "btn-outline-primary"
-              }`}
+                }`}
               onClick={() => handlePageClick(index + 1)}
             >
               {index + 1}
             </button>
           ))}
         </div>
+
+        {/* <div className="container mt-5" ref={containerRef}>
+          <h3
+            className="text-center fw-bold fs-1 mb-4"
+            style={{ color: "#ff9c00" }}
+          >
+            Additional Courses
+          </h3>
+          <div className="row">
+            <div className="col-lg-6"><div className="card">
+              <img src="" alt="" />
+              <div className="card-body"></div></div></div>
+            <div className="col-lg-6"><div className="card">
+              <img src="" alt="" />
+              <div className="card-body"></div></div></div>
+          </div>
+        </div>
+ */}
 
         {/* Success Stories Section */}
         <div className="text-center my-5">

@@ -14,6 +14,7 @@ import Specialization from "./Specialization";
 import HomeModules from "./HomeModules";
 import HomeJoine_us from "./HomeJoine_us";
 import HomeCourse_Benefits from "./HomeCourse_Benefits";
+import Expert from "./Expert";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -208,7 +209,7 @@ export default function Home() {
                   required
                   className="form-control mb-4 py-2"
                 />
-                <input
+                {/* <input
                   type="tel"
                   value={formData.confirmPhone}
                   onChange={handleChange}
@@ -216,7 +217,7 @@ export default function Home() {
                   name="confirmPhone"
                   required
                   className="form-control mb-4 py-2"
-                />
+                /> */}
                 <input
                   type="text"
                   value={formData.address}
@@ -226,7 +227,7 @@ export default function Home() {
                   required
                   className="form-control mb-4 py-2"
                 />
-                <div className="mb-2 form-check">
+                {/* <div className="mb-2 form-check">
                   <input
                     type="checkbox"
                     className="form-check-input"
@@ -242,7 +243,7 @@ export default function Home() {
                   >
                     I agree to the terms and conditions
                   </label>
-                </div>
+                </div> */}
                 <button
                   type="submit"
                   className="btn btn-warning w-100"
@@ -298,6 +299,7 @@ export default function Home() {
       
       <Services />
       <WhyChoose />
+      <Expert/>
       <Form />
       <OurAcheivements />
       <Information />

@@ -198,7 +198,7 @@ const CourseSection = () => {
                       />
                     </div>
                   </div>
-                  <div className="mb-3">
+                  {/* <div className="mb-3">
                     <label htmlFor="formConfirmPhone" className="form-label">
                       Confirm Mobile Number
                     </label>
@@ -212,8 +212,8 @@ const CourseSection = () => {
                       name="confirmPhone"
                       required
                     />
-                  </div>
-                  <div className="mb-3 form-check">
+                  </div> */}
+                  {/* <div className="mb-3 form-check">
                     <input
                       type="checkbox"
                       className="form-check-input"
@@ -230,7 +230,7 @@ const CourseSection = () => {
                       I authorize SsTech and its representatives to contact me via
                       Call, SMS, Email or WhatsApp.
                     </label>
-                  </div>
+                  </div> */}
                   <button
                     type="submit"
                     className={`btn w-100 ${styles.submitButton}`}
@@ -296,7 +296,7 @@ const CourseSection = () => {
                   required
                   className="form-control mb-4 py-2"
                 />
-                <input
+                {/* <input
                   type="tel"
                   value={formData.confirmPhone}
                   onChange={handleChange}
@@ -304,7 +304,7 @@ const CourseSection = () => {
                   name="confirmPhone"
                   required
                   className="form-control mb-4 py-2"
-                />
+                /> */}
                 <input
                   type="text"
                   value={formData.address}
@@ -314,7 +314,7 @@ const CourseSection = () => {
                   required
                   className="form-control mb-4 py-2"
                 />
-                <div className="mb-2 form-check">
+                {/* <div className="mb-2 form-check">
                   <input
                     type="checkbox"
                     className="form-check-input"
@@ -330,7 +330,7 @@ const CourseSection = () => {
                   >
                     I agree to the terms and conditions
                   </label>
-                </div>
+                </div> */}
                 <button
                   type="submit"
                   className="btn btn-warning w-100"

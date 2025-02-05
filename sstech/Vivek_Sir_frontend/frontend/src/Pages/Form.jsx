@@ -61,7 +61,7 @@ export default function Form() {
           <div className="col-lg-6 p-4">
             <h3 className="text-black">Our Innovative Approach in Digital Marketing</h3>
             <p>
-              At SS Tech Service, we pride ourselves on being a leading digital
+              At Future Skills Academy, we pride ourselves on being a leading digital
               marketing agency. Our innovative approach sets us apart in a
               competitive landscape, serving clients locally and globally with
               customized solutions that drive success and growth.
@@ -116,7 +116,7 @@ export default function Form() {
                   required
                 />
               </div>
-              <div className="mb-2">
+              {/* <div className="mb-2">
                 <label htmlFor="website" className="form-label">
                   Website URL
                 </label>
@@ -127,7 +127,7 @@ export default function Form() {
                   value={website}
                   onChange={(event) => setWebsite(event.target.value)}
                 />
-              </div>
+              </div> */}
               <div className="mb-2">
                 <label htmlFor="message" className="form-label">
                   Comment or Message
@@ -139,7 +139,7 @@ export default function Form() {
                   onChange={(event) => setMessage(event.target.value)}
                 />
               </div>
-              <div className="mb-2 form-check">
+              {/* <div className="mb-2 form-check">
                 <input
                   type="checkbox"
                   className="form-check-input"
@@ -149,7 +149,7 @@ export default function Form() {
                 <label className="form-check-label" htmlFor="exampleCheck1">
                   Check me out
                 </label>
-              </div>
+              </div> */}
               <button type="submit" className="btn btn-primary">
                 {loading ? (
                   <span>

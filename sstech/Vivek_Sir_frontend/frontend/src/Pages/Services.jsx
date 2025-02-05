@@ -10,7 +10,7 @@ export default function Services() {
     {
       imgSrc: "/assets/se-1.webp",
       head: "Search Engine Optimization",
-      para: "SS Tech Services is a leading digital marketing agency that helps your business to rank on SERP and generate more business. We have completed 300+ SEO Projects.",
+      para: "Future Skills Academy is a leading digital marketing agency that helps your business to rank on SERP and generate more business. We have completed 300+ SEO Projects.",
     },
     {
       imgSrc: "/assets/se-2.webp",
@@ -20,7 +20,7 @@ export default function Services() {
     {
       imgSrc: "/assets/se-3.webp",
       head: "Content Writing",
-      para: "SS Tech provides you high quality content for your website. Our team of experts creates content that is optimized for search engines like Google, helping to boost customer engagement.",
+      para: "Future Skills Academy provides you high quality content for your website. Our team of experts creates content that is optimized for search engines like Google, helping to boost customer engagement.",
     },
     {
       imgSrc: "/assets/se-4.png",

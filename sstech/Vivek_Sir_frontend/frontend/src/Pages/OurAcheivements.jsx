@@ -19,7 +19,7 @@ export default function OurAcheivements() {
     },
     {
       imgSrc: "/assets/achi-3.png",
-      head: "5+ years in Business",
+      head: "7+ years in Business",
       para: "",
     },
   ];

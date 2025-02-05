@@ -8,12 +8,12 @@ const Privacy = () => {
 
       <p className="lead">
         This Privacy Policy is intended to inform you regarding the personal
-        information that may be collected through SS Tech Services and how we
+        information that may be collected through Future Skills Academy and how we
         use, share, and protect that information. By using this site, you agree
         to this Privacy Policy, and as such we strongly encourage our visitors
         to read through this content regularly to stay informed of its contents
         and any changes. In the following policy, “we, us, and site” are used to
-        refer to SS Tech Services.
+        refer to Future Skills Academy.
       </p>
 
       <h3><strong>Applicability of this Privacy Policy</strong></h3>
@@ -25,7 +25,7 @@ const Privacy = () => {
 
       <h3><strong>Use of Information</strong></h3>
       <p>
-        In efforts to better serve your needs, SS Tech Services collects and
+        In efforts to better serve your needs, Future Skills Academy collects and
         stores personal information that you choose to voluntarily provide
         through our contact forms and other means of communication in which you
         provide your information. The information collected may include but is
@@ -40,7 +40,7 @@ const Privacy = () => {
 
       <p>
         We value your information and protect your privacy by utilizing this
-        information only in a way that best benefits you. SS Tech Services does
+        information only in a way that best benefits you. Future Skills Academy does
         not rent, sell, or share personal information about you with other
         people or non-affiliated companies without your explicit approval outside
         of the following purposes:
@@ -49,9 +49,9 @@ const Privacy = () => {
         <li>To provide products or services you’ve requested</li>
         <li>
           To provide the information to trusted entities who work on behalf of
-          or with SS Tech Services under strict confidentiality agreements in
+          or with Future Skills Academy under strict confidentiality agreements in
           order to help us communicate with you regarding relevant offers from
-          SS Tech Services and our marketing partners. These companies do not
+          Future Skills Academy and our marketing partners. These companies do not
           have any independent right to further share or disseminate this
           information.
         </li>
@@ -66,7 +66,7 @@ const Privacy = () => {
           as otherwise required by law
         </li>
         <li>
-          To transfer information about you if SS Tech Services is acquired by
+          To transfer information about you if Future Skills Academy is acquired by
           or merged with another company
         </li>
       </ul>
@@ -94,9 +94,9 @@ const Privacy = () => {
 
       <h3><strong>Links to Other Websites</strong></h3>
       <p>
-        In order to provide additional information or services, SS Tech Services
+        In order to provide additional information or services, Future Skills Academy
         may include links to external websites. Clicking on such a link will
-        navigate you away from SS Tech Services’ site. Other site’s privacy
+        navigate you away from Future Skills Academy’ site. Other site’s privacy
         practices may differ from our own. We do not endorse or make any
         representations regarding third-party websites. When clicking off the SS
         Tech Services site, we strongly encourage you to visit the other site’s
@@ -114,8 +114,7 @@ const Privacy = () => {
 
       <h3><strong>Your Information, Your Choices</strong></h3>
       <p>
-        If you choose to no longer receive email notifications from SS Tech
-        Services, you are free at any time to unsubscribe in order to cease from
+        If you choose to no longer receive email notifications from Future Skills Academy, you are free at any time to unsubscribe in order to cease from
         receiving these types of notifications. If you have provided us with your
         information, you may request to update, modify, or delete it as deemed
         necessary by contacting us.
@@ -123,7 +122,7 @@ const Privacy = () => {
 
       <h3><strong>Changes to this Privacy Policy</strong></h3>
       <p>
-        SS Tech Services retains the right to update this Privacy Policy at our
+        Future Skills Academy retains the right to update this Privacy Policy at our
         discretion at any time. For the benefit of your open awareness and
         knowledge, we make every effort to notify users of policy changes. Prior
         versions of this policy are retained for records. We encourage our users

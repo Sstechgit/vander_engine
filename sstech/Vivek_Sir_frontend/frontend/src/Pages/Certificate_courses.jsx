@@ -11,11 +11,11 @@ export default function Certificate_courses() {
                 className="text-center fw-bold fs-1 mb-4"
                 style={{ color: "#ff9c00" }}
               >
-                Achieve a Valued Digital Marketing Certification with SS Tech
+                Achieve a Valued Digital Marketing Certification with Future Skills Academy
               </h3>
             </div>
             <div className="col-lg-6">
-                <img src="/asset/HR intern certificate.png" alt="" className="img-fluid" />
+                <img src="/assets/Certificate.png" alt="" className="img-fluid" />
             </div>
           </div>
         </div>

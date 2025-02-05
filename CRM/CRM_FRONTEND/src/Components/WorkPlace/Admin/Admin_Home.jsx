@@ -9,6 +9,7 @@ const Admin_Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setCurrentPageSize] = useState(10);
   const navigate = useNavigate();
+  //--------------------------------All Agents--------------------------------------
   const fetchAgents = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.trackAgent}/${page}/${pageRows}`;
     try {
@@ -24,12 +25,13 @@ const Admin_Home = () => {
     }
   };
   useEffect(() => {
-    fetchAgents(); 
-  }, [currentPage, pageSize]); 
+    fetchAgents();
+  }, [currentPage, pageSize]);
   const handleViewAllAgents = () => {
-    navigate("/crm/TrackAgent"); 
+    navigate("/crm/TrackAgent");
   };
 
+  //--------------------------------All Leads--------------------------------------
 
   const fetchLeads = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
@@ -46,20 +48,158 @@ const Admin_Home = () => {
     }
   };
   useEffect(() => {
-    fetchLeads(); 
-  }, [currentPage, pageSize]); 
+    fetchLeads();
+  }, [currentPage, pageSize]);
   const handleViewAllClick = () => {
-    navigate("/crm/Leads"); 
+    navigate("/crm/Leads");
+  };
+
+  //--------------------------------Vander Engines Leads--------------------------------------
+
+  const fetchvanderenginesLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        settotalLeads(result.payload.total); // Store the total agents
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchvanderenginesLeads();
+  }, [currentPage, pageSize]);
+  const vanderenginesleads = () => {
+    navigate("/crm/vanderengines_leads");
+  };
+
+  //--------------------------------Vander Engines Transmission Leads--------------------------------------
+
+  const fetchvandertransmissionLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        settotalLeads(result.payload.total); // Store the total agents
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchvandertransmissionLeads();
+  }, [currentPage, pageSize]);
+  const vandertransmissionleads = () => {
+    navigate("/crm/vandertransmission_leads");
+  };
+
+  //--------------------------------Auto Parts Leads--------------------------------------
+
+  const fetchautopartsLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        settotalLeads(result.payload.total); // Store the total agents
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchautopartsLeads();
+  }, [currentPage, pageSize]);
+  const autopartsleads = () => {
+    navigate("/crm/autoparts_leads");
+  };
+
+  //--------------------------------Auto Parts LLC Leads--------------------------------------
+
+  const fetchllcLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        settotalLeads(result.payload.total); // Store the total agents
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchllcLeads();
+  }, [currentPage, pageSize]);
+  const llcleads = () => {
+    navigate("/crm/llc_leads");
+  };
+
+  //--------------------------------SSTECH Leads--------------------------------------
+
+  const fetchsstechLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        settotalLeads(result.payload.total); // Store the total agents
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchsstechLeads();
+  }, [currentPage, pageSize]);
+  const sstechleads = () => {
+    navigate("/crm/sstech_leads");
+  };
+
+  //--------------------------------Facebook Leads--------------------------------------
+
+  const fetchfacebookLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        settotalLeads(result.payload.total); // Store the total agents
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchfacebookLeads();
+  }, [currentPage, pageSize]);
+  const facebookleads = () => {
+    navigate("/crm/facebook_leads");
   };
 
   return (
     <div>
       <div className="details my-5">
         <h2>{sessionStorage.getItem("name") || "Admin"}</h2>
-      </div> 
+      </div>
       <div className="container flex items-center justify-center h-full flex-wrap gap-4">
 
-
+        {/*-----------------------Total Agents--------------------------*/}
         <div className="card">
           <div className="content">
             <div className="details">
@@ -89,8 +229,7 @@ const Admin_Home = () => {
             </div>
           </div>
         </div>
-
- 
+        {/*-----------------------Total Leads--------------------------*/}
         <div className="card">
           <div className="content">
             <div className="details">
@@ -121,6 +260,192 @@ const Admin_Home = () => {
             </div>
           </div>
         </div>
+        {/*-----------------------VanderEngines Leads--------------------------*/}
+        <div className="card">
+          <div className="content">
+            <div className="details">
+              <div className="data">
+                <h3>
+                  {totalLeads !== null ? (
+                    <>
+                      {/* <h3>{totalLeads}</h3> */}
+                      <br />
+                      <span>Vander Engines Leads</span>
+                    </>
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </h3>
+              </div>
+              <div className="actionBtn">
+                <Button
+                  type="primary"
+                  size="large"
+                  block
+                  className=" bg-gray-500"
+                  onClick={vanderenginesleads} // Trigger state change to show Lead component
+                >
+                  View All
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*-----------------------VanderTransmission Leads--------------------------*/}\
+        <div className="card">
+          <div className="content">
+            <div className="details">
+              <div className="data">
+                <h3>
+                  {totalLeads !== null ? (
+                    <>
+                      {/* <h3>{totalLeads}</h3> */}
+                      <br />
+                      <span>Vander Engines Transmissions Leads</span>
+                    </>
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </h3>
+              </div>
+              <div className="actionBtn">
+                <Button
+                  type="primary"
+                  size="large"
+                  block
+                  className=" bg-blue-700"
+                  onClick={vandertransmissionleads} // Trigger state change to show Lead component
+                >
+                  View All
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*-----------------------Autoparts Leads--------------------------*/}
+        <div className="card">
+          <div className="content">
+            <div className="details">
+              <div className="data">
+                <h3>
+                  {totalLeads !== null ? (
+                    <>
+                      {/* <h3>{totalLeads}</h3> */}
+                      <br />
+                      <span>Usa Auto Parts Leads</span>
+                    </>
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </h3>
+              </div>
+              <div className="actionBtn">
+                <Button
+                  type="primary"
+                  size="large"
+                  block
+                  className=" bg-pink-500"
+                  onClick={autopartsleads} // Trigger state change to show Lead component
+                >
+                  View All
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*-----------------------LLC Leads--------------------------*/}
+        <div className="card">
+          <div className="content">
+            <div className="details">
+              <div className="data">
+                <h3>
+                  {totalLeads !== null ? (
+                    <>
+                      {/* <h3>{totalLeads}</h3> */}
+                      <br />
+                      <span>Usa Auto Parts LLC Leads</span>
+                    </>
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </h3>
+              </div>
+              <div className="actionBtn">
+                <Button
+                  type="primary"
+                  size="large"
+                  block
+                  className=" bg-yellow-500"
+                  onClick={llcleads} // Trigger state change to show Lead component
+                >
+                  View All
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*-----------------------SSTech Leads--------------------------*/}
+        <div className="card">
+          <div className="content">
+            <div className="details">
+              <div className="data">
+                <h3>
+                  {totalLeads !== null ? (
+                    <>
+                      {/* <h3>{totalLeads}</h3> */}
+                      <br />
+                      <span>SSTECH Leads</span>
+                    </>
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </h3>
+              </div>
+              <div className="actionBtn">
+                <Button
+                  type="primary"
+                  size="large"
+                  block
+                  className=" bg-orange-500"
+                  onClick={sstechleads} // Trigger state change to show Lead component
+                >
+                  View All
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*-----------------------Facebook Leads--------------------------*/}
+        <div className="card">
+          <div className="content">
+            <div className="details">
+              <div className="data">
+                <h3>
+                  {totalLeads !== null ? (
+                    <>
+                      {/* <h3>{totalLeads}</h3> */}
+                      <br />
+                      <span>Facebook Leads</span>
+                    </>
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </h3>
+              </div>
+              <div className="actionBtn">
+                <Button
+                  type="primary"
+                  size="large"
+                  block
+                  className=" bg-red-600"
+                  onClick={facebookleads} // Trigger state change to show Lead component
+                >
+                  View All
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
       <style>
@@ -140,7 +465,7 @@ body {
 }
 .card {
   position: relative;
-  width: 350px;
+  width: 250px;
   background: #2a2a2a;
   border-radius: 20px;
   overflow: hidden;
@@ -175,7 +500,7 @@ body {
   font-weight: 600;
 }
 .card .content .details .data h3 span {
-  font-size: 0.65em;
+  font-size: 0.8em;
   font-weight: 400;
   color: #fff;
   opacity: 0.75;

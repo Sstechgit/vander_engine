@@ -41,13 +41,13 @@ export default function HomeModules() {
         <div className="HomeModule counter py-2 my-4">
             <div className="container my-1 ">
                 <h3 className="fw-bolder text-center acheived my-4 text-dark">
-                    Moradabad Institute Of Digital Marketing (MIDM) Covers 50+ Modules in Its Advanced Digital <span style={{color:"#ff9c00"}}> Marketing Training Program.</span>
+                Future Skills Academy Of Digital Marketing  Covers 50+ Modules in Its Advanced Digital <span style={{color:"#ff9c00"}}> Marketing Training Program.</span>
                 </h3>
                 <div className="row mt-5">
                     {data.map((item, index) => (
                         <div className="col-lg-4" key={index}>
                             <ul>
-                                <li style={{textWrap:"nowrap"}} ><span style={{ color: " blue" }}>✔️ </span>{item.list}</li>
+                                <li ><span style={{ color: " blue" }}>✔️ </span>{item.list}</li>
                             </ul>
                         </div>
                     ))}

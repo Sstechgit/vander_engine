@@ -4,7 +4,7 @@ export default function WhyChoose() {
     <div className=" py-2">
       <div className="container-fluid px-5">
         <h1 className="text-center fs-1 fw-bold ">
-          Why Choose <span>SS Tech</span>{" "}
+          Why Choose <span>Future Skills Academy</span>{" "}
         </h1>
 
         <div className="row align-items-center g-4">
@@ -12,7 +12,7 @@ export default function WhyChoose() {
             <h4 className="text-center ">
               Digital Marketing company for Success
             </h4>
-            Choosing SS Tech Services for your business is a smart decision. We
+            Choosing Future Skills Academy for your business is a smart decision. We
             are in the market since 2018 and one of the trusted online marketing
             agency that serve around the globe. Every business is unique for us
             and our tailored made strategies are specially designed to take your
@@ -32,7 +32,7 @@ export default function WhyChoose() {
                   <div className="card-title my-3">
                     <h5>Expertise</h5>
                     <p>
-                      SS Tech Services features a team of experts across various
+                      Future Skills Academy features a team of experts across various
                       technological domains. Their expertise ensures the
                       delivery of high-quality services and solutions tailored
                       to your specific needs
@@ -50,7 +50,7 @@ export default function WhyChoose() {
                   <div className="card-title my-3">
                     <h5>Innovation</h5>
                     <p>
-                      SS Tech Services is known for its innovative approach.
+                      Future Skills Academy is known for its innovative approach.
                       They stay updated with the latest technological
                       advancements and incorporate them into their solutions,
                       helping you stay ahead in the competitive market.
@@ -68,7 +68,7 @@ export default function WhyChoose() {
                   <div className="card-title my-3">
                     <h5>Customization</h5>
                     <p>
-                      One size doesn't fit all in technology solutions. SS Tech
+                      One size doesn't fit all in technology solutions. Future Skills Academy
                       Services understands this and offers customizable
                       solutions to fit your unique requirements, whether it's
                       software development, IT consulting, or any other service
@@ -88,7 +88,7 @@ export default function WhyChoose() {
                     <h5>Reliability</h5>
                     <p>
                       Reliability is key when it comes to technology services.
-                      SS Tech Services has a track record of delivering projects
+                      Future Skills Academy has a track record of delivering projects
                       on time and within budget, ensuring that you can rely on
                       them to meet your deadlines and expectations.
                     </p>
@@ -107,7 +107,7 @@ export default function WhyChoose() {
                     <h5>Customer Satisfaction</h5>
                     <p>
                       Happy clients speak volumes about a company's
-                      capabilities. SS Tech Services prioritizes customer
+                      capabilities. Future Skills Academy prioritizes customer
                       satisfaction and goes the extra mile to ensure that their
                       clients are happy with the services provided.
                     </p>
@@ -125,7 +125,7 @@ export default function WhyChoose() {
                   <div className="card-title my-3">
                     <h5>Transparency</h5>
                     <p>
-                      While providing top-notch services, SS Tech Services also
+                      While providing top-notch services, Future Skills Academy also
                       focuses on offering cost-effective solutions. They
                       understand the importance of budget constraints and strive
                       to deliver value for money.

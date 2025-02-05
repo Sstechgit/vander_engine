@@ -9,41 +9,63 @@ export default function GeneralHeader() {
           <div className="col-lg-6 col-md-6 col-sm-6 d-flex gap-5 align-items-center">
             <Link to="mailto:abc@gmail.com" className="text-black">
               <i class="fa-solid fa-envelope"></i>
-              info@sstechservices.net
+              info@futureskillsacademy.in
             </Link>
-            <Link to="tel:+18448931760" className="text-black">
-              <i class="fa-solid fa-phone"></i>+16302425508
+            <Link to="tel:+918810374145" className="text-black">
+              <i class="fa-solid fa-phone"></i>+918810374145
             </Link>
           </div>
           <div className="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-end social-link">
-            <Link
-              to="https://www.facebook.com/people/SS-TECH-Services/61561744207853/"
+            <a
+              href="https://www.facebook.com/share/14q4TABVYYP/?mibextid=wwXIfr"
               className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <i class="fa-brands fa-facebook-f"></i>
-            </Link>
-            <Link to="https://twitter.com" className="me-3 text-reset">
-              <i class="fa-brands fa-twitter"></i>
-            </Link>
-            <Link to="https://youtube.com" className="me-3 text-reset">
-              <i class="fa-brands fa-youtube"></i>
-            </Link>
-            <Link to="https://g.co/kgs/a8rqPoj" className="me-3 text-reset">
-              <i class="fa-brands fa-google"></i>
-            </Link>
-            <Link
-              to="https://www.instagram.com/sstech_service/"
+              <i className="fa-brands fa-facebook-f"></i>
+            </a>
+            <a
+              href="https://twitter.com"
               className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <i class="fa-brands fa-instagram"></i>
-            </Link>
-            <Link
-              to="https://www.linkedin.com/company/104136889/admin/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3BytFSASSwRwK1igydrXUAOA%3D%3D"
+              <i className="fa-brands fa-twitter"></i>
+            </a>
+            <a
+              href="https://youtube.com"
               className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <i class="fa-brands fa-linkedin"></i>
-            </Link>
+              <i className="fa-brands fa-youtube"></i>
+            </a>
+            <a
+              href="#"
+              className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fa-brands fa-google"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/futureskills__academy/profilecard/?igsh=ajQ0ZG12cGlrc3U1"
+              className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fa-brands fa-instagram"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/company/saranlights/"
+              className="me-3 text-reset"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fa-brands fa-linkedin"></i>
+            </a>
           </div>
+
         </div>
       </div>
     </div>

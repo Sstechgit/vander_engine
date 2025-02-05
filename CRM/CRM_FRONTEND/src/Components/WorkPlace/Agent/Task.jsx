@@ -25,14 +25,21 @@ export default function Task({ setload }) {
   const [task, settask] = useState([]);
   const [TotalData, setTotalData] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
-
+  const [mobileFilter, setMobileFilter] = useState("");
   // Function to filter tasks based on the selected date
-  const filterByDate = (selectedDate, tasks) => {
-    if (!selectedDate) return tasks; // If no date is selected, return all tasks
+  const filterTasks = (selectedDate, mobileFilter, tasks) => {
     return tasks.filter((task) => {
       const taskCreatedDate = new Date(task.createdLead).toLocaleDateString();
-      const selectedDateString = selectedDate.toLocaleDateString();
-      return taskCreatedDate === selectedDateString; // Compare formatted dates
+      const selectedDateString = selectedDate?.toLocaleDateString();
+
+      // Check date condition
+      const isDateMatch =
+        !selectedDate || taskCreatedDate === selectedDateString;
+
+      // Check mobile number condition
+      const isMobileMatch = !mobileFilter || task.phone.includes(mobileFilter);
+
+      return isDateMatch && isMobileMatch;
     });
   };
   const fetchTask = async (page, pageRows) => {
@@ -96,7 +103,8 @@ export default function Task({ setload }) {
         idx++;
       });
       // Filter tasks by the selected date if any
-      const filteredTasks = filterByDate(selectedDate, record);
+      settask(record);
+      const filteredTasks = filterTasks(selectedDate, mobileFilter, record);
 
       settask(filteredTasks); // Set the filtered tasks
 
@@ -125,7 +133,11 @@ export default function Task({ setload }) {
       // render: () => {
       //   return <span>abc@gmail.com</span>;
       // },
+      render: (_,record) => {
+        return (record.email.slice(0,3)+".....@gmail.com" );
+      },
     },
+
     {
       title: "Send Email",
       dataIndex: "",
@@ -162,8 +174,7 @@ export default function Task({ setload }) {
         return (
           <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
             <i className="fa-solid fa-phone"></i>
-            {record.phone}
-            {/* .slice(0,5)+"xxxxx"} */}
+            {record.phone.slice(0,5)+"xxxxx..."} 
           </a>
         );
       },
@@ -314,17 +325,32 @@ export default function Task({ setload }) {
     return () => {
       clearInterval(id);
     };
-  }, [currentPage, pageSize, selectedDate]);
+  }, [currentPage, pageSize, selectedDate, mobileFilter]);
 
   return (
     <>
       {/* DatePicker for selecting the filter date */}
-      <DatePicker
-        className="overflow-x-hidden py-4"
-        onChange={(date, dateString) =>
-          setSelectedDate(date ? new Date(dateString) : null)
-        }
-      />
+      <div className="w-full border px-7 py-1">
+        <DatePicker
+          className="w-[50%] border-0"
+          onChange={(date, dateString) =>
+            setSelectedDate(date ? new Date(dateString) : null)
+          }
+        />
+        <span className="w-[40%]">
+          <input
+            type="text "
+            placeholder="Search By Mobile No. "
+            value={mobileFilter}
+            onChange={(e) => setMobileFilter(e.target.value)}
+            className="ms-5 mobile-filter-input"
+          />
+          <i
+            class="fa-solid fa-magnifying-glass float-end mt-2"
+            onClick={filterTasks}
+          ></i>
+        </span>
+      </div>
       <div className="h-calc-remaining flex flex-col justify-between ">
         <div className="h-[80%]">
           <Table
@@ -356,6 +382,19 @@ export default function Task({ setload }) {
           <GeneralHeader operations={1} />
         </div> */}
       </div>
+      <style>
+        {`
+        input:focus,input:active,input:focus-visible,input:target{
+          box-shadow: none !important;
+          outline: none !important;
+        }
+       input:active{
+       box-shadow:none;
+       }
+       
+       `}
+      </style>
     </>
+
   );
 }

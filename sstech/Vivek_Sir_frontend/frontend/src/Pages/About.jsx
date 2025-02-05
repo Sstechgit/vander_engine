@@ -28,7 +28,7 @@ const About = () => {
                   </h2>
                 </div>
                 <div className="text text-muted mb-4">
-                  SS Tech Services is a leading digital marketing agency,
+                  Future Skills Academy is a leading digital marketing agency,
                   providing innovative solutions since 2018. We specialize in
                   crafting tailored digital strategies to help businesses
                   achieve success. Trusted by clients across the US, we focus on
@@ -40,7 +40,7 @@ const About = () => {
                 </div>
                 <div className="email mb-5 fw-medium">
                   Request Quote:{" "}
-                  <span className="theme_color">info@sstechservices.net</span>
+                  <span className="theme_color">info@futureskillsacademy.in</span>
                 </div>
               </div>
             </div>

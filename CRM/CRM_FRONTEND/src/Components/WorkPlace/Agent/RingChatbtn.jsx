@@ -162,7 +162,7 @@ export default function RingChatbtn({ record, setload, auth, fetch, to }) {
         ]}
       >
         {" "}
-        <TextArea value={body} onChange={(e) => setBody(e.target.value)} />
+        <TextArea value={body} onChange={(e) => setBody(e.target.value)} rows={10}/>
         <input
           accept={acceptedMimeTypes.join(",")}
           type="file"
