@@ -7,16 +7,16 @@ const sendEmail = async ({ part, make, model, year, variant, name, email,  phone
     port: 465,
     secure: true,
     auth: {
-      user: 'nick@vanderengines.com', // Your Gmail address
-      pass: 'Shobhit@2510',
+      user: 'Info@vanderengines.com',
+      pass: 'Shobhitrastogi@881037',
     },
   });
 
   const mailOptions = {
-    from: `"${name} ${email}" <nick@vanderengines.com>`,
-    replyTo: email,	
-    to: 'vanderengines1@gmail.com',
-    subject: `New Quote Request from ${name}`,
+    from: `"Vander Engines" <Info@vanderengines.com>`,
+    replyTo: email,
+    to: 'Info@vanderengines.com,vanderengines1@gmail.com',
+    subject: `Query Through www.vanderengines.com Connect At ${phone}`, // Keep subject as is
     text: `
       Part: ${part}
       Make: ${make}

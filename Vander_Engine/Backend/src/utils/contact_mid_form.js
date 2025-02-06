@@ -15,8 +15,8 @@ const contact_mid_form = async ({ part, make, model, year, variant, name, email,
   const mailOptions = {
     from: `"Vander Engines" <Info@vanderengines.com>`,
     replyTo: email,
-    to: 'anekchauhan30@gmail.com',
-    subject: `Query Through www.vanderengines.com`, // Keep subject as is
+    to: 'Info@vanderengines.com,vanderengines1@gmail.com,spthelpdesk99@gmail.com',
+    subject: `Query Through www.vanderengines.com Connect At ${phone}`, // Keep subject as is
     text: `
       Part: ${part}
       Name: ${name}

@@ -7,16 +7,16 @@ const ETsendEmail = async ({ part, make, model, year, variant, name, email,  pho
     port: 465,
     secure: true,
     auth: {
-      user: 'Info@vanderengines.com', // Your Gmail address
+      user: 'Info@usaautopartsllc.com',
       pass: 'Shobhitrastogi@881037',
     },
   });
 
   const mailOptions = {
-    from: `"${'noreply@vanderengines.com'}" <Info@vanderengines.com>`,
-    replyTo: email,	
-    to: 'Info@vanderengines.com, vanderengines1@gmail.com, anekchauhan30@gmail.com',
-    subject: `Query Through www.vanderengines.com`,
+    from: `"Vander Engines" <Info@usaautopartsllc.com>`,
+    replyTo: email,
+    to: 'Info@vanderengines.com,vanderengines1@gmail.com,spthelpdesk99@gmail.com',
+    subject: `Query Through www.vanderengines.com Connect At ${phone}`, // Keep subject as is
     text: `
       Year: ${year}
       Make: ${make}
@@ -24,7 +24,7 @@ const ETsendEmail = async ({ part, make, model, year, variant, name, email,  pho
       Part: ${part}
       Name: Vander Engines
       Phone: ${phone}
-      Email: Vanderengine01@gmail.com
+      Email: Transmmision_engine_page@gmail.com
       Variant: ${variant}
     `,
   };

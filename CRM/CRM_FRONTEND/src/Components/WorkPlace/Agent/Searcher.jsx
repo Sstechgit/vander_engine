@@ -92,75 +92,48 @@ export default function Searcher({
 
   const getResult = async () => {
     setOpen(true);
-    // setload({
-    //   spin: true,
-    //   tip: "Loading",
-    // });
-    let url = urls.searchProduct  ;
-    let order = record.order;
-    // console.log(record);
-    let formData = new FormData();
-    formData.append("description", record.description);
-    if (order == true) {
-      formData.append("part", record.part);
-    }
+    console.log(record);
+    console.log(record.description);
 
-    let result = await DoFetch(url, "POST", formData);
-    // console.log(result);
-    if (result.success == true) {
-      let records = [];
-      let idx = 1;
-      result.data.forEach((item) => {
-        records.push({
-          key: idx,
-          ...item,
-        });
-        idx++;
-      });
-      setproduct(records);
-      setTotalData(result.total);
+    let url = "https://backend.vanderengines.com/api/crmsearchroute";
+    let body = JSON.stringify({ description: record.description });
+
+    const extHeader = {
+        "Content-Type": "application/json",
+    };
+
+    try {
+        let result = await DoFetch(url, "POST", body, extHeader);
+
+        if (result.success === true) {
+            let records = result.data.map((item, idx) => ({ key: idx + 1, ...item }));
+            setproduct(records);
+            setTotalData(result.data.length);
+        } else {
+            console.error("Error:", result.message);
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
     }
-    // setload({
-    //   spin: false,
-    //   tip: "",
-    // });
-  };
+};
+
+  
   let columns = [
     { key: "make", title: "Make", dataIndex: "make" },
     { key: "year", title: "Year", dataIndex: "year" },
     { key: "model", title: "Model", dataIndex: "model" },
-    {
-      key: "part",
-      title: "Part",
-      dataIndex: "part",
-      filters: [
-        { text: "Engine", value: "Engine" },
-        { text: "Transmission", value: "Transmission" },
-      ],
-      onFilter: (value, record) => record.part === value,
-    },
-    {
-      key: "variant",
-      title: "Variant",
-      dataIndex: "variant",
-      width: 250,
-      render: (_, record) => {
-        return <p>{record.variant == "" ? "-" : record.variant}</p>;
-      },
-    },
+    { key: "part", title: "Part", dataIndex: "part" },
+    { key: "variant", title: "Variant", dataIndex: "variant" },
     { key: "pricing", title: "Pricing", dataIndex: "pricing" },
-    { key: "stock", title: "Stock No", dataIndex: "Stock", width: 200 },
-    { key: "desc", title: "Description", dataIndex: "description", width: 200 },
-
+    { key: "Stock", title: "Stock No", dataIndex: "Stock" },
+    { key: "description", title: "Description", dataIndex: "description" },
     {
       key: "miles",
       title: "Miles",
       dataIndex: "miles",
-      render: (_, record) => {
-        return <p>{record.miles == "" ? "-" : record.miles}</p>;
-      },
+      render: (_, record) => <p>{record.miles === "" ? "-" : record.miles}</p>,
     },
-  ];
+  ];  
   if (concat == true) {
     columns = [
       {

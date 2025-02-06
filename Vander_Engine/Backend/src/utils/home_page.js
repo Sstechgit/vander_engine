@@ -7,16 +7,16 @@ const homesendEmail = async ({ part, make, model, year, variant, name, email,  p
     port: 465,
     secure: true,
     auth: {
-      user: 'Info@vanderengines.com', // Your Gmail address
+      user: 'Info@usaautopartsllc.com',
       pass: 'Shobhitrastogi@881037',
     },
   });
 
   const mailOptions = {
-    from: `<Info@vanderengines.com>`,
-    replyTo: email,	
-    to: 'Info@vanderengines.com, vanderengines1@gmail.com',
-    subject: `Query Through www.vanderengines.com`,
+    from: `${email} <Info@usaautopartsllc.com>`,
+    replyTo: email,
+    to: 'Info@vanderengines.com,vanderengines1@gmail.com,spthelpdesk99@gmail.com',
+    subject: `Query Through www.vanderengines.com Connect At ${phone}`, // Keep subject as is
     text: `
       Year: ${year}
       Make: ${make}

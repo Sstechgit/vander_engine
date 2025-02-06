@@ -7,16 +7,16 @@ const sendEmail = async ({ fullName, email, phone, carBrand, carModel, modelYear
     port: 465,
     secure: true,
     auth: {
-      user: 'nick@vanderengines.com', // Your SMTP user
-      pass: 'Shobhit@2510',           // Your SMTP password
+      user: 'Info@usaautopartsllc.com',
+      pass: 'Shobhitrastogi@881037',
     },
   });
 
   const mailOptions = {
-    from: `"${fullName}" <nick@vanderengines.com>`,
+    from: `"Vander Engines" <Info@usaautopartsllc.com>`,
     replyTo: email,
-    to: 'vanderengines1@gmail.com',
-    subject: `New Appointment Request from ${fullName}`,
+    to: 'Info@vanderengines.com,vanderengines1@gmail.com',
+    subject: `Query Through www.vanderengines.com Connect At ${phone}`, // Keep subject as is
     text: `
       Full Name: ${fullName}
       Email: ${email}
