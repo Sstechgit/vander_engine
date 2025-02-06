@@ -92,30 +92,31 @@ export default function Searcher({
 
   const getResult = async () => {
     setOpen(true);
-    
-    let url = urls.searchProduct;  // Make sure urls.searchProduct points to "/search-product"
+    console.log(record);
+    console.log(record.description);
+
+    let url = "https://backend.vanderengines.com/api/crmsearchroute";
     let body = JSON.stringify({ description: record.description });
-  
+
     const extHeader = {
-      "Content-Type": "application/json",
+        "Content-Type": "application/json",
     };
-  
-    let result = await DoFetch(url, "POST", body, extHeader);
-  
-    if (result.success === true) {
-      let records = [];
-      let idx = 1;
-      result.data.forEach((item) => {
-        records.push({
-          key: idx,
-          ...item,
-        });
-        idx++;
-      });
-      setproduct(records);
-      setTotalData(result.data.length);
+
+    try {
+        let result = await DoFetch(url, "POST", body, extHeader);
+
+        if (result.success === true) {
+            let records = result.data.map((item, idx) => ({ key: idx + 1, ...item }));
+            setproduct(records);
+            setTotalData(result.data.length);
+        } else {
+            console.error("Error:", result.message);
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
     }
-  };
+};
+
   
   let columns = [
     { key: "make", title: "Make", dataIndex: "make" },
