@@ -16,6 +16,9 @@ export default function EngineForm({
   origin
 }) {
   const [phoneError, setPhoneError] = useState(""); // Error message for phone
+  const [name, setName] = useState("");  // Correct initial state
+  const [email, setEmail] = useState(""); // Correct initial state
+
   const [years, setYears] = useState([]);
   const [makes, setMakes] = useState([]);
   const [models, setModels] = useState([]);
@@ -31,7 +34,7 @@ export default function EngineForm({
   const [isFirstSubmit, setIsFirstSubmit] = useState(true);
   const { year, make, model, variant } = useParams();
   const [form1SuccessMessage, setForm1SuccessMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(false); // Added loading state
 
   const navigate = useNavigate();
   console.log("Received props:", origin);
@@ -124,7 +127,7 @@ export default function EngineForm({
       alert("Please select all fields before searching.");
       return;
     }
-    // handlePhoneSubmit();
+    handlePhoneSubmit();
     // Skip phone validation if we are already on the product page (or if we are not submitting the form)
     const path = `/engine/${selectedYear}/${selectedMake}/${selectedModel}`;
     navigate(path);
@@ -278,9 +281,311 @@ export default function EngineForm({
       animateIn: "fadeIn", // smooth transition effect
     });
   });
+  const handleSubmite = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+  
+    // Perform form validation
+    if (
+      !selectedYear ||
+      !selectedMake ||
+      !selectedModel ||
+      !selectedVariant ||
+      !phoneNumber ||
+      !name ||
+      !email
+    ) {
+      // You can show an error message or alert if any required field is empty
+      alert("Please fill out all fields before submitting.");
+      return; // Stop further execution if validation fails
+    }
+  
+    setLoading(true); // Start loading
+    try {
+      const formData = {
+        part: "Engine",
+        year: selectedYear,
+        make: selectedMake,
+        model: selectedModel,
+        variant: selectedVariant,
+        phone: phoneNumber,
+        name: name,
+        email: email,
+        message: "",  // You can add a message if needed
+        agreed: "Homepage1", // Adjust accordingly
+      };
+  
+      const response = await axios.post(
+        "https://backend.vanderengines.com/api/leads",
+        formData
+      );
+      console.log(response.data);
+      navigate('/thankyou'); // Navigate to thank you page after successful submission
+  
+      // Reset form fields after successful submission
+      setSelectedYear("");
+      setSelectedMake("");
+      setSelectedModel("");
+      setSelectedVariant("");
+      setPhoneNumber("");
+      setName("");
+      setEmail("");
+      setPhoneError(""); // Reset phone error state
+    } catch (error) {
+      console.error("There was an error submitting the form!", error);
+      alert("There was an error submitting the form!");
+    } finally {
+      setLoading(false); // Stop loading
+    }
+  };
+  
+  const handleSubmitButtonClick = (e) => {
+    e.preventDefault(); // Prevent any default behavior (in case you're inside a form)
+    
+    // Call the handleSubmit function when the button is clicked
+    handleSubmite(e);
+  };
   return (
     <>
-      <div>
+      <div className="container">
+        <div className="transmission-form text-white container mt-5" id="engine-form">
+          <div className="row">
+            <div className="col-lg-6 p-3">
+              <span className="me-3 text-dark fw-bold fs-3">Search Your Part Here</span>
+            </div>
+          </div>
+          <form onSubmit={handleSearch} >
+            <div className="row">
+              <div className="col-md-3 col-6 mb-3">
+                <select
+                  className="form-select"
+                  value={selectedYear}
+                  onChange={handleYearChange}
+                  required
+                >
+                  <option value="" disabled>
+                    Select a year
+                  </option>
+                  {years.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-3 col-6 mb-3">
+                <select
+                  className="form-select"
+                  value={selectedMake}
+                  onChange={(e) => setSelectedMake(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>
+                    Select a make
+                  </option>
+                  {makes.map((make) => (
+                    <option key={make} value={make}>
+                      {make}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-3 col-6 mb-3">
+                <select
+                  className="form-select mt-2 "
+                  value={selectedModel}
+                  onChange={(e) => setSelectedModel(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>
+                    Select a model
+                  </option>
+                  {models.map((model) => (
+                    <option key={model} value={model}>
+                      {model}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-3 col-6 mb-3">
+                <select
+                  className="form-select mt-2"
+                  value={selectedVariant}
+                  onChange={(e) => setSelectedVariant(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>
+                    Select a variant
+                  </option>
+                  {variants.map((variant) => (
+                    <option key={variant} value={variant}>
+                      {variant}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="row align-items-center">
+
+              <div class="col-md-4 col-6">
+                <label for="name" className="form-label text-dark mt-3">
+                  <i class="fa-regular fa-user me-3"></i>
+                  Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter Name"
+                  required
+                />
+              </div>
+
+              <div class="col-md-4 col-6">
+                <label for="email" class="form-label text-dark mt-3">
+                  <i class="fa-solid fa-envelope-open-text me-3"></i>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter Email"
+                  required
+                />
+              </div>
+
+              <div className="modal-body col-md-4 px-3 col-12 ">
+              <label for="name" className="form-label text-dark mt-3">
+              <i class="fa-solid fa-phone me-3"></i>
+                 Enter Your Number
+                </label>
+                <input
+                  type="tel"
+                  className={`form-control ${phoneError ? "is-invalid" : ""}`}
+                  placeholder="Enter your phone number"
+                  value={phoneNumber || "+1"} // Default to '+1'
+                  onChange={handlePhoneInputChange}
+                  required
+                  maxLength="12" // Include '+1' in the length
+                  style={{
+                    border: "none",
+                    borderRadius: "0",
+                    borderBottom: "1px solid #cccdd1",
+                  }}
+                />
+                {phoneError && <div className="text-danger">{phoneError}</div>}
+              </div>
+
+              <div className="d-flex gap-4">
+                <button
+                  type="submit"
+                  className="btn btn-block transmission-btn w-100 mt-5"
+                  onClick={handlePhoneSubmit}
+                >
+                  View Product
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-block w-100 mt-5"
+                  onClick={handleSubmitButtonClick}
+                >
+                  Submit
+                </button>
+                <div>
+                  {form1SuccessMessage && <p className="text-success">{form1SuccessMessage}</p>}
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {displayedProducts.length > 0 ? (
+          <div className="product-card-container">
+            {displayedProducts.map((product, index) => (
+              <div className="col-lg-3 mb-4" key={index}>
+                <div className="card product-card mx-2">
+                  <img
+                    src={product.image}
+                    alt="Product"
+                    className="img-fluid"
+                    style={{ height: "200px" }}
+                  />
+                  <div className="card-info">
+                    <h4>
+                      {product.year} {product.make} {product.model} Engine
+                    </h4>
+                    <p>
+                      <strong>Variant:</strong> {product.variant}
+                    </p>
+                    <p>
+                      <strong>Stock:</strong> {product.Stock}
+                    </p>
+                    <p>
+                      <strong>Warranty:</strong> {product.warranty}
+                    </p>
+                    <p>
+                      <strong>Price:</strong> {product.pricing}
+                    </p>
+                    <p>
+                      <strong>Miles:</strong> {product.miles}
+                    </p>
+                    <button
+                      className="btn buy-now-btn"
+                      onClick={() => {
+                        handleAddToCart({
+                          id: product.Stock,
+                          name: `${product.year} ${product.make} ${product.model} Engine`,
+                          price: product.pricing,
+                          model: product.model,
+                          stockNumber: product.Stock,
+                          variant: product.variant,
+                          imageURL: product.image,
+                          quantity: 1,
+                        });
+                        navigate("/addtocart");
+                      }}
+                    >
+                      Buy Now
+                    </button>
+
+                    <button
+                      className="add-to-cart-btn btn theme-btn"
+                      onClick={() => {
+                        Swal.fire({
+                          title: "Item Added to Cart!",
+                          icon: "success",
+                          showConfirmButton: false,
+                          timer: 2000,
+                        });
+
+                        handleAddToCart({
+                          id: product.Stock,
+                          name: `${product.year} ${product.make} ${product.model} Engine`,
+                          price: product.pricing,
+                          variant: product.variant,
+                          stockNumber: product.Stock,
+                          imageURL: product.image,
+                          quantity: 1,
+                        });
+                      }}
+                    >
+                      Add To Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p></p>
+        )}
+
 
         {showModal && (
           <div
@@ -481,200 +786,7 @@ export default function EngineForm({
           </div>
         )}{" "}
 
-        <div className="transmission-form text-white container" id="engine-form">
-          <div className="row">
-            <div className="col-lg-6">
-              <span className="me-3">Search Your Part Here</span>
-            </div>
-          </div>
-          <form onSubmit={handleSearch} >
-            <div className="row">
-              <div className="col-md-3 col-6 mb-3">
-                <select
-                  className="form-select"
-                  value={selectedYear}
-                  onChange={handleYearChange}
-                  required
-                >
-                  <option value="" disabled>
-                    Select a year
-                  </option>
-                  {years.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-3 col-6 mb-3">
-                <select
-                  className="form-select"
-                  value={selectedMake}
-                  onChange={(e) => setSelectedMake(e.target.value)}
-                  required
-                >
-                  <option value="" disabled>
-                    Select a make
-                  </option>
-                  {makes.map((make) => (
-                    <option key={make} value={make}>
-                      {make}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-3 col-6 mb-3">
-                <select
-                  className="form-select"
-                  value={selectedModel}
-                  onChange={(e) => setSelectedModel(e.target.value)}
-                  required
-                >
-                  <option value="" disabled>
-                    Select a model
-                  </option>
-                  {models.map((model) => (
-                    <option key={model} value={model}>
-                      {model}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-3 col-6 mb-3">
-                <select
-                  className="form-select "
-                  value={selectedVariant}
-                  onChange={(e) => setSelectedVariant(e.target.value)}
-                  required
-                >
-                  <option value="" disabled>
-                    Select a variant
-                  </option>
-                  {variants.map((variant) => (
-                    <option key={variant} value={variant}>
-                      {variant}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="row align-items-center">
-              <div className="modal-body col-md-6 px-3">
-                <p className="modal-title" style={{ color: "black" }}>
-                  Enter your Phone Number
-                </p>
-                <input
-                  type="tel"
-                  className={`form-control ${phoneError ? "is-invalid" : ""}`}
-                  placeholder="Enter your phone number"
-                  value={phoneNumber || "+1"} // Default to '+1'
-                  onChange={handlePhoneInputChange}
-                  required
-                  maxLength="12" // Include '+1' in the length
-                  style={{
-                    border: "none",
-                    borderRadius: "0",
-                    borderBottom: "1px solid #cccdd1",
-                  }}
-                />
-                {phoneError && <div className="text-danger">{phoneError}</div>}
-              </div>
-              <div className="col-md-4">
-                <button
-                  type="submit"
-                  className="btn btn-block transmission-btn w-100 mt-4"
-                  onClick={handlePhoneSubmit}
-                >
-                  Submit
-                </button>
-                <div>
-                  {form1SuccessMessage && <p className="text-success">{form1SuccessMessage}</p>}
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
 
-        {displayedProducts.length > 0 ? (
-          <div className="product-card-container">
-            {displayedProducts.map((product, index) => (
-              <div className="col-lg-3 mb-4" key={index}>
-                <div className="card product-card mx-2">
-                  <img
-                    src={product.image}
-                    alt="Product"
-                    className="img-fluid"
-                    style={{ height: "200px" }}
-                  />
-                  <div className="card-info">
-                    <h4>
-                      {product.year} {product.make} {product.model} Engine
-                    </h4>
-                    <p>
-                      <strong>Variant:</strong> {product.variant}
-                    </p>
-                    <p>
-                      <strong>Stock:</strong> {product.Stock}
-                    </p>
-                    <p>
-                      <strong>Warranty:</strong> {product.warranty}
-                    </p>
-                    <p>
-                      <strong>Price:</strong> {product.pricing}
-                    </p>
-                    <p>
-                      <strong>Miles:</strong> {product.miles}
-                    </p>
-                    <button
-                      className="btn buy-now-btn"
-                      onClick={() => {
-                        handleAddToCart({
-                          id: product.Stock,
-                          name: `${product.year} ${product.make} ${product.model} Engine`,
-                          price: product.pricing,
-                          model: product.model,
-                          stockNumber: product.Stock,
-                          variant: product.variant,
-                          imageURL: product.image,
-                          quantity: 1,
-                        });
-                        navigate("/addtocart");
-                      }}
-                    >
-                      Buy Now
-                    </button>
-
-                    <button
-                      className="add-to-cart-btn btn theme-btn"
-                      onClick={() => {
-                        Swal.fire({
-                          title: "Item Added to Cart!",
-                          icon: "success",
-                          showConfirmButton: false,
-                          timer: 2000,
-                        });
-
-                        handleAddToCart({
-                          id: product.Stock,
-                          name: `${product.year} ${product.make} ${product.model} Engine`,
-                          price: product.pricing,
-                          variant: product.variant,
-                          stockNumber: product.Stock,
-                          imageURL: product.image,
-                          quantity: 1,
-                        });
-                      }}
-                    >
-                      Add To Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p></p>
-        )}
       </div>
     </>
   );
