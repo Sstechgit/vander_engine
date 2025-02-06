@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch";
 import { formatDate, parseCustomDate } from "../../../Utils/parseAndFormatDate";
-import { Button, DatePicker, Modal, Table } from "antd";
+import { Button, DatePicker, Modal, Table,message } from "antd";
 
 import GeneralHeader from "../Admin/GeneralHeader";
 import Status from "./Status";
@@ -17,6 +17,7 @@ import YardnameSearch from "./YardnameSearch";
 import TextArea from "antd/es/input/TextArea";
 import SendMessages from "./SendMessages";
 import ShowInvoice from "./utilComp/ShowInvoice";
+import LeadModal from "../Admin/LeadModal";
 
 export default function Task({ setload }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +27,19 @@ export default function Task({ setload }) {
   const [TotalData, setTotalData] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
   const [mobileFilter, setMobileFilter] = useState("");
+
+  const [open, setOpen] = useState("");
+  const [Name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [title, settitle] = useState("");
+  const [phone, setPhone] = useState("");
+  const [description, setDescription] = useState("");
+  const [origin, setOrigin] = useState("");
+  const [parameters, setParameters] = useState([]);
+  const [errors, seterrors] = useState({});
+  const [Leads, setLeads] = useState([]);
+  const [ModalFunc, setModalFunc] = useState(() => { });
+  const [messageApi, contextHolder] = message.useMessage();
   // Function to filter tasks based on the selected date
   const filterTasks = (selectedDate, mobileFilter, tasks) => {
     return tasks.filter((task) => {
@@ -113,6 +127,110 @@ export default function Task({ setload }) {
       alert("Server issue occured");
     }
   };
+
+
+
+  //Add A Lead
+  const AddLead = async (
+    nameval,
+    emailval,
+    descriptionval,
+    originval,
+    phoneval
+  ) => {
+    seterrors({});
+
+    // setload({
+    //   spin:true,tip:"Adding"
+    // })
+
+    let url = urls.AddLead;
+
+    let body = {
+      email: emailval,
+      name: nameval,
+      description: descriptionval,
+      origin: originval,
+      phone: phoneval,
+    };
+    let options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+
+    let response = await fetch(url, options);
+    let result = await response.json();
+
+    if (result.success == true) {
+      messageApi.info("Congrats! New Lead is Added");
+      // await fetchLeads(currentPage, pageSize);
+      setOpen(false);
+    } else {
+      let errorObj = getErrors(result, [
+        "email",
+        "password",
+        "description",
+        "origin",
+        "phone",
+        "name",
+      ]);
+      seterrors((prev) => {
+        return { ...prev, ...errorObj };
+      });
+      if (errorObj?.system) {
+        alert(errorObj["system"]);
+      }
+    }
+    // setload({
+    //   spin:false,tip:""
+    // })
+  };
+  const [opArr, setopArr] = useState({})
+  const AddandEditLead = (record) => {
+    setParameters([]);
+    settitle(record ? "Update A Lead" : "Add a Lead");
+    setName(record?.name || "");
+    setEmail(record?.email || "");
+    setPhone(record?.phone || "");
+    setDescription(record?.description || "");
+    setOrigin(record?.origin || "Vander Engines");
+
+    setParameters((prev) => {
+      return [...prev, record?.key];
+    });
+    setModalFunc(() => {
+      return record ? EditLead : AddLead;
+    });
+    setOpen(true);
+  };
+  useEffect(() => {
+    // if (selectedLeads.length === 0)
+    {
+      setopArr({
+        // Refresh: {
+        //   name: (
+        //     <p>
+        //       <i className="fa-solid fa-arrows-rotate"></i> Show All
+        //     </p>
+        //   ),
+        //   func: fetchLeads,
+        //   parameters: [currentPage, pageSize],
+        //   danger: false,
+        // },
+        AddLead: {
+          name: <p><i className="fa-solid fa-file-circle-plus"></i> Add a Lead</p>,
+          func: AddandEditLead,
+          parameters: [],
+          danger: false,
+        },
+      });
+    }
+  },);
+
+
   const columns = [
     {
       title: "ID",
@@ -133,8 +251,8 @@ export default function Task({ setload }) {
       // render: () => {
       //   return <span>abc@gmail.com</span>;
       // },
-      render: (_,record) => {
-        return (record.email.slice(0,3)+".....@gmail.com" );
+      render: (_, record) => {
+        return (record.email.slice(0, 3) + ".....@gmail.com");
       },
     },
 
@@ -174,7 +292,7 @@ export default function Task({ setload }) {
         return (
           <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
             <i className="fa-solid fa-phone"></i>
-            {record.phone.slice(0,5)+"xxxxx..."} 
+            {record.phone.slice(0, 5) + "xxxxx..."}
           </a>
         );
       },
@@ -329,6 +447,25 @@ export default function Task({ setload }) {
 
   return (
     <>
+    {contextHolder}
+      <LeadModal
+        title={title}
+        ClickFunc={ModalFunc}
+        email={email}
+        setEmail={setEmail}
+        name={Name}
+        setName={setName}
+        phone={phone}
+        setPhone={setPhone}
+        origin={origin}
+        setOrigin={setOrigin}
+        description={description}
+        setDescription={setDescription}
+        errors={errors}
+        open={open}
+        setOpen={setOpen}
+        parameters={parameters}
+      />
       {/* DatePicker for selecting the filter date */}
       <div className="w-full border px-7 py-1">
         <DatePicker
@@ -378,9 +515,9 @@ export default function Task({ setload }) {
             scroll={{ y: 400, x: "max-content" }} // Ensure table content is scrollable
           />
         </div>
-        {/* <div className="flex justify-between m-8">
-          <GeneralHeader operations={1} />
-        </div> */}
+        <div className="flex justify-between m-8">
+          <GeneralHeader operations={opArr} />
+        </div>
       </div>
       <style>
         {`

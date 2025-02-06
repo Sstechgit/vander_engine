@@ -96,7 +96,7 @@ export default function Searcher({
     //   spin: true,
     //   tip: "Loading",
     // });
-    let url = urls.searchProduct;
+    let url = urls.searchProduct  ;
     let order = record.order;
     // console.log(record);
     let formData = new FormData();
