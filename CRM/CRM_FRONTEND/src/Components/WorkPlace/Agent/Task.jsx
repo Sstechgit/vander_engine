@@ -18,6 +18,7 @@ import TextArea from "antd/es/input/TextArea";
 import SendMessages from "./SendMessages";
 import ShowInvoice from "./utilComp/ShowInvoice";
 import LeadModal from "../Admin/LeadModal";
+import AgentAddLead from "./AgentAddLead";
 
 export default function Task({ setload }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,6 +41,7 @@ export default function Task({ setload }) {
   const [Leads, setLeads] = useState([]);
   const [ModalFunc, setModalFunc] = useState(() => { });
   const [messageApi, contextHolder] = message.useMessage();
+   const [deadline, setDeadline] = useState("");
   // Function to filter tasks based on the selected date
   const filterTasks = (selectedDate, mobileFilter, tasks) => {
     return tasks.filter((task) => {
@@ -129,30 +131,21 @@ export default function Task({ setload }) {
   };
 
 
-
-  //Add A Lead
-  const AddLead = async (
-    nameval,
-    emailval,
-    descriptionval,
-    originval,
-    phoneval
-  ) => {
+  const [leadId, setLeadId] = useState(null);
+  const AddLead = async (nameval, emailval, descriptionval, originval, phoneval, deadlineval) => {
     seterrors({});
-
-    // setload({
-    //   spin:true,tip:"Adding"
-    // })
-
+    
     let url = urls.AddLead;
-
+    
     let body = {
       email: emailval,
       name: nameval,
       description: descriptionval,
       origin: originval,
       phone: phoneval,
+      deadline: deadlineval,
     };
+  
     let options = {
       method: "POST",
       headers: {
@@ -160,34 +153,66 @@ export default function Task({ setload }) {
       },
       body: JSON.stringify(body),
     };
-
+  
     let response = await fetch(url, options);
     let result = await response.json();
-
-    if (result.success == true) {
+  
+    console.log("Response from AddLead API:", result); 
+  
+    if (result.success === true) {
       messageApi.info("Congrats! New Lead is Added");
-      // await fetchLeads(currentPage, pageSize);
+  
+      let newLeadId = result.payload.leadId; 
+      console.log("Retrieved leadId:", newLeadId); 
+  
+      setLeadId(newLeadId); // Store in state
+  
+      let agentId = localStorage.getItem("userId"); // Retrieve agentId
+  
+      // Call AddTask API
+      await AddTask(newLeadId, agentId, deadlineval);
+  
       setOpen(false);
     } else {
-      let errorObj = getErrors(result, [
-        "email",
-        "password",
-        "description",
-        "origin",
-        "phone",
-        "name",
-      ]);
-      seterrors((prev) => {
-        return { ...prev, ...errorObj };
-      });
+      let errorObj = getErrors(result, ["email", "password", "description", "origin", "phone", "name"]);
+      seterrors((prev) => ({ ...prev, ...errorObj }));
+  
       if (errorObj?.system) {
         alert(errorObj["system"]);
       }
     }
-    // setload({
-    //   spin:false,tip:""
-    // })
   };
+  
+  const AddTask = async (leadId, agentId, deadline) => {
+    let url = "http://localhost:8000/api/addTask";
+  
+    let body = {
+      leadId: leadId,
+      agentId: agentId,
+      deadline: deadline,
+    };
+  
+    let options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+  
+    let response = await fetch(url, options);
+    let result = await response.json();
+  
+    console.log("Response from AddTask API:", result);
+  
+    if (result.success === true) {
+      messageApi.info("Task successfully assigned to the agent");
+    } else {
+      console.error("Error adding task:", result);
+    }
+  };
+  
+  
   const [opArr, setopArr] = useState({})
   const AddandEditLead = (record) => {
     setParameters([]);
@@ -448,7 +473,7 @@ export default function Task({ setload }) {
   return (
     <>
     {contextHolder}
-      <LeadModal
+      <AgentAddLead
         title={title}
         ClickFunc={ModalFunc}
         email={email}
@@ -465,6 +490,8 @@ export default function Task({ setload }) {
         open={open}
         setOpen={setOpen}
         parameters={parameters}
+        Deadline={deadline}
+        setdeadline={setDeadline}
       />
       {/* DatePicker for selecting the filter date */}
       <div className="w-full border px-7 py-1">

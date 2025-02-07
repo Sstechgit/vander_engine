@@ -45,37 +45,43 @@ const LoginUser = asyncHandler(async (req, res) => {
   if (!errors.isEmpty()) {
     return res.send(new ErrorResponse(400, "ClientSide", errors.mapped()));
   }
-  //everything is sanitized
-  //find email is present in database or not
-  const { email, name, password, designation } = req.body;
+
+  const { email, password, designation } = req.body;
   let checkExistence = await user.findOne({ email });
+
   if (!checkExistence) {
     return res.send(new ErrorResponse(400, "NoEmail", "Email is not Found."));
   }
-  if (checkExistence.designation != designation) {
+
+  if (checkExistence.designation !== designation) {
     return res.send(
       new ErrorResponse(400, "WrongDesignation", "Designation is not correct.")
     );
   }
-  //user is found correctly
-  //now check password is correct or not
+
   const isPasswordCorrect = await checkExistence.comparePassword(password);
   if (!isPasswordCorrect) {
     return res.send(
       new ErrorResponse(400, "WrongPassword", "Password is not correct.")
     );
   }
-  //generate token
+
+  // Generate tokens
   const refreshToken = await checkExistence.GenerateRefreshToken();
   const accessToken = await checkExistence.GenerateAccessToken();
+
+  // ✅ Include `_id` in response as `userId`
   return res.send(
     new ResponseObj(
       200,
       "Logined",
       {
+        userId: checkExistence._id,  // Agent ID (_id) is now included
         accessToken,
         refreshToken,
         name: checkExistence.name,
+        email: checkExistence.email,
+        phone: checkExistence.phone,
         designation: checkExistence.designation,
       },
       true

@@ -56,7 +56,7 @@ export default function LeadTaskRelation({ record, openModal, selectLead,assigne
               onClick={handleDistributeButton}
               key={record.key}
             >
-              Distribue
+              Distribute
             </Button>
         
           </div>

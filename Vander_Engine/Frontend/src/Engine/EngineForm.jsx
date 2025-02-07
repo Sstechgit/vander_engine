@@ -127,7 +127,7 @@ export default function EngineForm({
       alert("Please select all fields before searching.");
       return;
     }
-    handlePhoneSubmit();
+    //handlePhoneSubmit();
     // Skip phone validation if we are already on the product page (or if we are not submitting the form)
     const path = `/engine/${selectedYear}/${selectedMake}/${selectedModel}`;
     navigate(path);

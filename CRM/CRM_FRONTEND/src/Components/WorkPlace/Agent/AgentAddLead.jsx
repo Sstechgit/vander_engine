@@ -8,7 +8,7 @@ import {
   MobileOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-export default function LeadModal({
+export default function AgentAddLead({
   title,
   ClickFunc,
   errors,
@@ -24,6 +24,8 @@ export default function LeadModal({
   setDescription,
   origin,
   setOrigin,
+  Deadline,
+    setdeadline,
   parameters = [],
 }) {
   const dropModal = () => {
@@ -33,11 +35,16 @@ export default function LeadModal({
     setDescription("")
     setPhone("")
     setOrigin("")
+    setdeadline("")
     
+  };
+  const handleDate = (value) => {
+
+    setdeadline(value.$d);
   };
   const DoFunction = async () => {
 
-    await ClickFunc(name, email, description, origin, phone, ...parameters);
+    await ClickFunc(name, email, description, origin, phone,Deadline, ...parameters);
   };
   return (
     <Modal
@@ -113,7 +120,17 @@ export default function LeadModal({
           {errors?.description ? errors.description : ""}
         </span>
       </div>
-    
+      <div className="mb-4">
+        <DatePicker
+          onChange={handleDate}
+          style={{
+            width: "100%",
+          }}
+        />
+        <span className="w-full h-4 text-red-500  transition-all duration-300 text-md ">
+          {errors?.Deadline ? errors.Deadline : ""}
+        </span>
+      </div>
       <div className="mb-4">
     
       <Select

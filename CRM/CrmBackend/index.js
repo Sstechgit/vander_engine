@@ -50,6 +50,7 @@ app.use("/api", require("./api/search.js"));
 app.use("/api", require("./api/superadmin.js"));
 app.use("/api", require("./api/ringcentral.js"));
 app.use("/api", require("./api/invoice.js"));
+app.use("/api", require("./api/addtask.js"));
 app.use("/api", notesrouter);
 
 

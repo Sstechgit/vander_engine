@@ -111,11 +111,13 @@ export default function DistributeModal({
         agents: all === true ? agentsId : SelectedAgent,
         deadline,
       });
-
+      console.log(deadline)
+      console.log(body)
       let extHeaders = {
         "Content-Type": "application/json",
       };
        result = await DoFetch(url, "POST", body, extHeaders);
+       console.log(result)
     }
     else{
       let url = urls.Redistribute;

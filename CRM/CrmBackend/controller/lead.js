@@ -14,7 +14,7 @@ const AddLead = asyncHandler(async (req, res) => {
   if (!errors.isEmpty()) {
     return res.send(new ErrorResponse(400, "ClientSide", errors.mapped()));
   }
-  //add a lead
+
   const { name, email, phone, description, origin } = req.body;
   const LeadRecord = await leads.create({
     name,
@@ -23,8 +23,13 @@ const AddLead = asyncHandler(async (req, res) => {
     description,
     origin,
   });
-  return res.send(new ResponseObj(200, "Lead Created", LeadRecord, true));
+
+  console.log("Lead created:", LeadRecord); // ✅ Log in backend for debugging
+
+  return res.send(new ResponseObj(200, "Lead Created", { leadId: LeadRecord._id }, true));
 });
+
+
 //fetch all leads
 const fetchLead = asyncHandler(async (req, res) => {
   let page = req.params.page || 1;

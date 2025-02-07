@@ -29,7 +29,7 @@ const Login = () => {
     e.preventDefault();
     seterrors({});
     let url = urls.LOGIN;
-
+  
     let body = {
       email,
       password,
@@ -42,23 +42,30 @@ const Login = () => {
       },
       body: JSON.stringify(body),
     };
-
+  
     let response = await fetch(url, options);
     let result = await response.json();
-
+  
     if (result.success == true) {
       let accessToken = result.payload.accessToken;
       let refreshToken = result.payload.refreshToken;
+      
       sessionStorage.setItem("accessT", accessToken);
       sessionStorage.setItem("refreshT", refreshToken);
       sessionStorage.setItem("name", result.payload.name);
       sessionStorage.setItem("designation", result.payload.designation);
+  
+      // ✅ Store agent ID (userId) in localStorage
+      localStorage.setItem("userId", result.payload.userId);
+      let agentId = localStorage.getItem("userId");
+      console.log(agentId)
 
+  
       // Redirect based on designation
       if (result.payload.designation === 'Admin') {
-        navigate("/crm/admin");  // Navigate to /admin
+        navigate("/crm/admin");
       } else if (result.payload.designation === 'Agent') {
-        navigate("/crm/agent");  // Navigate to /agent
+        navigate("/crm/agent");
       }
     } else {
       let errorObj = getErrors(result, ["email", "password", "designation"]);
@@ -70,6 +77,7 @@ const Login = () => {
       }
     }
   };
+  
   const Register = async (e) => {
     e.preventDefault();
     seterrors({});
