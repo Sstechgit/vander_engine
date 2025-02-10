@@ -239,7 +239,7 @@ export default function Engine({ handleAddToCart, showproduct }) {
       
         </div>
       {/*---------------------------------contact-form-2----------------------------------*/}
-      <div className="contact-form-2 my-4 px-3">
+      {/* <div className="contact-form-2 my-4 px-3">
         <div className="container">
           <div
             className="row align-items-center justify-content-between p-3"
@@ -415,7 +415,7 @@ export default function Engine({ handleAddToCart, showproduct }) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/*---------------------------------contact-form-2----------------------------------*/}
 
 
