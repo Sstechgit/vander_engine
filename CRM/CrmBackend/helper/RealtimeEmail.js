@@ -179,156 +179,196 @@ const StoreFormData = async (mail) => {
   }
 };
 
+const { exec } = require("child_process");
+const MAX_RETRIES = 5;
+let retryCount = 0;
+const PM2_PROCESS_ID = 6; // Change this if your PM2 process ID is different
+
 function fetchMessageFromEmail() {
-  imap.once("ready", function () {
-    console.log("IMAP connection ready.");
+  function connectIMAP() {
+    console.log(`Attempting IMAP connection (Retry ${retryCount}/${MAX_RETRIES})`);
 
-    imap.openBox("INBOX", false, function (err, box) {
-      if (err) throw err;
+    imap.once("ready", function () {
+      console.log("IMAP connection ready.");
+      retryCount = 0; // Reset retry count on successful connection
 
-      console.log("Opened INBOX.");
+      imap.openBox("INBOX", false, function (err, box) {
+        if (err) {
+          console.error("Error opening inbox:", err);
+          handleIMAPError();
+          return;
+        }
 
-      // Function to fetch unseen messages
-      function fetchUnseenMessages() {
-        const searchCriteria = ["UNSEEN"];
-        const fetchOptions = { bodies: "", struct: true, header: true };
+        console.log("Opened INBOX.");
 
-        imap.search(searchCriteria, function (err, results) {
-          if (err) throw err;
+        function fetchUnseenMessages() {
+          const searchCriteria = ["UNSEEN"];
+          const fetchOptions = { bodies: "", struct: true, header: true };
 
-          if (results.length === 0) {
-            console.log("No unseen messages found.");
-            return;
-          }
+          imap.search(searchCriteria, function (err, results) {
+            if (err) {
+              console.error("Search error:", err);
+              return;
+            }
 
-          // Fetch each unseen message
-          results.forEach(function (uid, idx) {
-            const mailStream = imap.fetch(uid, fetchOptions);
+            if (results.length === 0) {
+              console.log("No unseen messages found.");
+              return;
+            }
 
-            mailStream.on("message", function (message) {
-              message.on("body", function (stream, info) {
-                simpleParser(stream, async (err, mail) => {
-                  //   console.log("Subject:", mail.subject);
-                  //   console.log("Text Body:", mail.text,mail.text.includes("Service"));
-                  //   console.log("HTML Body:", mail.html);
+            results.forEach(function (uid) {
+              const mailStream = imap.fetch(uid, fetchOptions);
 
-                  // console.log(mail.text.mail.messageId, mail.inReplyTo, mail);
-                  console.log(
-                    mail.from,
-                    mail.inReplyTo,
-                    mail.subject,
-                    mail.references,
-                    typeof mail.references,
-                    mail.text
-                  );
-                  if (
-                    subjectRegex.test(mail.subject) || 
-                    mail.subject.includes("Query Through www.usaauto-parts.com") ||
-                    mail.from.value[0].address === "info@usaautopartsllc.com"
-                  ) {
-                    StoreFormData(mail);
-                  }
-                  else {
-                    if (mail.subject.includes("Re:") && mail.inReplyTo) {
-                      //check the in reply to in emails
-                      const session = await mongoose.startSession();
-                      const isEmailExist = await emails.find({
-                        messageId: mail.inReplyTo,
-                      });
-                      if (isEmailExist) {
-                        session.startTransaction();
-                        //means it is a conversation part so it must be store now
-                        try {
-                          const storeReply = await emails.create({
-                            from: mail.from.value[0].address,
-                            to: mail.to.value[0].address,
-                            inReplyTo: mail.inReplyTo,
-                            messageId: mail.messageId,
-                            receivedAt: mail.date,
-                            references:
-                              typeof mail.references == "string"
-                                ? [mail.references]
-                                : mail.references,
-                            subject: mail.subject,
-                            text: mail.text,
-                            html: mail.html,
-                          });
-                          if (storeReply) {
-                            let conversationMessageId =
-                              typeof mail.references == "string"
-                                ? mail.references
-                                : mail.references[0];
-                            const converstationRecord =
-                              await conversations.findOne({
+              mailStream.on("message", function (message) {
+                message.on("body", function (stream, info) {
+                  simpleParser(stream, async (err, mail) => {
+                    if (err) {
+                      console.error("Error parsing email:", err);
+                      return;
+                    }
+
+                    console.log(
+                      mail.from,
+                      mail.inReplyTo,
+                      mail.subject,
+                      mail.references,
+                      typeof mail.references,
+                      mail.text
+                    );
+
+                    if (
+                      subjectRegex.test(mail.subject) ||
+                      mail.subject.includes("Query Through www.usaauto-parts.com") ||
+                      mail.from.value[0].address === "info@usaautopartsllc.com"
+                    ) {
+                      StoreFormData(mail);
+                    } else {
+                      if (mail.subject.includes("Re:") && mail.inReplyTo) {
+                        const session = await mongoose.startSession();
+                        const isEmailExist = await emails.find({
+                          messageId: mail.inReplyTo,
+                        });
+
+                        if (isEmailExist) {
+                          session.startTransaction();
+                          try {
+                            const storeReply = await emails.create({
+                              from: mail.from.value[0].address,
+                              to: mail.to.value[0].address,
+                              inReplyTo: mail.inReplyTo,
+                              messageId: mail.messageId,
+                              receivedAt: mail.date,
+                              references:
+                                typeof mail.references == "string"
+                                  ? [mail.references]
+                                  : mail.references,
+                              subject: mail.subject,
+                              text: mail.text,
+                              html: mail.html,
+                            });
+
+                            if (storeReply) {
+                              let conversationMessageId =
+                                typeof mail.references == "string"
+                                  ? mail.references
+                                  : mail.references[0];
+                              const conversationRecord = await conversations.findOne({
                                 messageId: conversationMessageId,
                               });
-                            if (converstationRecord) {
-                              converstationRecord.count += 1;
-                              converstationRecord.seen = false;
-                              converstationRecord.save();
-                              await session.commitTransaction();
-                            } else {
-                              console.log(
-                                "conversation not found",
-                                "References:",
-                                mail.references
-                              );
-                              await session.abortTransaction();
-                              session.endSession();
+
+                              if (conversationRecord) {
+                                conversationRecord.count += 1;
+                                conversationRecord.seen = false;
+                                await conversationRecord.save();
+                                await session.commitTransaction();
+                              } else {
+                                console.log("Conversation not found:", mail.references);
+                                await session.abortTransaction();
+                              }
                             }
+                          } catch (error) {
+                            console.error("MongoDB transaction error:", error);
+                            await session.abortTransaction();
+                          } finally {
+                            session.endSession();
                           }
-                        } catch (error) {
-                          console.log(error, "Mongodb transactions");
-                          await session.abortTransaction();
-                        } finally {
-                          session.endSession();
                         }
                       }
                     }
-                  }
-                  imap.addFlags(uid, "\\Seen", (err) => {
-                    if (err) {
-                      console.error("Error marking message as seen:", err);
-                    } else {
-                      console.log("Message marked as seen.");
-                    }
+
+                    imap.addFlags(uid, "\\Seen", (err) => {
+                      if (err) {
+                        console.error("Error marking message as seen:", err);
+                      } else {
+                        console.log("Message marked as seen.");
+                      }
+                    });
                   });
                 });
               });
-            });
 
-            mailStream.once("end", function () {
-              console.log("Message fetched.");
+              mailStream.once("end", function () {
+                console.log("Message fetched.");
+              });
             });
           });
-        });
-      }
+        }
 
-      // Fetch unseen messages immediately on connection
-      fetchUnseenMessages();
-
-      // Set up mail event listener to fetch messages when new mail arrives
-      imap.on("mail", function () {
-        console.log("New mail event triggered.");
+        // Fetch unseen messages immediately
         fetchUnseenMessages();
+
+        // Listen for new mail
+        imap.on("mail", function () {
+          console.log("New mail event triggered.");
+          fetchUnseenMessages();
+        });
       });
     });
-  });
 
-  imap.once("error", function (err) {
-    console.error("IMAP connection error:", err);
-  });
+    imap.once("error", function (err) {
+      console.error("IMAP connection error:", err);
+      handleIMAPError();
+    });
 
-  imap.once("end", function () {
-    console.log("IMAP connection ended.");
-  });
+    imap.once("end", function () {
+      console.log("IMAP connection ended.");
+      handleIMAPError();
+    });
 
-  imap.connect();
+    imap.connect();
+  }
+
+  function handleIMAPError() {
+    if (retryCount < MAX_RETRIES) {
+      retryCount++;
+      console.log(`Retrying IMAP connection in 5 seconds... (Attempt ${retryCount})`);
+      setTimeout(connectIMAP, 5000);
+    } else {
+      console.error("Max retries reached. Restarting PM2 process...");
+      restartPM2Process();
+    }
+  }
+
+  function restartPM2Process() {
+    console.log(`Restarting PM2 process ID: ${PM2_PROCESS_ID}`);
+    exec(`pm2 restart ${PM2_PROCESS_ID}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error restarting PM2 process: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`PM2 Restart Stderr: ${stderr}`);
+        return;
+      }
+      console.log(`PM2 Restart Output: ${stdout}`);
+    });
+  }
+
+  connectIMAP();
 }
+
 const FindMails = () => {
   fetchMessageFromEmail();
-  // fetchMessageFromEmail('Fwd: Query Through www.vanderengines.com'); auto parts
 };
-// Start fetching and monitoring the inbox for new messages
 
 module.exports = { FindMails };

@@ -184,7 +184,7 @@ export default function Task({ setload }) {
   };
   
   const AddTask = async (leadId, agentId, deadline) => {
-    let url = "http://localhost:8000/api/addTask";
+    let url = urls.ADDTASK;
   
     let body = {
       leadId: leadId,

@@ -19,7 +19,6 @@ notesrouter.get("/messages/:agentkey", async (req, res) => {
   }
 });
 
-
 notesrouter.post("/messages", async (req, res) => {
   const { agentKey, from, text, to } = req.body;
   const message = new message1({ agentKey, from, text, to });
