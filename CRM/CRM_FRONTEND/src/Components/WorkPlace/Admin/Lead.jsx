@@ -42,7 +42,10 @@ export default function Lead({ setload }) {
   const [TotalData, setTotalData] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
   const [mobileFilter, setMobileFilter] = useState("");
-  const filterTasks = (selectedDate, mobileFilter, tasks) => {
+  const [nameFilter, setNameFilter] = useState("");
+  const [emailFilter, setEmailFilter] = useState("");
+
+  const filterTasks = (selectedDate, mobileFilter,nameFilter,emailFilter, tasks) => {
     return tasks.filter((task) => {
       const taskCreatedDate = new Date(task.created).toLocaleDateString();
       const selectedDateString = selectedDate?.toLocaleDateString();
@@ -54,7 +57,12 @@ export default function Lead({ setload }) {
       // Check mobile number condition
       const isMobileMatch = !mobileFilter || task.phone.includes(mobileFilter);
 
-      return isDateMatch && isMobileMatch;
+      const isNameMatch = !nameFilter || task.name.toLowerCase().includes(nameFilter.toLowerCase());
+
+       // Check Name number condition
+       const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
+
+      return isDateMatch && isMobileMatch && isNameMatch && isEmailMatch;
     });
   };
   const [opArr, setopArr] = useState({
@@ -99,7 +107,7 @@ export default function Lead({ setload }) {
       });
 
       setLeads(records);
-      const filteredTasks = filterTasks(selectedDate, mobileFilter, records);
+      const filteredTasks = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, records);
       setLeads(filteredTasks); // Set the filtered leads
       setTotalData(result.payload.total);
     } else {
@@ -162,7 +170,7 @@ export default function Lead({ setload }) {
     //   spin:true,tip:"Adding"
     // })
 
-  let url = urls.AddLead;
+    let url = urls.AddLead;
 
     let body = {
       email: emailval,
@@ -291,11 +299,6 @@ export default function Lead({ setload }) {
     saveAs(data, `leads_${exportSelected ? "selected" : "all"}.xlsx`);
   };
 
-
-  // Fetch leads when component mounts
-  useEffect(() => {
-    fetchLeads();
-  }, []);
 
   //header for table
   const columns = [
@@ -477,8 +480,8 @@ export default function Lead({ setload }) {
             <i className="fa-solid fa-file-export"></i> Export All
           </p>
         ),
-        func: exportToExcel,
-        parameters: [false],
+        func: () => exportToExcel(false), // Use arrow function to ensure correct execution
+        parameters: [],
         danger: false,
       },
       ExportSelected: {
@@ -487,13 +490,13 @@ export default function Lead({ setload }) {
             <i className="fa-solid fa-file-export"></i> Export Selected
           </p>
         ),
-        func: exportToExcel,
-        parameters: [true],
+        func: () => exportToExcel(true), // Use arrow function
+        parameters: [],
         danger: false,
       },
     }));
-  }, [selectedLeads]);
-  
+  }, [selectedLeads, Leads]); // Ensure Leads is included
+
 
   useEffect(() => {
     if (!sessionStorage.getItem("accessT")) {
@@ -507,7 +510,7 @@ export default function Lead({ setload }) {
     return () => {
       clearInterval(id);
     };
-  }, [currentPage, pageSize, selectedDate, mobileFilter]);
+  }, [currentPage, pageSize, selectedDate, mobileFilter,nameFilter,emailFilter]);
   return (
     <>
       {contextHolder}
@@ -543,12 +546,38 @@ export default function Lead({ setload }) {
       />
       <div className="w-full border px-7 py-1">
         <DatePicker
-          className="w-[50%] border-0"
+          className="w-[30%] me-5 border rounded border-gray-500 p-1"
           onChange={(date, dateString) =>
             setSelectedDate(date ? new Date(dateString) : null)
           }
         />
-        <span className="w-[40%]">
+        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+          <input
+            type="text "
+            placeholder="Search By Name "
+            value={nameFilter}
+            onChange={(e) => setNameFilter(e.target.value)}
+            className="ms-5 mobile-filter-input"
+          />
+          <i
+            class="fa-solid fa-magnifying-glass  mt-2"
+            onClick={filterTasks}
+          ></i>
+        </span>
+        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+          <input
+            type="email "
+            placeholder="Search By Email "
+            value={emailFilter}
+            onChange={(e) => setEmailFilter(e.target.value)}
+            className="ms-5 mobile-filter-input"
+          />
+          <i
+            class="fa-solid fa-magnifying-glass  mt-2"
+            onClick={filterTasks}
+          ></i>
+        </span>
+        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Mobile No. "
@@ -557,11 +586,11 @@ export default function Lead({ setload }) {
             className="ms-5 mobile-filter-input"
           />
           <i
-            class="fa-solid fa-magnifying-glass float-end mt-2"
+            class="fa-solid fa-magnifying-glass  mt-2"
             onClick={filterTasks}
           ></i>
         </span>
-       
+
       </div>
 
       <div className="h-calc-remaining flex flex-col justify-between  ">
