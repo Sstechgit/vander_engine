@@ -17,6 +17,8 @@ const { check } = require("express-validator");
 const ValidateToken = require("../middleware/token.js");
 const { validateAdmin } = require("../helper/validateAdmin.js");
 const { validateReq } = require("../helper/validateReq.js");
+const { VerifyOTP } = require("../controller/user.js");
+
 
 const route = Router();
 
@@ -60,6 +62,7 @@ route.post(
 route.get("/logout", ValidateToken, Logout);
 route.get("/AllUser/:page/:pageSize", ValidateToken, GetAllAgents);
 route.post("/DeleteAgent", ValidateToken, DeleteAgent);
+route.post("/verify-otp", VerifyOTP);
 route.put(
   "/Agent",
   ValidateToken,

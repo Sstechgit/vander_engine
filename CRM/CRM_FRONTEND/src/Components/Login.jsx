@@ -19,64 +19,106 @@ const Login = () => {
   const [selectedRole, setSelectedRole] = useState("");
   const [errors, seterrors] = useState({});
   const navigate = useNavigate();
+  const [isOTPRequired, setIsOTPRequired] = useState(false);
+  const [otp, setOtp] = useState("");
+
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
   };
   const PasswordToogle = () => {
     setshowPassword((prev) => !prev);
   };
-  const Login = async (e) => {
-    e.preventDefault();
-    seterrors({});
-    let url = urls.LOGIN;
-  
-    let body = {
-      email,
-      password,
-      designation: selectedRole,
-    };
-    let options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    };
-  
-    let response = await fetch(url, options);
-    let result = await response.json();
-  
-    if (result.success == true) {
-      let accessToken = result.payload.accessToken;
-      let refreshToken = result.payload.refreshToken;
-      
-      sessionStorage.setItem("accessT", accessToken);
-      sessionStorage.setItem("refreshT", refreshToken);
-      sessionStorage.setItem("name", result.payload.name);
-      sessionStorage.setItem("designation", result.payload.designation);
-  
-      // ✅ Store agent ID (userId) in localStorage
-      localStorage.setItem("userId", result.payload.userId);
-      let agentId = localStorage.getItem("userId");
-      console.log(agentId)
-
-  
-      // Redirect based on designation
-      if (result.payload.designation === 'Admin') {
-        navigate("/crm/admin");
-      } else if (result.payload.designation === 'Agent') {
-        navigate("/crm/agent");
-      }
-    } else {
-      let errorObj = getErrors(result, ["email", "password", "designation"]);
-      seterrors((prev) => {
-        return { ...prev, ...errorObj };
-      });
-      if (errorObj?.system) {
-        alert(errorObj["system"]);
-      }
+  const handleLoginSuccess = (payload) => {
+    let { accessToken, refreshToken, name, designation, userId } = payload;
+    
+    sessionStorage.setItem("accessT", accessToken);
+    sessionStorage.setItem("refreshT", refreshToken);
+    sessionStorage.setItem("name", name);
+    sessionStorage.setItem("designation", designation);
+    localStorage.setItem("userId", userId);
+    
+    switch (designation) {
+        case "Admin":
+            navigate("/crm/admin");
+            break;
+        case "Agent":
+            navigate("/crm/agent");
+            break;
+        default:
+            navigate("/");
     }
   };
+
+  const login = async (e) => {
+    e.preventDefault();
+    seterrors({});
+    let url = "http://localhost:8000/api/login";
+
+    let body = {
+        email,
+        password,
+        designation: selectedRole,
+    };
+    let options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+    };
+
+    try {
+        let response = await fetch(url, options);
+        let result = await response.json();
+
+        if (response.ok && result.success) {
+          setIsOTPRequired(true);
+        } else {
+            let errorObj = getErrors(result, ["email", "password", "designation"]);
+            seterrors((prev) => ({ ...prev, ...errorObj }));
+            if (errorObj?.system) alert(errorObj["system"]);
+        }
+    } catch (error) {
+        console.error("Login Error:", error);
+        alert("An error occurred while logging in. Please try again later.");
+    }
+  };
+
+  const verifyOTP = async () => {
+    let url = "http://localhost:8000/api/verify-otp";
+    if (!otp) {
+        alert("Please enter OTP.");
+        return;
+    }
+
+    let body = {
+        email,
+        otp,
+    };
+
+    let options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+    };
+
+    try {
+        let response = await fetch(url, options);
+        let result = await response.json();
+
+        if (response.ok && result.success) {
+            handleLoginSuccess(result.payload);
+        } else {
+            alert(result.payload || "Invalid OTP. Please try again.");
+        }
+    } catch (error) {
+        console.error("OTP Verification Error:", error);
+        alert("An error occurred while verifying OTP.");
+    }
+  };
+
   
   const Register = async (e) => {
     e.preventDefault();
@@ -314,9 +356,36 @@ const Login = () => {
                       {errors?.designation ? errors.designation : ""}
                     </span>
                   </div>
-                  <button className="p-2 px-4 text-xl hover:bg-blue-700 font-['Poppins'] mr-16  bg-blue-500 text-white ">
-                    Login
-                  </button>
+                  {isOTPRequired ? (
+  <>
+    <InputField
+      placeholder="Enter OTP"
+      name="otp"
+      type="text"
+      icon="fa-solid fa-key"
+      required={true}
+      value={otp}
+      error={errors?.otp}
+      changeValue={setOtp}
+    />
+    <button
+      className="p-2 px-4 text-xl hover:bg-green-700 font-['Poppins'] mr-16 bg-green-500 text-white"
+      type="button"
+      onClick={verifyOTP}
+    >
+      Verify OTP
+    </button>
+  </>
+) : (
+<button
+    className="p-2 px-4 text-xl hover:bg-blue-700 font-['Poppins'] mr-16 bg-blue-500 text-white"
+    type="submit"
+    disabled={isOTPRequired} // Prevents login without OTP
+>
+    Login
+</button>
+)}
+
                 </div>
               </form>
             </div>
