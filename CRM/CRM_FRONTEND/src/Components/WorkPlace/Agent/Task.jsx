@@ -174,7 +174,7 @@ export default function Task({ setload }) {
   
       setOpen(false);
     } else {
-      let errorObj = getErrors(result, ["email", "password", "description", "origin", "phone", "name"]);
+      let errorObj = getErrors(result, ["email", "password", "description", "origin", "phone", "name","deadline"]);
       seterrors((prev) => ({ ...prev, ...errorObj }));
   
       if (errorObj?.system) {

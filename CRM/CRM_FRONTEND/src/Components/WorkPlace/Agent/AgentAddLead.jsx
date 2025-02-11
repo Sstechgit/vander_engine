@@ -126,6 +126,7 @@ export default function AgentAddLead({
           style={{
             width: "100%",
           }}
+          required
         />
         <span className="w-full h-4 text-red-500  transition-all duration-300 text-md ">
           {errors?.Deadline ? errors.Deadline : ""}
