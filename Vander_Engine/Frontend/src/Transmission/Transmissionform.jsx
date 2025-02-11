@@ -298,7 +298,7 @@ export default function EngineForm({
 <div className="transmission-form text-white container mb-5 mt-4" id="trans-form">
         <div className="row">
           <div className="col-lg-6">
-            <span className="me-3">Search Your Part Here</span>
+            <span className="me-3">Search Your Transmission Here</span>
           </div>
         </div>
         <form onSubmit={handleSearch}>
@@ -400,7 +400,7 @@ export default function EngineForm({
                 className="btn btn-block transmission-btn w-100 mt-4"
                 onClick={handlePhoneSubmit}
               >
-                Submit
+                Search
               </button>
               <div>
                 {form1SuccessMessage && <p className="text-success">{form1SuccessMessage}</p>}

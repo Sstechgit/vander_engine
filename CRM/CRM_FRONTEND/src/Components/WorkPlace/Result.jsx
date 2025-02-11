@@ -29,12 +29,15 @@ import VanderEngine_Leads from "./Admin/VanderEngine_Leads.jsx";
 import VanderTransmisssion_Leads from "./Admin/VanderTransmission_Leads.jsx";
 import Autoparts_Leads from "./Admin/Autoparts_Leads.jsx";
 import SSTech_Leads from "./Admin/SSTech_Leads.jsx";
+import TwoFactor from "../TwoFactor.jsx";
 
 export default function Result({ setload }) {
   return (
     <div className="w-[85%] h-screen flex flex-col">
       <SideHeader setload={setload} />
       <Routes>
+      <Route path="/twofactor" element={<TwoFactor/>} />
+        
         <Route path="/admin" element={<Admin_Home/>} />
 
         <Route

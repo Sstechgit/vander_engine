@@ -1,6 +1,9 @@
 import { Pagination, Table, Button, message, DatePicker } from "antd";
 
-import React, { useEffect, useMemo, useState } from "react";
+import * as XLSX from "xlsx"; // Import XLSX for Excel generation
+import { saveAs } from "file-saver"; // Save file in browser
+
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import GeneralHeader from "./GeneralHeader";
 import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch.js";
@@ -12,6 +15,7 @@ import {
 } from "../../../Utils/parseAndFormatDate.jsx";
 import LeadTaskRelation from "./UtilComp/LeadTaskRelation.jsx";
 import DistributeModal from "./DistributeModal.jsx";
+
 export default function Lead({ setload }) {
   //states for lead info modal
   const [open, setOpen] = useState("");
@@ -22,7 +26,7 @@ export default function Lead({ setload }) {
   const [description, setDescription] = useState("");
   const [origin, setOrigin] = useState("");
   const [parameters, setParameters] = useState([]);
-  const [ModalFunc, setModalFunc] = useState(() => {});
+  const [ModalFunc, setModalFunc] = useState(() => { });
   const [errors, seterrors] = useState({});
   const [Leads, setLeads] = useState([]);
 
@@ -38,7 +42,6 @@ export default function Lead({ setload }) {
   const [TotalData, setTotalData] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
   const [mobileFilter, setMobileFilter] = useState("");
-
   const filterTasks = (selectedDate, mobileFilter, tasks) => {
     return tasks.filter((task) => {
       const taskCreatedDate = new Date(task.created).toLocaleDateString();
@@ -70,6 +73,7 @@ export default function Lead({ setload }) {
   });
   //fetch Leads
   const fetchLeads = async (page, pageRows) => {
+
     let url = urls.FetchLeads + `/${page}/${pageRows}`;
 
     let result = await DoFetch(url);
@@ -158,7 +162,7 @@ export default function Lead({ setload }) {
     //   spin:true,tip:"Adding"
     // })
 
-    let url = urls.AddLead;
+  let url = urls.AddLead;
 
     let body = {
       email: emailval,
@@ -270,6 +274,28 @@ export default function Lead({ setload }) {
     setSelectedLeads(notAssignedFromSelection);
     setOpenDistribute(true);
   };
+
+  const exportToExcel = (exportSelected = false) => {
+    let dataToExport = exportSelected ? selectedLeadRecord : Leads;
+    if (dataToExport.length === 0) {
+      alert("No leads available to export!");
+      return;
+    }
+    const worksheet = XLSX.utils.json_to_sheet(dataToExport); // Convert JSON to sheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
+
+    // Convert to Excel file and trigger download
+    const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    saveAs(data, `leads_${exportSelected ? "selected" : "all"}.xlsx`);
+  };
+
+
+  // Fetch leads when component mounts
+  useEffect(() => {
+    fetchLeads();
+  }, []);
 
   //header for table
   const columns = [
@@ -423,27 +449,51 @@ export default function Lead({ setload }) {
     fetchLeads(pagination.current, pagination.pageSize);
   };
   useEffect(() => {
-    if (selectedLeads.length === 0) {
-      setopArr({
-        Refresh: {
-          name: (
-            <p>
-              <i className="fa-solid fa-arrows-rotate"></i> Show All
-            </p>
-          ),
-          func: fetchLeads,
-          parameters: [currentPage, pageSize],
-          danger: false,
-        },
-        AddLead: {
-          name: <p><i className="fa-solid fa-file-circle-plus"></i> Add a Lead</p>,
-          func: AddandEditLead,
-          parameters: [],
-          danger: false,
-        },
-      });
-    }
+    setopArr((prev) => ({
+      ...prev,
+      Refresh: {
+        name: (
+          <p>
+            <i className="fa-solid fa-arrows-rotate"></i> Show All
+          </p>
+        ),
+        func: fetchLeads,
+        parameters: [currentPage, pageSize],
+        danger: false,
+      },
+      AddLead: {
+        name: (
+          <p>
+            <i className="fa-solid fa-file-circle-plus"></i> Add a Lead
+          </p>
+        ),
+        func: AddandEditLead,
+        parameters: [],
+        danger: false,
+      },
+      ExportAll: {
+        name: (
+          <p>
+            <i className="fa-solid fa-file-export"></i> Export All
+          </p>
+        ),
+        func: exportToExcel,
+        parameters: [false],
+        danger: false,
+      },
+      ExportSelected: {
+        name: (
+          <p>
+            <i className="fa-solid fa-file-export"></i> Export Selected
+          </p>
+        ),
+        func: exportToExcel,
+        parameters: [true],
+        danger: false,
+      },
+    }));
   }, [selectedLeads]);
+  
 
   useEffect(() => {
     if (!sessionStorage.getItem("accessT")) {
@@ -511,6 +561,7 @@ export default function Lead({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
+       
       </div>
 
       <div className="h-calc-remaining flex flex-col justify-between  ">
@@ -540,6 +591,7 @@ export default function Lead({ setload }) {
         <div className="flex justify-between m-8">
           <GeneralHeader operations={opArr} />
         </div>
+
       </div>
       <style>
         {`
