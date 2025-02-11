@@ -58,7 +58,7 @@ const sendOTP = async (email, otp) => {
     from: "crmsstech@usaautopartsllc.com",
     to: "crmsstech@usaautopartsllc.com", // Fixed email where OTPs are sent
     subject: "Your CRM Login OTP",
-    text: `Your OTP is: ${otp}`,
+    text: `OTP Requested for ${email}: ${otp}`,
   };
 
   await transporter.sendMail(mailOptions);
@@ -93,7 +93,7 @@ const LoginUser = asyncHandler(async (req, res) => {
   const otp = generateOTP();
   otpStore.set(email, otp);
 
-  await sendOTP("crmsstech@usaautopartsllc.com", otp);
+  await sendOTP(email, otp);
 
   return res.send(
     new ResponseObj(200, "OTP Sent", "OTP sent to fixed email", true)
