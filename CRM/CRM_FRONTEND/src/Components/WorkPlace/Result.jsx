@@ -29,12 +29,16 @@ import VanderEngine_Leads from "./Admin/VanderEngine_Leads.jsx";
 import VanderTransmisssion_Leads from "./Admin/VanderTransmission_Leads.jsx";
 import Autoparts_Leads from "./Admin/Autoparts_Leads.jsx";
 import SSTech_Leads from "./Admin/SSTech_Leads.jsx";
+import TwoFactor from "../TwoFactor.jsx";
+import NotAssigned_Leads from "./Admin/NotAssigned_Leads.jsx";
 
 export default function Result({ setload }) {
   return (
     <div className="w-[85%] h-screen flex flex-col">
       <SideHeader setload={setload} />
       <Routes>
+      <Route path="/twofactor" element={<TwoFactor/>} />
+        
         <Route path="/admin" element={<Admin_Home/>} />
 
         <Route
@@ -49,6 +53,7 @@ export default function Result({ setload }) {
         <Route path="/llc_leads" element={<LLC_Leads/>} />
         <Route path="/sstech_leads" element={<SSTech_Leads/>} />
         <Route path="/facebook_leads" element={<Facebook_Leads/>} />
+        <Route path="/notassigned_leads" element={<NotAssigned_Leads/>} />
 
         <Route
           path="/TrackAgent"

@@ -21,6 +21,7 @@ import LeadModal from "../Admin/LeadModal";
 import AgentAddLead from "./AgentAddLead";
 
 export default function Task({ setload }) {
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setCurrentPageSize] = useState(10);
   const navigate = useNavigate();
@@ -28,7 +29,8 @@ export default function Task({ setload }) {
   const [TotalData, setTotalData] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
   const [mobileFilter, setMobileFilter] = useState("");
-
+  const [nameFilter, setNameFilter] = useState("");
+  const [emailFilter, setEmailFilter] = useState("");
   const [open, setOpen] = useState("");
   const [Name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -43,7 +45,7 @@ export default function Task({ setload }) {
   const [messageApi, contextHolder] = message.useMessage();
    const [deadline, setDeadline] = useState("");
   // Function to filter tasks based on the selected date
-  const filterTasks = (selectedDate, mobileFilter, tasks) => {
+  const filterTasks = (selectedDate, mobileFilter, nameFilter, emailFilter, tasks) => {
     return tasks.filter((task) => {
       const taskCreatedDate = new Date(task.createdLead).toLocaleDateString();
       const selectedDateString = selectedDate?.toLocaleDateString();
@@ -55,7 +57,12 @@ export default function Task({ setload }) {
       // Check mobile number condition
       const isMobileMatch = !mobileFilter || task.phone.includes(mobileFilter);
 
-      return isDateMatch && isMobileMatch;
+      const isNameMatch = !nameFilter || task.name.toLowerCase().includes(nameFilter.toLowerCase());
+
+      // Check Name number condition
+      const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
+
+      return isDateMatch && isMobileMatch && isNameMatch && isEmailMatch;
     });
   };
   const fetchTask = async (page, pageRows) => {
@@ -120,7 +127,7 @@ export default function Task({ setload }) {
       });
       // Filter tasks by the selected date if any
       settask(record);
-      const filteredTasks = filterTasks(selectedDate, mobileFilter, record);
+      const filteredTasks = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, record);
 
       settask(filteredTasks); // Set the filtered tasks
 
@@ -468,7 +475,7 @@ export default function Task({ setload }) {
     return () => {
       clearInterval(id);
     };
-  }, [currentPage, pageSize, selectedDate, mobileFilter]);
+  }, [currentPage, pageSize, selectedDate, mobileFilter, nameFilter, emailFilter]);
 
   return (
     <>
@@ -494,14 +501,40 @@ export default function Task({ setload }) {
         setdeadline={setDeadline}
       />
       {/* DatePicker for selecting the filter date */}
-      <div className="w-full border px-7 py-1">
+      <div className="w-full border px-3 py-1">
         <DatePicker
-          className="w-[50%] border-0"
+          className="w-[30%] me-5 border rounded border-gray-500 p-1"
           onChange={(date, dateString) =>
             setSelectedDate(date ? new Date(dateString) : null)
           }
         />
-        <span className="w-[40%]">
+        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+          <input
+            type="text "
+            placeholder="Search By Name "
+            value={nameFilter}
+            onChange={(e) => setNameFilter(e.target.value)}
+            className="ms-5 mobile-filter-input"
+          />
+          <i
+            class="fa-solid fa-magnifying-glass  mt-2"
+            onClick={filterTasks}
+          ></i>
+        </span>
+        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+          <input
+            type="email "
+            placeholder="Search By Email "
+            value={emailFilter}
+            onChange={(e) => setEmailFilter(e.target.value)}
+            className="ms-5 mobile-filter-input"
+          />
+          <i
+            class="fa-solid fa-magnifying-glass  mt-2"
+            onClick={filterTasks}
+          ></i>
+        </span>
+        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Mobile No. "
@@ -510,10 +543,11 @@ export default function Task({ setload }) {
             className="ms-5 mobile-filter-input"
           />
           <i
-            class="fa-solid fa-magnifying-glass float-end mt-2"
+            class="fa-solid fa-magnifying-glass  mt-2"
             onClick={filterTasks}
           ></i>
         </span>
+
       </div>
       <div className="h-calc-remaining flex flex-col justify-between ">
         <div className="h-[80%]">

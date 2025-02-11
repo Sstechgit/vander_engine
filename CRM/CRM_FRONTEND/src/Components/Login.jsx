@@ -63,7 +63,8 @@ const Login = () => {
   
       // Redirect based on designation
       if (result.payload.designation === 'Admin') {
-        navigate("/crm/admin");
+        // navigate("/twofactor");  // Navigate to /admin
+        navigate("/crm/admin");  // Navigate to /admin
       } else if (result.payload.designation === 'Agent') {
         navigate("/crm/agent");
       }

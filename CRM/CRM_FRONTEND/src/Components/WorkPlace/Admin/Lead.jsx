@@ -1,6 +1,9 @@
 import { Pagination, Table, Button, message, DatePicker } from "antd";
 
-import React, { useEffect, useMemo, useState } from "react";
+import * as XLSX from "xlsx"; // Import XLSX for Excel generation
+import { saveAs } from "file-saver"; // Save file in browser
+
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import GeneralHeader from "./GeneralHeader";
 import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch.js";
@@ -12,6 +15,7 @@ import {
 } from "../../../Utils/parseAndFormatDate.jsx";
 import LeadTaskRelation from "./UtilComp/LeadTaskRelation.jsx";
 import DistributeModal from "./DistributeModal.jsx";
+
 export default function Lead({ setload }) {
   //states for lead info modal
   const [open, setOpen] = useState("");
@@ -22,7 +26,7 @@ export default function Lead({ setload }) {
   const [description, setDescription] = useState("");
   const [origin, setOrigin] = useState("");
   const [parameters, setParameters] = useState([]);
-  const [ModalFunc, setModalFunc] = useState(() => {});
+  const [ModalFunc, setModalFunc] = useState(() => { });
   const [errors, seterrors] = useState({});
   const [Leads, setLeads] = useState([]);
 
@@ -38,8 +42,10 @@ export default function Lead({ setload }) {
   const [TotalData, setTotalData] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null); // Track the selected date
   const [mobileFilter, setMobileFilter] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
+  const [emailFilter, setEmailFilter] = useState("");
 
-  const filterTasks = (selectedDate, mobileFilter, tasks) => {
+  const filterTasks = (selectedDate, mobileFilter,nameFilter,emailFilter, tasks) => {
     return tasks.filter((task) => {
       const taskCreatedDate = new Date(task.created).toLocaleDateString();
       const selectedDateString = selectedDate?.toLocaleDateString();
@@ -51,7 +57,12 @@ export default function Lead({ setload }) {
       // Check mobile number condition
       const isMobileMatch = !mobileFilter || task.phone.includes(mobileFilter);
 
-      return isDateMatch && isMobileMatch;
+      const isNameMatch = !nameFilter || task.name.toLowerCase().includes(nameFilter.toLowerCase());
+
+       // Check Name number condition
+       const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
+
+      return isDateMatch && isMobileMatch && isNameMatch && isEmailMatch;
     });
   };
   const [opArr, setopArr] = useState({
@@ -70,10 +81,11 @@ export default function Lead({ setload }) {
   });
   //fetch Leads
   const fetchLeads = async (page, pageRows) => {
+
     let url = urls.FetchLeads + `/${page}/${pageRows}`;
 
     let result = await DoFetch(url);
-    // console.log(result)
+    console.log(result)
     if (result.success == true) {
       let records = [];
 
@@ -95,7 +107,7 @@ export default function Lead({ setload }) {
       });
 
       setLeads(records);
-      const filteredTasks = filterTasks(selectedDate, mobileFilter, records);
+      const filteredTasks = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, records);
       setLeads(filteredTasks); // Set the filtered leads
       setTotalData(result.payload.total);
     } else {
@@ -271,6 +283,23 @@ export default function Lead({ setload }) {
     setOpenDistribute(true);
   };
 
+  const exportToExcel = (exportSelected = false) => {
+    let dataToExport = exportSelected ? selectedLeadRecord : Leads;
+    if (dataToExport.length === 0) {
+      alert("No leads available to export!");
+      return;
+    }
+    const worksheet = XLSX.utils.json_to_sheet(dataToExport); // Convert JSON to sheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
+
+    // Convert to Excel file and trigger download
+    const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    saveAs(data, `leads_${exportSelected ? "selected" : "all"}.xlsx`);
+  };
+
+
   //header for table
   const columns = [
     { key: "_id", title: "Sno", dataIndex: "_id", width: 100 },
@@ -423,27 +452,51 @@ export default function Lead({ setload }) {
     fetchLeads(pagination.current, pagination.pageSize);
   };
   useEffect(() => {
-    if (selectedLeads.length === 0) {
-      setopArr({
-        Refresh: {
-          name: (
-            <p>
-              <i className="fa-solid fa-arrows-rotate"></i> Show All
-            </p>
-          ),
-          func: fetchLeads,
-          parameters: [currentPage, pageSize],
-          danger: false,
-        },
-        AddLead: {
-          name: <p><i className="fa-solid fa-file-circle-plus"></i> Add a Lead</p>,
-          func: AddandEditLead,
-          parameters: [],
-          danger: false,
-        },
-      });
-    }
-  }, [selectedLeads]);
+    setopArr((prev) => ({
+      ...prev,
+      Refresh: {
+        name: (
+          <p>
+            <i className="fa-solid fa-arrows-rotate"></i> Show All
+          </p>
+        ),
+        func: fetchLeads,
+        parameters: [currentPage, pageSize],
+        danger: false,
+      },
+      AddLead: {
+        name: (
+          <p>
+            <i className="fa-solid fa-file-circle-plus"></i> Add a Lead
+          </p>
+        ),
+        func: AddandEditLead,
+        parameters: [],
+        danger: false,
+      },
+      ExportAll: {
+        name: (
+          <p>
+            <i className="fa-solid fa-file-export"></i> Export All
+          </p>
+        ),
+        func: () => exportToExcel(false), // Use arrow function to ensure correct execution
+        parameters: [],
+        danger: false,
+      },
+      ExportSelected: {
+        name: (
+          <p>
+            <i className="fa-solid fa-file-export"></i> Export Selected
+          </p>
+        ),
+        func: () => exportToExcel(true), // Use arrow function
+        parameters: [],
+        danger: false,
+      },
+    }));
+  }, [selectedLeads, Leads]); // Ensure Leads is included
+
 
   useEffect(() => {
     if (!sessionStorage.getItem("accessT")) {
@@ -457,7 +510,7 @@ export default function Lead({ setload }) {
     return () => {
       clearInterval(id);
     };
-  }, [currentPage, pageSize, selectedDate, mobileFilter]);
+  }, [currentPage, pageSize, selectedDate, mobileFilter,nameFilter,emailFilter]);
   return (
     <>
       {contextHolder}
@@ -491,14 +544,40 @@ export default function Lead({ setload }) {
         setOpen={setOpen}
         parameters={parameters}
       />
-      <div className="w-full border px-7 py-1">
+      <div className="w-full border px-3 py-1">
         <DatePicker
-          className="w-[50%] border-0"
+          className="w-[30%] me-5 border rounded border-gray-500 p-1"
           onChange={(date, dateString) =>
             setSelectedDate(date ? new Date(dateString) : null)
           }
         />
-        <span className="w-[40%]">
+        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+          <input
+            type="text "
+            placeholder="Search By Name "
+            value={nameFilter}
+            onChange={(e) => setNameFilter(e.target.value)}
+            className="ms-5 mobile-filter-input"
+          />
+          <i
+            class="fa-solid fa-magnifying-glass  mt-2"
+            onClick={filterTasks}
+          ></i>
+        </span>
+        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+          <input
+            type="email "
+            placeholder="Search By Email "
+            value={emailFilter}
+            onChange={(e) => setEmailFilter(e.target.value)}
+            className="ms-5 mobile-filter-input"
+          />
+          <i
+            class="fa-solid fa-magnifying-glass  mt-2"
+            onClick={filterTasks}
+          ></i>
+        </span>
+        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Mobile No. "
@@ -507,10 +586,11 @@ export default function Lead({ setload }) {
             className="ms-5 mobile-filter-input"
           />
           <i
-            class="fa-solid fa-magnifying-glass float-end mt-2"
+            class="fa-solid fa-magnifying-glass  mt-2"
             onClick={filterTasks}
           ></i>
         </span>
+
       </div>
 
       <div className="h-calc-remaining flex flex-col justify-between  ">
@@ -540,6 +620,7 @@ export default function Lead({ setload }) {
         <div className="flex justify-between m-8">
           <GeneralHeader operations={opArr} />
         </div>
+
       </div>
       <style>
         {`

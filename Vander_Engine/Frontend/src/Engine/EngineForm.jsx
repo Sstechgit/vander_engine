@@ -347,10 +347,17 @@ export default function EngineForm({
   return (
     <>
       <div className="container">
+<<<<<<< HEAD
         <div className="transmission-form text-white container mt-5" id="engine-form">
           <div className="row">
             <div className="col-lg-6 p-3">
               <span className="me-3 text-dark fw-bold fs-3">Search Your Part Here</span>
+=======
+      <div className="transmission-form text-white container mt-4" id="engine-form">
+          <div className="row">
+            <div className="col-lg-6">
+              <span className="me-3">Search Your Engine Here</span>
+>>>>>>> TFA
             </div>
           </div>
           <form onSubmit={handleSearch} >
@@ -391,7 +398,11 @@ export default function EngineForm({
               </div>
               <div className="col-md-3 col-6 mb-3">
                 <select
+<<<<<<< HEAD
                   className="form-select mt-2 "
+=======
+                  className="form-select"
+>>>>>>> TFA
                   value={selectedModel}
                   onChange={(e) => setSelectedModel(e.target.value)}
                   required
@@ -408,7 +419,11 @@ export default function EngineForm({
               </div>
               <div className="col-md-3 col-6 mb-3">
                 <select
+<<<<<<< HEAD
                   className="form-select mt-2"
+=======
+                  className="form-select "
+>>>>>>> TFA
                   value={selectedVariant}
                   onChange={(e) => setSelectedVariant(e.target.value)}
                   required
@@ -425,6 +440,7 @@ export default function EngineForm({
               </div>
             </div>
             <div className="row align-items-center">
+<<<<<<< HEAD
 
               <div class="col-md-4 col-6">
                 <label for="name" className="form-label text-dark mt-3">
@@ -465,6 +481,12 @@ export default function EngineForm({
               <i class="fa-solid fa-phone me-3"></i>
                  Enter Your Number
                 </label>
+=======
+              <div className="modal-body col-md-6 px-3">
+                <p className="modal-title" style={{ color: "black" }}>
+                  Enter your Phone Number
+                </p>
+>>>>>>> TFA
                 <input
                   type="tel"
                   className={`form-control ${phoneError ? "is-invalid" : ""}`}
@@ -481,6 +503,7 @@ export default function EngineForm({
                 />
                 {phoneError && <div className="text-danger">{phoneError}</div>}
               </div>
+<<<<<<< HEAD
 
               <div className="d-flex gap-4">
                 <button
@@ -496,6 +519,15 @@ export default function EngineForm({
                   onClick={handleSubmitButtonClick}
                 >
                   Submit
+=======
+              <div className="col-md-4">
+                <button
+                  type="submit"
+                  className="btn btn-block transmission-btn w-100 mt-4"
+                  onClick={handlePhoneSubmit}
+                >
+                  Search
+>>>>>>> TFA
                 </button>
                 <div>
                   {form1SuccessMessage && <p className="text-success">{form1SuccessMessage}</p>}
@@ -585,7 +617,10 @@ export default function EngineForm({
         ) : (
           <p></p>
         )}
+<<<<<<< HEAD
 
+=======
+>>>>>>> TFA
 
         {showModal && (
           <div
@@ -786,7 +821,11 @@ export default function EngineForm({
           </div>
         )}{" "}
 
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> TFA
       </div>
     </>
   );

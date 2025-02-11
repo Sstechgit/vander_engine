@@ -7,7 +7,16 @@ const Admin_Home = () => {
   const [totalLeads, settotalLeads] = useState(null);
   const [totalAgents, settotalAgents] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setCurrentPageSize] = useState(10);
+  const [pageSize, setCurrentPageSize] = useState(10000);
+  const [vanderLeads, setVanderLeads] = useState(0);
+  const [vandertransmissionLeads, setVanderTransmissionLeads] = useState(0);
+  const [autopartsLeads, setAutoPartsLeads] = useState(0);
+  const [llcLeads, setLlcLeads] = useState(0);
+  const [sstechLead, setsstechLeads] = useState(0);
+  const [facebookLeads, setfacebookLeads] = useState(0);
+  const [notassignedLeads, setNotAssignedLeads] = useState(0);
+
+
   const navigate = useNavigate();
   //--------------------------------All Agents--------------------------------------
   const fetchAgents = async (page = currentPage, pageRows = pageSize) => {
@@ -61,7 +70,11 @@ const Admin_Home = () => {
     try {
       let result = await DoFetch(url);
       if (result.success === true) {
-        settotalLeads(result.payload.total); // Store the total agents
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let vanderCount = allLeads.filter(lead => lead?.origin.toLowerCase() === "Vander Engines".toLowerCase()).length;
+
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setVanderLeads(vanderCount);
       } else {
         alert("Server issue occurred");
       }
@@ -84,7 +97,11 @@ const Admin_Home = () => {
     try {
       let result = await DoFetch(url);
       if (result.success === true) {
-        settotalLeads(result.payload.total); // Store the total agents
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let vandertransmissionCount = allLeads.filter(lead => lead?.origin.toLowerCase() === "Vander Engines Transmissions".toLowerCase()).length;
+
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setVanderTransmissionLeads(vandertransmissionCount);
       } else {
         alert("Server issue occurred");
       }
@@ -107,7 +124,11 @@ const Admin_Home = () => {
     try {
       let result = await DoFetch(url);
       if (result.success === true) {
-        settotalLeads(result.payload.total); // Store the total agents
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let autopartsCount = allLeads.filter(lead => lead?.origin.toLowerCase() === "USA AUTO PARTS".toLowerCase()).length;
+
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setAutoPartsLeads(autopartsCount);
       } else {
         alert("Server issue occurred");
       }
@@ -124,13 +145,16 @@ const Admin_Home = () => {
   };
 
   //--------------------------------Auto Parts LLC Leads--------------------------------------
-
   const fetchllcLeads = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
     try {
       let result = await DoFetch(url);
       if (result.success === true) {
-        settotalLeads(result.payload.total); // Store the total agents
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let llcCount = allLeads.filter(lead => lead?.origin?.toLowerCase() === "USA AUTO PARTS LLC".toLowerCase()).length;
+
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setLlcLeads(llcCount);
       } else {
         alert("Server issue occurred");
       }
@@ -153,7 +177,10 @@ const Admin_Home = () => {
     try {
       let result = await DoFetch(url);
       if (result.success === true) {
-        settotalLeads(result.payload.total); // Store the total agents
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let sstechCount = allLeads.filter(lead => lead?.origin?.toLowerCase() === "SS TECH".toLowerCase()).length;
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setsstechLeads(sstechCount);
       } else {
         alert("Server issue occurred");
       }
@@ -176,7 +203,10 @@ const Admin_Home = () => {
     try {
       let result = await DoFetch(url);
       if (result.success === true) {
-        settotalLeads(result.payload.total); // Store the total agents
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let facebookCount = allLeads.filter(lead => lead?.origin?.toLowerCase() === "FACEBOOK".toLowerCase()).length;
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setfacebookLeads(facebookCount);
       } else {
         alert("Server issue occurred");
       }
@@ -192,6 +222,32 @@ const Admin_Home = () => {
     navigate("/crm/facebook_leads");
   };
 
+
+
+  
+  const fetchnotassignedLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let notassignedCount = allLeads.filter(lead => !lead.task[0]?._id).length;
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setNotAssignedLeads(notassignedCount);
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchnotassignedLeads();
+  }, [currentPage, pageSize]);
+  const notassignedleads = () => {
+    navigate("/crm/notassigned_leads");
+  };
   return (
     <div>
       <div className="details my-5">
@@ -268,7 +324,7 @@ const Admin_Home = () => {
                 <h3>
                   {totalLeads !== null ? (
                     <>
-                      {/* <h3>{totalLeads}</h3> */}
+                      <h3>{vanderLeads}</h3>
                       <br />
                       <span>Vander Engines Leads</span>
                     </>
@@ -291,7 +347,7 @@ const Admin_Home = () => {
             </div>
           </div>
         </div>
-        {/*-----------------------VanderTransmission Leads--------------------------*/}\
+        {/*-----------------------VanderTransmission Leads--------------------------*/}
         <div className="card">
           <div className="content">
             <div className="details">
@@ -299,7 +355,7 @@ const Admin_Home = () => {
                 <h3>
                   {totalLeads !== null ? (
                     <>
-                      {/* <h3>{totalLeads}</h3> */}
+                      <h3>{vandertransmissionLeads}</h3>
                       <br />
                       <span>Vander Engines Transmissions Leads</span>
                     </>
@@ -330,7 +386,7 @@ const Admin_Home = () => {
                 <h3>
                   {totalLeads !== null ? (
                     <>
-                      {/* <h3>{totalLeads}</h3> */}
+                      <h3>{autopartsLeads}</h3>
                       <br />
                       <span>Usa Auto Parts Leads</span>
                     </>
@@ -359,9 +415,9 @@ const Admin_Home = () => {
             <div className="details">
               <div className="data">
                 <h3>
-                  {totalLeads !== null ? (
+                  {vanderLeads !== null ? (
                     <>
-                      {/* <h3>{totalLeads}</h3> */}
+                      <h3>{llcLeads}</h3>
                       <br />
                       <span>Usa Auto Parts LLC Leads</span>
                     </>
@@ -392,7 +448,7 @@ const Admin_Home = () => {
                 <h3>
                   {totalLeads !== null ? (
                     <>
-                      {/* <h3>{totalLeads}</h3> */}
+                      <h3>{sstechLead}</h3>
                       <br />
                       <span>SSTECH Leads</span>
                     </>
@@ -423,7 +479,7 @@ const Admin_Home = () => {
                 <h3>
                   {totalLeads !== null ? (
                     <>
-                      {/* <h3>{totalLeads}</h3> */}
+                      <h3>{facebookLeads}</h3>
                       <br />
                       <span>Facebook Leads</span>
                     </>
@@ -447,6 +503,38 @@ const Admin_Home = () => {
           </div>
         </div>
 
+
+        {/*-----------------------Facebook Leads--------------------------*/}
+        <div className="card">
+          <div className="content">
+            <div className="details">
+              <div className="data">
+                <h3>
+                  {totalLeads !== null ? (
+                    <>
+                      <h3>{notassignedLeads}</h3>
+                      <br />
+                      <span>Not Assigned Leads</span>
+                    </>
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </h3>
+              </div>
+              <div className="actionBtn">
+                <Button
+                  type="primary"
+                  size="large"
+                  block
+                  className=" bg-black"
+                  onClick={notassignedleads} // Trigger state change to show Lead component
+                >
+                  View All
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <style>
         {`
@@ -465,7 +553,8 @@ body {
 }
 .card {
   position: relative;
-  width: 250px;
+  width: 200px;
+  height: 200px;
   background: #2a2a2a;
   border-radius: 20px;
   overflow: hidden;
@@ -474,7 +563,7 @@ body {
 .card .content {
   position: relative;
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   z-index: 1;
 }
 .details {
@@ -491,7 +580,6 @@ body {
   display: flex;
   justify-content: center;
   margin: 20px 0;
-  padding: 0 30px;
 }
 .card .content .details .data h3 {
   font-size: 1.1em;
