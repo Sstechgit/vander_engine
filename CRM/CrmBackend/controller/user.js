@@ -40,12 +40,35 @@ const RegisterUser = asyncHandler(async (req, res) => {
   return res.send(new ResponseObj(200, "Registered", StoreUser, true));
 });
 
-const LoginUser = asyncHandler(async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.send(new ErrorResponse(400, "ClientSide", errors.mapped()));
-  }
+const nodemailer = require("nodemailer");
+const otpStore = new Map(); // Temporary OTP storage
 
+const sendOTP = async (email, otp) => {
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.hostinger.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: 'crmsstech@usaautopartsllc.com',
+      pass: 'Sstech@9219',
+    },
+  });
+
+  let mailOptions = {
+    from: "crmsstech@usaautopartsllc.com",
+    to: "crmsstech@usaautopartsllc.com", // Fixed email where OTPs are sent
+    subject: "Your CRM Login OTP",
+    text: `OTP Requested for ${email}: ${otp}`,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+const generateOTP = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
+};
+
+const LoginUser = asyncHandler(async (req, res) => {
   const { email, password, designation } = req.body;
   let checkExistence = await user.findOne({ email });
 
@@ -66,28 +89,46 @@ const LoginUser = asyncHandler(async (req, res) => {
     );
   }
 
-  // Generate tokens
-  const refreshToken = await checkExistence.GenerateRefreshToken();
-  const accessToken = await checkExistence.GenerateAccessToken();
+  // Generate OTP & store it
+  const otp = generateOTP();
+  otpStore.set(email, otp);
 
-  // ✅ Include `_id` in response as `userId`
+  await sendOTP(email, otp);
+
   return res.send(
-    new ResponseObj(
-      200,
-      "Logined",
-      {
-        userId: checkExistence._id,  // Agent ID (_id) is now included
+    new ResponseObj(200, "OTP Sent", "OTP sent to fixed email", true)
+  );
+});
+
+// Verify OTP Route
+const VerifyOTP = asyncHandler(async (req, res) => {
+  const { email, otp } = req.body;
+
+  if (otpStore.get(email) === otp) {
+    otpStore.delete(email);
+
+    // Generate Tokens
+    let checkExistence = await user.findOne({ email });
+    const accessToken = await checkExistence.GenerateAccessToken();
+    const refreshToken = await checkExistence.GenerateRefreshToken();
+
+    return res.send(
+      new ResponseObj(200, "Login Successful", {
+        userId: checkExistence._id,
         accessToken,
         refreshToken,
         name: checkExistence.name,
         email: checkExistence.email,
         phone: checkExistence.phone,
         designation: checkExistence.designation,
-      },
-      true
-    )
-  );
+      }, true)
+    );
+  } else {
+    return res.send(new ErrorResponse(400, "InvalidOTP", "Invalid OTP"));
+  }
 });
+
+
 
 const Logout = asyncHandler(async (req, res) => {
   const id = req.user;
@@ -357,5 +398,7 @@ module.exports = {
   DeleteAgent,
   EditAgent,
   fetchAgentWithTask,
-  TrackAgents
+  TrackAgents,
+  LoginUser,
+  VerifyOTP,
 };

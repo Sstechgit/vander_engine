@@ -16,6 +16,7 @@ const TaskSchema=new db.Schema({
     },
     deadline:{
         type:String,
+        required:true
     },
     yard:{
         type:[String],

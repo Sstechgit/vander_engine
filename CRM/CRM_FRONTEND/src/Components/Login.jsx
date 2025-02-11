@@ -25,59 +25,69 @@ const Login = () => {
   const PasswordToogle = () => {
     setshowPassword((prev) => !prev);
   };
+  const [otp, setOtp] = useState("");
+  const [isOtpSent, setIsOtpSent] = useState(false);
+  
   const Login = async (e) => {
-    e.preventDefault();
-    seterrors({});
-    let url = urls.LOGIN;
-  
-    let body = {
-      email,
-      password,
-      designation: selectedRole,
-    };
-    let options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    };
-  
-    let response = await fetch(url, options);
-    let result = await response.json();
-  
-    if (result.success == true) {
-      let accessToken = result.payload.accessToken;
-      let refreshToken = result.payload.refreshToken;
-      
-      sessionStorage.setItem("accessT", accessToken);
-      sessionStorage.setItem("refreshT", refreshToken);
-      sessionStorage.setItem("name", result.payload.name);
-      sessionStorage.setItem("designation", result.payload.designation);
-  
-      // ✅ Store agent ID (userId) in localStorage
-      localStorage.setItem("userId", result.payload.userId);
-      let agentId = localStorage.getItem("userId");
-      console.log(agentId)
-
-  
-      // Redirect based on designation
-      if (result.payload.designation === 'Admin') {
-        // navigate("/twofactor");  // Navigate to /admin
-        navigate("/crm/admin");  // Navigate to /admin
-      } else if (result.payload.designation === 'Agent') {
-        navigate("/crm/agent");
+      e.preventDefault();
+      seterrors({});
+      let url = urls.LOGIN;
+    
+      let body = {
+        email,
+        password,
+        designation: selectedRole,
+      };
+    
+      let options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      };
+    
+      let response = await fetch(url, options);
+      let result = await response.json();
+    
+      if (result.success) {
+          messageApi.info("OTP sent to your email");
+          setIsOtpSent(true); // Show OTP input field
+      } else {
+          let errorObj = getErrors(result, ["email", "password", "designation"]);
+          seterrors((prev) => ({ ...prev, ...errorObj }));
       }
-    } else {
-      let errorObj = getErrors(result, ["email", "password", "designation"]);
-      seterrors((prev) => {
-        return { ...prev, ...errorObj };
-      });
-      if (errorObj?.system) {
-        alert(errorObj["system"]);
-      }
-    }
   };
+  
+  // New function to verify OTP
+  const verifyOtp = async (e) => {
+      e.preventDefault();
+      let url = urls.VERIFY_OTP;
+    
+      let body = { email, otp };
+    
+      let options = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+      };
+    
+      let response = await fetch(url, options);
+      let result = await response.json();
+    
+      if (result.success) {
+          let { accessToken, refreshToken, name, designation, userId } = result.payload;
+  
+          sessionStorage.setItem("accessT", accessToken);
+          sessionStorage.setItem("refreshT", refreshToken);
+          sessionStorage.setItem("name", name);
+          sessionStorage.setItem("designation", designation);
+          localStorage.setItem("userId", userId);
+          
+          navigate(designation === "Admin" ? "/crm/admin" : "/crm/agent");
+      } else {
+          messageApi.error("Invalid OTP. Please try again.");
+      }
+  };
+  
   
   const Register = async (e) => {
     e.preventDefault();
@@ -137,6 +147,7 @@ const Login = () => {
   };
 
   return (
+    
     <div className="main-login">
       <div className="container flex align-middle justify-center h-full">
         <div className="welcome ">
@@ -253,6 +264,21 @@ const Login = () => {
                 alt=""
                 width={150}
               />
+{isOtpSent ? (
+  <form onSubmit={verifyOtp} className="flex flex-col items-center gap-4">
+    <InputField
+      placeholder="Enter OTP"
+      name="otp"
+      type="text"
+      icon="fa-solid fa-key"
+      required={true}
+      value={otp}
+      changeValue={setOtp}
+    />
+    <button className="p-2 px-4 text-xl bg-green-500 text-white">Verify OTP</button>
+  </form>
+) : (
+
               <form
                 className="h-full bg-[#1ACA81] p-2 flex flex-col items-center gap-4 "
                 onSubmit={Login}
@@ -320,6 +346,8 @@ const Login = () => {
                   </button>
                 </div>
               </form>
+
+)}
             </div>
           </div>
 
