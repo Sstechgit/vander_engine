@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: ["http://localhost:5175", "http://sstechcrm.com"],
+    origin: ["http://localhost:5173", "http://sstechcrm.com"],
     methods: ["GET", "POST"],
   },
 });
@@ -22,7 +22,7 @@ const cors = require("cors");
 const { FindMails } = require("./helper/RealtimeEmail.js");
 const tokens = require("./models/Token.js");
 const corsOptions = {
-  origin: ["http://localhost:5175", "http://sstechcrm.com"],
+  origin: ["http://localhost:5173", "http://sstechcrm.com"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "agent", "Agent"],
   credentials: true, // Include if cookies/auth headers are needed
