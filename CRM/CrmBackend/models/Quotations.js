@@ -1,5 +1,6 @@
 const db = require("mongoose");
 const quotationSchema = new db.Schema({
+  email: { type: String, required: true },
   year: {
     type: String,
     required: true,

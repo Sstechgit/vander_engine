@@ -4,6 +4,7 @@ import { formatDate } from "../../../Utils/parseAndFormatDate";
 import ShowInvoice from "./utilComp/ShowInvoice";
 import SendMessages from "./SendMessages";
 import EmailConversation from "./EmailConversation";
+import View_Quotation from "./View_Quotation";
 
 export default function ViewLeads({ task = [], state = "" }) {
   const [open, setOpen] = useState(false);
@@ -39,6 +40,9 @@ export default function ViewLeads({ task = [], state = "" }) {
         title: "Client Email",
         dataIndex: "email",
         width: 100,
+        render: (_, record) => {
+          return (record.email.slice(0, 3) + ".....@gmail.com");
+        },
       },
       {
         key: "lead_phone",
@@ -48,9 +52,10 @@ export default function ViewLeads({ task = [], state = "" }) {
         render: (_, record) => (
           <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
             <i className="fa-solid fa-phone"></i>
-            {record.phone}
+            {record.phone.slice(0, 5) + "xxxxx..."}
           </a>
         ),
+
       },
       {
         key: "lead_description",
@@ -102,7 +107,7 @@ export default function ViewLeads({ task = [], state = "" }) {
     ];
 
     // Add extra columns if state is "Pending"
-    if (state === "Pending"|| state==="Quotation Given" || state==="No Response") {
+    if (state === "Pending" || state === "Quotation Given" || state === "No Response") {
       const extraColumns = [
         {
           title: "Send Email",
@@ -126,11 +131,23 @@ export default function ViewLeads({ task = [], state = "" }) {
           title: "Send Invoice To Admin",
           dataIndex: "",
           key: "send invoice",
-          width: 200,
+          width: 150,
           render: (_, record) => {
             return <ShowInvoice record={record} />;
           },
         },
+        ...(state === "Quotation Given"
+          ? [
+            {
+              title: "View Quotation",
+              dataIndex: "view_quotation",
+              key: "view_quotation",
+              width: 180,
+              render: (_, record) => <View_Quotation record={record} />,
+            },
+          ]
+          : []),
+
       ];
 
       // Insert extra columns after the 3rd column (Client Email)
@@ -164,7 +181,7 @@ export default function ViewLeads({ task = [], state = "" }) {
         size="large"
         block
         onClick={openModal}
-        style={{ backgroundColor: "transparent", color:"#fff" }}
+        style={{ backgroundColor: "transparent", color: "#fff" }}
       >
         {state}
       </Button>

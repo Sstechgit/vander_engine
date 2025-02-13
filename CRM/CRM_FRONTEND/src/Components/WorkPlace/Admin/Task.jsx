@@ -439,7 +439,7 @@ export default function Task({ setload }) {
                 fetchTask(page, pageSize);
               },
             }}
-            scroll={{ y: 400, x: "max-content" }} // Ensure table content is scrollable
+            scroll={{ y: 420, x: "max-content" }} // Ensure table content is scrollable
             onChange={handleTablePageChange}
           ></Table>
         </div>

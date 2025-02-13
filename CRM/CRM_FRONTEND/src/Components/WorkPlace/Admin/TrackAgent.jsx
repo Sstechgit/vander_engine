@@ -7,7 +7,7 @@ import { formatDate, parseCustomDate } from "../../../Utils/parseAndFormatDate";
 
 export default function TrackAgent() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setCurrentPageSize] = useState(10);
+  const [pageSize, setCurrentPageSize] = useState(500);
   const [TotalData, setTotalData] = useState(0);
   const [agents, setagents] = useState([]);
   const fetchTrackedAgents = async () => {
@@ -238,13 +238,13 @@ export default function TrackAgent() {
         locale={{ emptyText: "No Data available" }}
         columns={columns}
         dataSource={agents}
-        scroll={{ y: 400, x: "max-content" }}
+        scroll={{ y: 450, x: "max-content" }}
         pagination={{
           current: currentPage,
           pageSize: pageSize,
           total: TotalData,
           showSizeChanger: true,
-          pageSizeOptions: ["2", "4", "6", "8", "10", "15"],
+          pageSizeOptions: ["500", "1000", "1500", "2000", "2500", "3000"],
           onChange: (page, pageSize) => {
             setCurrentPage(page);
             setCurrentPageSize(pageSize);

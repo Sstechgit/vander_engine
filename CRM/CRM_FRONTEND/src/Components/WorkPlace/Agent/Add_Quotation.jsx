@@ -60,7 +60,7 @@ export default function Add_Quotation({
         width={1500}
         footer={[
           <Button key="ok" type="primary" onClick={handleClick}>
-            Save
+            Submit
           </Button>,
         ]}
       >
