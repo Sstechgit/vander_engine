@@ -18,7 +18,7 @@ export default function HomeHeader() {
             </Link>
           </p>
           <h1 className="mb-3">Explore Over 10 Million Auto Parts</h1>
-          <h4 className="main">Select Your Vehicle:</h4>
+          <h4 className="main">Select Your Parts:</h4>
           <HomeForm />
           <Discount_home />
         </div>

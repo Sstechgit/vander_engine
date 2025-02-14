@@ -12,8 +12,9 @@ import PopularProducts from "./PopularProducts";
 import Satisfied_customer from "./Satisfied_customer";
 import CustomerReview from "./CustomerReview";
 import HomeHeader from "./HomeHeader";
+import HomeBottomForm from "./HomeBottomForm";
 
-export default function Home() {
+export default function Home( ) {
   return (
     <>
       <div className="home">
@@ -29,6 +30,7 @@ export default function Home() {
       <FeaturedBrands />
       <PopularProducts />
       <Satisfied_customer />
+      <HomeBottomForm />
       <CustomerReview />
     </>
   );

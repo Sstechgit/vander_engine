@@ -82,10 +82,10 @@ export default function () {
                       }}
                     />
                     <h6 className="text-center parts-text">
-                      <Link to="/sellerParts" className="parts-text">
+                      
                         {" "}
                         {item.partname}
-                      </Link>
+                      
                     </h6>
                   </div>
                 </div>
