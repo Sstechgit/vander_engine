@@ -27,7 +27,7 @@ export default function Send_Quotation({ record, concat = false,
         description, // Optional
         setErrors,
     }) => {
-        const url = "http://localhost:8000/api/SendQuotations";
+        const url = "http://backend.sstechcrm.com/api/SendQuotations";
     
         let body = {
             email: record.email, // Required email from frontend

@@ -13,7 +13,7 @@ export default function View_Quotation({ record }) {
     setOpen(true);
     // console.log("Fetching quotations for email:", record.email);
 
-    const url = `http://localhost:8000/api/ViewQuotations?email=${record.email}`;
+    const url = `http://backend.sstechcrm.com/api/ViewQuotations?email=${record.email}`;
 
     try {
       let result = await DoFetch(url, "GET");
