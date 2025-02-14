@@ -24,7 +24,7 @@ const tokens = require("./models/Token.js");
 const corsOptions = {
   origin: ["http://localhost:5173", "http://sstechcrm.com"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "agent", "Agent"],
+  allowedHeaders: ["Content-Type", "Authorization", "agent", "Agent","status","quotationid"],
   credentials: true, // Include if cookies/auth headers are needed
 };
 app.use(cors(corsOptions));
@@ -32,6 +32,7 @@ app.options("*", cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 const cron = require("node-cron");
+const Qtrouter = require("./api/SendQoutation.js");
 const PORT = process.env.PORT || 8000 || 8001;
 app.use("/api", require("./api/user.js"));
 app.use("/api", require("./api/lead.js"));
@@ -48,6 +49,7 @@ app.use("/api", require("./api/superadmin.js"));
 app.use("/api", require("./api/ringcentral.js"));
 app.use("/api", require("./api/invoice.js"));
 app.use("/api", require("./api/addtask.js"));
+app.use("/api" , Qtrouter )
 
 setIo(io);
 app.use("/api", notesrouter);

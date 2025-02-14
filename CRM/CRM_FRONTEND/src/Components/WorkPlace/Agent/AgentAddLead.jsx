@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, DatePicker, Input, Modal, Select } from "antd";
 import {
   HeatMapOutlined,
@@ -25,9 +25,10 @@ export default function AgentAddLead({
   origin,
   setOrigin,
   Deadline,
-    setdeadline,
+  setdeadline,
   parameters = [],
 }) {
+  const [localErrors, setLocalErrors] = useState({});
   const dropModal = () => {
     setOpen(false);
     setName("");
@@ -36,15 +37,41 @@ export default function AgentAddLead({
     setPhone("")
     setOrigin("")
     setdeadline("")
-    
+    setLocalErrors({});
   };
   const handleDate = (value) => {
 
     setdeadline(value.$d);
   };
-  const DoFunction = async () => {
+  const validateInputs = () => {
+    let errors = {};
+    if (!name.trim()) errors.name = "Name is required!";
+    // Email validation (checks for a valid email format)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim()) {
+      errors.email = "Email is required!";
+    } else if (!emailPattern.test(email)) {
+      errors.email = "Enter a valid email address!";
+    }
 
-    await ClickFunc(name, email, description, origin, phone,Deadline, ...parameters);
+    // Phone validation (exactly 10 digits)
+    const phonePattern = /^\d{10}$/;
+    if (!phone.trim()) {
+      errors.phone = "Phone number is required!";
+    } else if (!phonePattern.test(phone)) {
+      errors.phone = "Enter a valid 10-digit phone number!";
+    }
+    if (!description.trim()) errors.description = "Description is required!";
+    if (!Deadline) errors.Deadline = "Deadline is required!";
+    if (!origin) errors.origin = "Origin is required!";
+
+    setLocalErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+  const DoFunction = async () => {
+    if (!validateInputs()) return;
+    await ClickFunc(name, email, description, origin, phone, Deadline, ...parameters);
+    dropModal();
   };
   return (
     <Modal
@@ -69,13 +96,12 @@ export default function AgentAddLead({
           prefix={<UserOutlined />}
           className="flex gap-4 "
         />
-        <span className="w-full h-4 text-red-500  transition-all duration-300 text-md ">
-          {errors?.name ? errors.name : ""}
-        </span>
+        <span className="text-red-500 text-sm">{localErrors.name}</span>
       </div>
       <div className="mb-4">
         <Input
           value={email}
+          type="email"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
@@ -86,9 +112,7 @@ export default function AgentAddLead({
           prefix={<MailOutlined />}
           className="flex gap-4 "
         />
-        <span className="w-full h-4 text-red-500  transition-all duration-300 text-md ">
-          {errors?.email ? errors.email : ""}
-        </span>
+        <span className="text-red-500 text-sm">{localErrors.email}</span>
       </div>
       <div className="mb-4">
         <Input
@@ -101,9 +125,7 @@ export default function AgentAddLead({
           prefix={<MobileOutlined />}
           className="flex gap-4 "
         />
-        <span className="w-full h-4 text-red-500  transition-all duration-300 text-md mb-2">
-          {errors?.phone ? errors.phone : ""}
-        </span>
+        <span className="text-red-500 text-sm">{localErrors.phone}</span>
       </div>
       <div className="mb-4">
         <Input
@@ -116,9 +138,7 @@ export default function AgentAddLead({
           prefix={<InfoCircleOutlined />}
           className="flex gap-4 "
         />
-        <span className="w-full h-4 text-red-500  transition-all duration-300 text-md mb-2">
-          {errors?.description ? errors.description : ""}
-        </span>
+        <span className="text-red-500 text-sm">{localErrors.description}</span>
       </div>
       <div className="mb-4">
         <DatePicker
@@ -128,28 +148,24 @@ export default function AgentAddLead({
           }}
           required
         />
-        <span className="w-full h-4 text-red-500  transition-all duration-300 text-md ">
-          {errors?.Deadline ? errors.Deadline : ""}
-        </span>
+        <span className="text-red-500 text-sm">{localErrors.Deadline}</span>
       </div>
       <div className="mb-4">
-    
-      <Select
-        defaultValue="Vander Engines"
-        value={origin}
-        onChange={(value) => setOrigin(value)} // Directly receive value
-        style={{ width: '100%' }} // Correct property name for inline styles
-      >
-        <Option value="Vander Engines">Vander Engines</Option>
-        <Option value="USA Auto Parts LLC">USA Auto Parts LLC</Option>
-      </Select>
-   
+
+        <Select
+          defaultValue="Vander Engines"
+          value={origin}
+          onChange={(value) => setOrigin(value)} // Directly receive value
+          style={{ width: '100%' }} // Correct property name for inline styles
+        >
+          <Option value="Vander Engines">Vander Engines</Option>
+          <Option value="USA Auto Parts LLC">USA Auto Parts LLC</Option>
+        </Select>
+
+        <span className="text-red-500 text-sm">{localErrors.origin}</span>
 
 
-    <span className="w-full h-4 text-red-500 transition-all duration-300 text-md mb-2">
-      {errors?.origin ? errors.origin : ""}
-    </span>
-  </div>
+      </div>
     </Modal>
   );
 }

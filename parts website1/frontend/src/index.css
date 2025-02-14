@@ -1,0 +1,94 @@
+:root {
+  --primarycolor: #ec2324;
+  --lightColor: #fff;
+}
+.main {
+  color: var(--primarycolor);
+}
+.main:hover {
+  color: #fff;
+}
+.form-select:focus {
+  box-shadow: none;
+}
+.form-control:focus {
+  box-shadow: none;
+}
+.footer {
+  border-top: 2px solid var(--primarycolor);
+  border-bottom: 2px solid var(--primarycolor);
+}
+.first-section {
+  border-top: 4px solid var(--primarycolor);
+  background-color: var(--primarycolor);
+}
+a{
+  text-decoration: none;
+}
+.btn:active {
+  border: none;
+}
+/* Style the overlay to cover the entire page */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure the modal is on top */
+}
+
+/* Style for the modal content */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px;
+  text-align: center;
+  position: relative;
+}
+
+/* Close button style */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Form styles */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.modal-content .btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Blur the page content behind the modal */
+body.modal-open {
+  filter: blur(5px);
+}
+
+@media (max-width: 576px) {
+  .col-lg-1 {
+    display: none;
+  }
+}

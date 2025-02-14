@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch";
 import { formatDate, parseCustomDate } from "../../../Utils/parseAndFormatDate";
-import { Button, DatePicker, Modal, Table,message } from "antd";
+import { Button, DatePicker, Modal, Table, message } from "antd";
 
 import GeneralHeader from "../Admin/GeneralHeader";
 import Status from "./Status";
@@ -19,9 +19,11 @@ import SendMessages from "./SendMessages";
 import ShowInvoice from "./utilComp/ShowInvoice";
 import LeadModal from "../Admin/LeadModal";
 import AgentAddLead from "./AgentAddLead";
+import Send_Quotation from "./Send_Quotation";
+import View_Quotation from "./View_Quotation";
 
 export default function Task({ setload }) {
-  
+
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setCurrentPageSize] = useState(10);
   const navigate = useNavigate();
@@ -43,7 +45,7 @@ export default function Task({ setload }) {
   const [Leads, setLeads] = useState([]);
   const [ModalFunc, setModalFunc] = useState(() => { });
   const [messageApi, contextHolder] = message.useMessage();
-   const [deadline, setDeadline] = useState("");
+  const [deadline, setDeadline] = useState("");
   // Function to filter tasks based on the selected date
   const filterTasks = (selectedDate, mobileFilter, nameFilter, emailFilter, tasks) => {
     return tasks.filter((task) => {
@@ -69,11 +71,12 @@ export default function Task({ setload }) {
     let url = urls.GetTaskForAgent + `/${page}/${pageRows}`;
 
     let result = await DoFetch(url);
-
+    console.log(result)
     if (result.success == true) {
       let record = [];
       let idx = 0;
       result.payload.records.forEach((taskval) => {
+        console.log(record)
         if (!taskval?.orders) {
           record.push({
             key: taskval._id,
@@ -141,9 +144,9 @@ export default function Task({ setload }) {
   const [leadId, setLeadId] = useState(null);
   const AddLead = async (nameval, emailval, descriptionval, originval, phoneval, deadlineval) => {
     seterrors({});
-    
+
     let url = urls.AddLead;
-    
+
     let body = {
       email: emailval,
       name: nameval,
@@ -152,7 +155,7 @@ export default function Task({ setload }) {
       phone: phoneval,
       deadline: deadlineval,
     };
-  
+
     let options = {
       method: "POST",
       headers: {
@@ -160,45 +163,45 @@ export default function Task({ setload }) {
       },
       body: JSON.stringify(body),
     };
-  
+
     let response = await fetch(url, options);
     let result = await response.json();
-  
-    console.log("Response from AddLead API:", result); 
-  
+
+    console.log("Response from AddLead API:", result);
+
     if (result.success === true) {
       messageApi.info("Congrats! New Lead is Added");
-  
-      let newLeadId = result.payload.leadId; 
-      console.log("Retrieved leadId:", newLeadId); 
-  
+
+      let newLeadId = result.payload.leadId;
+      console.log("Retrieved leadId:", newLeadId);
+
       setLeadId(newLeadId); // Store in state
-  
+
       let agentId = localStorage.getItem("userId"); // Retrieve agentId
-  
+
       // Call AddTask API
       await AddTask(newLeadId, agentId, deadlineval);
-  
+
       setOpen(false);
     } else {
-      let errorObj = getErrors(result, ["email", "password", "description", "origin", "phone", "name","deadline"]);
+      let errorObj = getErrors(result, ["email", "password", "description", "origin", "phone", "name", "deadline"]);
       seterrors((prev) => ({ ...prev, ...errorObj }));
-  
+
       if (errorObj?.system) {
         alert(errorObj["system"]);
       }
     }
   };
-  
+
   const AddTask = async (leadId, agentId, deadline) => {
     let url = urls.ADDTASK;
-  
+
     let body = {
       leadId: leadId,
       agentId: agentId,
       deadline: deadline,
     };
-  
+
     let options = {
       method: "POST",
       headers: {
@@ -206,20 +209,20 @@ export default function Task({ setload }) {
       },
       body: JSON.stringify(body),
     };
-  
+
     let response = await fetch(url, options);
     let result = await response.json();
-  
+
     console.log("Response from AddTask API:", result);
-  
+
     if (result.success === true) {
       messageApi.info("Task successfully assigned to the agent");
     } else {
       console.error("Error adding task:", result);
     }
   };
-  
-  
+
+
   const [opArr, setopArr] = useState({})
   const AddandEditLead = (record) => {
     setParameters([]);
@@ -354,6 +357,23 @@ export default function Task({ setload }) {
       },
     },
     {
+      title: "Send Quotation",
+      dataIndex: "send_quotation",
+      key: "send_quotation",
+      width: 180,
+      render: (_, record) => {
+        return <Send_Quotation record={record} />;
+      },
+    }, {
+      title: "View Quotation",
+      dataIndex: "view_quotation",
+      key: "view_quotation",
+      width: 180,
+      render: (_, record) => {
+        return <View_Quotation record={record} />;
+      },
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
@@ -479,7 +499,7 @@ export default function Task({ setload }) {
 
   return (
     <>
-    {contextHolder}
+      {contextHolder}
       <AgentAddLead
         title={title}
         ClickFunc={ModalFunc}
@@ -565,7 +585,7 @@ export default function Task({ setload }) {
               pageSize: pageSize,
               total: TotalData,
               showSizeChanger: true,
-              pageSizeOptions: ["10", "20", "30", "40", "50", "60", "70"],
+              pageSizeOptions: ["300", "500", "700", "1000", "1200", "1500", "2000"],
               onChange: (page, pageSize) => {
                 setCurrentPage(page);
                 setCurrentPageSize(pageSize);

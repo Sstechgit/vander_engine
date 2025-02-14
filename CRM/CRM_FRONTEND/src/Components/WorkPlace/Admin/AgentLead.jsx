@@ -4,10 +4,11 @@ import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch";
 import { formatDate, parseCustomDate } from "../../../Utils/parseAndFormatDate";
 import EmailConversation from "../Agent/EmailConversation";
+import View_Quotation from "../Agent/View_Quotation";
 
 export default function AgentLead({ record, status }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setCurrentPageSize] = useState(10);
+  const [pageSize, setCurrentPageSize] = useState(500);
   const [TotalData, setTotalData] = useState();
   const [open, setOpen] = useState(false);
   const [task, settask] = useState([]);
@@ -136,13 +137,25 @@ export default function AgentLead({ record, status }) {
         return <p>{formattedDate}</p>;
       },
     },
+    ...(status === "Quotation Given"
+      ? [
+        {
+          title: "View Quotation",
+          dataIndex: "view_quotation",
+          key: "view_quotation",
+          width: 180,
+          render: (_, record) => <View_Quotation record={record} />,
+        },
+      ]
+      : []),
+
   ];
   const handleTablePageChange = (pagination) => {
     setCurrentPage(pagination.current);
     setCurrentPageSize(pagination.pageSize);
     fetchLeads(pagination.current, pagination.pageSize);
   };
- 
+
   const colors = {
     // "Totaltasks":"#e9dbdb",
     Pending: "orange",
@@ -153,17 +166,17 @@ export default function AgentLead({ record, status }) {
     "Voice Mail": "blue",
     "Already Purchased": "purple",
     Failed: "red",
-    "Quotation Given":"brown",
+    "Quotation Given": "brown",
     "No Response": "gray",
     Closed: "black",
   };
   return (
     <div
       className="flex items-center gap-2"
-     
+
     >
-      <p className=" font-bold text-base"  style={{color: colors[status]}}>Total Count: {record.tasks[status] || 0}</p>
-      <Button type="primary"  onClick={openModal}>
+      <p className=" font-bold text-base" style={{ color: colors[status] }}>Total Count: {record.tasks[status] || 0}</p>
+      <Button type="primary" onClick={openModal}>
         View
       </Button>
       <Modal
@@ -187,7 +200,7 @@ export default function AgentLead({ record, status }) {
             pageSize: pageSize,
             total: TotalData,
             showSizeChanger: true,
-            pageSizeOptions: ["2", "4", "6", "8", "10", "15"],
+            pageSizeOptions: ["500", "1000", "1500", "2000", "2500", "3000"],
             onChange: (page, pageSize) => {
               setCurrentPage(page);
               setCurrentPageSize(pageSize);

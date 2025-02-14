@@ -1,0 +1,79 @@
+:root {
+    --e-global-font-family: "Carlito", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+:root {
+    --primarycolor: #ec2324;
+    --lightColor: #fff;
+}
+
+.home {
+    background: url(/assets/home_bg.jpg);
+}
+.speciality-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.icon i {
+    background-color: var(--lightColor);
+    border-radius: 50%;
+    padding: 20px;
+}
+.icon:hover i{
+    background-color: var(--primarycolor);
+}
+.text-card{
+    background-color: var(--primarycolor);
+    color: #fff;
+    background: linear-gradient(45deg, #ec2324, #b74242ad);;
+}
+.text-card:hover{
+    background: var(--lightColor);
+
+}
+.text-card:hover .heading{
+    color: var(--primarycolor);
+}
+.text-card:hover .paragraph{
+    color: #000;
+}
+.parts-text{
+    color: var(--primarycolor);
+}
+.parts-text:hover{
+    color: #000;
+    text-decoration: underline;
+}
+.parts-card:hover{
+    box-shadow: 0 0 10px;
+}
+.parts-card:hover .parts-text{
+    color: #000;
+    text-decoration: underline;
+}
+.shop-card{
+    border: 1px dotted #000;
+    border-radius: 0;
+
+}
+.shop-card:hover{
+    border: 1px dotted var(--primarycolor);
+ 
+}
+.make-card{
+    background-color: var(--primarycolor);
+    color: var(--lightColor);
+}
+.make-text{
+    color: var(--primarycolor);
+}
+.model-text{
+    color: #333333;
+}
+.model-text:hover{
+    text-decoration: underline;
+    color: var(--primarycolor);
+}
