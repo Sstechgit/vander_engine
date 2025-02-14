@@ -283,7 +283,7 @@ export default function EngineForm({
   });
   const handleSubmite = async (e) => {
     e.preventDefault(); // Prevent default form submission
-  
+
     // Perform form validation
     if (
       !selectedYear ||
@@ -298,7 +298,7 @@ export default function EngineForm({
       alert("Please fill out all fields before submitting.");
       return; // Stop further execution if validation fails
     }
-  
+
     setLoading(true); // Start loading
     try {
       const formData = {
@@ -313,14 +313,14 @@ export default function EngineForm({
         message: "",  // You can add a message if needed
         agreed: "Homepage1", // Adjust accordingly
       };
-  
+
       const response = await axios.post(
         "https://backend.vanderengines.com/api/leads",
         formData
       );
       console.log(response.data);
       navigate('/thankyou'); // Navigate to thank you page after successful submission
-  
+
       // Reset form fields after successful submission
       setSelectedYear("");
       setSelectedMake("");
@@ -337,27 +337,20 @@ export default function EngineForm({
       setLoading(false); // Stop loading
     }
   };
-  
+
   const handleSubmitButtonClick = (e) => {
     e.preventDefault(); // Prevent any default behavior (in case you're inside a form)
-    
+
     // Call the handleSubmit function when the button is clicked
     handleSubmite(e);
   };
   return (
     <>
       <div className="container">
-<<<<<<< HEAD
-        <div className="transmission-form text-white container mt-5" id="engine-form">
-          <div className="row">
-            <div className="col-lg-6 p-3">
-              <span className="me-3 text-dark fw-bold fs-3">Search Your Part Here</span>
-=======
-      <div className="transmission-form text-white container mt-4" id="engine-form">
+        <div className="transmission-form text-white container mt-4" id="engine-form">
           <div className="row">
             <div className="col-lg-6">
               <span className="me-3">Search Your Engine Here</span>
->>>>>>> TFA
             </div>
           </div>
           <form onSubmit={handleSearch} >
@@ -398,11 +391,7 @@ export default function EngineForm({
               </div>
               <div className="col-md-3 col-6 mb-3">
                 <select
-<<<<<<< HEAD
-                  className="form-select mt-2 "
-=======
                   className="form-select"
->>>>>>> TFA
                   value={selectedModel}
                   onChange={(e) => setSelectedModel(e.target.value)}
                   required
@@ -419,11 +408,7 @@ export default function EngineForm({
               </div>
               <div className="col-md-3 col-6 mb-3">
                 <select
-<<<<<<< HEAD
-                  className="form-select mt-2"
-=======
                   className="form-select "
->>>>>>> TFA
                   value={selectedVariant}
                   onChange={(e) => setSelectedVariant(e.target.value)}
                   required
@@ -440,53 +425,10 @@ export default function EngineForm({
               </div>
             </div>
             <div className="row align-items-center">
-<<<<<<< HEAD
-
-              <div class="col-md-4 col-6">
-                <label for="name" className="form-label text-dark mt-3">
-                  <i class="fa-regular fa-user me-3"></i>
-                  Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Enter Name"
-                  required
-                />
-              </div>
-
-              <div class="col-md-4 col-6">
-                <label for="email" class="form-label text-dark mt-3">
-                  <i class="fa-solid fa-envelope-open-text me-3"></i>
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter Email"
-                  required
-                />
-              </div>
-
-              <div className="modal-body col-md-4 px-3 col-12 ">
-              <label for="name" className="form-label text-dark mt-3">
-              <i class="fa-solid fa-phone me-3"></i>
-                 Enter Your Number
-                </label>
-=======
               <div className="modal-body col-md-6 px-3">
                 <p className="modal-title" style={{ color: "black" }}>
                   Enter your Phone Number
                 </p>
->>>>>>> TFA
                 <input
                   type="tel"
                   className={`form-control ${phoneError ? "is-invalid" : ""}`}
@@ -503,23 +445,6 @@ export default function EngineForm({
                 />
                 {phoneError && <div className="text-danger">{phoneError}</div>}
               </div>
-<<<<<<< HEAD
-
-              <div className="d-flex gap-4">
-                <button
-                  type="submit"
-                  className="btn btn-block transmission-btn w-100 mt-5"
-                  onClick={handlePhoneSubmit}
-                >
-                  View Product
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-block w-100 mt-5"
-                  onClick={handleSubmitButtonClick}
-                >
-                  Submit
-=======
               <div className="col-md-4">
                 <button
                   type="submit"
@@ -527,7 +452,6 @@ export default function EngineForm({
                   onClick={handlePhoneSubmit}
                 >
                   Search
->>>>>>> TFA
                 </button>
                 <div>
                   {form1SuccessMessage && <p className="text-success">{form1SuccessMessage}</p>}
@@ -617,10 +541,6 @@ export default function EngineForm({
         ) : (
           <p></p>
         )}
-<<<<<<< HEAD
-
-=======
->>>>>>> TFA
 
         {showModal && (
           <div
@@ -821,12 +741,8 @@ export default function EngineForm({
           </div>
         )}{" "}
 
-<<<<<<< HEAD
-
-=======
       
->>>>>>> TFA
-      </div>
+      </div >
     </>
   );
 }

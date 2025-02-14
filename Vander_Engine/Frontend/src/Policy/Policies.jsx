@@ -61,7 +61,7 @@ export default function Policies() {
         },
         {
             head: "Return Procedure",
-            list1: " Call us - Call our Returns Desk at +1 844-893-1760",
+            list1: " Call us - Call our Returns Desk at +1844-893-1760",
             list2: " Mondays to Fridays from 9 am to 11 pm EST; (6 am to 8 pm PST)",
             list3: " Saturdays from 9 am to 8 pm EST; (6 am to 5 pm PST)",
             list4: " Sundays - Closed",
@@ -302,7 +302,7 @@ export default function Policies() {
         {
             head: "Contact_Info",
             para1: "email: billing@vanderengines.com",
-            para2: "phone: 844-893-1760",
+            para2: "phone:+1844-893-1760",
             para3: "return_address: Vander Engines & Services, 15150 Cicero Ave, Oak Forest, IL 60452"
         },
 

@@ -22,94 +22,94 @@ export default function Header() {
 
   return (
     <>
-    <Helmet>
-      {/* Google Tag Manager */}
-      <script>
-        {`
+      <Helmet>
+        {/* Google Tag Manager */}
+        <script>
+          {`
           (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-NRT4R6J');
         `}
-      </script>
-      {/* End Google Tag Manager */}
-    </Helmet>
-    <header className="header d-flex justify-content-center">
-      <nav className="navbar navbar-expand-xl navbar-light bg-light ">
-        <div className="container-fluid">
-          <NavLink className="navbar-brand" to="/" onClick={closeNavbar}>
-            <img src="/assets/logo.png" alt="Logo" />
-          </NavLink>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded={isNavOpen ? "true" : "false"}
-            aria-label="Toggle navigation"
-            onClick={toggleNavbar} // Toggle navbar on click
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className={`collapse navbar-collapse ${isNavOpen ? "show" : ""}`}
-            id="navbarNav"
-          >
-            <ul className="navbar-nav  m-auto">
-              <li className="nav-item">
-                <NavLink
-                  to="/"
-                  className="nav-link"
-                  activeClassName="active"
-                  exact
-                  onClick={closeNavbar} // Close navbar when clicked
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/engine"
-                  className="nav-link"
-                  activeClassName="active"
-                  onClick={closeNavbar}
-                >
-                  Engines
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/transmission"
-                  className="nav-link"
-                  activeClassName="active"
-                  onClick={closeNavbar}
-                >
-                  Transmissions
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/about"
-                  className="nav-link"
-                  activeClassName="active"
-                  onClick={closeNavbar}
-                >
-                  About Us
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/blog/"
-                  className="nav-link"
-                  activeClassName="active"
-                  onClick={closeNavbar}
-                >
-                  Blogs
-                </NavLink>
-              </li>
-              {/* <li className="nav-item">
+        </script>
+        {/* End Google Tag Manager */}
+      </Helmet>
+      <header className="header d-flex justify-content-center">
+        <nav className="navbar navbar-expand-xl navbar-light bg-light ">
+          <div className="container-fluid">
+            <NavLink className="navbar-brand" to="/" onClick={closeNavbar}>
+              <img src="/assets/logo.png" alt="Logo" />
+            </NavLink>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded={isNavOpen ? "true" : "false"}
+              aria-label="Toggle navigation"
+              onClick={toggleNavbar} // Toggle navbar on click
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div
+              className={`collapse navbar-collapse ${isNavOpen ? "show" : ""}`}
+              id="navbarNav"
+            >
+              <ul className="navbar-nav  m-auto">
+                <li className="nav-item">
+                  <NavLink
+                    to="/"
+                    className="nav-link"
+                    activeClassName="active"
+                    exact
+                    onClick={closeNavbar} // Close navbar when clicked
+                  >
+                    Home
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/engine"
+                    className="nav-link"
+                    activeClassName="active"
+                    onClick={closeNavbar}
+                  >
+                    Engines
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/transmission"
+                    className="nav-link"
+                    activeClassName="active"
+                    onClick={closeNavbar}
+                  >
+                    Transmissions
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/about"
+                    className="nav-link"
+                    activeClassName="active"
+                    onClick={closeNavbar}
+                  >
+                    About Us
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/blog/"
+                    className="nav-link"
+                    activeClassName="active"
+                    onClick={closeNavbar}
+                  >
+                    Blogs
+                  </NavLink>
+                </li>
+                {/* <li className="nav-item">
                 <NavLink
                   to="/financing"
                   className="nav-link"
@@ -119,38 +119,29 @@ export default function Header() {
                   Financing
                 </NavLink>
               </li> */}
-              <li className="nav-item">
-                <NavLink
-                  to="/contact"
-                  className="nav-link"
-                  activeClassName="active"
-                  onClick={closeNavbar}
-                >
-                  Contact
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/Privacy_Policies"
-                  className="nav-link"
-                  activeClassName="active"
-                  onClick={closeNavbar}
-                >
-                 Our Policies
-                </NavLink>
-              </li>
-              {/* <li className="nav-item dropdown">
-                <button
-                  className="nav-link dropdown-toggle"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Our Policy
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/contact"
+                    className="nav-link"
+                    activeClassName="active"
+                    onClick={closeNavbar}
+                  >
+                    Contact
+                  </NavLink>
+                </li>
+
+                <li className="nav-item dropdown">
+                  <button
+                    className="nav-link dropdown-toggle"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Our Policy
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {/* <li>
                     <NavLink
                       className="dropdown-item"
                       to="/shipping"
@@ -159,18 +150,28 @@ export default function Header() {
                     >
                       Shipping Policy
                     </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className="dropdown-item"
-                      to="/return"
-                      activeClassName="active"
-                      onClick={closeNavbar}
-                    >
-                      Return and Cancellation Policy
-                    </NavLink>
-                  </li>
-                  <li>
+                  </li> */}
+                    <li className="nav-item">
+                      <NavLink
+                        to="/Privacy_Policies"
+                        className="nav-link"
+                        activeClassName="active"
+                        onClick={closeNavbar}
+                      >
+                        Our Policies
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        className="dropdown-item"
+                        to="/return"
+                        activeClassName="active"
+                        onClick={closeNavbar}
+                      >
+                        Return and Cancellation Policy
+                      </NavLink>
+                    </li>
+                    {/* <li>
                     <NavLink
                       className="dropdown-item"
                       to="/warranty"
@@ -179,8 +180,8 @@ export default function Header() {
                     >
                       Warranty Policy
                     </NavLink>
-                  </li>
-                  <li>
+                  </li> */}
+                    {/* <li>
                     <NavLink
                       className="dropdown-item"
                       to="/termsofservice"
@@ -189,8 +190,8 @@ export default function Header() {
                     >
                       Terms of Services
                     </NavLink>
-                  </li>
-                  <li>
+                  </li> */}
+                    {/* <li>
                     <NavLink
                       className="dropdown-item"
                       to="/privacy"
@@ -199,42 +200,42 @@ export default function Header() {
                     >
                       Privacy Policy
                     </NavLink>
-                  </li>
-                </ul>
-              </li> */}
-              <div className="contact align-items-center">
-                <a
-                  href="tel:+18448931760"
-                  target="_self"
-                  aria-label="call us now"
-                >
-                  <i
-                    className="fa-solid fa-phone mx-3 "
-                    id="phone"
-                    style={{ background: "#1eb7c6", color: "#fff" }}
-                  ></i>
-                </a>
-                <div className="contact-info">
-                  <span>FREE CONSULTATION!</span>
+                  </li> */}
+                  </ul>
+                </li>
+                <div className="contact align-items-center">
+                  <a
+                    href="tel:+18448931760"
+                    target="_self"
+                    aria-label="call us now"
+                  >
+                    <i
+                      className="fa-solid fa-phone mx-3 "
+                      id="phone"
+                      style={{ background: "#1eb7c6", color: "#fff" }}
+                    ></i>
+                  </a>
+                  <div className="contact-info">
+                    <span>FREE CONSULTATION!</span>
+                    <NavLink
+                      to="/search"
+                      className="nav-link p-0 number"
+                      onClick={closeNavbar}
+                    >
+                      +18448931760
+                    </NavLink>
+                  </div>
+                </div>
+                <li className="nav-item">
                   <NavLink
-                    to="/search"
-                    className="nav-link p-0 number"
+                    to="/addtocart"
+                    className="nav-link ms-3"
                     onClick={closeNavbar}
                   >
-                    +18448931760
+                    <i className="fa-solid fa-cart-shopping" id="cart"></i>
                   </NavLink>
-                </div>
-              </div>
-              <li className="nav-item">
-                <NavLink
-                  to="/addtocart"
-                  className="nav-link ms-3"
-                  onClick={closeNavbar}
-                >
-                  <i className="fa-solid fa-cart-shopping" id="cart"></i>
-                </NavLink>
-              </li>
-              {/* <li className="nav-item">
+                </li>
+                {/* <li className="nav-item">
                 <NavLink
                   to="/wishlist"
                   className="nav-link ms-3"
@@ -243,11 +244,11 @@ export default function Header() {
                   <i className="fa-regular fa-heart" id="cart"></i>
                 </NavLink>
               </li> */}
-            </ul>
+              </ul>
+            </div>
           </div>
-        </div>
-      </nav>
-    </header>
+        </nav>
+      </header>
     </>
   );
 }
