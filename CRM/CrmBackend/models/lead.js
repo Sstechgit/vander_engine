@@ -18,8 +18,6 @@ const leadSchema = new db.Schema(
       required: true,
       default: "Nan",
     },
-    
-    
     origin: {
       type: String,
       required: true,
