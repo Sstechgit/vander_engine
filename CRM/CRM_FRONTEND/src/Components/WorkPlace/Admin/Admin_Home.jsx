@@ -3,6 +3,8 @@ import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import ViewLeads from "../Agent/ViewLeads";
+import ViewLead from "./ViewLead";
 const Admin_Home = () => {
   const [totalLeads, settotalLeads] = useState(null);
   const [totalAgents, settotalAgents] = useState(null);
@@ -15,6 +17,8 @@ const Admin_Home = () => {
   const [sstechLead, setsstechLeads] = useState(0);
   const [facebookLeads, setfacebookLeads] = useState(0);
   const [notassignedLeads, setNotAssignedLeads] = useState(0);
+  const [refundleads, setrefundleads] = useState(0);
+
 
 
   const navigate = useNavigate();
@@ -41,7 +45,6 @@ const Admin_Home = () => {
   };
 
   //--------------------------------All Leads--------------------------------------
-
   const fetchLeads = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
     try {
@@ -64,7 +67,6 @@ const Admin_Home = () => {
   };
 
   //--------------------------------Vander Engines Leads--------------------------------------
-
   const fetchvanderenginesLeads = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
     try {
@@ -91,7 +93,6 @@ const Admin_Home = () => {
   };
 
   //--------------------------------Vander Engines Transmission Leads--------------------------------------
-
   const fetchvandertransmissionLeads = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
     try {
@@ -118,7 +119,6 @@ const Admin_Home = () => {
   };
 
   //--------------------------------Auto Parts Leads--------------------------------------
-
   const fetchautopartsLeads = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
     try {
@@ -171,7 +171,6 @@ const Admin_Home = () => {
   };
 
   //--------------------------------SSTECH Leads--------------------------------------
-
   const fetchsstechLeads = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
     try {
@@ -197,7 +196,6 @@ const Admin_Home = () => {
   };
 
   //--------------------------------Facebook Leads--------------------------------------
-
   const fetchfacebookLeads = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
     try {
@@ -222,9 +220,7 @@ const Admin_Home = () => {
     navigate("/crm/facebook_leads");
   };
 
-
-
-  
+  //--------------------------------Not Assigned Leads--------------------------------------
   const fetchnotassignedLeads = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
     try {
@@ -248,6 +244,56 @@ const Admin_Home = () => {
   const notassignedleads = () => {
     navigate("/crm/notassigned_leads");
   };
+
+  //--------------------------------Refund Leads--------------------------------------
+  const [leadCounts, setLeadCounts] = useState({});
+  const states = [
+    "Refund",
+    "Sale",
+    "Exchange",
+    "Quotation Given",
+  ];
+  // Function to fetch leads and count them based on state
+  const fetchLeadsByState = async (page = currentPage, pageRows = pageSize) => {
+    try {
+      let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+      let result = await DoFetch(url);
+
+      if (result.success) {
+        let allLeads = result.payload.records || [];
+
+        // Count leads based on state dynamically
+        const counts = allLeads.reduce((acc, lead) => {
+          let state = lead.task?.[0]?.state || "Unknown";
+          acc[state] = (acc[state] || 0) + 1;
+          return acc;
+        }, {});
+
+        setLeadCounts(counts);
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    fetchLeadsByState();
+  }, [currentPage, pageSize]);
+
+  // Navigate function to open leads of a specific state
+  const handleViewLeads = (state) => {
+    navigate(`/crm/leads?state=${state}`);
+  };
+  const statusColors = {
+    Refund: "green",
+    Sale: "#52bf3d",
+    "Quotation Given": "black",
+    "Exchange": "brown",
+  };
+
   return (
     <div>
       <div className="details my-5">
@@ -502,9 +548,7 @@ const Admin_Home = () => {
             </div>
           </div>
         </div>
-
-
-        {/*-----------------------Facebook Leads--------------------------*/}
+        {/*-----------------------Not Assigned Leads--------------------------*/}
         <div className="card">
           <div className="content">
             <div className="details">
@@ -535,6 +579,38 @@ const Admin_Home = () => {
             </div>
           </div>
         </div>
+
+        {/*-----------------------Not Assigned Leads--------------------------*/}
+        {states.map((state) => (
+          <div key={state} className="card">
+            <div className="content">
+              <div className="details">
+                <div className="data">
+                  <h3>
+                    {leadCounts[state] !== undefined ? leadCounts[state] : 0}
+                    <br />
+                    <span>{state}</span>
+                  </h3>
+                </div>
+                <div className="actionBtn">
+                  <Button
+                    type="primary"
+                    size="large"
+                    block
+                    style={{
+                      backgroundColor: statusColors[state],
+                      color: "white",
+                    }}
+                    onClick={refundleads}
+                  >
+                    <ViewLead state={state} />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
       </div>
       <style>
         {`

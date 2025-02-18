@@ -45,7 +45,7 @@ export default function Lead({ setload }) {
   const [nameFilter, setNameFilter] = useState("");
   const [emailFilter, setEmailFilter] = useState("");
 
-  const filterTasks = (selectedDate, mobileFilter,nameFilter,emailFilter, tasks) => {
+  const filterTasks = (selectedDate, mobileFilter, nameFilter, emailFilter, tasks) => {
     return tasks.filter((task) => {
       const taskCreatedDate = new Date(task.created).toLocaleDateString();
       const selectedDateString = selectedDate?.toLocaleDateString();
@@ -59,8 +59,8 @@ export default function Lead({ setload }) {
 
       const isNameMatch = !nameFilter || task.name.toLowerCase().includes(nameFilter.toLowerCase());
 
-       // Check Name number condition
-       const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
+      // Check Name number condition
+      const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
 
       return isDateMatch && isMobileMatch && isNameMatch && isEmailMatch;
     });
@@ -90,7 +90,7 @@ export default function Lead({ setload }) {
       let records = [];
 
       result.payload.records.forEach((lead, idx) => {
-        // console.log(records);
+        console.log(records);
         records.push({
           key: lead._id,
           _id: (page - 1) * pageRows + idx + 1,
@@ -289,7 +289,12 @@ export default function Lead({ setload }) {
       alert("No leads available to export!");
       return;
     }
-    const worksheet = XLSX.utils.json_to_sheet(dataToExport); // Convert JSON to sheet
+    const maskedData = dataToExport.map(lead => ({
+      ...lead,
+      email: lead.email.slice(0, 3) + "........@gmail.com",
+      phone: lead.phone.slice(0, 5) + "xxxxx......."
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(maskedData); // Convert JSON to sheet
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
 
@@ -510,7 +515,7 @@ export default function Lead({ setload }) {
     return () => {
       clearInterval(id);
     };
-  }, [currentPage, pageSize, selectedDate, mobileFilter,nameFilter,emailFilter]);
+  }, [currentPage, pageSize, selectedDate, mobileFilter, nameFilter, emailFilter]);
   return (
     <>
       {contextHolder}

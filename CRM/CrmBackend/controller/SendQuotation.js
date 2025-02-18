@@ -36,16 +36,18 @@ const SendQuotations = asyncHandler(async (req, res) => {
 
   // Email transporter setup
   let transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: 'smtp.hostinger.com',
+    port: 465,
+    secure: true,
     auth: {
-      user: `simranrathour1107@gmail.com`, // Use environment variable
-      pass: `mmpv oxnb ovby rgwt`, // Use app password
+      user: 'Info@vanderengines.com',
+      pass: 'Shobhitrastogi@881037',
     },
   });
-
+ 
   // Email options
   let mailOptions = {
-    from: `simranrathour1107@gmail.com`, // Use sender's email
+    from: `Info@vanderengines.com`, // Use sender's email
     to: email, // Send email to the logged-in user
     subject: "Quotation Created Successfully",
     html: `

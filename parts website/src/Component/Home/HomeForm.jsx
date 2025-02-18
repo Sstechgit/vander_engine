@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 export default function HomeForm() {
     const [phoneError, setPhoneError] = useState(""); // Error message for phone
     const [years, setYears] = useState([]);
@@ -9,6 +10,7 @@ export default function HomeForm() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false); // Added loading state
     const [submissionMessage, setSubmissionMessage] = useState(""); // State for submission message
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         part: "",
         make: "",
@@ -161,9 +163,10 @@ export default function HomeForm() {
                 formData
             );
             console.log(response.data);
-            setSubmissionMessage(
-                "Thank you! Your message has been sent successfully."
-            );
+            navigate("/thankyou")
+            // setSubmissionMessage(
+            //     "Thank you! Your message has been sent successfully."
+            // );
             setFormData({
                 part: "",
                 make: "",
