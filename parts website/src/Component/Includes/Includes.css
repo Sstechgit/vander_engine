@@ -6,7 +6,10 @@
 .generalheader {
   border-top: 5px solid var(--primarycolor);
 }
-
+.form-control:focus, .form-select:focus{
+  box-shadow: none;
+  border-color: var(--primarycolor);
+}
 .generalheader .d-flex span {
   color: var(--primarycolor);
   text-decoration: underline ;
@@ -27,6 +30,7 @@
 }
 .lowernav {
   border-top: 1px solid #000;
+  display: none;
 }
 input:focus {
   box-shadow: none;
@@ -41,4 +45,14 @@ input:focus {
 .links:hover {
   color: var(--lightColor);
   border-bottom: 1px solid var(--lightColor);
+}
+.head1 h3 {
+  font-size: 5vw;
+  font-weight: 700;
+}
+.head1 h3 span {
+  color: var(--primarycolor);
+}
+.shipping {
+  background-color: #dbdbdb;
 }

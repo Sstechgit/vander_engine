@@ -254,7 +254,7 @@ export default function ShowParts() {
                             return (
                                 <div className="col-lg-3 mb-4" key={index}>
                                     <div className="card shop-card" >
-                                        <h6 className='pt-1 text-center'><Link to="/sellerParts" className='parts-text'>{item.part}</Link></h6>
+                                        <h6 className='pt-1 text-center parts-text'>{item.part}</h6>
                                     </div>
 
                                 </div>

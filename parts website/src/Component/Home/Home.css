@@ -77,3 +77,9 @@
     text-decoration: underline;
     color: var(--primarycolor);
 }
+/*-----------------ADDED CSS------------------------------*/
+
+.main-form {
+    border: 2px solid var(--primarycolor);
+    background-color: #fff;
+  }

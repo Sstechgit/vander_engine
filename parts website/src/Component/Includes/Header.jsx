@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Includes.css'
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
   const [navbarBackground, setNavbarBackground] = useState('transparent');
@@ -40,13 +40,28 @@ const Header = () => {
       setIsNavOpen(false); // Close the navbar
     }
   };
+  // State to control the navbar collapse
+  // const [isNavOpen, setIsNavOpen] = useState(false);
+
+  // Function to handle the navbar toggle
+  const toggleNavbar = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
+  // Function to close the navbar when a NavLink is clicked (for mobile view)
+  const closeNavbar = () => {
+    if (window.innerWidth < 992) {
+      // If the screen size is mobile or smaller
+      setIsNavOpen(false); // Close the navbar
+    }
+  };
 
   return (
     <div id="main">
       {/* Navbar */}
       <nav className="navbar navbar-expand-lg bg-dark" style={{ paddingBottom: "0" }}>
         <div className="container align-items-end">
-          <div className="navbar-brand text-white fw-bold fs-2">
+          <div className="navbar-brand text-white fw-bold fs-2" style={{ visibility:"hidden" }}>
             Logo
           </div>
           <div className="navbar-header">
@@ -65,13 +80,87 @@ const Header = () => {
             </button>
           </div>
           <div className={`collapse navbar-collapse text-center mt-3 ${isNavOpen ? 'show' : ''}`} id="myNavbar">
-            <ul className="navbar-nav mx-auto gap-2">
+            <ul className="navbar-nav mx-auto gap-3">
               <li className="nav-item">
                 <Link to="/" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Home
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to="/engine" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
+                 Engine
+                </Link>
+              </li> <li className="nav-item">
+                <Link to="/transmission" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
+                  Transmission
+                </Link>
+              </li>
+              
+              <li className="nav-item dropdown">
+                <button
+                  className="nav-link dropdown-toggle w-100"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Our Policy
+                </button>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <NavLink
+                      className="dropdown-item"
+                      to="/shipping"
+                      activeClassName="active"
+                      onClick={closeNavbar}
+                    >
+                      
+                      Shipping Policy
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="dropdown-item"
+                      to="/return"
+                      activeClassName="active"
+                      onClick={closeNavbar}
+                    >
+                      Return and Cancellation Policy
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="dropdown-item"
+                      to="/warranty"
+                      activeClassName="active"
+                      onClick={closeNavbar}
+                    >
+                      Warranty Policy
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="dropdown-item"
+                      to="/termsofservice"
+                      activeClassName="active"
+                      onClick={closeNavbar}
+                    >
+                      Terms of Services
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="dropdown-item"
+                      to="/privacy"
+                      activeClassName="active"
+                      onClick={closeNavbar}
+                    >
+                      Privacy Policy
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              {/* <li className="nav-item">
                 <Link to="/onlinecatalog" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Online Catalog
                 </Link>
@@ -105,7 +194,7 @@ const Header = () => {
                 <Link to="/view_cart" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   View Cart
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

@@ -75,7 +75,7 @@ export default function Footer() {
 
         <section className="footer text-white pt-3">
           <div className="container text-center text-md-start">
-            <div className="row align-items-center">
+            <div className="row">
               <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">
                   <img src="/assets/logo.png" alt="" />
@@ -96,24 +96,45 @@ export default function Footer() {
                 </p>
 
                 <p>
-                  <Link to="/onlinecatalog" className="text-reset">
-                    Online Catalog
+                  <Link to="/engine" className="text-reset">
+                    Engine
                   </Link>
                 </p>
                 <p>
-                  <Link to="/brand" className="text-reset">
-                    Brands
+                  <Link to="/transmission" className="text-reset">
+                    Transmission
                   </Link>
                 </p>
 
-                <Link to="/shopbymake" className="text-reset">
+                {/* <Link to="/shopbymake" className="text-reset">
                   Shop By Make
-                </Link>
+                </Link> */}
               </div>
 
               <div className="col-md-3 col-lg-2 col-xl-3 mx-auto mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
                 <p>
+                  <Link to="/shipping" className="text-reset">
+                    Shipping Policy
+                  </Link>
+                </p> <p>
+                  <Link to="/return" className="text-reset">
+                  Return and Cancellation Policy
+                  </Link>
+                </p> <p>
+                  <Link to="/warranty" className="text-reset">
+                  Warranty Policy
+                  </Link>
+                </p> <p>
+                  <Link to="/termsofservice" className="text-reset">
+                  Terms of Services
+                  </Link>
+                </p> <p>
+                  <Link to="/privacy" className="text-reset">
+                    Privacy Policy
+                  </Link>
+                </p>
+                {/* <p>
                   <Link to="/customer_service" className="text-reset">
                     Customer Service
                   </Link>
@@ -132,7 +153,7 @@ export default function Footer() {
                   <Link to="/view_cart" className="text-reset">
                     View Cart
                   </Link>
-                </p>
+                </p> */}
               </div>
               <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
@@ -164,7 +185,7 @@ export default function Footer() {
           © 2024 Copyright:
           <a className="text-danger fw-bold" href="https://mdbootstrap.com/">
             {" "}
-            Vander Engines
+            Auto Parts Leads
           </a>
         </div>
       </footer>

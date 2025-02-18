@@ -67,7 +67,7 @@ export default function AllPArts() {
               <div className="col-lg-2 mb-5 mx-2" key={index}>
                 <div className="card d-flex flex-column align-items-center border-0 parts-card">
                   <img src={item.imgSrc} alt="" style={{ width: "100px", height: "100px", objectFit: "contain" }} />
-                  <h6 className='text-center mt-2'><Link to="/sellerParts" className='parts-text'>{item.head}</Link></h6>
+                  <h6 className='text-center mt-2 parts-text'>{item.head}</h6>
                 </div>
               </div>
             )

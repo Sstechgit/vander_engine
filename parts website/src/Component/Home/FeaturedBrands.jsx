@@ -47,7 +47,7 @@ export default function FeaturedBrands() {
             return (
               <div className="col-lg-3 mb-4" key={index}>
                 <div className="card border-0" >
-                  <h6 className='pt-1 model-text text-center'><Link to="/sellerParts" className='model-text'>{item.brands}</Link></h6>
+                  <h6 className='pt-1 model-text text-center'>{item.brands}</h6>
                 </div>
               </div>
             )

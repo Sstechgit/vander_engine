@@ -48,7 +48,7 @@ export default function PopularProducts() {
               <div className="col-lg-3 mb-4" key={index}>
                 <div className="card align-items-center h-100" >
                   <img src={item.imgSrc} alt="" style={{ width: "100px", height: "100px" }} />
-                  <h6 className='pt-1 text-center'><Link to="/sellerParts" className='model-text'>{item.head}</Link></h6>
+                  <h6 className='pt-1 text-center model-text'>{item.head}</h6>
                   <p className='parts-text text-center'>{item.price}</p>
                 </div>
               </div>
