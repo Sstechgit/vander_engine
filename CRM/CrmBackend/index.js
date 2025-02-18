@@ -16,7 +16,7 @@ const io = socketIo(server, {
     origin: ["http://localhost:5173", "http://sstechcrm.com"],
     methods: ["GET", "POST"],
   },
-});
+}); 
 
 const cors = require("cors");
 const { FindMails } = require("./helper/RealtimeEmail.js");
@@ -111,7 +111,7 @@ server.listen(PORT, () => {
   connectToDb()
     .then(() => console.log("Connected To DB"))
     .catch((err) => console.log(err));
-  FindMails();
+  // FindMails();
 });
 
 // Handle socket error (like EPIPE) gracefully

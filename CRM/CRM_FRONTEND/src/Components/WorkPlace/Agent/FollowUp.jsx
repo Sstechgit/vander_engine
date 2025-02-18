@@ -32,6 +32,9 @@ export default function FollowUp({setload}) {
       title: "Email",
       dataIndex: "email",
       key: "email",
+      render: (_, record) => {
+        return (record.email.slice(0, 3) + ".....@gmail.com");
+      },
     },
     {
       title: "Send",
@@ -45,6 +48,14 @@ export default function FollowUp({setload}) {
       title: "Phone",
       key: "phone",
       dataIndex: "phone",
+      render: (_, record) => {
+        return (
+          <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
+            <i className="fa-solid fa-phone"></i>
+            {record.phone.slice(0, 5) + "xxxxx..."}
+          </a>
+        );
+      },
     },
     {
       title: "Info",

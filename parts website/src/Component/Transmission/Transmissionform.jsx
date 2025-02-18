@@ -232,7 +232,8 @@ export default function EngineForm({
         formData
       );
       console.log(response.data);
-      setForm1SuccessMessage("Form submitted successfully! Thank you.");
+      navigate('/thankyou'); 
+      // setForm1SuccessMessage("Form submitted successfully! Thank you.");
       setSelectedYear("");
       setSelectedMake("");
       setSelectedModel("");

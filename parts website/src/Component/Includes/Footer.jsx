@@ -78,7 +78,7 @@ export default function Footer() {
             <div className="row">
               <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">
-                  <img src="/assets/logo.png" alt="" />
+                  {/* <img src="/assets/logo.png" alt="" /> */}
                 </h6>
                 <p>
                   We are offering free quote from suppliers across US on Quality
@@ -105,45 +105,51 @@ export default function Footer() {
                     Transmission
                   </Link>
                 </p>
+                <p>
+                  <Link to="/onlinecatalog" className="text-reset">
+                    Online Catalog
+                  </Link>
+                </p>
+                <p>
+                  <Link to="/brand" className="text-reset">
+                    Brands
+                  </Link>
+                </p>
 
-                {/* <Link to="/shopbymake" className="text-reset">
-                  Shop By Make
-                </Link> */}
+                <p>
+                  <Link to="/shopbymake" className="text-reset">
+                    Shop By Make
+                  </Link>
+                </p>
+
+
               </div>
 
               <div className="col-md-3 col-lg-2 col-xl-3 mx-auto mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
+                
                 <p>
                   <Link to="/shipping" className="text-reset">
                     Shipping Policy
                   </Link>
                 </p> <p>
                   <Link to="/return" className="text-reset">
-                  Return and Cancellation Policy
+                    Return and Cancellation Policy
                   </Link>
                 </p> <p>
                   <Link to="/warranty" className="text-reset">
-                  Warranty Policy
+                    Warranty Policy
                   </Link>
                 </p> <p>
                   <Link to="/termsofservice" className="text-reset">
-                  Terms of Services
+                    Terms of Services
                   </Link>
                 </p> <p>
                   <Link to="/privacy" className="text-reset">
                     Privacy Policy
                   </Link>
                 </p>
-                {/* <p>
-                  <Link to="/customer_service" className="text-reset">
-                    Customer Service
-                  </Link>
-                </p>
-                <p>
-                  <Link to="/retrive_quote" className="text-reset">
-                    Retrieve Quote
-                  </Link>
-                </p>
+                {/*
                 <p>
                   <Link to="/track_order" className="text-reset">
                     Track Order

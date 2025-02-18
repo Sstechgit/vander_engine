@@ -288,7 +288,12 @@ export default function NotAssigned_Leads({ setload }) {
       alert("No leads available to export!");
       return;
     }
-    const worksheet = XLSX.utils.json_to_sheet(dataToExport); // Convert JSON to sheet
+    const maskedData = dataToExport.map(lead => ({
+      ...lead,
+      email: lead.email.slice(0, 3) + "........@gmail.com",
+      phone: lead.phone.slice(0, 5) + "xxxxx......."
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(maskedData); // Convert JSON to sheet
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
 

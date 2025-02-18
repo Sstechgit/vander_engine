@@ -20,6 +20,7 @@ import ReturnPolicy from "./Component/Policy/ReturnPolicy";
 import WarrantyPolicy from "./Component/Policy/WarrantyPolicy";
 import TermsOfServices from "./Component/Policy/TermsOfServices";
 import PrivacyPolicy from "./Component/Policy/PrivacyPolicy";
+import ThankYou from "./Component/Includes/ThankYou";
 
 function App() {
   const [cartItems, setCartItems] = useState(() => {
@@ -120,6 +121,7 @@ function App() {
           <Route path="/warranty" element={<WarrantyPolicy />} />
           <Route path="/termsofservice" element={<TermsOfServices />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/thankyou" element={<ThankYou />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import { useNavigate } from "react-router-dom";
 import Achievement from "../Contact/achievement";
 import FindTransmission2 from "../Transmission/FindTransmission2";
@@ -152,7 +151,8 @@ export default function EngineForm({
       }
 
       performSearch(); // Perform the search\
-      setForm1SuccessMessage("Form submitted successfully! Thank you.");
+      navigate("/thankyou")
+      // setForm1SuccessMessage("Form submitted successfully! Thank you.");
     } else {
       alert("Please enter a valid phone number");
     }

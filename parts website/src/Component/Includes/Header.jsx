@@ -60,11 +60,11 @@ const Header = () => {
     <div id="main">
       {/* Navbar */}
       <nav className="navbar navbar-expand-lg bg-dark" style={{ paddingBottom: "0" }}>
-        <div className="container align-items-end">
-          <div className="navbar-brand text-white fw-bold fs-2" style={{ visibility:"hidden" }}>
-            Logo
+        <div className="container-fluid align-items-end">
+          <div className="navbar-brand text-white fw-bold fs-2 p-0" >
+            <img src="assets/logo(2).png" alt=""  width={200} />
           </div>
-          <div className="navbar-header">
+          <div className="navbar-header ">
             <button
               className="navbar-toggler"
               type="button"
@@ -80,7 +80,7 @@ const Header = () => {
             </button>
           </div>
           <div className={`collapse navbar-collapse text-center mt-3 ${isNavOpen ? 'show' : ''}`} id="myNavbar">
-            <ul className="navbar-nav mx-auto gap-3">
+            <ul className="navbar-nav mx-auto gap-1">
               <li className="nav-item">
                 <Link to="/" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Home
@@ -95,7 +95,36 @@ const Header = () => {
                   Transmission
                 </Link>
               </li>
-              
+              <li className="nav-item">
+                <Link to="/onlinecatalog" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
+                  Online Catalog
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/brand" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
+                  Brands
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/shopbymake" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
+                  Shop By Make
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/customer_service" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
+                  Customer Service
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/retrive_quote" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
+                  Retrieve Quote
+                </Link>
+              </li>
+               <li className="nav-item">
+                <Link to="/view_cart" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
+                  View Cart
+                </Link>
+              </li>
               <li className="nav-item dropdown">
                 <button
                   className="nav-link dropdown-toggle w-100"
@@ -160,41 +189,13 @@ const Header = () => {
                   </li>
                 </ul>
               </li>
-              {/* <li className="nav-item">
-                <Link to="/onlinecatalog" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
-                  Online Catalog
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/brand" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
-                  Brands
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/shopbymake" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
-                  Shop By Make
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/customer_service" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
-                  Customer Service
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/retrive_quote" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
-                  Retrieve Quote
-                </Link>
-              </li>
+              {/* 
               <li className="nav-item">
                 <Link to="/track_order" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Track Order
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/view_cart" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
-                  View Cart
-                </Link>
-              </li> */}
+              */}
             </ul>
           </div>
         </div>
