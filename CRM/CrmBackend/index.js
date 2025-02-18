@@ -111,7 +111,7 @@ server.listen(PORT, () => {
   connectToDb()
     .then(() => console.log("Connected To DB"))
     .catch((err) => console.log(err));
-  FindMails();
+  //FindMails();
 });
 
 // Handle socket error (like EPIPE) gracefully
