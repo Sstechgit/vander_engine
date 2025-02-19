@@ -124,7 +124,7 @@ const Admin_Home = () => {
       let result = await DoFetch(url);
       if (result.success === true) {
         let allLeads = result.payload.records || []; // Ensure it's an array
-        let autopartsCount = allLeads.filter(lead => lead?.origin.toLowerCase() === "USA AUTO PARTS".toLowerCase()).length;
+        let autopartsCount = allLeads.filter(lead => lead?.origin.toLowerCase() === "AutoPartsLeads".toLowerCase()).length;
 
         settotalLeads(result.payload.total || 0); // Ensure a default value
         setAutoPartsLeads(autopartsCount);
@@ -443,7 +443,7 @@ const Admin_Home = () => {
                     <>
                       <h3>{autopartsLeads}</h3>
                       <br />
-                      <span>Usa Auto Parts Leads</span>
+                      <span>Auto Parts Leads</span>
                     </>
                   ) : (
                     <span>Loading...</span>
