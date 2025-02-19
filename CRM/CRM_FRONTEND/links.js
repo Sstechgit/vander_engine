@@ -76,7 +76,8 @@ export const urls = {
   getChats: base + "/api/chats",//get
   auth: base + "/api/auth",//get
   checkLogin: base + "/api/checkLogin",
-  media: base + "/api/media"
+  media: base + "/api/media",
+
 };
 
 export const mails = {
