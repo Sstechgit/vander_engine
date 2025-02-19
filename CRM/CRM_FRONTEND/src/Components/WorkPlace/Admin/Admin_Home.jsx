@@ -3,7 +3,6 @@ import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
-import ViewLeads from "../Agent/ViewLeads";
 import ViewLead from "./ViewLead";
 const Admin_Home = () => {
   const [totalLeads, settotalLeads] = useState(null);
@@ -246,6 +245,8 @@ const Admin_Home = () => {
   };
 
   //--------------------------------Refund Leads--------------------------------------
+  const [leads, setLeads] = useState([]); // Store full leads data
+  const [selectedLeads, setSelectedLeads] = useState([]); // Leads for the modal
   const [leadCounts, setLeadCounts] = useState({});
   const states = [
     "Refund",
@@ -253,6 +254,12 @@ const Admin_Home = () => {
     "Exchange",
     "Quotation Given",
   ];
+  const statusColors = {
+    Refund: "green",
+    Sale: "#52bf3d",
+    "Quotation Given": "black",
+    "Exchange": "brown",
+  };
   // Function to fetch leads and count them based on state
   const fetchLeadsByState = async (page = currentPage, pageRows = pageSize) => {
     try {
@@ -268,8 +275,8 @@ const Admin_Home = () => {
           acc[state] = (acc[state] || 0) + 1;
           return acc;
         }, {});
-
         setLeadCounts(counts);
+        setLeads(allLeads);
       } else {
         alert("Server issue occurred");
       }
@@ -283,16 +290,18 @@ const Admin_Home = () => {
     fetchLeadsByState();
   }, [currentPage, pageSize]);
 
-  // Navigate function to open leads of a specific state
-  const handleViewLeads = (state) => {
-    navigate(`/crm/leads?state=${state}`);
-  };
-  const statusColors = {
-    Refund: "green",
-    Sale: "#52bf3d",
-    "Quotation Given": "black",
-    "Exchange": "brown",
-  };
+  const viewLeads = (state) => {
+    if (!Array.isArray(leads)) {
+        console.error("Leads data is not an array:", leads);
+        return;
+    }
+
+    // Filter the leads array based on the selected state
+    const filteredLeads = leads.filter(
+        (lead) => lead.task?.[0]?.state === state
+    );
+    setSelectedLeads(filteredLeads); // Store filtered leads for modal
+};
 
   return (
     <div>
@@ -601,9 +610,9 @@ const Admin_Home = () => {
                       backgroundColor: statusColors[state],
                       color: "white",
                     }}
-                    onClick={refundleads}
+                    onClick={() => viewLeads(state)}
                   >
-                    <ViewLead state={state} />
+                    <ViewLead state={state} leads={selectedLeads}/>
                   </Button>
                 </div>
               </div>

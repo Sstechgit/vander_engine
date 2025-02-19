@@ -8,13 +8,11 @@ export default function View_Quotation({ record }) {
   const [open, setOpen] = useState(false);
   const [TotalData, setTotalData] = useState(0);
   const [product, setProduct] = useState([]);
-
+  // console.log( record.email);
   const getResult = async () => {
     setOpen(true);
-    // console.log("Fetching quotations for email:", record.email);
-
+    console.log("Fetching quotations for email:", record.email);
     const url = `http://backend.sstechcrm.com/api/ViewQuotations?email=${record.email}`;
-
     try {
       let result = await DoFetch(url, "GET");
 
