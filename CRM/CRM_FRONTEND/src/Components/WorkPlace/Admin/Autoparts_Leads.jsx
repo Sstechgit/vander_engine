@@ -100,7 +100,7 @@ export default function Lead({ setload }) {
       }));
   
       // Apply filter for "Vander Engines"
-      let filteredLeads = records.filter(lead => lead?.origin?.toLowerCase() === "USA AUTO PARTS".toLocaleLowerCase());
+      let filteredLeads = records.filter(lead => lead?.origin?.toLowerCase() === "AutoPartsLeads".toLocaleLowerCase());
   
       // Apply other filters if needed
       const finalFilteredLeads = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, filteredLeads);
