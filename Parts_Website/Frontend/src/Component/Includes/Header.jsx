@@ -62,7 +62,7 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg bg-dark" style={{ paddingBottom: "0" }}>
         <div className="container-fluid align-items-end">
           <div className="navbar-brand text-white fw-bold fs-2 p-0" >
-            <img src="assets/logo(2).png" alt=""  width={200} />
+            <img src="assets/logo(2).png" alt=""  width={220} />
           </div>
           <div className="navbar-header ">
             <button
@@ -87,44 +87,50 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to="/searchcarparts" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
+                 Search Car Parts
+                </Link>
+              </li>
+              {/* <li className="nav-item">
                 <Link to="/engine" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                  Engine
                 </Link>
-              </li> <li className="nav-item">
+              </li>  */}
+              {/* <li className="nav-item">
                 <Link to="/transmission" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Transmission
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li> */}
+              {/* <li className="nav-item">
                 <Link to="/onlinecatalog" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Online Catalog
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link to="/brand" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Brands
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/shopbymake" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Shop By Make
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li> */}
+              {/* <li className="nav-item">
                 <Link to="/customer_service" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Customer Service
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li> */}
+              {/* <li className="nav-item">
                 <Link to="/retrive_quote" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Retrieve Quote
                 </Link>
-              </li>
-               <li className="nav-item">
+              </li> */}
+               {/* <li className="nav-item">
                 <Link to="/view_cart" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   View Cart
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item dropdown">
                 <button
                   className="nav-link dropdown-toggle w-100"

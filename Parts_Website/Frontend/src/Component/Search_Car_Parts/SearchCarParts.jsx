@@ -3,11 +3,15 @@ import { useSearchParams, useParams } from "react-router-dom";
 import axios from "axios"; // Add this import
 import EngineList from "../Includes/EngineList";
 import "../Transmission/transmission.css";
-import "./Engine.css";
+import "../Engine/Engine.css";
 import ReadMore from "../Transmission/ReadMore";
-import EngineForm from "./EngineForm";
+import EngineForm from "../Engine//EngineForm";
 import { Helmet } from "react-helmet";
-export default function Engine({ handleAddToCart, showproduct }) {
+import HomeForm from "../Home/HomeForm";
+import Achievement from "../Contact/achievement";
+import FindTransmission2 from "../Transmission/FindTransmission2";
+import ShopMake from "../Home/ShopMake";
+export default function SearchCarParts({ handleAddToCart, showproduct }) {
 
   const [data, setData] = useState(null);
 
@@ -126,12 +130,57 @@ export default function Engine({ handleAddToCart, showproduct }) {
         {/* <meta name="description" content="This is a description of my page." /> */}
       </Helmet>
       <div className="engine-upper d-flex flex-column">
-        <div className="engine-hero"></div>
+        <div className="engine-hero "></div>
       
         </div>
+    <HomeForm />
+    <Achievement />
+    <div className="find-transmission">
+              <div className="container">
+                <div className="row align-items-center">
+                  <div className="col-lg-6 text-center">
+                    {/* <h4 className="">
+                      Find Your <span>Engine </span>
+                    </h4> */}
+                    <FindTransmission2 />
+                  </div>
+                  <div className="col-lg-6 d-flex flex-column align-items-center justify-content-center">
+                    <img
+                      src="/assets/engine-page-2.jpg"
+                      alt=""
+                      className=" mb-4"
+                      data-aos="fade-up"
+                      data-aos-duration="1000"
+                      data-aos-easing="ease-out-cubic"
+                      style={{ objectFit:"contain" }}
+                      width={400}
+                      height={230}
+                    />
+                    <div className="col-lg-12">
+                      <div className="card">
+                        <a
+                          href="tel:+18448931760"
+                          target="_self"
+                          aria-label="call us now"
+                        >
+                          <i class="fa-solid fa-phone"></i>
+                        </a>
+                        <div className="card-body">
+                          <div className="card-title">
+                            <h6>SPEAK WITH A SPECIALIST NOW</h6>
     
+                            <h6 className="fs-4 text-center">+18002131371</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ShopMake/>
       {/*-------------------------Engine Hero Section-----------------------*/}
-
+{/* 
       <div className=" d-flex flex-column h-100 justify-content-end">
         <EngineForm
           searchParams={searchParams}
@@ -140,12 +189,12 @@ export default function Engine({ handleAddToCart, showproduct }) {
           showproduct={showproduct}
           origin="Engine"
         />
-      </div>
+      </div> */}
 
 
 
       {/*-------------------------Content of Engine-----------------------*/}
-      <div className="transmission-content mt-5">
+      {/* <div className="transmission-content mt-5">
         <div className="container h-100 d-flex align-items-center justify-content-center">
           <h5>
             Used Engines for Sale: Your Go-To Source for Quality Auto Parts
@@ -177,28 +226,15 @@ export default function Engine({ handleAddToCart, showproduct }) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/*-------------------------Search Engine------------------------*/}
-      <div className="search-transmission my-5 head1">
+      {/* <div className="search-transmission my-5 head1">
         <h3 className="text-center mb-3">
           Search Your <span>Engine</span>
         </h3>
         <EngineList />
-      </div>
-      <style>
-        {`
-        @media (max-width: 576px) {
-        .engine-hero{
-        display:none;
-        }
-        
-        }
-
-        
-        `}
-
-      </style>
+      </div> */}
     </>
   );
 }

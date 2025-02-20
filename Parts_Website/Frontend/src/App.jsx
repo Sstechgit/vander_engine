@@ -21,6 +21,7 @@ import WarrantyPolicy from "./Component/Policy/WarrantyPolicy";
 import TermsOfServices from "./Component/Policy/TermsOfServices";
 import PrivacyPolicy from "./Component/Policy/PrivacyPolicy";
 import ThankYou from "./Component/Includes/ThankYou";
+import SearchCarParts from "./Component/Search_Car_Parts/SearchCarParts";
 
 function App() {
   const [cartItems, setCartItems] = useState(() => {
@@ -108,6 +109,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/engine" element={<Engine handleAddToCart={handleAddToCart} showproduct={showproduct} />} />
           <Route path="/transmission" element={<Transmission handleAddToCart={handleAddToCart} showproduct={showproduct}  />} />
+          <Route path="/searchcarparts" element={<SearchCarParts handleAddToCart={handleAddToCart} showproduct={showproduct} />} />
+          
           <Route path="/onlinecatalog" element={<OnlineCatalog />} />
           <Route path="/brand" element={<Brands />} />
           <Route path="/shopbymake" element={<ShopByMake />} />

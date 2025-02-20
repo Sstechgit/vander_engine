@@ -193,11 +193,12 @@ export default function HomeForm() {
     };
     return (
         <>
-        <div className="container">
+        <div className="container-fluid">
         <div className="row align-items-center my-4">
                 <div className="col-lg-6 form-area">
-                    <div className="main-form p-3 py-5">
+                    <div className="main-form p-3 pb-5 my-4">
                         <form onSubmit={handleSubmit}>
+                      
                             <div className="row mb-3">
                                 <div className="col-6">
                                     <select
