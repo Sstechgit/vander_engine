@@ -10,19 +10,32 @@ export default function HomeHeader() {
     <>
       <div className=" text-white mb-5">
         <LowerHeader />
-        <div className="container d-flex flex-column align-items-center justify-content-center py-4">
-          <p>
-            Call To Order :
-            <Link to="tel:+18448931760" className="">
-              <span className="main ms-2"> +1844-893-1760</span>
-            </Link>
-          </p>
-          <h1 className="mb-3">Explore Over 10 Million Auto Parts</h1>
-          <h4 className="main">Select Your Parts:</h4>
+        <div className="container d-flex flex-column align-items-center justify-content-center pb-4">
+          <div className="lowernav2 d-flex flex-column align-items-center pt-4">
+            <p>
+              Call To Order :
+              <Link to="tel:+18448931760" className="">
+                <span className="main ms-2"> +18002131371</span>
+              </Link>
+            </p>
+            <h1 className="mb-3">Explore Over 10 Million Auto Parts</h1>
+            <h4 className="main">Select Your Parts:</h4>
+          </div>
+
           <HomeForm />
           <Discount_home />
         </div>
       </div>
+      <style>
+        {`
+@media (max-width: 576px) {
+.lowernav2 {
+display : none !important;
+}
+}
+`}
+
+      </style>
     </>
   );
 }
