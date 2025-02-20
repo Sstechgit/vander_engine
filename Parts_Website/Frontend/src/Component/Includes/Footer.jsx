@@ -172,7 +172,7 @@ export default function Footer() {
                   billing@vanderengines.com
                 </p>
                 <p>
-                  <i className="fas fa-phone me-3"></i> +1844-893-1760
+                  <i className="fas fa-phone me-3"></i> +18002131371
                 </p>
                 <p>
                   <img
