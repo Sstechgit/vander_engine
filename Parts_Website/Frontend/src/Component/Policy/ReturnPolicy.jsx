@@ -23,7 +23,7 @@ export default function ReturnPolicy() {
     },
     {
       head: "Return Procedure",
-      list1: " Call us - Call our Returns Desk at +1 844-893-1760",
+      list1: " Call us - Call our Returns Desk at +18002131371",
       list2: " Mondays to Fridays from 9 am to 11 pm EST; (6 am to 8 pm PST)",
       list3: " Saturdays from 9 am to 8 pm EST; (6 am to 5 pm PST)",
       list4: " Sundays - Closed",
