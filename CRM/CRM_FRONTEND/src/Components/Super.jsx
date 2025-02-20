@@ -9,18 +9,11 @@ export default function Super({setload}) {
     const [errors, seterrors] = useState({})
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     const Login = async (e) => {
-        e.preventDefault();
-        // setload({
-        //   spin:true,tip:"Loading"
-        // })
+        e.preventDefault();  
         seterrors({});
-        // setload({
-        //   spin:true,tip:"Loading"
-        // })
-    
         let url = urls.LOGIN;
     
         let body = {
@@ -46,10 +39,7 @@ export default function Super({setload}) {
           sessionStorage.setItem("SrefreshT",refreshToken)
           sessionStorage.setItem("Sname",result.payload.name)
           sessionStorage.setItem("Sdesignation",result.payload.designation)
-    
-    
-          navigate("/crm")
-    
+          navigate("/crm")   
         } else {
           let errorObj = getErrors(result, ["email", "password","designation"]);
           seterrors((prev) => {
@@ -63,9 +53,6 @@ export default function Super({setload}) {
           }
         
         }
-        // setload({
-        //   spin:false,tip:""
-        // })
       };
   return (
     <div className="w-screen h-screen before:w-full before:h-full before:content-[''] before:blur-sm before:absolute before:inset-0 before:bg-[url('/images/adminnew.png')] before:opacity-20 before:bg-center before:bg-no-repeat before:bg-cover before:-z-1 z-1 bg-slate-800 overflow-y-hidden flex items-center justify-center ">

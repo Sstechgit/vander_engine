@@ -27,68 +27,68 @@ const Login = () => {
   };
   const [otp, setOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
-  
+
   const Login = async (e) => {
-      e.preventDefault();
-      seterrors({});
-      let url = urls.LOGIN;
-    
-      let body = {
-        email,
-        password,
-        designation: selectedRole,
-      };
-    
-      let options = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      };
-    
-      let response = await fetch(url, options);
-      let result = await response.json();
-    
-      if (result.success) {
-          messageApi.info("OTP sent to your email");
-          setIsOtpSent(true); // Show OTP input field
-      } else {
-          let errorObj = getErrors(result, ["email", "password", "designation"]);
-          seterrors((prev) => ({ ...prev, ...errorObj }));
-      }
+    e.preventDefault();
+    seterrors({});
+    let url = urls.LOGIN;
+
+    let body = {
+      email,
+      password,
+      designation: selectedRole,
+    };
+
+    let options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    };
+
+    let response = await fetch(url, options);
+    let result = await response.json();
+
+    if (result.success) {
+      messageApi.info("OTP sent to your email");
+      setIsOtpSent(true); // Show OTP input field
+    } else {
+      let errorObj = getErrors(result, ["email", "password", "designation"]);
+      seterrors((prev) => ({ ...prev, ...errorObj }));
+    }
   };
-  
+
   // New function to verify OTP
   const verifyOtp = async (e) => {
-      e.preventDefault();
-      let url = urls.VERIFY_OTP;
-    
-      let body = { email, otp };
-    
-      let options = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-      };
-    
-      let response = await fetch(url, options);
-      let result = await response.json();
-    
-      if (result.success) {
-          let { accessToken, refreshToken, name, designation, userId } = result.payload;
-  
-          sessionStorage.setItem("accessT", accessToken);
-          sessionStorage.setItem("refreshT", refreshToken);
-          sessionStorage.setItem("name", name);
-          sessionStorage.setItem("designation", designation);
-          localStorage.setItem("userId", userId);
-          
-          navigate(designation === "Admin" ? "/crm/admin" : "/crm/agent");
-      } else {
-          messageApi.error("Invalid OTP. Please try again.");
-      }
+    e.preventDefault();
+    let url = urls.VERIFY_OTP;
+
+    let body = { email, otp };
+
+    let options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    };
+
+    let response = await fetch(url, options);
+    let result = await response.json();
+
+    if (result.success) {
+      let { accessToken, refreshToken, name, designation, userId } = result.payload;
+
+      sessionStorage.setItem("accessT", accessToken);
+      sessionStorage.setItem("refreshT", refreshToken);
+      sessionStorage.setItem("name", name);
+      sessionStorage.setItem("designation", designation);
+      localStorage.setItem("userId", userId);
+
+      navigate(designation === "Admin" ? "/crm/admin" : "/crm/agent");
+    } else {
+      messageApi.error("Invalid OTP. Please try again.");
+    }
   };
-  
-  
+
+
   const Register = async (e) => {
     e.preventDefault();
     seterrors({});
@@ -147,7 +147,7 @@ const Login = () => {
   };
 
   return (
-    
+
     <div className="main-login">
       <div className="container flex align-middle justify-center h-full">
         <div className="welcome ">
@@ -264,90 +264,90 @@ const Login = () => {
                 alt=""
                 width={150}
               />
-{isOtpSent ? (
-  <form onSubmit={verifyOtp} className="flex flex-col items-center gap-4">
-    <InputField
-      placeholder="Enter OTP"
-      name="otp"
-      type="text"
-      icon="fa-solid fa-key"
-      required={true}
-      value={otp}
-      changeValue={setOtp}
-    />
-    <button className="p-2 px-4 text-xl bg-green-500 text-white">Verify OTP</button>
-  </form>
-) : (
-
-              <form
-                className="h-full bg-[#1ACA81] p-2 flex flex-col items-center gap-4 "
-                onSubmit={Login}
-              >
-                <div className=" flex-1 flex flex-col justify-center items-center gap-8 ">
+              {isOtpSent ? (
+                <form onSubmit={verifyOtp} className="flex flex-col items-center gap-4">
                   <InputField
-                    placeholder="Enter Email"
-                    name="email"
+                    placeholder="Enter OTP"
+                    name="otp"
                     type="text"
-                    icon="fa-solid fa-envelope"
+                    icon="fa-solid fa-key"
                     required={true}
-                    value={email}
-                    error={errors?.email}
-                    changeValue={setEmail}
+                    value={otp}
+                    changeValue={setOtp}
+                  />
+                  <button className="p-2 px-4 text-xl bg-green-500 text-white">Verify OTP</button>
+                </form>
+              ) : (
 
-                  />
-                  <InputField
-                    placeholder="Enter Password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    icon={
-                      showPassword ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"
-                    }
-                    iconClick={PasswordToogle}
-                    required={true}
-                    error={errors?.password}
-                    value={password}
-                    changeValue={setPassword}
-                  />
-                  <div className="w-full flex flex-col items-center p-1 px-2 gap-2">
-                    <div className="flex items-center w-[80%] gap-4 ">
-                      <label className="flex items-center cursor-pointer">
-                        <input
-                          type="radio"
-                          name="role"
-                          value="Admin"
-                          onChange={handleRoleChange}
-                          className="form-radio text-blue-600"
-                          required
-                        />
-                        <span className="ml-2 text-black font-['Poppins']">
-                          Admin
-                        </span>
-                      </label>
-                      <label className="flex items-center cursor-pointer">
-                        <input
-                          type="radio"
-                          name="role"
-                          value="Agent"
-                          onChange={handleRoleChange}
-                          className="form-radio text-green-600"
-                          required
-                        />
-                        <span className="ml-2 text-black font-['Poppins']">
-                          Agent
-                        </span>
-                      </label>
+                <form
+                  className="h-full bg-[#1ACA81] p-2 flex flex-col items-center gap-4 "
+                  onSubmit={Login}
+                >
+                  <div className=" flex-1 flex flex-col justify-center items-center gap-8 ">
+                    <InputField
+                      placeholder="Enter Email"
+                      name="email"
+                      type="text"
+                      icon="fa-solid fa-envelope"
+                      required={true}
+                      value={email}
+                      error={errors?.email}
+                      changeValue={setEmail}
+
+                    />
+                    <InputField
+                      placeholder="Enter Password"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      icon={
+                        showPassword ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"
+                      }
+                      iconClick={PasswordToogle}
+                      required={true}
+                      error={errors?.password}
+                      value={password}
+                      changeValue={setPassword}
+                    />
+                    <div className="w-full flex flex-col items-center p-1 px-2 gap-2">
+                      <div className="flex items-center w-[80%] gap-4 ">
+                        <label className="flex items-center cursor-pointer">
+                          <input
+                            type="radio"
+                            name="role"
+                            value="Admin"
+                            onChange={handleRoleChange}
+                            className="form-radio text-blue-600"
+                            required
+                          />
+                          <span className="ml-2 text-black font-['Poppins']">
+                            Admin
+                          </span>
+                        </label>
+                        <label className="flex items-center cursor-pointer">
+                          <input
+                            type="radio"
+                            name="role"
+                            value="Agent"
+                            onChange={handleRoleChange}
+                            className="form-radio text-green-600"
+                            required
+                          />
+                          <span className="ml-2 text-black font-['Poppins']">
+                            Agent
+                          </span>
+                        </label>
+                      </div>
+                      <span className="w-[80%] text-red-600 transition-all duration-300 text-md  font-['Poppins'] h-8 ">
+                        {errors?.designation ? errors.designation : ""}
+                      </span>
                     </div>
-                    <span className="w-[80%] text-red-600 transition-all duration-300 text-md  font-['Poppins'] h-8 ">
-                      {errors?.designation ? errors.designation : ""}
-                    </span>
+                    <button className="p-2 px-4 text-xl hover:bg-blue-700 font-['Poppins'] mr-16  bg-blue-500 text-white ">
+                      Login
+                    </button>
                   </div>
-                  <button className="p-2 px-4 text-xl hover:bg-blue-700 font-['Poppins'] mr-16  bg-blue-500 text-white ">
-                    Login
-                  </button>
-                </div>
-              </form>
+                </form>
 
-)}
+              )}
             </div>
           </div>
 
