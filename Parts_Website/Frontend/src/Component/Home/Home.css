@@ -1,12 +1,10 @@
 :root {
     --e-global-font-family: "Carlito", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
-
 :root {
     --primarycolor: #ec2324;
     --lightColor: #fff;
 }
-
 .home {
     background: url(/assets/home_bg.jpg);
 }

@@ -15,7 +15,7 @@ export default function GeneralHeader() {
                     <div>
                       Talk to the experts.{" "}
                       <Link to="tel:+18448931760" className="">
-                        <span> +18002131371</span>
+                        <span> +1-800-213-1371</span>
                       </Link>
                     </div>
                   </div>

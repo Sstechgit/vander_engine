@@ -88,14 +88,23 @@ export default function Footer() {
               </div>
 
               <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                <h6 className="text-uppercase fw-bold mb-2">Quick Links</h6>
+                <h6 className="text-uppercase fw-bold mb-4">Quick Links</h6>
                 <p>
                   <Link to="/" className="text-reset">
                     Home
                   </Link>
                 </p>
-
                 <p>
+                  <Link to="/searchcarparts" className="text-reset">
+                    Search Car Parts
+                  </Link>
+                </p>  <p>
+                  <Link to="/brand" className="text-reset">
+                    Brands
+                  </Link>
+                </p>
+
+                {/* <p>
                   <Link to="/engine" className="text-reset">
                     Engine
                   </Link>
@@ -120,14 +129,14 @@ export default function Footer() {
                   <Link to="/shopbymake" className="text-reset">
                     Shop By Make
                   </Link>
-                </p>
+                </p> */}
 
 
               </div>
 
               <div className="col-md-3 col-lg-2 col-xl-3 mx-auto mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
-                
+
                 <p>
                   <Link to="/shipping" className="text-reset">
                     Shipping Policy
@@ -169,10 +178,11 @@ export default function Footer() {
                 </p> */}
                 <p>
                   <i className="fas fa-envelope me-3"></i>{" "}
-                  billing@vanderengines.com
+                  {/* billing@vanderengines.com */}
+                  info@autoparts-leads.us
                 </p>
                 <p>
-                  <i className="fas fa-phone me-3"></i> +18002131371
+                  <i className="fas fa-phone me-3"></i> +1-800-213-1371
                 </p>
                 <p>
                   <img

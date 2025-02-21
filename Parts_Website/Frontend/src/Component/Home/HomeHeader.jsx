@@ -8,10 +8,10 @@ import { Link } from "react-router-dom";
 export default function HomeHeader() {
   return (
     <>
-      <div className=" text-white mb-5">
+      <div className=" text-white">
         <LowerHeader />
         <div className="container d-flex flex-column align-items-center justify-content-center pb-4">
-          <div className="lowernav2 d-flex flex-column align-items-center pt-4">
+          {/* <div className="lowernav2 d-flex flex-column align-items-center pt-4">
             <p>
               Call To Order :
               <Link to="tel:+18448931760" className="">
@@ -20,7 +20,7 @@ export default function HomeHeader() {
             </p>
             <h1 className="mb-3">Explore Over 10 Million Auto Parts</h1>
             <h4 className="main">Select Your Parts:</h4>
-          </div>
+          </div> */}
 
           <HomeForm />
           <Discount_home />

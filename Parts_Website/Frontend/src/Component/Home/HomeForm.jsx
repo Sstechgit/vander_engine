@@ -193,12 +193,15 @@ export default function HomeForm() {
     };
     return (
         <>
-        <div className="container-fluid">
-        <div className="row align-items-center my-4">
+        <div className="container-fluid home-form">
+        <div className="row align-items-center">
                 <div className="col-lg-6 form-area">
-                    <div className="main-form p-3 pb-5 my-4">
+           
+
+                    <div className="main-form p-3 py-4 ">
+
                         <form onSubmit={handleSubmit}>
-                      
+                        <h4 className="main mb-2">Select Your Parts:</h4>
                             <div className="row mb-3">
                                 <div className="col-6">
                                     <select
@@ -239,7 +242,7 @@ export default function HomeForm() {
                                     </select>
                                 </div>
                             </div>
-                            <div className="row mb-3">
+                            <div className="row mb-3 align-items-center">
                                 <div className="col-6">
                                     <select
                                         className="form-select"
@@ -348,10 +351,10 @@ export default function HomeForm() {
                         </form>
                     </div>
                 </div>
-
                 <div className="col-lg-6 car-area" >
+                <h2 className="text-center">Explore Over 10 Million Auto Parts</h2>
                     <img
-                        src="https://www.pngkey.com/png/full/373-3732697_transmission-gear-for-replace-in-car-engine-transmission.png"
+                        src="assets/find-engine-3.png"
                         alt=""
                         className="img-fluid "
                     />
@@ -419,7 +422,7 @@ export default function HomeForm() {
             <style>
                 {`
                 .home-form{
-                padding:30px 0px;
+                padding:30px 0px 0px 0px ;
                 }
                   @media (max-width: 576px) {
                 .home-form{
