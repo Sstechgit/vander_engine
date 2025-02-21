@@ -6,9 +6,10 @@ export default function ThankYou() {
     // Add Google Ads conversion script dynamically
     const script = document.createElement("script");
     script.innerHTML = `
-      gtag('event', 'conversion', {'send_to': 'AW-11152279745/YV5VCK_itpkYEMGR6cUp'});
+      gtag('event', 'conversion', {'send_to': 'AW-16768226473/QjBrCODzmpkaEKmp27s-'});
     `;
     document.head.appendChild(script);
+
 
     // Text animation logic
     const text = "Thank You";
