@@ -13,6 +13,7 @@ import Satisfied_customer from "./Satisfied_customer";
 import CustomerReview from "./CustomerReview";
 import HomeHeader from "./HomeHeader";
 import HomeBottomForm from "./HomeBottomForm";
+import HomeCards from "./HomeCards";
 
 export default function Home( ) {
   return (
@@ -22,13 +23,14 @@ export default function Home( ) {
       </div>
       <Speciality />
       <BuyAutoParts />
+      <HomeCards/>
       <AllPArts />
       <ShowParts />
       <DiscountParts />
       <ShopMake />
       <ShopModels />
-      <FeaturedBrands />
-      <PopularProducts />
+      {/* <FeaturedBrands /> */}
+      {/* <PopularProducts /> */}
       <Satisfied_customer />
       <HomeBottomForm />
       <CustomerReview />

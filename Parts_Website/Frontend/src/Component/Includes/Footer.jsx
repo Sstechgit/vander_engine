@@ -182,7 +182,7 @@ export default function Footer() {
                   info@autoparts-leads.us
                 </p>
                 <p>
-                  <i className="fas fa-phone me-3"></i> +18002131371
+                  <i className="fas fa-phone me-3"></i> +1-800-213-1371
                 </p>
                 <p>
                   <img

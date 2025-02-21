@@ -62,7 +62,7 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg bg-dark" style={{ paddingBottom: "0" }}>
         <div className="container-fluid align-items-end">
           <div className="navbar-brand text-white fw-bold fs-2 p-0" >
-            <img src="assets/logo(2).png" alt=""  width={220} />
+            <img src="assets/logo1.png" alt="" width={220} />
           </div>
           <div className="navbar-header ">
             <button
@@ -88,7 +88,7 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <Link to="/searchcarparts" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
-                 Search Car Parts
+                  Search Car Parts
                 </Link>
               </li>
               {/* <li className="nav-item">
@@ -126,11 +126,12 @@ const Header = () => {
                   Retrieve Quote
                 </Link>
               </li> */}
-               {/* <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/view_cart" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   View Cart
                 </Link>
               </li> */}
+
               <li className="nav-item dropdown">
                 <button
                   className="nav-link dropdown-toggle w-100"
@@ -149,7 +150,7 @@ const Header = () => {
                       activeClassName="active"
                       onClick={closeNavbar}
                     >
-                      
+
                       Shipping Policy
                     </NavLink>
                   </li>
@@ -202,7 +203,17 @@ const Header = () => {
                 </Link>
               </li>
               */}
+              
             </ul>
+            <div className="d-flex align-items-center p-2 border rounded text-white" style={{background:"#ec2324"}}>
+                <i class="fa-solid fa-phone-volume me-2"></i>
+                <div>
+                  Call Us{" "}
+                  <Link to="tel:+18448931760" className="text-white fw-bold fs-5">
+                    <span> +1-800-213-1371</span>
+                  </Link>
+                </div>
+              </div>
           </div>
         </div>
       </nav>
