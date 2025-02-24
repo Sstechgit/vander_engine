@@ -320,7 +320,7 @@ function fetchMessageFromEmail() {
         // Listen for new mail
         imap.on("mail", function () {
           console.log("New mail event triggered.");
-          fetchUnseenMessages();
+          //fetchUnseenMessages();
         });
       });
     });
@@ -335,7 +335,7 @@ function fetchMessageFromEmail() {
       handleIMAPError();
     });
 
-    imap.connect();
+    //imap.connect();
   }
 
   function handleIMAPError() {
@@ -364,7 +364,7 @@ function fetchMessageFromEmail() {
     });
   }
 
-  connectIMAP();
+  //connectIMAP();
 }
 
 const FindMails = () => {
