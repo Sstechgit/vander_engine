@@ -585,7 +585,7 @@ export default function Task({ setload }) {
               pageSize: pageSize,
               total: TotalData,
               showSizeChanger: true,
-              pageSizeOptions: ["300", "500", "700", "1000", "1200", "1500", "2000"],
+              pageSizeOptions: ["100", "200", "300", "400", "500", "600", "700"],
               onChange: (page, pageSize) => {
                 setCurrentPage(page);
                 setCurrentPageSize(pageSize);

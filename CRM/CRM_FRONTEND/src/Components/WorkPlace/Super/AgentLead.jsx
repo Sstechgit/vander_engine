@@ -63,9 +63,6 @@ export default function AgentLead({ record, status }) {
       title: "Client Email",
       dataIndex: "email",
       width: 100,
-      render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
     },
     {
       key: "conversation",
@@ -83,11 +80,11 @@ export default function AgentLead({ record, status }) {
       title: "Client Contact",
       dataIndex: "phone",
       width: 100,
-       render: (_, record) => {
+      render: (_, record) => {
         return (
           <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
             <i className="fa-solid fa-phone"></i>
-            {record.phone.slice(0, 5) + "xxxxx..."}
+            {record.phone}
           </a>
         );
       },

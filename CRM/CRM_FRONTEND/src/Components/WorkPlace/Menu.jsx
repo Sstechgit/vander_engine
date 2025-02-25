@@ -123,7 +123,117 @@ export default function Menu() {
           </li>
         </ul>
       );
-    } else {
+    }
+    else if (sessionStorage.getItem("designation") == "super") {
+      return (
+        <ul className="menuList">
+          <li
+            style={current == "SuperAdmin_Home" ? focusStyle : {}}
+            onClick={() => {
+              setCurrent("SuperAdmin_Home");
+              navigate("/crm/superadmin");
+            }}
+          >
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+          </li>
+          <li
+            style={current == "tasks" ? focusStyle : {}}
+            onClick={() => {
+              setCurrent("tasks");
+              navigate("/crm/superadmin/Task");
+            }}
+          >
+            <i className="fa-solid fa-list-check"></i>
+            <span>Tasks</span>
+          </li>
+          <li
+            style={current == "leads" ? focusStyle : {}}
+            onClick={() => {
+              setCurrent("leads");
+              navigate("/crm/superadmin/Leads");
+            }}
+          >
+            <i className="fa-solid fa-envelope"></i>
+            <span>Leads</span>
+          </li>
+          <li
+            style={current == "track" ? focusStyle : {}}
+            onClick={() => {
+              setCurrent("track");
+              navigate("/crm/superadmin/TrackAgent");
+            }}
+          >
+            <i className="fa-solid fa-address-book"></i>
+            <span>Track Agent</span>
+          </li>
+          <li
+            style={current == "agents" ? focusStyle : {}}
+            onClick={() => {
+              setCurrent("agents");
+              navigate("/crm/superadmin/agents");
+            }}
+          >
+            <i className="fa-solid fa-list-check"></i>
+            <span>Sales People</span>
+          </li>
+          <li
+            style={current == "orders" ? focusStyle : {}}
+            onClick={() => {
+              setCurrent("orders");
+              navigate("/crm/superadmin/Order");
+            }}
+          >
+            <i className="fa-solid fa-cart-shopping"></i>
+            <span>Orders</span>
+          </li>
+
+          <li
+            style={current == "client" ? focusStyle : {}}
+            onClick={() => {
+              setCurrent("client");
+              navigate("/crm/superadmin/Client");
+            }}
+          >
+            <i className="fa-solid fa-user"></i>
+            <span>Client Details</span>
+          </li>
+
+          <li
+            style={current == "invoice" ? focusStyle : {}}
+            onClick={() => {
+              setCurrent("invoice");
+              navigate("/crm/superadmin/Invoice");
+            }}
+          >
+            <i className="fa-solid fa-phone"></i>
+            <span>Invoice</span>
+          </li>
+
+          <li
+            style={current == "search" ? focusStyle : {}}
+            onClick={() => {
+              setCurrent("search");
+              navigate("/crm/superadmin/SearchForAdmin");
+            }}
+          >
+            <i className="fa-solid fa-magnifying-glass"></i>
+            <span>Search</span>
+          </li>
+          <li
+            style={current == "notes" ? focusStyle : {}}
+            onClick={() => {
+              setCurrent("notes");
+              navigate("/crm/agent/allnotes");
+            }}
+          >
+            <i class="fa-solid fa-book-open-reader"></i>
+            <span>Notes</span>
+          </li>
+        </ul>
+      );
+    }
+    else {
       return (
         <ul className="menuList">
           <li
@@ -220,6 +330,7 @@ export default function Menu() {
         </ul>
       );
     }
+
   };
   return (
     <div className="w-[15%] h-full bg-[#010A0F] flex flex-col gap-4">

@@ -82,13 +82,18 @@ const Login = () => {
       sessionStorage.setItem("designation", designation);
       localStorage.setItem("userId", userId);
 
-      navigate(designation === "Admin" ? "/crm/admin" : "/crm/agent");
+      // navigate(designation === "Admin" ? "/crm/admin" : "/crm/agent");
+      navigate(
+        designation === "super" 
+          ? "/crm/superadmin" 
+          : designation === "Admin"
+          ? "/crm/admin"
+          : "/crm/agent"
+      );
     } else {
       messageApi.error("Invalid OTP. Please try again.");
     }
   };
-
-
   const Register = async (e) => {
     e.preventDefault();
     seterrors({});
@@ -241,6 +246,19 @@ const Login = () => {
                           Agent
                         </span>
                       </label>
+                      <label className="flex items-center cursor-pointer">
+                        <input
+                          type="radio"
+                          name="role"
+                          value="super"
+                          onChange={handleRoleChange}
+                          className="form-radio text-green-600"
+                          required
+                        />
+                        <span className="ml-2 text-black font-['Poppins']">
+                          Super
+                        </span>
+                      </label>
                     </div>
                     <span className="w-[80%] text-red-600 transition-all duration-300 text-md  font-['Poppins'] h-8 ">
                       {errors?.designation ? errors.designation : ""}
@@ -336,6 +354,19 @@ const Login = () => {
                             Agent
                           </span>
                         </label>
+                        <label className="flex items-center cursor-pointer">
+                        <input
+                          type="radio"
+                          name="role"
+                          value="super"
+                          onChange={handleRoleChange}
+                          className="form-radio text-green-600"
+                          required
+                        />
+                        <span className="ml-2 text-black font-['Poppins']">
+                          Super
+                        </span>
+                      </label>
                       </div>
                       <span className="w-[80%] text-red-600 transition-all duration-300 text-md  font-['Poppins'] h-8 ">
                         {errors?.designation ? errors.designation : ""}

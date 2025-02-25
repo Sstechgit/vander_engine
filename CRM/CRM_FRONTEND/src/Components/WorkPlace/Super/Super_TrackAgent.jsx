@@ -5,7 +5,7 @@ import { DoFetch } from "../../../Utils/DoFetch";
 import AgentLead from "./AgentLead";
 import { formatDate, parseCustomDate } from "../../../Utils/parseAndFormatDate";
 
-export default function TrackAgent() {
+export default function Super_TrackAgent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setCurrentPageSize] = useState(500);
   const [TotalData, setTotalData] = useState(0);
@@ -105,9 +105,6 @@ export default function TrackAgent() {
       title: "Email",
       key: "email",
       dataIndex: "email",
-      render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
     },
     {
       title: "Last Login",

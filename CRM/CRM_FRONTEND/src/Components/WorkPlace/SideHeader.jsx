@@ -24,6 +24,7 @@ export default function SideHeader({ setload }) {
 
     let url = urls.LOGOUT;
     let result = await DoFetch(url, "GET");
+    console.log(result);
     if (result && result.success) {
       sessionStorage.clear();
       alert("Logout SuccessFully");

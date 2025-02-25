@@ -220,7 +220,7 @@ export default function WarrantyPolicy() {
       },
       "contact_info": {
         "email": "billing@vanderengines.com",
-        "phone": "844-893-1760",
+        "phone": "+1-800-213-1371",
         "return_address": "Vander Engines & Services, 15150 Cicero Ave, Oak Forest, IL 60452"
       },
       "final_note": "These terms and conditions are designed to ensure transparency, fairness, and mutual understanding between Vander Engines & Services and its valued customers. Thank you for your cooperation and understanding."

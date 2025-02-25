@@ -16,7 +16,7 @@ import {
 import LeadTaskRelation from "./UtilComp/LeadTaskRelation.jsx";
 import DistributeModal from "./DistributeModal.jsx";
 
-export default function Lead({ setload }) {
+export default function Super_NotAssigned_Leads({ setload }) {
   //states for lead info modal
   const [open, setOpen] = useState("");
   const [Name, setName] = useState("");
@@ -80,7 +80,7 @@ export default function Lead({ setload }) {
     // },
   });
   //fetch Leads
-  const fetchLeads = async (page, pageRows) => {
+  const fetchLeads= async (page, pageRows) => {
     let url = urls.FetchLeads + `/${page}/${pageRows}`;
     let result = await DoFetch(url);
   
@@ -99,18 +99,19 @@ export default function Lead({ setload }) {
         task: lead.task[0],
       }));
   
-      // Apply filter for "Vander Engines"
-      let filteredLeads = records.filter(lead => lead?.origin?.toLowerCase() === "SSTECH".toLocaleLowerCase());
+      // ❌ Only keep leads that are NOT assigned
+      let notAssignedLeads = records.filter(lead => !lead.assigned);
   
-      // Apply other filters if needed
-      const finalFilteredLeads = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, filteredLeads);
-      
-      setLeads(finalFilteredLeads); // Set the filtered leads
-      setTotalData(result.payload.total);
+      // ✅ Apply other filters if needed
+      const finalFilteredLeads = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, notAssignedLeads);
+  
+      setLeads(finalFilteredLeads); // Set the filtered unassigned leads
+      setTotalData(finalFilteredLeads.length); // ✅ Set total to only not assigned leads
     } else {
       alert("Server issue occurred");
     }
   };
+  
   
   //Delete a lead
   const handleDelete = async (records, Selected = false) => {
@@ -312,9 +313,6 @@ export default function Lead({ setload }) {
       title: "Client Email",
       dataIndex: "email",
       width: 100,
-      render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
     },
     {
       key: "lead_phone",
@@ -325,7 +323,7 @@ export default function Lead({ setload }) {
         return (
           <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
             <i className="fa-solid fa-phone"></i>
-            {record.phone.slice(0, 5) + "xxxxx..."}
+            {record.phone}
           </a>
         );
       },

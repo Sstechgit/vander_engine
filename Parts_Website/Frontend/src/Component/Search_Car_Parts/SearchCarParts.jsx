@@ -172,7 +172,7 @@ export default function SearchCarParts({ handleAddToCart, showproduct }) {
                     <div className="card-title">
                       <h6>SPEAK WITH A SPECIALIST NOW</h6>
 
-                      <h6 className="fs-4 text-center">+18002131371</h6>
+                      <h6 className="fs-4 text-center">+1-800-213-1371</h6>
                     </div>
                   </div>
                 </div>
