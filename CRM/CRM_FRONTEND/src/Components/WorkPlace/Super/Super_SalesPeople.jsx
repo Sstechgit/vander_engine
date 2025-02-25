@@ -8,7 +8,7 @@ import GeneralHeader from "./GeneralHeader";
 import { getErrors } from "../../../Utils/ExtractError";
 import AgentModal from "./AgentModal";
 
-export default function SalesPeople({ setload }) {
+export default function Super_SalesPeople({setload}) {
   const [Agents, setAgents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setCurrentPageSize] = useState(10);
@@ -23,7 +23,7 @@ export default function SalesPeople({ setload }) {
   const [password, setPassword] = useState("");
   const [title, settitle] = useState("");
   const [parameters, setparameters] = useState([]);
-  const [ModalFunc, setModalFunc] = useState(() => { });
+  const [ModalFunc, setModalFunc] = useState(() => {});
   const [messageApi, contextHolder] = message.useMessage();
   const fetchAgents = async (page, pageRows) => {
     // setload({
@@ -42,14 +42,14 @@ export default function SalesPeople({ setload }) {
           name: e.name,
           email: e.email,
           created: e.createdAt,
-          TotalTask: e.totalTasks.length,
-          Tasks: e.task
+          TotalTask:e.totalTasks.length,
+          Tasks:e.task
         });
       });
 
       setAgents(records);
       setTotalData(result.payload.total);
-
+      
     } else {
       alert("Server issue occured");
     }
@@ -83,12 +83,8 @@ export default function SalesPeople({ setload }) {
   const columns = [
     { key: "_id", title: "Sno", dataIndex: "_id" },
     { key: "name", title: "Agent Name", dataIndex: "name" },
-    {
-      key: "email", title: "Email", dataIndex: "email", render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
-    },
-    { key: "task", title: "Tasks", dataIndex: "TotalTask" },
+    { key: "email", title: "Email", dataIndex: "email" },
+    { key: "task", title: "Tasks", dataIndex: "TotalTask"},
 
     {
       key: "EditId",
@@ -120,7 +116,7 @@ export default function SalesPeople({ setload }) {
               handleDelete(record);
             }}
           >
-            <i class="fa-solid fa-trash-can"></i>
+           <i class="fa-solid fa-trash-can"></i>
           </Button>
         );
       },
@@ -171,7 +167,7 @@ export default function SalesPeople({ setload }) {
       return;
     }
     setload({
-      spin: true, tip: "Deleting"
+      spin:true,tip:"Deleting"
     })
     let url = urls.DeleteAgents;
     let body = JSON.stringify({
@@ -184,20 +180,20 @@ export default function SalesPeople({ setload }) {
     let result = await DoFetch(url, "POST", body, extHeader);
     if (result.success == true) {
       await fetchAgents(currentPage, pageSize);
-      messageApi.info(Agents.length + " Agent are Deleted");
+      messageApi.info(Agents.length+" Agent are Deleted");
       setIsSelection(false);
     } else {
       alert("Server Side Issue");
     }
     setload({
-      spin: false, tip: ""
+      spin:false,tip:""
     })
   };
   //Edit Modal function
   const EditAgent = async (name, email, password, agent) => {
     seterrors([]);
     setload({
-      spin: true, tip: "Editing"
+      spin:true,tip:"Editing"
     })
     let url = urls.UpdateAgent;
     let body = JSON.stringify({
@@ -221,14 +217,14 @@ export default function SalesPeople({ setload }) {
       setparameters([])
     }
     setload({
-      spin: false, tip: ""
+      spin:false,tip:""
     })
   };
 
   const AddNewAgent = async (nameval, emailval, passwordval) => {
     seterrors({});
     setload({
-      spin: true, tip: "Adding"
+      spin:true,tip:"Adding"
     })
 
     let url = urls.REGISTER;
@@ -269,13 +265,13 @@ export default function SalesPeople({ setload }) {
       }
     }
     setload({
-      spin: false, tip: ""
+      spin:false,tip:""
     })
   };
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       //we can do operations like storing selected rows
-
+    
       if (selectedRows.length == 0) {
         setIsSelection(false);
       } else {
@@ -290,7 +286,7 @@ export default function SalesPeople({ setload }) {
               danger: true,
               type: "primary",
             },
-
+            
           };
         });
       }

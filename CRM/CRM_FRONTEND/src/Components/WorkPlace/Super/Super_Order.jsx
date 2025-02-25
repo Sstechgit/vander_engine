@@ -1,8 +1,8 @@
 import { Pagination, Table, Button, message } from "antd";
 
 import React, { useEffect, useMemo, useState } from "react";
-import GeneralHeader from "./GeneralHeader";
-import { urls } from "../../../../links";
+import GeneralHeader from "./GeneralHeader.jsx";
+import { urls } from "../../../../links.js";
 import { DoFetch } from "../../../Utils/DoFetch.js";
 import LeadModal from "./LeadModal.jsx";
 import { getErrors } from "../../../Utils/ExtractError.js";
@@ -12,7 +12,7 @@ import {
 } from "../../../Utils/parseAndFormatDate.jsx";
 import LeadTaskRelation from "./UtilComp/LeadTaskRelation.jsx";
 import DistributeModal from "./DistributeModal.jsx";
-export default function Task({ setload }) {
+export default function Super_Order({ setload }) {
   //states for lead info modal
   const [open, setOpen] = useState("");
   const [Name, setName] = useState("");
@@ -22,9 +22,9 @@ export default function Task({ setload }) {
   const [description, setDescription] = useState("");
   const [origin, setOrigin] = useState("");
   const [parameters, setParameters] = useState([]);
-  const [ModalFunc, setModalFunc] = useState(() => { });
+  const [ModalFunc, setModalFunc] = useState(() => {});
   const [errors, seterrors] = useState({});
-  const [Leads, setLeads] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const [messageApi, contextHolder] = message.useMessage();
   //states for lead distribution
@@ -40,7 +40,7 @@ export default function Task({ setload }) {
   const [opArr, setopArr] = useState({
     // Refresh: {
     //   name: <i className="fa-solid fa-arrows-rotate"></i>,
-    //   func: fetchTask,
+    //   func: fetchOrders,
     //   parameters: [currentPage, pageSize],
     //   danger: false,
     // },
@@ -52,73 +52,84 @@ export default function Task({ setload }) {
     // },
   });
   //fetch Leads
-  const fetchTask = async (page, pageRows) => {
+  const fetchOrders = async (page, pageRows) => {
+    // setload({
+    //   spin: true,
+    //   tip: "Loading",
+    // });
 
-
-    let url = urls.FetchTask + `/${page}/${pageRows}`;
+    let url = urls.GetOrders + `/${page}/${pageRows}`;
 
     let result = await DoFetch(url);
-
-
-    if (result?.success == true) {
+   
+    if (result.success == true) {
       let records = [];
 
-      result.payload.records.forEach((task, idx) => {
+      result.payload.records.forEach((order, idx) => {
         records.push({
-          key: task._id,
+          key: order._id,
           _id: (page - 1) * pageRows + idx + 1,
-          name: task.lead[0].name,
-          email: task.lead[0].email,
-          phone: task.lead[0].phone,
-          description: task.lead[0].description,
-          origin: task.lead[0]?.origin,
-          created: parseCustomDate(task.lead[0]?.createdAt),
-          assigned: true,
-          agent: task.user[0],
-          agentEmail: task.user[0].email,
-          status: task.state,
+          name: order.name,
+          email: order.email,
+          phone: order.phone,
+          description: order.description + " " + order.part,
+          origin: order?.origin,
+          created: parseCustomDate(order?.date),
+          assigned: order.task[0]?._id ? true : false,
+          agent: order.user[0],
+          task: order.task[0],
+          billingAddress: order.billing_address,
+          shippingAddress: order.shipping_address,
+          cardNo: order.card_no,
+          expDate: order.expiry_date,
+          cvv: order.CVV,
+          amt: order.amount,
         });
       });
 
-      setLeads(records);
+      setOrders(records);
+
       setTotalData(result.payload.total);
     } else {
       alert("Server issue occured");
     }
-
+    // setload({
+    //   spin: false,
+    //   tip: "",
+    // });
   };
-  //Delete a task
+  //Delete a order
   const handleDelete = async (record) => {
     let confirmDelete = confirm(
-      `Do you want to delete Task?`
+      `Do you want to delete Order?`
     );
     if (!confirmDelete) {
       return;
     }
-    setload({
-      spin: true,
-      tip: "Deleting",
-    });
-    let url = urls.deleteTask;
-
+    // setload({
+    //   spin: true,
+    //   tip: "Deleting",
+    // });
+    let url = urls.deleteOrder;
+   
     let extHeader = {
       "Content-Type": "application/json",
-      "taskId": record.key
+      "orderId":record.key
     };
 
     let result = await DoFetch(url, "DELETE", null, extHeader);
 
     if (result.success == true) {
-      await fetchTask(currentPage, pageSize);
-      messageApi.info("1 Task is deleted");
+      await fetchOrders(currentPage, pageSize);
+      messageApi.info("1 Order is deleted");
       setSelectedLeads([]);
     } else {
       alert("Server Side Issue");
     }
-    setload({
-      spin: false,
-      tip: "",
-    });
+    // setload({
+    //   spin: false,
+    //   tip: "",
+    // });
   };
 
   //Add A Lead
@@ -130,11 +141,11 @@ export default function Task({ setload }) {
     phoneval
   ) => {
     seterrors({});
-    setload({
-      spin: true,
-      tip: "Adding",
-    });
 
+    // setload({
+    //   spin: true,
+    //   tip: "Adding",
+    // });
     let url = urls.AddLead;
 
     let body = {
@@ -157,7 +168,7 @@ export default function Task({ setload }) {
 
     if (result.success == true) {
       messageApi.info("Congrats! New Lead is Added");
-      await fetchTask(currentPage, pageSize);
+      await fetchOrders(currentPage, pageSize);
       setOpen(false);
     } else {
       let errorObj = getErrors(result, [
@@ -175,18 +186,17 @@ export default function Task({ setload }) {
         alert(errorObj["system"]);
       }
     }
-    setload({
-      spin: false,
-      tip: "",
-    });
+    // setload({
+    //   spin: false,
+    //   tip: "",
+    // });
   };
   const EditLead = async (name, email, description, origin, phone, leadId) => {
     seterrors([]);
-    setload({
-      spin: true,
-      tip: "Editing",
-    });
-
+    // setload({
+    //   spin: true,
+    //   tip: "Editing",
+    // });
     let url = urls.EditLead;
     let body = JSON.stringify({
       LeadId: leadId,
@@ -213,90 +223,191 @@ export default function Task({ setload }) {
       ]);
       seterrors(errorsObj);
     } else {
-      await fetchTask(currentPage, pageSize);
+      await fetchOrders(currentPage, pageSize);
       setParameters([]);
       setOpen(false);
     }
-    setload({
-      spin: false,
-      tip: "",
-    });
-  };
-  const AddandEditLead = (record) => {
-    setParameters([]);
-    settitle(record ? "Update A Lead" : "Add a Lead");
-    setName(record?.name || "");
-    setEmail(record?.email || "");
-    setPhone(record?.phone || "");
-    setDescription(record?.description || "");
-    setOrigin(record?.origin || "Vander Engines");
-
-    setParameters((prev) => {
-      return [...prev, record?.key];
-    });
-    setModalFunc(() => {
-      return record ? EditLead : AddLead;
-    });
-    setOpen(true);
-  };
-  const DistributeAll = (records, changeSelection) => {
-    let notAssignedFromSelection = [];
-    records.forEach((lead) => {
-      if (lead.assigned === false) {
-        notAssignedFromSelection.push(lead.key);
-      }
-    });
-
-    setSelectedLeads(notAssignedFromSelection);
-    setOpenDistribute(true);
+    // setload({
+    //   spin: false,
+    //   tip: "",
+    // });
   };
 
+  // const DistributeAll = (records, changeSelection) => {
+  //   let notAssignedFromSelection = [];
+  //   records.forEach((lead) => {
+  //     if (lead.assigned === false) {
+  //       notAssignedFromSelection.push(lead.key);
+  //     }
+  //   });
+  //   console.log(notAssignedFromSelection);
+  //   setSelectedLeads(notAssignedFromSelection);
+  //   setOpenDistribute(true);
+  // };
+  // const handleDistribute = async (
+  //   SelectedAgent,
+  //   AllAgents,
+  //   orders,
+  //   deadline,
+  //   redistribute,
+  //   seterrors
+  // ) => {
+  //   console.log("order", orders);
+
+  //   seterrors([]);
+  //   if (deadline === "") {
+  //     seterrors({ deadline: "Please Provide Deadline" });
+  //     return;
+  //   }
+  //   let all = false;
+  //   SelectedAgent.forEach((agent) => {
+  //     if (agent === "ALL") {
+  //       all = true;
+  //       return;
+  //     }
+  //   });
+  //   let agentsId = [];
+  //   if (all) {
+  //     AllAgents.forEach((agent) => {
+  //       if (agent.label != "ALL") {
+  //         agentsId.push(agent.value);
+  //       }
+  //     });
+  //   }
+  //   console.log(AllAgents, agentsId, orders);
+  //   console.log(all, SelectedAgent, AllAgents, "ags");
+  //   let result;
+  //   if (redistribute === false) {
+  //     let dataArr;
+  //     if (!orders.length) {
+  //       //object
+  //       dataArr = [orders.key];
+  //     } else {
+  //       dataArr = orders.map((e) => {
+  //         return e.key;
+  //       });
+  //     }
+
+  //     setload({
+  //       spin: true,
+  //       tip: "ordering",
+  //     });
+  //     let url = urls.DistributeOrder;
+
+  //     let body = JSON.stringify({
+  //       orders: dataArr,
+  //       agents: all === true ? agentsId : SelectedAgent,
+  //       deadline,
+  //     });
+
+  //     let extHeaders = {
+  //       "Content-Type": "application/json",
+  //     };
+  //     result = await DoFetch(url, "POST", body, extHeaders);
+  //   } else {
+  //     let url = urls.ReDistributeOrder;
+  //     let dataArr = orders.map((e) => {
+  //       return e.task._id;
+  //     });
+  //     console.log("orders", orders);
+  //     let body = JSON.stringify({
+  //       taskArr: dataArr,
+  //       agents: all === true ? agentsId : SelectedAgent,
+  //       deadline,
+  //     });
+
+  //     let extHeaders = {
+  //       "Content-Type": "application/json",
+  //     };
+  //     result = await DoFetch(url, "PUT", body, extHeaders);
+  //     console.log(result);
+  //   }
+
+  //   if (result.success == false) {
+  //     let errorsObj = getErrors(result, [
+  //       "leads",
+  //       "tasks",
+  //       "agents",
+  //       "deadline",
+  //     ]);
+  //     seterrors(errorsObj);
+  //   } else {
+  //     messageApi.info(`${orders.length || 1} Orders are distributed`);
+  //   }
+  //   setload({
+  //     spin: false,
+  //     tip: "",
+  //   });
+  // };
   //header for table
   const columns = [
-    { key: "_id", title: "Sno", dataIndex: "_id", width: 80 },
-    { key: "lead_name", title: "Client Name", dataIndex: "name", width: 130 },
+    { key: "_id", title: "Sno", dataIndex: "_id", width: 100 },
+    { key: "order_name", title: "Order Name", dataIndex: "name", width: 200 },
     {
-      key: "lead_email",
-      title: "Client Email",
+      key: "order_email",
+      title: "Order Email",
       dataIndex: "email",
-      width: 130,
-      render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
+      width: 100,
     },
     {
-      key: "lead_phone",
-      title: "Client Contact",
+      key: "order_phone",
+      title: "Order Contact",
       dataIndex: "phone",
-      width: 130,
+      width: 100,
       render: (_, record) => {
         return (
           <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
             <i className="fa-solid fa-phone"></i>
-            {record.phone.slice(0, 5) + "xxxxx..."}
+            {record.phone}
           </a>
         );
       },
     },
     {
-      key: "lead_description",
+      key: "order_description",
       title: "Description",
       dataIndex: "description",
       width: 200,
     },
     {
-      key: "Status",
-      title: "status",
-      dataIndex: "status",
-      width: 200,
+      key: "order_amt",
+      title: "Amount",
+      dataIndex: "amt",
+      width: 100,
     },
-    { key: "lead_origin", title: "Origin", dataIndex: "origin", width: 160 },
     {
-      key: "Agent",
-      title: "Agent",
-      dataIndex: "agentEmail",
-      width: 160,
+      key: "order_CardNo",
+      title: "Card No",
+      dataIndex: "cardNo",
+      width: 150,
     },
+    {
+      key: "order_CVV",
+      title: "CVV",
+      dataIndex: "cvv",
+      width: 150,
+    },
+    {
+      key: "order_expDate",
+      title: "Expiry Date",
+      dataIndex: "expDate",
+      width: 150,
+    },
+    {
+      key: "billingAddress",
+      title: "Billing Address",
+      dataIndex: "billingAddress",
+      width: 250,
+    },
+    {
+      key: "shippingAddress",
+      title: "Shipping Address",
+      dataIndex: "shippingAddress",
+      width: 250,
+    },
+
+    { key: "order_origin", title: "Origin", dataIndex: "origin", width: 160 },
+    
 
     {
       key: "created",
@@ -318,6 +429,24 @@ export default function Task({ setload }) {
         return <p>{formattedDate}</p>;
       },
     },
+    // {
+    //   key: "EditId",
+    //   title: "",
+    //   dataIndex: "EditId",
+    //   render: (_, record) => {
+    //     return (
+    //       <Button
+    //         type="primary"
+    //         style={{ width: "2rem" }}
+    //         onClick={() => {
+    //           AddandEditLead(record);
+    //         }}
+    //       >
+    //         <i className="fa-solid fa-pen-to-square"></i>
+    //       </Button>
+    //     );
+    //   },
+    // },
     {
       key: "deleteId",
       title: "",
@@ -339,27 +468,23 @@ export default function Task({ setload }) {
     },
   ];
 
-  // const rowSelection = {
-  //   selectedRowKeys: selectedLeads,
-  //   onChange: (selectedRowKeys, selectedRows) => {
-  //     //we can do operations like storing selected rows
-  //     console.log(
-  //       `selectedRowKeys: ${selectedRowKeys}`,
-  //       "selectedRows: ",
-  //       selectedRows
-  //     );
-  //     if (selectedRows.length == 0) {
-  //       setselectedLeadRecord([]);
-  //       setSelectedLeads([]);
-  //     }
-  //   },
-  // };
+  const rowSelection = {
+    selectedRowKeys: selectedLeads,
+    onChange: (selectedRowKeys, selectedRows) => {
+ 
+      if (selectedRows.length == 0) {
+        setselectedLeadRecord([]);
+        setSelectedLeads([]);
+      }
+    },
+  };
   //handle Table page change
   const handleTablePageChange = (pagination) => {
     setCurrentPage(pagination.current);
     setCurrentPageSize(pagination.pageSize);
-    fetchTask(pagination.current, pagination.pageSize);
+    fetchOrders(pagination.current, pagination.pageSize);
   };
+  
   useEffect(() => {
     if (selectedLeads.length === 0) {
       setopArr({
@@ -369,14 +494,8 @@ export default function Task({ setload }) {
               <i className="fa-solid fa-arrows-rotate"></i> Show All
             </p>
           ),
-          func: fetchTask,
+          func: fetchOrders,
           parameters: [currentPage, pageSize],
-          danger: false,
-        },
-        AddLead: {
-          name: <i className="fa-solid fa-file-circle-plus"></i>,
-          func: AddandEditLead,
-          parameters: [],
           danger: false,
         },
       });
@@ -387,10 +506,10 @@ export default function Task({ setload }) {
     if (!sessionStorage.getItem("accessT")) {
       return;
     }
-    fetchTask(currentPage, pageSize);
+    fetchOrders(currentPage, pageSize);
 
     let id = setInterval(() => {
-      fetchTask(currentPage, pageSize);
+      fetchOrders(currentPage, pageSize);
     }, 12000);
     return () => {
       clearInterval(id);
@@ -403,11 +522,12 @@ export default function Task({ setload }) {
         <DistributeModal
           open={OpenDistribute}
           setopen={setOpenDistribute}
-          leadArr={selectedLeads}
+          leadArr={selectedLeadRecord}
           messageApi={messageApi}
           redistribute={redistribute}
           leadRecord={selectedLeadRecord}
           changeSelection={setSelectedLeads}
+          func={handleDistribute}
         />
       )}
       <LeadModal
@@ -430,11 +550,11 @@ export default function Task({ setload }) {
       />
       <div className="h-calc-remaining flex flex-col justify-between ">
         <div className="h-[80%]">
-          <Table locale={{ emptyText: 'No Tasks available' }}
+          <Table locale={{ emptyText: 'No Orders available' }}
             style={{ maxWidth: "100%" }}
-            // rowSelection={{ type: "checkbox", ...rowSelection }}
+            rowSelection={{ type: "checkbox", ...rowSelection }}
             columns={columns}
-            dataSource={Leads}
+            dataSource={orders}
             pagination={{
               current: currentPage,
               pageSize: pageSize,
@@ -444,10 +564,10 @@ export default function Task({ setload }) {
               onChange: (page, pageSize) => {
                 setCurrentPage(page);
                 setCurrentPageSize(pageSize);
-                fetchTask(page, pageSize);
+                fetchOrders(page, pageSize);
               },
             }}
-            scroll={{ y: 420, x: "max-content" }} // Ensure table content is scrollable
+            scroll={{ y: 400, x: "max-content" }} // Ensure table content is scrollable
             onChange={handleTablePageChange}
           ></Table>
         </div>

@@ -9,7 +9,7 @@ import { getErrors } from "../../../Utils/ExtractError";
 import AgentModal from "./AgentModal";
 import DisplayTableModal from "./DisplayTableModal";
 
-export default function Client({setload}) {
+export default function Super_Client({setload}) {
   const [Client, setClient] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setCurrentPageSize] = useState(50);
@@ -112,9 +112,7 @@ export default function Client({setload}) {
   const columns = [
     { key: "_id", title: "Sno", dataIndex: "_id" },
     { key: "name", title: "Client Name", dataIndex: "name" },
-    { key: "email", title: "Email", dataIndex: "email",    render: (_, record) => {
-      return (record.email.slice(0, 3) + ".....@gmail.com");
-    }, },
+    { key: "email", title: "Email", dataIndex: "email" },
     { key: "task", title: "Tasks", dataIndex: "TotalTask",render:(_,task)=>{
       return <Button onClick={()=>viewTask(task)}>View Tasks</Button>
     } },

@@ -106,11 +106,11 @@ const Header = () => {
                   Online Catalog
                 </Link>
               </li> */}
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/brand" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Brands
                 </Link>
-              </li>
+              </li> */}
               {/* <li className="nav-item">
                 <Link to="/shopbymake" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
                   Shop By Make
@@ -203,7 +203,11 @@ const Header = () => {
                 </Link>
               </li>
               */}
-              
+              <li className="nav-item">
+                <Link to="https://vanderengines.com/" smooth duration={900} className="nav-link" onClick={handleNavLinkClick}>
+                 Shop Now
+                </Link>
+              </li>
             </ul>
             <div className="d-flex align-items-center p-2 border rounded text-white" style={{background:"#ec2324"}}>
                 <i class="fa-solid fa-phone-volume me-2"></i>

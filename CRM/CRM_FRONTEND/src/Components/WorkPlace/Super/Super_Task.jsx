@@ -1,8 +1,8 @@
 import { Pagination, Table, Button, message } from "antd";
 
 import React, { useEffect, useMemo, useState } from "react";
-import GeneralHeader from "./GeneralHeader";
-import { urls } from "../../../../links";
+import GeneralHeader from "./GeneralHeader.jsx";
+import { urls } from "../../../../links.js";
 import { DoFetch } from "../../../Utils/DoFetch.js";
 import LeadModal from "./LeadModal.jsx";
 import { getErrors } from "../../../Utils/ExtractError.js";
@@ -12,7 +12,7 @@ import {
 } from "../../../Utils/parseAndFormatDate.jsx";
 import LeadTaskRelation from "./UtilComp/LeadTaskRelation.jsx";
 import DistributeModal from "./DistributeModal.jsx";
-export default function Task({ setload }) {
+export default function Super_Task({ setload }) {
   //states for lead info modal
   const [open, setOpen] = useState("");
   const [Name, setName] = useState("");
@@ -22,7 +22,7 @@ export default function Task({ setload }) {
   const [description, setDescription] = useState("");
   const [origin, setOrigin] = useState("");
   const [parameters, setParameters] = useState([]);
-  const [ModalFunc, setModalFunc] = useState(() => { });
+  const [ModalFunc, setModalFunc] = useState(() => {});
   const [errors, seterrors] = useState({});
   const [Leads, setLeads] = useState([]);
 
@@ -53,10 +53,10 @@ export default function Task({ setload }) {
   });
   //fetch Leads
   const fetchTask = async (page, pageRows) => {
-
+ 
 
     let url = urls.FetchTask + `/${page}/${pageRows}`;
-
+   
     let result = await DoFetch(url);
 
 
@@ -85,41 +85,41 @@ export default function Task({ setload }) {
     } else {
       alert("Server issue occured");
     }
-
+ 
   };
-  //Delete a task
-  const handleDelete = async (record) => {
-    let confirmDelete = confirm(
-      `Do you want to delete Task?`
-    );
-    if (!confirmDelete) {
-      return;
-    }
-    setload({
-      spin: true,
-      tip: "Deleting",
-    });
-    let url = urls.deleteTask;
-
-    let extHeader = {
-      "Content-Type": "application/json",
-      "taskId": record.key
-    };
-
-    let result = await DoFetch(url, "DELETE", null, extHeader);
-
-    if (result.success == true) {
-      await fetchTask(currentPage, pageSize);
-      messageApi.info("1 Task is deleted");
-      setSelectedLeads([]);
-    } else {
-      alert("Server Side Issue");
-    }
-    setload({
-      spin: false,
-      tip: "",
-    });
+ //Delete a task
+ const handleDelete = async (record) => {
+  let confirmDelete = confirm(
+    `Do you want to delete Task?`
+  );
+  if (!confirmDelete) {
+    return;
+  }
+  setload({
+    spin: true,
+    tip: "Deleting",
+  });
+  let url = urls.deleteTask;
+ 
+  let extHeader = {
+    "Content-Type": "application/json",
+    "taskId":record.key
   };
+
+  let result = await DoFetch(url, "DELETE", null, extHeader);
+
+  if (result.success == true) {
+    await fetchTask(currentPage, pageSize);
+    messageApi.info("1 Task is deleted");
+    setSelectedLeads([]);
+  } else {
+    alert("Server Side Issue");
+  }
+  setload({
+    spin: false,
+    tip: "",
+  });
+};
 
   //Add A Lead
   const AddLead = async (
@@ -246,7 +246,7 @@ export default function Task({ setload }) {
         notAssignedFromSelection.push(lead.key);
       }
     });
-
+  
     setSelectedLeads(notAssignedFromSelection);
     setOpenDistribute(true);
   };
@@ -260,9 +260,6 @@ export default function Task({ setload }) {
       title: "Client Email",
       dataIndex: "email",
       width: 130,
-      render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
     },
     {
       key: "lead_phone",
@@ -270,12 +267,7 @@ export default function Task({ setload }) {
       dataIndex: "phone",
       width: 130,
       render: (_, record) => {
-        return (
-          <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
-            <i className="fa-solid fa-phone"></i>
-            {record.phone.slice(0, 5) + "xxxxx..."}
-          </a>
-        );
+        return <a href={`tel:${record.phone}`}>{record.phone}</a>;
       },
     },
     {

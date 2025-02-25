@@ -314,6 +314,9 @@ export default function Lead({ setload }) {
       title: "Client Email",
       dataIndex: "email",
       width: 100,
+      render: (_, record) => {
+        return (record.email.slice(0, 3) + ".....@gmail.com");
+      },
     },
     {
       key: "lead_phone",
@@ -324,7 +327,7 @@ export default function Lead({ setload }) {
         return (
           <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
             <i className="fa-solid fa-phone"></i>
-            {record.phone}
+            {record.phone.slice(0, 5) + "xxxxx..."}
           </a>
         );
       },

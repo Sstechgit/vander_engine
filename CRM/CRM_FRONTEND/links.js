@@ -6,6 +6,7 @@ export const base = "http://localhost:8000";
 export const urls = {
   LOGIN: base + "/api/login",
   REGISTER: base + "/api/user",
+  GET_USER: base + "/api/users",
   VERIFY_OTP: base + "/api/verify-otp",
   LOGOUT: base + "/api/logout",
   ADDTASK: base + "/api/addTask",

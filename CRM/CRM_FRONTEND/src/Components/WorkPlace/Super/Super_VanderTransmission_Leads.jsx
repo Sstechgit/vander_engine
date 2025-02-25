@@ -4,8 +4,8 @@ import * as XLSX from "xlsx"; // Import XLSX for Excel generation
 import { saveAs } from "file-saver"; // Save file in browser
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import GeneralHeader from "./GeneralHeader";
-import { urls } from "../../../../links";
+import GeneralHeader from "./GeneralHeader.jsx";
+import { urls } from "../../../../links.js";
 import { DoFetch } from "../../../Utils/DoFetch.js";
 import LeadModal from "./LeadModal.jsx";
 import { getErrors } from "../../../Utils/ExtractError.js";
@@ -16,7 +16,7 @@ import {
 import LeadTaskRelation from "./UtilComp/LeadTaskRelation.jsx";
 import DistributeModal from "./DistributeModal.jsx";
 
-export default function Lead({ setload }) {
+export default function Super_VanderTransmission_Leads({ setload }) {
   //states for lead info modal
   const [open, setOpen] = useState("");
   const [Name, setName] = useState("");
@@ -100,7 +100,7 @@ export default function Lead({ setload }) {
       }));
   
       // Apply filter for "Vander Engines"
-      let filteredLeads = records.filter(lead => lead?.origin?.toLowerCase() === "SSTECH".toLocaleLowerCase());
+      let filteredLeads = records.filter(lead => lead?.origin?.toLowerCase() === "Vander Engines Transmissions".toLocaleLowerCase());
   
       // Apply other filters if needed
       const finalFilteredLeads = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, filteredLeads);
@@ -312,9 +312,6 @@ export default function Lead({ setload }) {
       title: "Client Email",
       dataIndex: "email",
       width: 100,
-      render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
     },
     {
       key: "lead_phone",
@@ -325,7 +322,7 @@ export default function Lead({ setload }) {
         return (
           <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
             <i className="fa-solid fa-phone"></i>
-            {record.phone.slice(0, 5) + "xxxxx..."}
+            {record.phone}
           </a>
         );
       },

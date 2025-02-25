@@ -6,8 +6,9 @@ export default function BuyAutoParts() {
 
         { head: "Unmatched Variety", para: "We have over 10 million vehicle parts and accessories, including OEM and aftermarket choices, so you can locate exactly what you need." },
 
-        { head: "Easy 30-Day Returns", para: "Need to return something? Submit a return request within 30 days, and we'll send you simple RMA instructions." },
-
+        { head: "Grade A Quality", para: "Grade A Quality Parts - All The Engines Will Be Inspected By Certified Mechanics Before Shipped Out." },
+        
+        
         { head: "Rare Auto Parts", para: "Are you looking for parts for a vintage or discontinued vehicle? We've got you covered with parts for models from 1940 and before." },
 
         { head: "User-Friendly Online Catalog", para: "Explore our extensive variety of automobile components, which are grouped for simple browsing. For the most accurate results, search by year, make, and model." },

@@ -4,8 +4,8 @@ import * as XLSX from "xlsx"; // Import XLSX for Excel generation
 import { saveAs } from "file-saver"; // Save file in browser
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import GeneralHeader from "./GeneralHeader";
-import { urls } from "../../../../links";
+import GeneralHeader from "./GeneralHeader.jsx";
+import { urls } from "../../../../links.js";
 import { DoFetch } from "../../../Utils/DoFetch.js";
 import LeadModal from "./LeadModal.jsx";
 import { getErrors } from "../../../Utils/ExtractError.js";
@@ -16,7 +16,7 @@ import {
 import LeadTaskRelation from "./UtilComp/LeadTaskRelation.jsx";
 import DistributeModal from "./DistributeModal.jsx";
 
-export default function Lead({ setload }) {
+export default function Super_Lead({ setload }) {
   //states for lead info modal
   const [open, setOpen] = useState("");
   const [Name, setName] = useState("");
@@ -45,7 +45,7 @@ export default function Lead({ setload }) {
   const [nameFilter, setNameFilter] = useState("");
   const [emailFilter, setEmailFilter] = useState("");
 
-  const filterTasks = (selectedDate, mobileFilter,nameFilter,emailFilter, tasks) => {
+  const filterTasks = (selectedDate, mobileFilter, nameFilter, emailFilter, tasks) => {
     return tasks.filter((task) => {
       const taskCreatedDate = new Date(task.created).toLocaleDateString();
       const selectedDateString = selectedDate?.toLocaleDateString();
@@ -59,8 +59,8 @@ export default function Lead({ setload }) {
 
       const isNameMatch = !nameFilter || task.name.toLowerCase().includes(nameFilter.toLowerCase());
 
-       // Check Name number condition
-       const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
+      // Check Name number condition
+      const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
 
       return isDateMatch && isMobileMatch && isNameMatch && isEmailMatch;
     });
@@ -81,37 +81,39 @@ export default function Lead({ setload }) {
   });
   //fetch Leads
   const fetchLeads = async (page, pageRows) => {
+
     let url = urls.FetchLeads + `/${page}/${pageRows}`;
+
     let result = await DoFetch(url);
-  
-    if (result.success) {
-      let records = result.payload.records.map((lead, idx) => ({
-        key: lead._id,
-        _id: (page - 1) * pageRows + idx + 1,
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
-        description: lead.description,
-        origin: lead?.origin,
-        created: parseCustomDate(lead?.createdAt),
-        assigned: lead.task[0]?._id ? true : false,
-        agent: lead.user[0],
-        task: lead.task[0],
-      }));
-  
-      // Apply filter for "Vander Engines"
-      let filteredLeads = records.filter(lead => lead?.origin?.toLowerCase() === "SSTECH".toLocaleLowerCase());
-  
-      // Apply other filters if needed
-      const finalFilteredLeads = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, filteredLeads);
-      
-      setLeads(finalFilteredLeads); // Set the filtered leads
+    console.log(result)
+    if (result.success == true) {
+      let records = [];
+
+      result.payload.records.forEach((lead, idx) => {
+        console.log(records);
+        records.push({
+          key: lead._id,
+          _id: (page - 1) * pageRows + idx + 1,
+          name: lead.name,
+          email: lead.email,
+          phone: lead.phone,
+          description: lead.description,
+          origin: lead?.origin,
+          created: parseCustomDate(lead?.createdAt),
+          assigned: lead.task[0]?._id ? true : false,
+          agent: lead.user[0],
+          task: lead.task[0],
+        });
+      });
+
+      setLeads(records);
+      const filteredTasks = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, records);
+      setLeads(filteredTasks); // Set the filtered leads
       setTotalData(result.payload.total);
     } else {
       alert("Server issue occurred");
     }
   };
-  
   //Delete a lead
   const handleDelete = async (records, Selected = false) => {
     let leadArr = [];
@@ -312,9 +314,6 @@ export default function Lead({ setload }) {
       title: "Client Email",
       dataIndex: "email",
       width: 100,
-      render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
     },
     {
       key: "lead_phone",
@@ -325,7 +324,7 @@ export default function Lead({ setload }) {
         return (
           <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
             <i className="fa-solid fa-phone"></i>
-            {record.phone.slice(0, 5) + "xxxxx..."}
+            {record.phone}
           </a>
         );
       },
@@ -516,7 +515,7 @@ export default function Lead({ setload }) {
     return () => {
       clearInterval(id);
     };
-  }, [currentPage, pageSize, selectedDate, mobileFilter,nameFilter,emailFilter]);
+  }, [currentPage, pageSize, selectedDate, mobileFilter, nameFilter, emailFilter]);
   return (
     <>
       {contextHolder}

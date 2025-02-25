@@ -12,14 +12,13 @@ const {
   EditAgent,
   fetchAgentWithTask,
   TrackAgents,
+  getUsers
 } = require("../controller/user");
 const { check } = require("express-validator");
 const ValidateToken = require("../middleware/token.js");
 const { validateAdmin } = require("../helper/validateAdmin.js");
 const { validateReq } = require("../helper/validateReq.js");
 const { VerifyOTP } = require("../controller/user.js");
-
-
 const route = Router();
 
 //Register
@@ -43,6 +42,8 @@ route.post(
   ],
   RegisterUser
 );
+// GET API to fetch users
+route.get('/users',ValidateToken, getUsers);
 route.post(
   "/login",
   [
@@ -59,7 +60,12 @@ route.post(
   ],
   LoginUser
 );
-route.get("/logout", ValidateToken, Logout);
+
+route.get('/users', ValidateToken, (req, res, next) => {
+  console.log("GET /users called");
+  next();
+}, getUsers);
+
 route.get("/AllUser/:page/:pageSize", ValidateToken, GetAllAgents);
 route.post("/DeleteAgent", ValidateToken, DeleteAgent);
 route.post("/verify-otp", VerifyOTP);
