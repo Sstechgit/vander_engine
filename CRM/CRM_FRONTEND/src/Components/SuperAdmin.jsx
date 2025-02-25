@@ -1,17 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { urls } from "../../links";
 import { getErrors } from "../Utils/ExtractError";
 import { useNavigate } from "react-router-dom";
 
 const SuperAdmin = () => {
-    const [showPassword, setShowPassword] = useState("true")
-    const [errors, seterrors] = useState({})
-    const [email, setemail] = useState("")
-    const [password, setpassword] = useState("")
-    const navigate = useNavigate()
+    const [showPassword, setShowPassword] = useState(true); // Boolean instead of string
+    const [errors, setErrors] = useState({});
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const [name, setName] = useState("");
+
+    useEffect(() => {
+        const storedName = sessionStorage.getItem("name");
+        if (storedName) {
+            setName(storedName);
+        }
+
+        if (sessionStorage.getItem("accessT")) {
+            navigate("/crm");
+        }
+    }, []);
+
+
     const Login = async (e) => {
         e.preventDefault();
-        seterrors({});
+        setErrors({});
         let url = urls.LOGIN;
 
         let body = {
@@ -30,50 +44,56 @@ const SuperAdmin = () => {
         let response = await fetch(url, options);
         let result = await response.json();
 
-        if (result.success == true) {
-            let accessToken = result.payload.accessToken;
-            let refreshToken = result.payload.refreshToken;
-            sessionStorage.setItem("SaccessT", accessToken)
-            sessionStorage.setItem("SrefreshT", refreshToken)
-            sessionStorage.setItem("Sname", result.payload.name)
-            sessionStorage.setItem("Sdesignation", result.payload.designation)
-            navigate("/crm")
+        if (result.success === true) {
+            let { accessToken, refreshToken, name, designation, userId } = result.payload;
+            sessionStorage.setItem("accessT", accessToken);
+            sessionStorage.setItem("refreshT", refreshToken);
+            sessionStorage.setItem("name", name);
+            sessionStorage.setItem("designation", designation);
+            localStorage.setItem("userId", userId);
+
+            navigate("/crm/superadmin");
         } else {
             let errorObj = getErrors(result, ["email", "password", "designation"]);
-            seterrors((prev) => {
-                return { ...prev, ...errorObj };
-            });
-            if (errorObj?.designation) {
-                alert(errorObj["designation"]);
-            }
-            if (errorObj?.system) {
-                alert(errorObj["system"]);
-            }
-
+            setErrors((prev) => ({ ...prev, ...errorObj }));
+            if (errorObj?.designation) alert(errorObj["designation"]);
+            if (errorObj?.system) alert(errorObj["system"]);
         }
     };
+
+
     return (
         <>
             <div className="super h-[100vh] flex items-center justify-center">
                 <div className="super-form flex items-center h-full justify-center">
                     <article>
-                        <header>Super Admin Login</header>
-                        <label className="mb-4" for="username">
+                        <header>
+                            {sessionStorage.getItem("name") ? `Welcome, ${sessionStorage.getItem("name")}` : "Super Admin Login"}
+                        </header>
+
+                        <label className="mb-4" htmlFor="username">
                             <span className="pb-2">Username:</span>
-                            <input placeholder="Username" name="username" type="email"
-                             value={email}
-                             onChange={(e)=>setemail(e.target.value)}
-                            required />
+                            <input
+                                placeholder="Username"
+                                name="username"
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
                         </label>
-                        <span className="w-full h-4 text-red-500  transition-all duration-300 text-md">{errors.email?errors.email:""}</span>
-                        <label className="" for="username">
+                        <span className="w-full h-4 text-red-500 transition-all duration-300 text-md">
+                            {errors.email || ""}
+                        </span>
+                        <label htmlFor="password">
                             <span className="pb-2">Password:</span>
                             <div className="relative">
                                 <input
                                     className="p-2 w-full pr-10"
                                     placeholder="Password"
                                     name="password"
-                                    value={password} onChange={(e)=>setpassword(e.target.value)}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     type={showPassword ? "password" : "text"}
                                     required
                                 />
@@ -81,12 +101,19 @@ const SuperAdmin = () => {
                                     className="absolute right-2 top-3 text-gray-600"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
-                                    <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"} text-lg`}></i>
+                                    <i
+                                        className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"
+                                            } text-lg`}
+                                    ></i>
                                 </span>
                             </div>
                         </label>
-                        <span className="w-full h-4 text-red-500  transition-all duration-300 text-md">{errors.password?errors.password:""}</span>
-                        <button type="submit" onClick={Login}>Submit</button>
+                        <span className="w-full h-4 text-red-500 transition-all duration-300 text-md">
+                            {errors.password || ""}
+                        </span>
+                        <button type="submit" onClick={Login}>
+                            Submit
+                        </button>
                     </article>
                 </div>
             </div>

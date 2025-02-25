@@ -16,10 +16,10 @@ export default function Home() {
     <Spin size="large" tip={load.tip} spinning={load.spin}>
       <Routes>
         <Route path="/" element={<Login setload={setload} />} />
-        <Route path="/Super" element={<Super setload={setload} />} />
+        {/* <Route path="/Super" element={<Super setload={setload} />} /> */}
         <Route path="/register" element={<Register setload={setload}/>} />
         <Route path="/Crm/*" element={<Crm setload={setload}/>} />
-        <Route path="/SuperAdmin" element={<SuperAdmin/>} />
+        {/* <Route path="/SuperAdmin" element={<SuperAdmin/>} /> */}
       </Routes>
     </Spin>
   );

@@ -39,6 +39,7 @@ const Login = () => {
       designation: selectedRole,
     };
 
+
     let options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -75,20 +76,18 @@ const Login = () => {
 
     if (result.success) {
       let { accessToken, refreshToken, name, designation, userId } = result.payload;
-
       sessionStorage.setItem("accessT", accessToken);
       sessionStorage.setItem("refreshT", refreshToken);
       sessionStorage.setItem("name", name);
       sessionStorage.setItem("designation", designation);
       localStorage.setItem("userId", userId);
-
       // navigate(designation === "Admin" ? "/crm/admin" : "/crm/agent");
       navigate(
         designation === "super" 
           ? "/crm/superadmin" 
           : designation === "Admin"
           ? "/crm/admin"
-          : "/crm/agent"
+          : "/crm/agent" 
       );
     } else {
       messageApi.error("Invalid OTP. Please try again.");
@@ -138,11 +137,13 @@ const Login = () => {
       }
     }
   };
+
   useEffect(() => {
     if (sessionStorage.getItem("accessT")) {
       navigate("crm");
     }
   }, []);
+  
   const handleSignUpClick = () => {
     setIsSignUp(true);
   };

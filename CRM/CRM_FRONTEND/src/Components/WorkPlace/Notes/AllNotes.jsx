@@ -48,7 +48,7 @@ export default function AllNotes() {
     console.error("Failed to fetch messages");
     return [];
   };
-  
+
   const saveMessages = async (agentKey, message) => {
     await fetch("http://backend.sstechcrm.com/api/messages", {
       method: "POST",
@@ -177,6 +177,7 @@ export default function AllNotes() {
               paddingTop: "10px",
             }}
           >
+            <Input  type="file"/>
             <Input
               value={messageInput}
               onChange={(e) => setMessageInput(e.target.value)}

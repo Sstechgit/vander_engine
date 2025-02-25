@@ -40,6 +40,7 @@ const RegisterUser = asyncHandler(async (req, res) => {
   return res.send(new ResponseObj(200, "Registered", StoreUser, true));
 });
 
+//----------------------GetUser-------------------
 const getUsers = asyncHandler(async (req, res) => {
   try {
     const users = await user.find();

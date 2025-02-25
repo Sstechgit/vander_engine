@@ -78,19 +78,13 @@ export default function Result({ setload }) {
         <Route path="/sstech_leads" element={<SSTech_Leads />} />
         <Route path="/facebook_leads" element={<Facebook_Leads />} />
         <Route path="/notassigned_leads" element={<NotAssigned_Leads />} />
-
-        <Route
-          path="/TrackAgent"
-          element={<TrackAgent setload={setload} />}
-        ></Route>
+        <Route path="/TrackAgent" element={<TrackAgent setload={setload} />}/>
         <Route path="/Client" element={<Client setload={setload} />} /> 
         <Route path="/Order" element={<Order setload={setload} />} />
         <Route path="/Task" element={<Task setload={setload} />} />
-        <Route
-          path="/SearchForAdmin"
-          element={<SearchForAdmin setload={setload} />}
-        />
+        <Route path="/SearchForAdmin" element={<SearchForAdmin setload={setload} />} />
         <Route path="/Invoice" element={<Invoice setload={setload} />} />
+
         {/*Super*/}
         <Route path="superadmin/Task" element={<Super_Task setload={setload} />} />
         <Route path="superadmin/Leads" element={<Super_Lead setload={setload} />} />
@@ -107,9 +101,6 @@ export default function Result({ setload }) {
         <Route path="superadmin/sstech_leads" element={<Super_SSTech_Leads />} />
         <Route path="superadmin/facebook_leads" element={<Super_Facebook_Leads />} />
         <Route path="superadmin/notassigned_leads" element={<Super_NotAssigned_Leads />} />
-
-
-
 
         {/* Agent */}
         <Route path="/agent/Task" element={<AgentTask setload={setload} />} />

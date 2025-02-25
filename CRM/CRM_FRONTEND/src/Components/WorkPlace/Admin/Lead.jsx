@@ -15,7 +15,7 @@ import {
 } from "../../../Utils/parseAndFormatDate.jsx";
 import LeadTaskRelation from "./UtilComp/LeadTaskRelation.jsx";
 import DistributeModal from "./DistributeModal.jsx";
-
+const { RangePicker } = DatePicker;
 export default function Lead({ setload }) {
   //states for lead info modal
   const [open, setOpen] = useState("");
@@ -44,15 +44,19 @@ export default function Lead({ setload }) {
   const [mobileFilter, setMobileFilter] = useState("");
   const [nameFilter, setNameFilter] = useState("");
   const [emailFilter, setEmailFilter] = useState("");
+  const [dateRange, setDateRange] = useState(null);
 
-  const filterTasks = (selectedDate, mobileFilter, nameFilter, emailFilter, tasks) => {
+  const filterTasks = (dateRange, mobileFilter, nameFilter, emailFilter, tasks) => {
     return tasks.filter((task) => {
-      const taskCreatedDate = new Date(task.created).toLocaleDateString();
-      const selectedDateString = selectedDate?.toLocaleDateString();
+      const taskCreatedDate = new Date(task.created);
+      const startDate = dateRange?.[0] ? new Date(dateRange[0]) : null;
+      const endDate = dateRange?.[1] ? new Date(dateRange[1] + "T23:59:59") : null;
 
       // Check date condition
       const isDateMatch =
-        !selectedDate || taskCreatedDate === selectedDateString;
+        (!startDate || taskCreatedDate >= startDate) &&
+        (!endDate || taskCreatedDate <= endDate);
+
 
       // Check mobile number condition
       const isMobileMatch = !mobileFilter || task.phone.includes(mobileFilter);
@@ -85,12 +89,12 @@ export default function Lead({ setload }) {
     let url = urls.FetchLeads + `/${page}/${pageRows}`;
 
     let result = await DoFetch(url);
-    console.log(result)
+    // console.log(result)
     if (result.success == true) {
       let records = [];
 
       result.payload.records.forEach((lead, idx) => {
-        console.log(records);
+        // console.log(records);
         records.push({
           key: lead._id,
           _id: (page - 1) * pageRows + idx + 1,
@@ -107,7 +111,7 @@ export default function Lead({ setload }) {
       });
 
       setLeads(records);
-      const filteredTasks = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, records);
+      const filteredTasks = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, records);
       setLeads(filteredTasks); // Set the filtered leads
       setTotalData(result.payload.total);
     } else {
@@ -518,7 +522,7 @@ export default function Lead({ setload }) {
     return () => {
       clearInterval(id);
     };
-  }, [currentPage, pageSize, selectedDate, mobileFilter, nameFilter, emailFilter]);
+  }, [currentPage, pageSize, dateRange, mobileFilter, nameFilter, emailFilter]);
   return (
     <>
       {contextHolder}
@@ -553,10 +557,10 @@ export default function Lead({ setload }) {
         parameters={parameters}
       />
       <div className="w-full border px-3 py-1">
-        <DatePicker
+        <RangePicker
           className="w-[30%] me-5 border rounded border-gray-500 p-1"
-          onChange={(date, dateString) =>
-            setSelectedDate(date ? new Date(dateString) : null)
+          onChange={(dates, dateStrings) =>
+            setDateRange(dates ? [dateStrings[0], dateStrings[1]] : null)
           }
         />
         <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
@@ -621,7 +625,7 @@ export default function Lead({ setload }) {
                 fetchLeads(page, pageSize);
               },
             }}
-            scroll={{ y: 400, x: "max-content" }} // Ensure table content is scrollable
+            scroll={{ y: "70vh", x: "max-content" }} // Ensure table content is scrollable
             onChange={handleTablePageChange}
           ></Table>
         </div>
