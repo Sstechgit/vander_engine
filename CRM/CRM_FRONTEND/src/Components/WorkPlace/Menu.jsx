@@ -15,7 +15,7 @@ export default function Menu() {
     }
   }, []);
   let MenuDetails = () => {
-    if (sessionStorage.getItem("designation") == "Admin") {
+    if (sessionStorage.getItem("designation") == "Super") {
       return (
         <ul className="menuList">
           <li
@@ -124,7 +124,7 @@ export default function Menu() {
         </ul>
       );
     }
-    else if (sessionStorage.getItem("designation") == "super") {
+    else if (sessionStorage.getItem("designation") == "Admin") {
       return (
         <ul className="menuList">
           <li

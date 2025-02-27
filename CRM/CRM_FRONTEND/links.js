@@ -80,7 +80,6 @@ export const urls = {
   media: base + "/api/media",
 
 };
-
 export const mails = {
   "Vander Engines": "contactus@vanderengines.com",
   "USA AUTO PARTS LLC": "info@usaautopartsllc.com",

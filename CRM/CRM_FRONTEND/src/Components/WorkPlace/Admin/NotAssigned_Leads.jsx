@@ -1,5 +1,5 @@
 import { Pagination, Table, Button, message, DatePicker } from "antd";
-
+const { RangePicker } = DatePicker;
 import * as XLSX from "xlsx"; // Import XLSX for Excel generation
 import { saveAs } from "file-saver"; // Save file in browser
 
@@ -45,22 +45,28 @@ export default function NotAssigned_Leads({ setload }) {
   const [nameFilter, setNameFilter] = useState("");
   const [emailFilter, setEmailFilter] = useState("");
 
-  const filterTasks = (selectedDate, mobileFilter,nameFilter,emailFilter, tasks) => {
+  const [dateRange, setDateRange] = useState(null);
+  const [totalLeads, setTotalLeads] = useState(0);
+  const [filteredLeadsCount, setFilteredLeadsCount] = useState(0);
+  const filterTasks = (dateRange, mobileFilter, nameFilter, emailFilter, tasks) => {
     return tasks.filter((task) => {
-      const taskCreatedDate = new Date(task.created).toLocaleDateString();
-      const selectedDateString = selectedDate?.toLocaleDateString();
+      const taskCreatedDate = new Date(task.created);
+      const startDate = dateRange?.[0] ? new Date(dateRange[0] + "T00:00:00") : null;
+      const endDate = dateRange?.[1] ? new Date(dateRange[1] + "T23:59:59") : null;
 
       // Check date condition
       const isDateMatch =
-        !selectedDate || taskCreatedDate === selectedDateString;
+        (!startDate || taskCreatedDate >= startDate) &&
+        (!endDate || taskCreatedDate <= endDate);
+
 
       // Check mobile number condition
       const isMobileMatch = !mobileFilter || task.phone.includes(mobileFilter);
 
       const isNameMatch = !nameFilter || task.name.toLowerCase().includes(nameFilter.toLowerCase());
 
-       // Check Name number condition
-       const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
+      // Check Name number condition
+      const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
 
       return isDateMatch && isMobileMatch && isNameMatch && isEmailMatch;
     });
@@ -80,37 +86,58 @@ export default function NotAssigned_Leads({ setload }) {
     // },
   });
   //fetch Leads
-  const fetchLeads= async (page, pageRows) => {
-    let url = urls.FetchLeads + `/${page}/${pageRows}`;
-    let result = await DoFetch(url);
-  
-    if (result.success) {
-      let records = result.payload.records.map((lead, idx) => ({
-        key: lead._id,
-        _id: (page - 1) * pageRows + idx + 1,
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
-        description: lead.description,
-        origin: lead?.origin,
-        created: parseCustomDate(lead?.createdAt),
-        assigned: lead.task[0]?._id ? true : false,
-        agent: lead.user[0],
-        task: lead.task[0],
-      }));
-  
-      // ❌ Only keep leads that are NOT assigned
-      let notAssignedLeads = records.filter(lead => !lead.assigned);
-  
-      // ✅ Apply other filters if needed
-      const finalFilteredLeads = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, notAssignedLeads);
-  
-      setLeads(finalFilteredLeads); // Set the filtered unassigned leads
-      setTotalData(finalFilteredLeads.length); // ✅ Set total to only not assigned leads
-    } else {
-      alert("Server issue occurred");
+  const fetchLeads = async () => {
+    try {
+      let page = 1;
+      let pageRows = 100; // Adjust to your API's max rows per page
+      let allRecords = [];
+      let totalRecords = 0;
+      do {
+        let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+        let result = await DoFetch(url);
+
+        if (!result.success) {
+          alert("Server issue occurred");
+          return;
+        }
+
+        if (page === 1) {
+          totalRecords = result.payload.total;
+        }
+        let pageRecords = result.payload.records.map((lead, idx) => ({
+          key: lead._id,
+          _id: (page - 1) * pageRows + idx + 1,
+          name: lead.name,
+          email: lead.email,
+          phone: lead.phone,
+          description: lead.description,
+          origin: lead?.origin,
+          created: parseCustomDate(lead?.createdAt),
+          assigned: lead.task[0]?._id ? true : false,
+          agent: lead.user[0],
+          task: lead.task[0],
+        }));
+
+        allRecords = [...allRecords, ...pageRecords];
+        page++;
+      } while (allRecords.length < totalRecords);
+      setLeads(allRecords); // Set all leads first
+      // setTotalLeads(allRecords.length)
+      // Apply filter for "Vander Engines"
+      let notAssignedLeads = allRecords.filter(lead => !lead.assigned);
+
+      // Apply other filters if needed
+      const finalFilteredLeads = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, notAssignedLeads);
+
+      setLeads(finalFilteredLeads); // Set the filtered leads
+      setFilteredLeadsCount(finalFilteredLeads.length)
+      setTotalData(result.payload.total);
+    } catch (error) {
+      console.error("Error fetching leads:", error);
     }
   };
+
+
   
   
   //Delete a lead
@@ -517,7 +544,7 @@ export default function NotAssigned_Leads({ setload }) {
     return () => {
       clearInterval(id);
     };
-  }, [currentPage, pageSize, selectedDate, mobileFilter,nameFilter,emailFilter]);
+  }, [currentPage, pageSize, dateRange, mobileFilter,nameFilter,emailFilter]);
   return (
     <>
       {contextHolder}
@@ -551,14 +578,14 @@ export default function NotAssigned_Leads({ setload }) {
         setOpen={setOpen}
         parameters={parameters}
       />
-      <div className="w-full border px-3 py-1">
-        <DatePicker
-          className="w-[30%] me-5 border rounded border-gray-500 p-1"
-          onChange={(date, dateString) =>
-            setSelectedDate(date ? new Date(dateString) : null)
+          <div className="w-full border  py-2">
+        <RangePicker
+          className="w-[30%] me-4 border rounded border-gray-500 p-1"
+          onChange={(dates, dateStrings) =>
+            setDateRange(dates ? [dateStrings[0], dateStrings[1]] : null)
           }
         />
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+        <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Name "
@@ -571,7 +598,8 @@ export default function NotAssigned_Leads({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+
+        <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
           <input
             type="email "
             placeholder="Search By Email "
@@ -584,7 +612,8 @@ export default function NotAssigned_Leads({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+
+        <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Mobile No. "
@@ -597,6 +626,8 @@ export default function NotAssigned_Leads({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
+
+        <span className="bg-green-700 p-1 border rounded-3xl text-white fw-bold text-xl">{filteredLeadsCount}</span>
 
       </div>
 
