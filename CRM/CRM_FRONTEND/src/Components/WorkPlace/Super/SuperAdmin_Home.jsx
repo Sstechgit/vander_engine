@@ -44,28 +44,28 @@ const SuperAdmin_Home = () => {
     navigate("/crm/superadmin/TrackAgent");
   };
   //--------------------------------All Admins--------------------------------------
-  const fetchAdmin = async () => {
-    let url = urls.GET_USER;
-    try {
-      let result = await DoFetch(url);
-      console.log(result)
-      if (result.success === true) {
-        const adminCount = result.payload.filter(user => user.designation === "Admin").length;
-        settotalAdmins(adminCount); // Store the total number of admins
-      } else {
-        alert("Server issue occurred");
-      }
-    } catch (error) {
-      console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
-    }
-  };
-  useEffect(() => {
-    fetchAdmin();
-  }, []);
-  const handleViewAllAdmin = () => {
-    navigate("/crm/TrackAdmin");
-  };
+  // const fetchAdmin = async () => {
+  //   let url = urls.GET_USER;
+  //   try {
+  //     let result = await DoFetch(url);
+  //     console.log(result)
+  //     if (result.success === true) {
+  //       const adminCount = result.payload.filter(user => user.designation === "Admin").length;
+  //       settotalAdmins(adminCount); // Store the total number of admins
+  //     } else {
+  //       alert("Server issue occurred");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching leads:", error);
+  //     alert("Failed to fetch data. Please try again.");
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchAdmin();
+  // }, []);
+  // const handleViewAllAdmin = () => {
+  //   navigate("/crm/TrackAdmin");
+  // };
 
 
   //--------------------------------All Leads--------------------------------------

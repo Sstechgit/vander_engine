@@ -1,12 +1,12 @@
 //  export const base = "https://sstechcrm.com";
-// export const base = "http://backend.sstechcrm.com";
-export const base = "http://localhost:8000";
+ export const base = "http://backend.sstechcrm.com";
+//export const base = "http://localhost:8000";
 
 // export const base = "http://crmbackend.ap-south-1.elasticbeanstalk.com"
 export const urls = {
   LOGIN: base + "/api/login",
   REGISTER: base + "/api/user",
-  GET_USER: base + "/api/users",
+  // GET_USER: base + "/api/users",
   VERIFY_OTP: base + "/api/verify-otp",
   LOGOUT: base + "/api/logout",
   ADDTASK: base + "/api/addTask",
