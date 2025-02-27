@@ -4,8 +4,8 @@ import * as XLSX from "xlsx"; // Import XLSX for Excel generation
 import { saveAs } from "file-saver"; // Save file in browser
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import GeneralHeader from "./GeneralHeader.jsx";
-import { urls } from "../../../../links.js";
+import GeneralHeader from "./GeneralHeader";
+import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch.js";
 import LeadModal from "./LeadModal.jsx";
 import { getErrors } from "../../../Utils/ExtractError.js";
@@ -15,7 +15,7 @@ import {
 } from "../../../Utils/parseAndFormatDate.jsx";
 import LeadTaskRelation from "./UtilComp/LeadTaskRelation.jsx";
 import DistributeModal from "./DistributeModal.jsx";
-
+const { RangePicker } = DatePicker;
 export default function Super_Lead({ setload }) {
   //states for lead info modal
   const [open, setOpen] = useState("");
@@ -44,15 +44,20 @@ export default function Super_Lead({ setload }) {
   const [mobileFilter, setMobileFilter] = useState("");
   const [nameFilter, setNameFilter] = useState("");
   const [emailFilter, setEmailFilter] = useState("");
-
-  const filterTasks = (selectedDate, mobileFilter, nameFilter, emailFilter, tasks) => {
+  const [dateRange, setDateRange] = useState(null);
+  const [totalLeads, setTotalLeads] = useState(0);
+  const [filteredLeadsCount, setFilteredLeadsCount] = useState(0);
+  const filterTasks = (dateRange, mobileFilter, nameFilter, emailFilter, tasks) => {
     return tasks.filter((task) => {
-      const taskCreatedDate = new Date(task.created).toLocaleDateString();
-      const selectedDateString = selectedDate?.toLocaleDateString();
+      const taskCreatedDate = new Date(task.created);
+      const startDate = dateRange?.[0] ? new Date(dateRange[0] + "T00:00:00") : null;
+      const endDate = dateRange?.[1] ? new Date(dateRange[1] + "T23:59:59") : null;
 
       // Check date condition
       const isDateMatch =
-        !selectedDate || taskCreatedDate === selectedDateString;
+        (!startDate || taskCreatedDate >= startDate) &&
+        (!endDate || taskCreatedDate <= endDate);
+
 
       // Check mobile number condition
       const isMobileMatch = !mobileFilter || task.phone.includes(mobileFilter);
@@ -80,18 +85,27 @@ export default function Super_Lead({ setload }) {
     // },
   });
   //fetch Leads
-  const fetchLeads = async (page, pageRows) => {
+  const fetchLeads = async () => {
+    try {
+      let page = 1;
+      let pageRows = 100; // Adjust to your API's max rows per page
+      let allRecords = [];
+      let totalRecords = 0;
 
-    let url = urls.FetchLeads + `/${page}/${pageRows}`;
+      do {
+        let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+        let result = await DoFetch(url);
 
-    let result = await DoFetch(url);
-    console.log(result)
-    if (result.success == true) {
-      let records = [];
+        if (!result.success) {
+          alert("Server issue occurred");
+          return;
+        }
 
-      result.payload.records.forEach((lead, idx) => {
-        console.log(records);
-        records.push({
+        if (page === 1) {
+          totalRecords = result.payload.total;
+        }
+
+        let pageRecords = result.payload.records.map((lead, idx) => ({
           key: lead._id,
           _id: (page - 1) * pageRows + idx + 1,
           name: lead.name,
@@ -103,17 +117,24 @@ export default function Super_Lead({ setload }) {
           assigned: lead.task[0]?._id ? true : false,
           agent: lead.user[0],
           task: lead.task[0],
-        });
-      });
+        }));
 
-      setLeads(records);
-      const filteredTasks = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, records);
-      setLeads(filteredTasks); // Set the filtered leads
-      setTotalData(result.payload.total);
-    } else {
-      alert("Server issue occurred");
+        allRecords = [...allRecords, ...pageRecords];
+        page++;
+      } while (allRecords.length < totalRecords);
+
+      setLeads(allRecords); // Set all leads first
+      setTotalLeads(allRecords.length)
+
+      const filteredTasks = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, allRecords);
+      setLeads(filteredTasks); // Then set filtered leads
+
+      setFilteredLeadsCount(filteredTasks.length);
+    } catch (error) {
+      console.error("Error fetching leads:", error);
     }
   };
+
   //Delete a lead
   const handleDelete = async (records, Selected = false) => {
     let leadArr = [];
@@ -314,6 +335,7 @@ export default function Super_Lead({ setload }) {
       title: "Client Email",
       dataIndex: "email",
       width: 100,
+     
     },
     {
       key: "lead_phone",
@@ -515,7 +537,7 @@ export default function Super_Lead({ setload }) {
     return () => {
       clearInterval(id);
     };
-  }, [currentPage, pageSize, selectedDate, mobileFilter, nameFilter, emailFilter]);
+  }, [currentPage, pageSize, dateRange, mobileFilter, nameFilter, emailFilter]);
   return (
     <>
       {contextHolder}
@@ -549,14 +571,14 @@ export default function Super_Lead({ setload }) {
         setOpen={setOpen}
         parameters={parameters}
       />
-      <div className="w-full border px-3 py-1">
-        <DatePicker
-          className="w-[30%] me-5 border rounded border-gray-500 p-1"
-          onChange={(date, dateString) =>
-            setSelectedDate(date ? new Date(dateString) : null)
+      <div className="w-full border  py-2">
+        <RangePicker
+          className="w-[30%] me-4 border rounded border-gray-500 p-1"
+          onChange={(dates, dateStrings) =>
+            setDateRange(dates ? [dateStrings[0], dateStrings[1]] : null)
           }
         />
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+        <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Name "
@@ -569,7 +591,8 @@ export default function Super_Lead({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+
+        <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
           <input
             type="email "
             placeholder="Search By Email "
@@ -582,7 +605,8 @@ export default function Super_Lead({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+
+        <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Mobile No. "
@@ -595,6 +619,8 @@ export default function Super_Lead({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
+
+        <span className="bg-green-700 p-1 border rounded-3xl text-white fw-bold text-xl">{filteredLeadsCount}</span>
 
       </div>
 
@@ -618,7 +644,7 @@ export default function Super_Lead({ setload }) {
                 fetchLeads(page, pageSize);
               },
             }}
-            scroll={{ y: 400, x: "max-content" }} // Ensure table content is scrollable
+            scroll={{ y: "70vh", x: "max-content" }} // Ensure table content is scrollable
             onChange={handleTablePageChange}
           ></Table>
         </div>
