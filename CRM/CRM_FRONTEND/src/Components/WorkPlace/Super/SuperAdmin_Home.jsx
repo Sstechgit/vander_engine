@@ -366,7 +366,7 @@ const SuperAdmin_Home = () => {
           </div>
         </div>
         {/*-----------------------Total Admins--------------------------*/}
-        <div className="card">
+        {/* <div className="card">
           <div className="content">
             <div className="details">
               <div className="data">
@@ -394,7 +394,7 @@ const SuperAdmin_Home = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/*-----------------------Total Leads--------------------------*/}
         <div className="card">
           <div className="content">

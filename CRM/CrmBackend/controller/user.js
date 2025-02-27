@@ -63,7 +63,7 @@ const sendOTP = async (email, otp) => {
     secure: true,
     auth: {
       user: 'crmsstech@usaautopartsllc.com',
-      pass: 'Sstech@9219',
+      pass: 'Crmsstech@9219',
     },
   });
 

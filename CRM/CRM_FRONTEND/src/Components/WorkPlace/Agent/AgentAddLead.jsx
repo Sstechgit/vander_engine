@@ -158,8 +158,10 @@ export default function AgentAddLead({
           onChange={(value) => setOrigin(value)} // Directly receive value
           style={{ width: '100%' }} // Correct property name for inline styles
         >
-          <Option value="Vander Engines">Vander Engines</Option>
-          <Option value="USA Auto Parts LLC">USA Auto Parts LLC</Option>
+           <Option value="Vander Engines">Vander Engines</Option>
+          <Option value="USA AUTO PARTS LLC">USA Auto Parts LLC</Option>
+          <Option value="Facebook">Facebook</Option>
+          <Option value="AutoPartsLeads">Auto Parts Lead</Option>
         </Select>
 
         <span className="text-red-500 text-sm">{localErrors.origin}</span>

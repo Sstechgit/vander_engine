@@ -45,11 +45,12 @@ export default function Lead({ setload }) {
   const [nameFilter, setNameFilter] = useState("");
   const [emailFilter, setEmailFilter] = useState("");
   const [dateRange, setDateRange] = useState(null);
-
+  const [totalLeads, setTotalLeads] = useState(0);
+  const [filteredLeadsCount, setFilteredLeadsCount] = useState(0);
   const filterTasks = (dateRange, mobileFilter, nameFilter, emailFilter, tasks) => {
     return tasks.filter((task) => {
       const taskCreatedDate = new Date(task.created);
-      const startDate = dateRange?.[0] ? new Date(dateRange[0]) : null;
+      const startDate = dateRange?.[0] ? new Date(dateRange[0] + "T00:00:00") : null;
       const endDate = dateRange?.[1] ? new Date(dateRange[1] + "T23:59:59") : null;
 
       // Check date condition
@@ -84,18 +85,27 @@ export default function Lead({ setload }) {
     // },
   });
   //fetch Leads
-  const fetchLeads = async (page, pageRows) => {
+  const fetchLeads = async () => {
+    try {
+      let page = 1;
+      let pageRows = 100; // Adjust to your API's max rows per page
+      let allRecords = [];
+      let totalRecords = 0;
 
-    let url = urls.FetchLeads + `/${page}/${pageRows}`;
+      do {
+        let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+        let result = await DoFetch(url);
 
-    let result = await DoFetch(url);
-    // console.log(result)
-    if (result.success == true) {
-      let records = [];
+        if (!result.success) {
+          alert("Server issue occurred");
+          return;
+        }
 
-      result.payload.records.forEach((lead, idx) => {
-        // console.log(records);
-        records.push({
+        if (page === 1) {
+          totalRecords = result.payload.total;
+        }
+
+        let pageRecords = result.payload.records.map((lead, idx) => ({
           key: lead._id,
           _id: (page - 1) * pageRows + idx + 1,
           name: lead.name,
@@ -107,17 +117,24 @@ export default function Lead({ setload }) {
           assigned: lead.task[0]?._id ? true : false,
           agent: lead.user[0],
           task: lead.task[0],
-        });
-      });
+        }));
 
-      setLeads(records);
-      const filteredTasks = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, records);
-      setLeads(filteredTasks); // Set the filtered leads
-      setTotalData(result.payload.total);
-    } else {
-      alert("Server issue occurred");
+        allRecords = [...allRecords, ...pageRecords];
+        page++;
+      } while (allRecords.length < totalRecords);
+
+      setLeads(allRecords); // Set all leads first
+      setTotalLeads(allRecords.length)
+
+      const filteredTasks = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, allRecords);
+      setLeads(filteredTasks); // Then set filtered leads
+
+      setFilteredLeadsCount(filteredTasks.length);
+    } catch (error) {
+      console.error("Error fetching leads:", error);
     }
   };
+
   //Delete a lead
   const handleDelete = async (records, Selected = false) => {
     let leadArr = [];
@@ -556,14 +573,14 @@ export default function Lead({ setload }) {
         setOpen={setOpen}
         parameters={parameters}
       />
-      <div className="w-full border px-3 py-1">
+      <div className="w-full border  py-2">
         <RangePicker
-          className="w-[30%] me-5 border rounded border-gray-500 p-1"
+          className="w-[30%] me-4 border rounded border-gray-500 p-1"
           onChange={(dates, dateStrings) =>
             setDateRange(dates ? [dateStrings[0], dateStrings[1]] : null)
           }
         />
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+        <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Name "
@@ -576,7 +593,8 @@ export default function Lead({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+
+        <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
           <input
             type="email "
             placeholder="Search By Email "
@@ -589,7 +607,8 @@ export default function Lead({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+
+        <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Mobile No. "
@@ -602,6 +621,8 @@ export default function Lead({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
+
+        <span className="bg-green-700 p-1 border rounded-3xl text-white fw-bold text-xl">{filteredLeadsCount}</span>
 
       </div>
 
