@@ -75,7 +75,7 @@ export default function LowerHeader() {
                         <option>2022</option>
                         {/* Add more years as needed */}
                       </select>
-                    </div>
+                    </div> 
                     <div className="form-group">
                       <select id="make" className="form-select">
                         <option>Select Make</option>
