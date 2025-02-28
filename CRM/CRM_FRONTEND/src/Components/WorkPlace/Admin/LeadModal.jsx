@@ -33,7 +33,7 @@ export default function LeadModal({
     setDescription("")
     setPhone("")
     setOrigin("")
-    
+
   };
   const DoFunction = async () => {
 
@@ -113,7 +113,7 @@ export default function LeadModal({
           {errors?.description ? errors.description : ""}
         </span>
       </div>
-      
+
       <div className="mb-4">
     
       <Select
@@ -127,13 +127,11 @@ export default function LeadModal({
           <Option value="Facebook">Facebook</Option>
           <Option value="AutoPartsLeads">Auto Parts Lead</Option>
       </Select>
-   
 
-
-    <span className="w-full h-4 text-red-500 transition-all duration-300 text-md mb-2">
-      {errors?.origin ? errors.origin : ""}
-    </span>
-  </div>
+        <span className="w-full h-4 text-red-500 transition-all duration-300 text-md mb-2">
+          {errors?.origin ? errors.origin : ""}
+        </span>
+      </div>
     </Modal>
   );
 }
