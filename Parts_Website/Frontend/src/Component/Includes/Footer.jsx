@@ -201,7 +201,7 @@ export default function Footer() {
           © 2024 Copyright:
           <a className="text-danger fw-bold" href="https://mdbootstrap.com/">
             {" "}
-            Auto Parts Leads
+            Part Vendors
           </a>
         </div>
       </footer>

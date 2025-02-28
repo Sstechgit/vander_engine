@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function BuyAutoParts() {
     const data = [
-        { head: "Bulk Auto Parts Pricing", para: "Find over 10 million OEM and aftermarket auto parts at Auto Parts Leads—quality, variety, and affordability in one place!" },
+        { head: "Bulk Auto Parts Pricing", para: "Find over 10 million OEM and aftermarket auto parts at Part Vendors - quality, variety, and affordability in one place!" },
 
         { head: "Unmatched Variety", para: "We have over 10 million vehicle parts and accessories, including OEM and aftermarket choices, so you can locate exactly what you need." },
 
@@ -13,7 +13,7 @@ export default function BuyAutoParts() {
 
         { head: "User-Friendly Online Catalog", para: "Explore our extensive variety of automobile components, which are grouped for simple browsing. For the most accurate results, search by year, make, and model." },
 
-        { head: "Quick Delivery", para: "We process and dispatch orders rapidly, ensuring prompt delivery wherever you are. Track your package online and receive real-time updates. At Auto Parts Leads, we value speed." },
+        { head: "Quick Delivery", para: "We process and dispatch orders rapidly, ensuring prompt delivery wherever you are. Track your package online and receive real-time updates. At Part Vendors, we value speed." },
     ];
 
     return (
@@ -24,10 +24,10 @@ export default function BuyAutoParts() {
                     <h3 className="fs-3 fw-bold">Order Auto Parts Online :</h3>
                 </div>
                 <p className="ms-3">
-                Since 2008, Auto Parts Leads has been your go-to online marketplace for high-quality auto parts at unbelievable costs. We provide millions of OEM, aftermarket, refurbished, and rebuilt parts from reputable manufacturers. With a wide supplier network across the United States, we offer quick access to even the most difficult-to-find parts—at a fraction of store costs. Shop once, and you'll keep coming back for dependable, low-cost auto parts!
+                Since 2008, Part Vendors has been your go-to online marketplace for high-quality auto parts at unbelievable costs. We provide millions of OEM, aftermarket, refurbished, and rebuilt parts from reputable manufacturers. With a wide supplier network across the United States, we offer quick access to even the most difficult-to-find parts—at a fraction of store costs. Shop once, and you'll keep coming back for dependable, low-cost auto parts!
                 </p>
                 <p className='ms-3'>
-                Shop auto parts online with Auto Parts Leads for unrivaled convenience and savings over traditional retailers. Key advantages include: 
+                Shop auto parts online with Part Vendors for unrivaled convenience and savings over traditional retailers. Key advantages include: 
 
                 </p>
                 <div className="row">
