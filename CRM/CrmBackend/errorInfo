@@ -1,0 +1,7 @@
+ClientSide - input values error
+NoUnique - Email is not Unique means already registered
+NoEmail - Email is not registered
+AdminPresent - Already an admin present in database
+WrongDesignation - Designation is wrong
+WrongPassword - Password is incorrect
+NoAgentAccess - You should be admin

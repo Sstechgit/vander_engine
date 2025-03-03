@@ -1,0 +1,4 @@
+{
+    "ignore": ["*.log", "NotStoredLeads.json", "node_modules/**"]
+  }
+  
