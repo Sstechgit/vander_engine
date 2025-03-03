@@ -86,7 +86,7 @@ const Login = () => {
         designation === "super" 
           ? "/crm/superadmin" 
           : designation === "Admin"
-          ? "/crm/superadmin"
+          ? "/crm/admin"
           : "/crm/agent" 
       );
     } else {
@@ -355,7 +355,7 @@ const Login = () => {
                             Agent
                           </span>
                         </label>
-                        {/* <label className="flex items-center cursor-pointer">
+                        <label className="flex items-center cursor-pointer">
                         <input
                           type="radio"
                           name="role"
@@ -367,7 +367,7 @@ const Login = () => {
                         <span className="ml-2 text-black font-['Poppins']">
                           Super
                         </span>
-                      </label> */}
+                      </label>
                       </div>
                       <span className="w-[80%] text-red-600 transition-all duration-300 text-md  font-['Poppins'] h-8 ">
                         {errors?.designation ? errors.designation : ""}

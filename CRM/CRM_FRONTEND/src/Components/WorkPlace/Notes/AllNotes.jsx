@@ -1,4 +1,4 @@
-import { Button, Radio, Space, Tabs, Input, List } from "antd";
+import { Button, Radio, Space, Tabs, Input, List, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { urls } from "../../../../links";
@@ -10,6 +10,7 @@ export default function AllNotes() {
   const [selectedAgent, setSelectedAgent] = useState(null);
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
+  const [file, setFile] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
@@ -165,19 +166,35 @@ export default function AllNotes() {
               renderItem={(message, idx) => (
                 <List.Item key={idx}>
                   <strong>{String(message.from)}:</strong> {message.text}
+                  {message.file && (
+                    <a href={`/${message.file}`} target="_blank"> {message.file}</a>
+                  )}
                 </List.Item>
               )}
             />
           </div>
           {/* Input field for typing messages */}
+              <div className="chat-input flex">
+                <Upload beforeUpload={(file) => {
+                  setFile(file)
+                  return false;
+                }}
+                accept="application/pdf"
+                showUploadList={false}>
+                  <Button > Upload File</Button>
+                </Upload>
+
+
+
+
+{/* 
           <div
             style={{
               display: "flex",
               alignItems: "center",
               paddingTop: "10px",
             }}
-          >
-            {/* <Input  type="file"/> */}
+          > */}
             <Input
               value={messageInput}
               onChange={(e) => setMessageInput(e.target.value)}
