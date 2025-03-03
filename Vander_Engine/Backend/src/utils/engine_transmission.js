@@ -7,15 +7,15 @@ const ETsendEmail = async ({ part, make, model, year, variant, name, email,  pho
     port: 465,
     secure: true,
     auth: {
-      user: 'Info@usaautopartsllc.com',
+      user: 'peter@vanderengines.com',
       pass: 'Shobhitrastogi@881037',
     },
   });
 
   const mailOptions = {
-    from: `"Vander Engines" <Info@usaautopartsllc.com>`,
+    from: `"Vander Engines" <peter@vanderengines.com>`,
     replyTo: email,
-    to: 'Info@vanderengines.com,vanderengines1@gmail.com,spthelpdesk99@gmail.com',
+    to: 'vanderengines1@gmail.com',
     subject: `Query Through www.vanderengines.com Connect At ${phone}`, // Keep subject as is
     text: `
       Year: ${year}

@@ -7,15 +7,15 @@ const homesendEmail = async ({ part, make, model, year, variant, name, email,  p
     port: 465,
     secure: true,
     auth: {
-      user: 'Info@usaautopartsllc.com',
+      user: 'peter@vanderengines.com',
       pass: 'Shobhitrastogi@881037',
     },
   });
 
   const mailOptions = {
-    from: `${email} <Info@usaautopartsllc.com>`,
+    from: `${email} <peter@vanderengines.com>`,
     replyTo: email,
-    to: 'Info@vanderengines.com,vanderengines1@gmail.com,spthelpdesk99@gmail.com',
+    to: 'vanderengines1@gmail.com',
     subject: `Query Through www.vanderengines.com Connect At ${phone}`, // Keep subject as is
     text: `
       Year: ${year}
@@ -32,4 +32,3 @@ const homesendEmail = async ({ part, make, model, year, variant, name, email,  p
 };
 
 module.exports = { homesendEmail };
-

@@ -6,7 +6,6 @@ import "../Transmission/transmission.css";
 import "../Engine/Engine.css";
 import ReadMore from "../Transmission/ReadMore";
 import EngineForm from "../Engine//EngineForm";
-import { Helmet } from "react-helmet";
 import HomeForm from "../Home/HomeForm";
 import Achievement from "../Contact/achievement";
 import FindTransmission2 from "../Transmission/FindTransmission2";
@@ -125,10 +124,7 @@ export default function SearchCarParts({ handleAddToCart, showproduct }) {
 
   return (
     <>
-      <Helmet>
-        <title>Auto Parts Leads | Quality Used & Remanufactured Engines </title>
-        {/* <meta name="description" content="This is a description of my page." /> */}
-      </Helmet>
+
       <div className="engine-upper d-flex flex-column">
         <div className="engine-hero "></div>
 

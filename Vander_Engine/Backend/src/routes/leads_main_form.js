@@ -15,20 +15,38 @@ router.post('/', validateLead, handleValidationErrors, async (req, res) => {
     let leadSaved = false;
     let emailSent = false;
 
-    try {
+
+    let updatedPart = part; // Create a new variable
+    let updatedName = name;
+    let updatedEmail = email;
+
+    if (part === "MyformEngine") {
+        updatedPart = "Engine";
+        updatedName = "Engines";
+        updatedEmail = "noreply@vanderengines.com"
+
+    } else if (part === "MyformTransmission") {
+        updatedPart = "Transmission";
+        updatedName = "Transmission";
+        updatedEmail = "noreply@vanderengines.com"
+    }
+    
+    try {    
         // Try to save the lead to the database
         const lead = new Lead({
-            part,
+            part: updatedPart, // ✅ Use the modified value
             make,
             model,
             year,
             variant,
-            name,
+            name: updatedName,
             phone,
-            email,
+            email : updatedEmail,
             message,
             agreed,
+            description: `${year || ''} ${make || ''} ${model || ''} ${updatedPart || ''}`.trim(),
         });
+        
 
         await lead.save();
         leadSaved = true; // Mark lead as saved

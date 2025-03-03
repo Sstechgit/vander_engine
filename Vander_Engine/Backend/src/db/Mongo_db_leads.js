@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require("dotenv").config(); // Load environment variables
 
 // Load DB URL from environment or provide a default fallback
-const dbUrl = "mongodb://admin:Sstech%40123@88.222.244.163:27017/Vander_Engine_leads?authSource=admin";
+const dbUrl = "mongodb://admin:Sstechcrm%40123@88.222.244.163:27017/VPS_Data_Base";
 
 const connectToDb = async () => {
   if (!dbUrl) {
