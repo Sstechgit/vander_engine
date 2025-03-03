@@ -12,14 +12,14 @@ const RegisterUser = asyncHandler(async (req, res) => {
   }
   //everything is sanitized
   //find email is present in database or not
-  const { email, name, password, designation,phone } = req.body;
+  const { email, name, password, designation, phone } = req.body;
   let checkExistence = await user.findOne({ email });
   if (checkExistence) {
     return res.send(
       new ErrorResponse(400, "NoUnique", "Email is already registered.")
     );
   }
-  if (designation == "Admin" || designation=="super") {
+  if (designation == "Admin" || designation == "super") {
     checkExistence = await user.findOne({ designation });
     if (checkExistence) {
       return res.send(
@@ -39,6 +39,19 @@ const RegisterUser = asyncHandler(async (req, res) => {
 
   return res.send(new ResponseObj(200, "Registered", StoreUser, true));
 });
+
+//----------------------GetUser-------------------
+const getUsers = asyncHandler(async (req, res) => {
+  try {
+    const users = await user.find();
+    console.log("Fetched users:", users); // Log users
+    res.status(200).json(new ResponseObj(200, "Users fetched", users, true));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(new ErrorResponse(500, "ServerError", "Failed to fetch users"));
+  }
+});
+
 
 const nodemailer = require("nodemailer");
 const otpStore = new Map(); // Temporary OTP storage
@@ -99,7 +112,6 @@ const LoginUser = asyncHandler(async (req, res) => {
     new ResponseObj(200, "OTP Sent", "OTP sent to fixed email", true)
   );
 });
-
 // Verify OTP Route
 const VerifyOTP = asyncHandler(async (req, res) => {
   const { email, otp } = req.body;
@@ -127,20 +139,16 @@ const VerifyOTP = asyncHandler(async (req, res) => {
     return res.send(new ErrorResponse(400, "InvalidOTP", "Invalid OTP"));
   }
 });
-
-
-
 const Logout = asyncHandler(async (req, res) => {
   const id = req.user;
-  
-  const agent=await user.findById(id);
-  agent.login=agent.updatedAt;
-  agent.logout=new Date();
-  agent.refreshToken=""
+
+  const agent = await user.findById(id);
+  agent.login = agent.updatedAt;
+  agent.logout = new Date();
+  agent.refreshToken = ""
   await agent.save()
   return res.send(new ResponseObj(200, "Logout", "Logout SuccessFull", true));
 });
-
 //get all agents
 const GetAllAgents = asyncHandler(async (req, res) => {
   //fetch all agent people
@@ -151,9 +159,9 @@ const GetAllAgents = asyncHandler(async (req, res) => {
   let count = await user.countDocuments({ designation: "Agent" });
   const AllAgents = await user.aggregate([
     {
-        $match:{
-            designation:"Agent" //only agents
-        }
+      $match: {
+        designation: "Agent" //only agents
+      }
     },
     {
       $lookup: {
@@ -163,16 +171,18 @@ const GetAllAgents = asyncHandler(async (req, res) => {
         as: "totalTasks",
       },
     },
- 
- 
-    { $project: {
-        
-        password:0,
-        refreshToken:0
-    } },
+
+
+    {
+      $project: {
+
+        password: 0,
+        refreshToken: 0
+      }
+    },
   ]).skip(skip)
     .limit(pageSize)
-   console.log(AllAgents)
+  console.log(AllAgents)
 
   return res.send(
     new ResponseObj(
@@ -183,8 +193,6 @@ const GetAllAgents = asyncHandler(async (req, res) => {
     )
   );
 });
-
-
 //delete an id
 const DeleteAgent = asyncHandler(async (req, res) => {
   if (req.designation != "Admin") {
@@ -240,12 +248,12 @@ const EditAgent = asyncHandler(async (req, res) => {
   let updatedAgentInfo = { ...req.body }; // as name attribute is according to database
   delete updatedAgentInfo["Agent"];
   //hash of password will automatically done on saving
-  console.log(updatedAgentInfo,req.body,"hry",checkEmail)
-  
+  console.log(updatedAgentInfo, req.body, "hry", checkEmail)
 
- 
-  let updated=await user.findByIdAndUpdate(new mongoose.Types.ObjectId(Agent),{$set:{...updatedAgentInfo}})
-  updated.password=updatedAgentInfo.password;
+
+
+  let updated = await user.findByIdAndUpdate(new mongoose.Types.ObjectId(Agent), { $set: { ...updatedAgentInfo } })
+  updated.password = updatedAgentInfo.password;
   updated.save()
   return res
     .status(200)
@@ -262,9 +270,9 @@ const EditAgent = asyncHandler(async (req, res) => {
 const fetchAgentWithTask = asyncHandler(async (req, res) => {
   const agentsWithTask = await user.aggregate([
     {
-        $match:{
-            designation:"Agent" //only agents
-        }
+      $match: {
+        designation: "Agent" //only agents
+      }
     },
     {
       $lookup: {
@@ -291,14 +299,16 @@ const fetchAgentWithTask = asyncHandler(async (req, res) => {
         },
       },
     },
-    { $project: {
-        task:0,
-        password:0,
-        refreshToken:0
-    } },
+    {
+      $project: {
+        task: 0,
+        password: 0,
+        refreshToken: 0
+      }
+    },
   ]);
   console.log(agentsWithTask)
-  return res.send(new ResponseObj(200,"agents Fetched",agentsWithTask,true))
+  return res.send(new ResponseObj(200, "agents Fetched", agentsWithTask, true))
 });
 
 const TrackAgents = asyncHandler(async (req, res) => {
@@ -367,8 +377,8 @@ const TrackAgents = asyncHandler(async (req, res) => {
         }
       }
     ])
-    .skip(skip)
-    .limit(pageSize);
+      .skip(skip)
+      .limit(pageSize);
 
     console.log(AllAgents);
 
@@ -401,4 +411,5 @@ module.exports = {
   TrackAgents,
   LoginUser,
   VerifyOTP,
+  getUsers,
 };
