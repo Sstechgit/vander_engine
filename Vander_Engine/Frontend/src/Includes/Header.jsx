@@ -101,7 +101,7 @@ export default function Header() {
                 </li>
                 <li className="nav-item">
                   <NavLink
-                    to="/blog/"
+                    to="https://vanderengines.com/blog/"
                     className="nav-link"
                     activeClassName="active"
                     onClick={closeNavbar}
