@@ -59,12 +59,17 @@ export default function EmailConversation({
       <Badge count={!seen?count:""} type="primary">
       <Button
         onClick={() => {
+        const recordId = record.leadId || record.orderId || record._id;
+        if(!recordId){
+          console.error("No valid record ID found" , record);
+          return;
+        }
           sessionStorage.setItem("to", record.email || "");
           sessionStorage.setItem("origin", record.origin || "");
           sessionStorage.setItem("conversationDisabled", conversationDisabled);
           if (record.orderId) {
             navigate(`/crm/agent/conversation/order/${record.orderId}`);
-          } else if (record.leadId) {
+          } else if (record.leadId || record.type === "leads") {
             navigate(`/crm/agent/conversation/lead/${record.leadId}`);
           } else {
             console.error("No valid record ID found");

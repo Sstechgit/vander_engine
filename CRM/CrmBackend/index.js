@@ -24,7 +24,7 @@ const tokens = require("./models/Token.js");
 const corsOptions = {
   origin: ["http://localhost:5173", "http://sstechcrm.com"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "agent", "Agent","status","quotationid"],
+  allowedHeaders: ["Content-Type", "Authorization", "agent", "Agent","status","quotationid","to","record"],
   credentials: true, // Include if cookies/auth headers are needed
 };
 app.use(cors(corsOptions));

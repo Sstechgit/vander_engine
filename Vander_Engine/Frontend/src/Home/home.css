@@ -94,27 +94,6 @@
   background-color: #fff;
 }
 
-/* Submit Button Pulse Effect */
-/* .btn-block {
-  background-color: var(--primary-color);
-  color: #fff;
-  animation: pulse 1.5s infinite ease-in-out;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-} */
 .main-form .form-select,
 .main-form .form-control {
   border: none;
