@@ -57,10 +57,19 @@ export default function Result({ setload }) {
     <div className="w-[85%] h-screen flex flex-col">
       <SideHeader setload={setload} />
       <Routes>
-        <Route path="/TrackAdmin" element={<TrackAdmin setload={setload} />} />
+        <Route path="/superadmin" element={<SuperAdmin_Home />} />
+        <Route
+          path="/TrackAdmin"
+          element={<TrackAdmin setload={setload} />}
+        ></Route>
         <Route path="/twofactor" element={<TwoFactor />} />
+
         <Route path="/admin" element={<Admin_Home />} />
-        <Route path="/agents" element={<SalesPeople setload={setload} />} />
+
+        <Route
+          path="/agents"
+          element={<SalesPeople setload={setload} />}
+        ></Route>
         <Route path="/Leads" element={<Lead setload={setload} />}></Route>
         <Route path="/vanderengines_leads" element={<VanderEngine_Leads />} />
         <Route path="/vandertransmission_leads" element={<VanderTransmisssion_Leads />} />
@@ -77,7 +86,6 @@ export default function Result({ setload }) {
         <Route path="/Invoice" element={<Invoice setload={setload} />} />
 
         {/*Super*/}
-        <Route path="/superadmin" element={<SuperAdmin_Home />} />
         <Route path="superadmin/Task" element={<Super_Task setload={setload} />} />
         <Route path="superadmin/Leads" element={<Super_Lead setload={setload} />} />
         <Route path="superadmin/TrackAgent" element={<Super_TrackAgent setload={setload} />}/>
@@ -96,17 +104,47 @@ export default function Result({ setload }) {
 
         {/* Agent */}
         <Route path="/agent/Task" element={<AgentTask setload={setload} />} />
-        <Route path="/agent" element={<Agent_Home setload={setload} />} />
-        <Route path="/agent/FollowUp" element={<FollowUp setload={setload} />}/>
-        <Route path="/agent/Calendar" element={<Calendar setload={setload} />}/>
-        <Route path="/agent/Customer_won" element={<Customer_won setload={setload} />} />
-        <Route path="/agent/Client_quotation" element={<Client_quotation setload={setload} />}/>
+        <Route
+          path="/agent"
+          element={<Agent_Home setload={setload} />}
+        />
+        <Route
+          path="/agent/FollowUp"
+          element={<FollowUp setload={setload} />}
+        />
+        <Route
+          path="/agent/Calendar"
+          element={<Calendar setload={setload} />}
+        />
+        <Route
+          path="/agent/Customer_won"
+          element={<Customer_won setload={setload} />}
+        />
+        <Route
+          path="/agent/Client_quotation"
+          element={<Client_quotation setload={setload} />}
+        />
         <Route path="/agent/Orders" element={<Orders setload={setload} />} />
-        <Route path="/agent/conversation/:type/:id" element={<Conversation setload={setload} />} />
-        <Route path="/agent/ChatConversation/:type/:id" element={<ChatConversation setload={setload} />} />
-        <Route path="/agent/website" element={<SearchParts setload={setload} />} />
-        <Route path="/agent/EmailSearch" element={<EmailSearch setload={setload} />} />
-        <Route path="/agent/allnotes" element={<AllNotes />} />
+        <Route
+          path="/agent/conversation/:type/:id"
+          element={<Conversation setload={setload} />}
+        />
+        <Route
+          path="/agent/ChatConversation/:type/:id"
+          element={<ChatConversation setload={setload} />}
+        />
+        <Route
+          path="/agent/website"
+          element={<SearchParts setload={setload} />}
+        />
+        <Route
+          path="/agent/EmailSearch"
+          element={<EmailSearch setload={setload} />}
+        />
+        <Route
+          path="/agent/allnotes"
+          element={<AllNotes />}
+        />
       </Routes>
     </div>
   );

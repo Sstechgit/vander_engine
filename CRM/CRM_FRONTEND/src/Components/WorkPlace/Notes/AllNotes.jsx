@@ -177,7 +177,7 @@ export default function AllNotes() {
               paddingTop: "10px",
             }}
           >
-            {/* <Input  type="file"/> */}
+            <Input  type="file"/>
             <Input
               value={messageInput}
               onChange={(e) => setMessageInput(e.target.value)}

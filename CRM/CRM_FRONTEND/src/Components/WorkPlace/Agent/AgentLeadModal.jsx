@@ -33,7 +33,7 @@ export default function LeadModal({
     setDescription("")
     setPhone("")
     setOrigin("")
-
+    
   };
   const DoFunction = async () => {
 
@@ -114,25 +114,23 @@ export default function LeadModal({
         </span>
       </div>
       <div className="mb-4">
-
-        <Select
-          defaultValue="Vander Engines"
-          value={origin}
-          onChange={(value) => setOrigin(value)} // Directly receive value
-          style={{ width: '100%' }} // Correct property name for inline styles
-        >
-          <Option value="Vander Engines">Vander Engines</Option>
-          <Option value="USA AUTO PARTS LLC">USA Auto Parts LLC</Option>
-          <Option value="Facebook">Facebook</Option>
-          <Option value="AutoPartsLeads">Auto Parts Lead</Option>
-        </Select>
-
+    
+      <Select
+        defaultValue="Vander Engines"
+        value={origin}
+        onChange={(value) => setOrigin(value)} // Directly receive value
+        style={{ width: '100%' }} // Correct property name for inline styles
+      >
+        <Option value="Vander Engines">Vander Engines</Option>
+        <Option value="USA Auto Parts LLC">USA Auto Parts LLC</Option>
+      </Select>
+   
 
 
-        <span className="w-full h-4 text-red-500 transition-all duration-300 text-md mb-2">
-          {errors?.origin ? errors.origin : ""}
-        </span>
-      </div>
+    <span className="w-full h-4 text-red-500 transition-all duration-300 text-md mb-2">
+      {errors?.origin ? errors.origin : ""}
+    </span>
+  </div>
     </Modal>
   );
 }

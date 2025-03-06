@@ -27,6 +27,97 @@ const imap = new Imap({
   tls: true,
   tlsOptions: { rejectUnauthorized: false },
 });
+const simpleParser = require("mailparser").simpleParser;
+
+const openInbox = (cb) => {
+  imap.openBox("INBOX", false, cb);
+};
+
+// Function to fetch unseen emails
+const fetchUnreadEmails = () => {
+  imap.once("ready", function () {
+    openInbox(function (err, box) {
+      if (err) throw err;
+      
+      imap.search(["UNSEEN"], function (err, results) {
+        if (err || !results.length) {
+          console.log("No new emails.");
+          imap.end();
+          return;
+        }
+
+        const fetcher = imap.fetch(results, { bodies: "" });
+
+        fetcher.on("message", function (msg, seqno) {
+          let emailData = {};
+          let emailUid = null; // Store UID here
+        
+          msg.once("attributes", function (attrs) {
+            emailUid = attrs.uid; // Assign UID
+          });
+        
+          msg.on("body", function (stream, info) {
+            simpleParser(stream, async (err, parsed) => {
+              if (err) return console.error("Parsing error:", err);
+        
+              console.log("Fetched email:", parsed);
+        
+              if (!parsed.to || !parsed.to.text) {
+                console.error("Email parsing failed: 'To' field is missing");
+                return;
+              }
+        
+              const emailData = {
+                from: parsed.from ? parsed.from.text : "Unknown Sender",
+                to: parsed.to ? parsed.to.text : "Unknown Recipient",
+                subject: parsed.subject || "No Subject",
+                text: parsed.text || "No Body",
+                messageId: parsed.messageId || null,
+                inReplyTo: parsed.inReplyTo || null,
+                references: parsed.references || [],
+              };
+        
+              console.log("Checking for reply:", emailData);
+        
+              // 🛠 Try fetching the original conversation using inReplyTo or References
+              const referenceId = emailData.inReplyTo || (emailData.references.length > 0 ? emailData.references[0] : null);
+        
+              if (referenceId) {
+                const existingConversation = await conversations.findOne({ messageId: referenceId });
+        
+                if (existingConversation) {
+                  console.log("Reply detected! Updating conversation...");
+                  await emails.create(emailData);
+                  existingConversation.count += 1;
+                  await existingConversation.save();
+                  
+                  if (emailUid) { // Use stored UID
+                    imap.addFlags(emailUid, "\\Seen", () => console.log("Marked as read"));
+                  }
+                } else {
+                  console.log("Reply detected but no matching conversation found.");
+                }
+              } else {
+                console.log("New email without a reply reference.");
+              }
+            });
+          });
+        });
+        
+
+        fetcher.once("end", function () {
+          console.log("Done fetching new emails.");
+          imap.end();
+        });
+      });
+    });
+  });
+
+  imap.connect();
+};
+
+// Run every 30 seconds
+setInterval(fetchUnreadEmails, 30000);
 const sendEmail = asyncHandler(async (req, res) => {
   console.log("hey")
   const errors = validationResult(req);
