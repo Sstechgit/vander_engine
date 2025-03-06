@@ -17,6 +17,7 @@ const SuperAdmin_Home = () => {
   const [sstechLead, setsstechLeads] = useState(0);
   const [facebookLeads, setfacebookLeads] = useState(0);
   const [notassignedLeads, setNotAssignedLeads] = useState(0);
+  const [refundleads, setrefundleads] = useState(0);
 
 
 
@@ -69,96 +70,245 @@ const SuperAdmin_Home = () => {
 
   //--------------------------------All Leads--------------------------------------
   const fetchLeads = async (page = currentPage, pageRows = pageSize) => {
-    const url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
     try {
-      const result = await DoFetch(url);
-      if (result.success) {
-        const allLeads = result.payload.records || [];
-        settotalLeads(result.payload.total || 0);
-        return allLeads;
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        settotalLeads(result.payload.total); // Store the total agents
       } else {
-        console.error("Server issue occurred", result);
         alert("Server issue occurred");
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      // alert("Failed to fetch data. Please try again.");
+      alert("Failed to fetch data. Please try again.");
     }
   };
-
-  const filterLeads = (leads, filterBy, filterValue) => {
-    if (filterBy && filterValue) {
-      return leads.filter(lead => lead[filterBy]?.toLowerCase() === filterValue.toLowerCase()).length;
-    }
-    return leads;
-  };
-
   useEffect(() => {
     fetchLeads();
   }, [currentPage, pageSize]);
-
-
-  const navigationRoutes = {
-    viewAll: "/crm/superadmin/Leads",
-    vanderEngines: "/crm/superadmin/vanderengines_leads",
-    vanderTransmissions: "/crm/superadmin/vandertransmission_leads",
-    autoParts: "/crm/superadmin/autoparts_leads",
-    llc: "/crm/superadmin/llc_leads",
-    sstech: "/crm/superadmin/sstech_leads",
-    facebook: "/crm/superadmin/facebook_leads",
-    notAssigned: "/crm/superadmin/notassigned_leads"
+  const handleViewAllClick = () => {
+    navigate("/crm/superadmin/Leads");
   };
 
+  //--------------------------------Vander Engines Leads--------------------------------------
+  const fetchvanderenginesLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let vanderCount = allLeads.filter(lead => lead?.origin.toLowerCase() === "Vander Engines".toLowerCase()).length;
 
-  const navigateTo = (route) => navigate(route);
-
-  const fetchLeadCounts = async () => {
-    const allLeads = await fetchLeads();
-    const leadOrigins = {
-      vanderEngines: "vander engines",
-      vanderTransmissions: "vander engines transmissions",
-      autoParts: "autopartsleads",
-      llc: "usa auto parts llc",
-      sstech: "ss tech",
-      facebook: "facebook"
-    };
-
-    const counts = Object.fromEntries(
-      Object.entries(leadOrigins).map(([key, value]) => [
-        key,
-        filterLeads(allLeads, 'origin', value)
-      ])
-    );
-
-    setVanderLeads(counts.vanderEngines);
-    setVanderTransmissionLeads(counts.vanderTransmissions);
-    setAutoPartsLeads(counts.autoParts);
-    setLlcLeads(counts.llc);
-    setsstechLeads(counts.sstech);
-    setfacebookLeads(counts.facebook);
-    setNotAssignedLeads(allLeads.filter(lead => !lead.task?.[0]?._id).length);
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setVanderLeads(vanderCount);
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
   };
-
   useEffect(() => {
-    fetchLeadCounts();
+    fetchvanderenginesLeads();
   }, [currentPage, pageSize]);
+  const vanderenginesleads = () => {
+    navigate("/crm/superadmin/vanderengines_leads");
+  };
 
+  //--------------------------------Vander Engines Transmission Leads--------------------------------------
+  const fetchvandertransmissionLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let vandertransmissionCount = allLeads.filter(lead => lead?.origin.toLowerCase() === "Vander Engines Transmissions".toLowerCase()).length;
 
-  const [leads, setLeads] = useState([]);
-  const [selectedLeads, setSelectedLeads] = useState([]);
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setVanderTransmissionLeads(vandertransmissionCount);
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchvandertransmissionLeads();
+  }, [currentPage, pageSize]);
+  const vandertransmissionleads = () => {
+    navigate("/crm/superadmin/vandertransmission_leads");
+  };
+
+  //--------------------------------Auto Parts Leads--------------------------------------
+  const fetchautopartsLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let autopartsCount = allLeads.filter(lead => lead?.origin.toLowerCase() === "AutoPartsLeads".toLowerCase()).length;
+
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setAutoPartsLeads(autopartsCount);
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchautopartsLeads();
+  }, [currentPage, pageSize]);
+  const autopartsleads = () => {
+    navigate("/crm/superadmin/autoparts_leads");
+  };
+
+  //--------------------------------Auto Parts LLC Leads--------------------------------------
+  const fetchllcLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let llcCount = allLeads.filter(lead => lead?.origin?.toLowerCase() === "USA AUTO PARTS LLC".toLowerCase()).length;
+
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setLlcLeads(llcCount);
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchllcLeads();
+  }, [currentPage, pageSize]);
+  const llcleads = () => {
+    navigate("/crm/superadmin/llc_leads");
+  };
+
+  //--------------------------------SSTECH Leads--------------------------------------
+  const fetchsstechLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let sstechCount = allLeads.filter(lead => lead?.origin?.toLowerCase() === "SS TECH".toLowerCase()).length;
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setsstechLeads(sstechCount);
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchsstechLeads();
+  }, [currentPage, pageSize]);
+  const sstechleads = () => {
+    navigate("/crm/superadmin/sstech_leads");
+  };
+
+  //--------------------------------Facebook Leads--------------------------------------
+  const fetchfacebookLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let facebookCount = allLeads.filter(lead => lead?.origin?.toLowerCase() === "FACEBOOK".toLowerCase()).length;
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setfacebookLeads(facebookCount);
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchfacebookLeads();
+  }, [currentPage, pageSize]);
+  const facebookleads = () => {
+    navigate("/crm/superadmin/facebook_leads");
+  };
+
+  //--------------------------------Not Assigned Leads--------------------------------------
+  const fetchnotassignedLeads = async (page = currentPage, pageRows = pageSize) => {
+    let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+    try {
+      let result = await DoFetch(url);
+      if (result.success === true) {
+        let allLeads = result.payload.records || []; // Ensure it's an array
+        let notassignedCount = allLeads.filter(lead => !lead.task[0]?._id).length;
+        settotalLeads(result.payload.total || 0); // Ensure a default value
+        setNotAssignedLeads(notassignedCount);
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  useEffect(() => {
+    fetchnotassignedLeads();
+  }, [currentPage, pageSize]);
+  const notassignedleads = () => {
+    navigate("/crm/superadmin/notassigned_leads");
+  };
+
+  //--------------------------------Refund Leads--------------------------------------
+  const [leads, setLeads] = useState([]); // Store full leads data
+  const [selectedLeads, setSelectedLeads] = useState([]); // Leads for the modal
   const [leadCounts, setLeadCounts] = useState({});
-  const states = ["Refund", "Sale", "Exchange", "Quotation Given"];
-  const statusColors = { Refund: "green", Sale: "#52bf3d", "Quotation Given": "black", Exchange: "brown" };
+  const states = [
+    "Refund",
+    "Sale",
+    "Exchange",
+    "Quotation Given",
+  ];
+  const statusColors = {
+    Refund: "green",
+    Sale: "#52bf3d",
+    "Quotation Given": "black",
+    "Exchange": "brown",
+  };
+  // Function to fetch leads and count them based on state
+  const fetchLeadsByState = async (page = currentPage, pageRows = pageSize) => {
+    try {
+      let url = `${urls.FetchLeads}/${page}/${pageRows}`;
+      let result = await DoFetch(url);
 
-  const fetchLeadsByState = async () => {
-    const allLeads = await fetchLeads();
-    const counts = allLeads.reduce((acc, lead) => {
-      const state = lead.task?.[0]?.state || "Unknown";
-      acc[state] = (acc[state] || 0) + 1;
-      return acc;
-    }, {});
-    setLeadCounts(counts);
-    setLeads(allLeads);
+      if (result.success) {
+        let allLeads = result.payload.records || [];
+
+        // Count leads based on state dynamically
+        const counts = allLeads.reduce((acc, lead) => {
+          let state = lead.task?.[0]?.state || "Unknown";
+          acc[state] = (acc[state] || 0) + 1;
+          return acc;
+        }, {});
+        setLeadCounts(counts);
+        setLeads(allLeads);
+      } else {
+        alert("Server issue occurred");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
   };
 
   useEffect(() => {
@@ -166,12 +316,17 @@ const SuperAdmin_Home = () => {
   }, [currentPage, pageSize]);
 
   const viewLeads = (state) => {
-    const filteredLeads = leads.filter(lead => lead.task?.[0]?.state === state);
-    setSelectedLeads(filteredLeads);
+    if (!Array.isArray(leads)) {
+      console.error("Leads data is not an array:", leads);
+      return;
+    }
+
+    // Filter the leads array based on the selected state
+    const filteredLeads = leads.filter(
+      (lead) => lead.task?.[0]?.state === state
+    );
+    setSelectedLeads(filteredLeads); // Store filtered leads for modal
   };
-
-  const handleViewAllClick = () => navigateTo(navigationRoutes.viewAll);
-
 
   return (
     <div>
@@ -289,12 +444,12 @@ const SuperAdmin_Home = () => {
                 </h3>
               </div>
               <div className="actionBtn">
-              <Button
+                <Button
                   type="primary"
                   size="large"
                   block
-                  className="bg-gray-500"
-                  onClick={() => navigateTo(navigationRoutes.vanderEngines)} // Corrected navigation
+                  className=" bg-gray-500"
+                  onClick={vanderenginesleads} // Trigger state change to show Lead component
                 >
                   View All
                 </Button>
@@ -324,12 +479,11 @@ const SuperAdmin_Home = () => {
                   type="primary"
                   size="large"
                   block
-                  className="bg-gray-500"
-                  onClick={() => navigateTo(navigationRoutes.vanderTransmissions)} // Corrected navigation
+                  className=" bg-blue-700"
+                  onClick={vandertransmissionleads} // Trigger state change to show Lead component
                 >
                   View All
                 </Button>
-
               </div>
             </div>
           </div>
@@ -352,16 +506,15 @@ const SuperAdmin_Home = () => {
                 </h3>
               </div>
               <div className="actionBtn">
-              <Button
+                <Button
                   type="primary"
                   size="large"
                   block
-                  className="bg-gray-500"
-                  onClick={() => navigateTo(navigationRoutes.autoParts)} // Corrected navigation
+                  className=" bg-pink-500"
+                  onClick={autopartsleads} // Trigger state change to show Lead component
                 >
                   View All
                 </Button>
-
               </div>
             </div>
           </div>
@@ -372,7 +525,7 @@ const SuperAdmin_Home = () => {
             <div className="details">
               <div className="data">
                 <h3>
-                  {totalLeads !== null ? (
+                  {vanderLeads !== null ? (
                     <>
                       <h3>{llcLeads}</h3>
                       <br />
@@ -384,16 +537,15 @@ const SuperAdmin_Home = () => {
                 </h3>
               </div>
               <div className="actionBtn">
-              <Button
+                <Button
                   type="primary"
                   size="large"
                   block
-                  className="bg-gray-500"
-                  onClick={() => navigateTo(navigationRoutes.llc)} // Corrected navigation
+                  className=" bg-yellow-500"
+                  onClick={llcleads} // Trigger state change to show Lead component
                 >
                   View All
                 </Button>
-
               </div>
             </div>
           </div>
@@ -416,16 +568,15 @@ const SuperAdmin_Home = () => {
                 </h3>
               </div>
               <div className="actionBtn">
-              <Button
+                <Button
                   type="primary"
                   size="large"
                   block
-                  className="bg-gray-500"
-                  onClick={() => navigateTo(navigationRoutes.sstech)} // Corrected navigation
+                  className=" bg-orange-500"
+                  onClick={sstechleads} // Trigger state change to show Lead component
                 >
                   View All
                 </Button>
-
               </div>
             </div>
           </div>
@@ -448,16 +599,15 @@ const SuperAdmin_Home = () => {
                 </h3>
               </div>
               <div className="actionBtn">
-              <Button
+                <Button
                   type="primary"
                   size="large"
                   block
-                  className="bg-gray-500"
-                  onClick={() => navigateTo(navigationRoutes.facebook)} // Corrected navigation
+                  className=" bg-red-600"
+                  onClick={facebookleads} // Trigger state change to show Lead component
                 >
                   View All
                 </Button>
-
               </div>
             </div>
           </div>
@@ -480,16 +630,15 @@ const SuperAdmin_Home = () => {
                 </h3>
               </div>
               <div className="actionBtn">
-              <Button
+                <Button
                   type="primary"
                   size="large"
                   block
-                  className="bg-gray-500"
-                  onClick={() => navigateTo(navigationRoutes.notAssigned)} // Corrected navigation
+                  className=" bg-black"
+                  onClick={notassignedleads} // Trigger state change to show Lead component
                 >
                   View All
                 </Button>
-
               </div>
             </div>
           </div>

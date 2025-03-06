@@ -6,7 +6,7 @@ import { handleCheckEmail } from "../../../Utils/checkNewEmail";
 // Assume `handleCheckEmail` is imported or defined somewhere
 
 export default function EmailConversation({
-  record,
+  record = {}, // Default empty object
   conversationDisabled = false,
 }) {
   const navigate = useNavigate();
@@ -27,32 +27,30 @@ export default function EmailConversation({
   }, []);
 
   const checkEmail = async () => {
-    const recordId = record.leadId || record.orderId;
-
+    const recordId = record?.leadId || record?.orderId;
     if (!recordId) return;
-
+  
     try {
       const result = await handleCheckEmail(recordId);
-   
-
-      if (result.success) {
-        if(result.payload.length==0){
-          return
-        }
-        if (result.payload[0].seen == false) {
-          setSeen(false);
-          setcount(result.payload[0].count)
-        } else {
-          setSeen(true);
-          setcount("")
-        }
-
-        // Update messageCount as well
+      
+      if (!result?.success || !Array.isArray(result.payload) || result.payload.length === 0) {
+        return;
+      }
+  
+      const firstEmail = result.payload[0];
+  
+      if (firstEmail?.seen === false) {
+        setSeen(false);
+        setcount(firstEmail.count || 0);
+      } else {
+        setSeen(true);
+        setcount("");
       }
     } catch (error) {
       console.error("Failed to check email:", error);
     }
   };
+  
 
   return (
     <div>
