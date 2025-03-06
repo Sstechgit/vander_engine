@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch";
 import { formatDate, parseCustomDate } from "../../../Utils/parseAndFormatDate";
-import { Button, DatePicker, Modal, Table, message } from "antd";
-
+import { Button, DatePicker, Modal, Select, Table, message } from "antd";
+const { RangePicker } = DatePicker;
 import GeneralHeader from "../Admin/GeneralHeader";
 import Status from "./Status";
 import DescriptionModel from "./DescriptionModel";
@@ -33,6 +33,7 @@ export default function Task({ setload }) {
   const [mobileFilter, setMobileFilter] = useState("");
   const [nameFilter, setNameFilter] = useState("");
   const [emailFilter, setEmailFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
   const [open, setOpen] = useState("");
   const [Name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -46,11 +47,15 @@ export default function Task({ setload }) {
   const [ModalFunc, setModalFunc] = useState(() => { });
   const [messageApi, contextHolder] = message.useMessage();
   const [deadline, setDeadline] = useState("");
+  const [dateRange, setDateRange] = useState(null);
+    const [totalLeads, setTotalLeads] = useState(0);
+    const [filteredLeadsCount, setFilteredLeadsCount] = useState(0);
   // Function to filter tasks based on the selected date
-  const filterTasks = (selectedDate, mobileFilter, nameFilter, emailFilter, tasks) => {
+  const filterTasks = (dateRange, mobileFilter, nameFilter, emailFilter, statusFilter, tasks) => {
     return tasks.filter((task) => {
-      const taskCreatedDate = new Date(task.createdLead).toLocaleDateString();
-      const selectedDateString = selectedDate?.toLocaleDateString();
+      const taskCreatedDate = new Date(task.created);
+      const startDate = dateRange?.[0] ? new Date(dateRange[0] + "T00:00:00") : null;
+      const endDate = dateRange?.[1] ? new Date(dateRange[1] + "T23:59:59") : null;
 
       // Check date condition
       const isDateMatch =
@@ -64,81 +69,98 @@ export default function Task({ setload }) {
       // Check Name number condition
       const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
 
-      return isDateMatch && isMobileMatch && isNameMatch && isEmailMatch;
+      const isStatusMatch = !statusFilter || task.status.toLowerCase().includes(statusFilter.toLowerCase());
+
+      return isDateMatch && isMobileMatch && isNameMatch && isEmailMatch && isStatusMatch;
+
     });
   };
-  const fetchTask = async (page, pageRows) => {
-    let url = urls.GetTaskForAgent + `/${page}/${pageRows}`;
-
-    let result = await DoFetch(url);
-    console.log(result)
-    if (result.success == true) {
-      let record = [];
-      let idx = 0;
-      result.payload.records.forEach((taskval) => {
-        console.log(record)
-        if (!taskval?.orders) {
-          record.push({
-            key: taskval._id,
-            leadId: taskval.leads[0]._id,
-            _id: (page - 1) * pageRows + idx + 1,
-            name: taskval.leads[0].name,
-            email: taskval.leads[0].email,
-            phone: taskval.leads[0].phone,
-            description: taskval.leads[0].description,
-            origin: taskval.leads[0]?.origin,
-            deadline: parseCustomDate(taskval.deadline),
-            order: false,
-            createdLead: parseCustomDate(taskval.leads[0]?.createdAt),
-            TaskAssignedDate: parseCustomDate(taskval.createdAt),
-            status: taskval.state,
-            type: "leads",
-            yard: taskval.yard,
-            invoice: taskval.invoice,
-            invoiceSaved: taskval.invoiceSaved,
-          });
-        } else {
-          record.push({
-            key: taskval._id,
-            orderId: taskval.orders[0]._id,
-            _id: (page - 1) * pageRows + idx + 1,
-            name: taskval.orders[0].name,
-            email: taskval.orders[0].email,
-            phone: taskval.orders[0].phone,
-            description:
-              taskval.orders[0].description + " " + taskval.orders[0].part,
-            origin: taskval.orders[0]?.origin,
-            order: true,
-            part: taskval.orders[0].part,
-            deadline: parseCustomDate(taskval.deadline),
-            createdLead: parseCustomDate(taskval.orders[0]?.date),
-            TaskAssignedDate: parseCustomDate(taskval.createdAt),
-            status: taskval.state,
-            // additional
-            cvv: taskval.orders[0].CVV,
-            amount: taskval.orders[0].amount,
-            billing_address: taskval.orders[0].billing_address,
-            shipping_address: taskval.orders[0].shipping_address,
-            card_no: taskval.orders[0].card_no,
-            expiry_date: taskval.orders[0].expiry_date,
-            type: "orders",
-            yard: taskval.yard,
-          });
+  const fetchTask = async () => {
+    try {
+      let page = 1;
+      let pageRows = 100; // Adjust to your API's max rows per page
+      let allRecords = [];
+      let totalRecords = 0;
+  
+      do {
+        let url = urls.GetTaskForAgent + `/${page}/${pageRows}`;
+        let result = await DoFetch(url);
+  console.log(result)
+        if (!result.success) {
+          alert("Server issue occurred");
+          return;
         }
-
-        idx++;
-      });
+  
+        if (page === 1) {
+          totalRecords = result.payload.total;
+        }
+  
+        const pageRecords = result.payload.records.map((taskval, idx) => {
+          if (!taskval?.orders) {
+            return {
+              key: taskval._id,
+              leadId: taskval.leads[0]._id,
+              _id: (page - 1) * pageRows + idx + 1,
+              name: taskval.leads[0].name,
+              email: taskval.leads[0].email,
+              phone: taskval.leads[0].phone,
+              description: taskval.leads[0].description,
+              origin: taskval.leads[0]?.origin,
+              deadline: parseCustomDate(taskval.deadline),
+              order: false,
+              createdLead: parseCustomDate(taskval.leads[0]?.createdAt),
+              TaskAssignedDate: parseCustomDate(taskval.createdAt),
+              status: taskval.state,
+              type: "leads",
+              yard: taskval.yard,
+              invoice: taskval.invoice,
+              invoiceSaved: taskval.invoiceSaved,
+            };
+          } else {
+            return {
+              key: taskval._id,
+              orderId: taskval.orders[0]._id,
+              _id: (page - 1) * pageRows + idx + 1,
+              name: taskval.orders[0].name,
+              email: taskval.orders[0].email,
+              phone: taskval.orders[0].phone,
+              description: taskval.orders[0].description + " " + taskval.orders[0].part,
+              origin: taskval.orders[0]?.origin,
+              order: true,
+              part: taskval.orders[0].part,
+              deadline: parseCustomDate(taskval.deadline),
+              createdLead: parseCustomDate(taskval.orders[0]?.date),
+              TaskAssignedDate: parseCustomDate(taskval.createdAt),
+              status: taskval.state,
+              // additional
+              cvv: taskval.orders[0].CVV,
+              amount: taskval.orders[0].amount,
+              billing_address: taskval.orders[0].billing_address,
+              shipping_address: taskval.orders[0].shipping_address,
+              card_no: taskval.orders[0].card_no,
+              expiry_date: taskval.orders[0].expiry_date,
+              type: "orders",
+              yard: taskval.yard,
+            };
+          }
+        });
+  
+        allRecords = [...allRecords, ...pageRecords];
+        page++;
+      } while (allRecords.length < totalRecords);
+  
+      setTotalLeads(allRecords.length);
+  
       // Filter tasks by the selected date if any
-      settask(record);
-      const filteredTasks = filterTasks(selectedDate, mobileFilter, nameFilter, emailFilter, record);
-
+      const filteredTasks = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, statusFilter, allRecords);
       settask(filteredTasks); // Set the filtered tasks
-
-      setTotalData(result.payload.total);
-    } else {
-      alert("Server issue occured");
+      setTotalData(totalRecords);
+      setFilteredLeadsCount(filteredTasks.length);
+    } catch (error) {
+      console.error("Error fetching leads:", error);
     }
   };
+  
 
 
   const [leadId, setLeadId] = useState(null);
@@ -495,8 +517,21 @@ export default function Task({ setload }) {
     return () => {
       clearInterval(id);
     };
-  }, [currentPage, pageSize, selectedDate, mobileFilter, nameFilter, emailFilter]);
-
+  }, [currentPage, pageSize, dateRange, mobileFilter, nameFilter, emailFilter, statusFilter]);
+  const statusOptions = [
+    { value: "", label: "Select status" }, // Default option
+    { value: "Pending", label: "Pending" },
+    { value: "Refund", label: "Refund" },
+    { value: "Failed", label: "Failed" },
+    { value: "Not Interested", label: "Not Interested" },
+    { value: "Voice Mail", label: "Voice Mail" },
+    { value: "Already Purchased", label: "Already Purchased" },
+    { value: "Sale", label: "Sale" },
+    { value: "Hot Lead", label: "Hot Lead" },
+    { value: "Exchange", label: "Exchange" },
+    { value: "No Response", label: "No Response" },
+    { value: "Quotation Given", label: "Quotation Given" },
+  ];
   return (
     <>
       {contextHolder}
@@ -522,10 +557,10 @@ export default function Task({ setload }) {
       />
       {/* DatePicker for selecting the filter date */}
       <div className="w-full border px-3 py-1">
-        <DatePicker
-          className="w-[30%] me-5 border rounded border-gray-500 p-1"
-          onChange={(date, dateString) =>
-            setSelectedDate(date ? new Date(dateString) : null)
+      <RangePicker
+          className="w-[30%] me-4 border rounded border-gray-500 p-1"
+          onChange={(dates, dateStrings) =>
+            setDateRange(dates ? [dateStrings[0], dateStrings[1]] : null)
           }
         />
         <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
@@ -567,7 +602,13 @@ export default function Task({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
-
+        <Select
+          options={statusOptions}
+          value={statusFilter}
+          onChange={(value) => setStatusFilter(value)} // value is passed directly
+          style={{ width: "120px" }}
+        />
+          <span className="bg-green-700 p-1 border rounded-3xl text-white fw-bold text-xl">{filteredLeadsCount}</span>
       </div>
       <div className="h-calc-remaining flex flex-col justify-between ">
         <div className="h-[80%]">

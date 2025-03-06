@@ -5,6 +5,7 @@ import ShowInvoice from "./utilComp/ShowInvoice";
 import SendMessages from "./SendMessages";
 import EmailConversation from "./EmailConversation";
 import View_Quotation from "./View_Quotation";
+import Status from "./Status";
 
 export default function ViewLeads({ task = [], state = "" }) {
   const [open, setOpen] = useState(false);
@@ -58,12 +59,21 @@ export default function ViewLeads({ task = [], state = "" }) {
 
       },
       {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        render: (_, record) => {
+          return <Status record={record}  />;
+        },
+      },
+      {
         key: "lead_description",
         title: "Description",
         dataIndex: "description",
         width: 200,
       },
       { key: "lead_origin", title: "Origin", dataIndex: "origin", width: 160 },
+     
       {
         key: "deadline",
         title: "Deadline",
