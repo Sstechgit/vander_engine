@@ -25,7 +25,7 @@ import View_Quotation from "./View_Quotation";
 export default function Task({ setload }) {
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setCurrentPageSize] = useState(10);
+  const [pageSize, setCurrentPageSize] = useState(50);
   const navigate = useNavigate();
   const [task, settask] = useState([]);
   const [TotalData, setTotalData] = useState(0);
@@ -53,13 +53,16 @@ export default function Task({ setload }) {
   // Function to filter tasks based on the selected date
   const filterTasks = (dateRange, mobileFilter, nameFilter, emailFilter, statusFilter, tasks) => {
     return tasks.filter((task) => {
-      const taskCreatedDate = new Date(task.created);
+      const taskCreatedDate = new Date(task.createdLead);
       const startDate = dateRange?.[0] ? new Date(dateRange[0] + "T00:00:00") : null;
       const endDate = dateRange?.[1] ? new Date(dateRange[1] + "T23:59:59") : null;
 
+      
       // Check date condition
       const isDateMatch =
-        !selectedDate || taskCreatedDate === selectedDateString;
+        (!startDate || taskCreatedDate >= startDate) &&
+        (!endDate || taskCreatedDate <= endDate);
+
 
       // Check mobile number condition
       const isMobileMatch = !mobileFilter || task.phone.includes(mobileFilter);
