@@ -105,6 +105,16 @@ export default function Super_TrackAgent() {
       title: "Email",
       key: "email",
       dataIndex: "email",
+      render: (_, record) => {
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email}
+          </a>
+        );
+      }
     },
     {
       title: "Last Login",

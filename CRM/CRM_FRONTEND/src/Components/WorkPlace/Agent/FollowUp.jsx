@@ -33,10 +33,18 @@ export default function FollowUp({setload}) {
       dataIndex: "email",
       key: "email",
       render: (_, record) => {
-        return record.email
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email
           ? record.email.slice(0, 3) + ".....@gmail.com"
-          : "No email available";
-      },
+          : "No email available"}
+          </a>
+        );
+      }
+      
     },
     
     {

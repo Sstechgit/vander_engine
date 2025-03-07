@@ -96,6 +96,16 @@ export default function TrackAdmin() {
             title: "Email",
             key: "email",
             dataIndex: "email",
+            render: (_, record) => {
+                return (
+                  <a 
+                    href={`mailto:${record.email}`} 
+                    className="flex gap-2 items-center"
+                  >
+                    {record.email}
+                  </a>
+                );
+              }
         },
         {
             title: "Phone",

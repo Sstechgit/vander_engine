@@ -348,6 +348,16 @@ export default function Super_Order({ setload }) {
       title: "Order Email",
       dataIndex: "email",
       width: 100,
+      render: (_, record) => {
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email}
+          </a>
+        );
+      }
     },
     {
       key: "order_phone",

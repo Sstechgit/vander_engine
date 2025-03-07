@@ -106,8 +106,15 @@ export default function TrackAgent() {
       key: "email",
       dataIndex: "email",
       render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email.slice(0, 3) + ".....@gmail.com"}
+          </a>
+        );
+      }
     },
     {
       title: "Last Login",

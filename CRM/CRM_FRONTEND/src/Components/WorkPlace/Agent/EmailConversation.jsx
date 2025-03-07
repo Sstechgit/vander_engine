@@ -29,16 +29,16 @@ export default function EmailConversation({
   const checkEmail = async () => {
     const recordId = record?.leadId || record?.orderId;
     if (!recordId) return;
-  
+
     try {
       const result = await handleCheckEmail(recordId);
-      
+
       if (!result?.success || !Array.isArray(result.payload) || result.payload.length === 0) {
         return;
       }
-  
+
       const firstEmail = result.payload[0];
-  
+
       if (firstEmail?.seen === false) {
         setSeen(false);
         setcount(firstEmail.count || 0);
@@ -50,12 +50,19 @@ export default function EmailConversation({
       console.error("Failed to check email:", error);
     }
   };
-  
+
 
   return (
     <div>
-      <Badge count={!seen?count:""} type="primary">
-      <Button
+      <Badge count={!seen ? count : ""} type="primary">
+        <Button
+          type="primary"
+          onClick={() => window.location.href = "ms-outlook://"}
+        >
+          <i className="fa-solid fa-envelope"></i>
+        </Button>
+
+        {/* <Button
         onClick={() => {
         const recordId = record.leadId || record.orderId || record._id;
         if(!recordId){
@@ -76,7 +83,7 @@ export default function EmailConversation({
         type="primary"
       >
         <i className="fa-solid fa-envelope"></i>
-      </Button>
+      </Button> */}
       </Badge>
     </div>
   );

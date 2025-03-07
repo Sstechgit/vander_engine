@@ -341,8 +341,15 @@ export default function NotAssigned_Leads({ setload }) {
       dataIndex: "email",
       width: 100,
       render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email.slice(0, 3) + ".....@gmail.com"}
+          </a>
+        );
+      }
     },
     {
       key: "lead_phone",

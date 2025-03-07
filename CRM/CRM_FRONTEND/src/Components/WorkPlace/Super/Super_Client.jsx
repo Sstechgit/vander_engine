@@ -112,14 +112,34 @@ export default function Super_Client({setload}) {
   const columns = [
     { key: "_id", title: "Sno", dataIndex: "_id" },
     { key: "name", title: "Client Name", dataIndex: "name" },
-    { key: "email", title: "Email", dataIndex: "email" },
+    { key: "email", title: "Email", dataIndex: "email" ,
+      render: (_, record) => {
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email}
+          </a>
+        );
+      }
+    },
     { key: "task", title: "Tasks", dataIndex: "TotalTask",render:(_,task)=>{
       return <Button onClick={()=>viewTask(task)}>View Tasks</Button>
     } },
   ];
   const columsForViewTask=[
     { key: "_id", title: "Sno", dataIndex: "_id" },
-    { key: "email", title: "Lead email", dataIndex: "email" },
+    { key: "email", title: "Lead email", dataIndex: "email", render: (_, record) => {
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email}
+          </a>
+        );
+      }},
     { key: "name", title: "Lead Name", dataIndex: "name" },
     { key: "phone", title: "Lead Phone", dataIndex: "phone" },
     { key: "description", title: "Lead Description", dataIndex: "description" },

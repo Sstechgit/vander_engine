@@ -260,6 +260,16 @@ export default function Super_Task({ setload }) {
       title: "Client Email",
       dataIndex: "email",
       width: 130,
+      render: (_, record) => {
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email}
+          </a>
+        );
+      }
     },
     {
       key: "lead_phone",

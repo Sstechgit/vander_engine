@@ -84,9 +84,16 @@ export default function SalesPeople({ setload }) {
     { key: "_id", title: "Sno", dataIndex: "_id" },
     { key: "name", title: "Agent Name", dataIndex: "name" },
     {
-      key: "email", title: "Email", dataIndex: "email", render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
+      key: "email", title: "Email", dataIndex: "email",  render: (_, record) => {
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email.slice(0, 3) + ".....@gmail.com"}
+          </a>
+        );
+      }
     },
     { key: "task", title: "Tasks", dataIndex: "TotalTask" },
 

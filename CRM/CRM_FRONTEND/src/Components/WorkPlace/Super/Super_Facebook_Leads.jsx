@@ -338,7 +338,16 @@ export default function Super_Facebook_Leads({ setload }) {
       title: "Client Email",
       dataIndex: "email",
       width: 100,
-    
+      render: (_, record) => {
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email}
+          </a>
+        );
+      }
     },
     {
       key: "lead_phone",

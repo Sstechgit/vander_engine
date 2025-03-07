@@ -39,8 +39,15 @@ export default function ViewLead({ state = "", leads = [] }) {
             dataIndex: "email",
             width: 100,
             render: (_, record) => {
-                return (record.email.slice(0, 3) + ".....@gmail.com");
-            },
+                return (
+                  <a 
+                    href={`mailto:${record.email}`} 
+                    className="flex gap-2 items-center"
+                  >
+                    {record.email}
+                  </a>
+                );
+              }
         },
         {
             key: "lead_phone",

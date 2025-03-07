@@ -48,8 +48,8 @@ export default function Task({ setload }) {
   const [messageApi, contextHolder] = message.useMessage();
   const [deadline, setDeadline] = useState("");
   const [dateRange, setDateRange] = useState(null);
-    const [totalLeads, setTotalLeads] = useState(0);
-    const [filteredLeadsCount, setFilteredLeadsCount] = useState(0);
+  const [totalLeads, setTotalLeads] = useState(0);
+  const [filteredLeadsCount, setFilteredLeadsCount] = useState(0);
   // Function to filter tasks based on the selected date
   const filterTasks = (dateRange, mobileFilter, nameFilter, emailFilter, statusFilter, tasks) => {
     return tasks.filter((task) => {
@@ -57,7 +57,7 @@ export default function Task({ setload }) {
       const startDate = dateRange?.[0] ? new Date(dateRange[0] + "T00:00:00") : null;
       const endDate = dateRange?.[1] ? new Date(dateRange[1] + "T23:59:59") : null;
 
-      
+
       // Check date condition
       const isDateMatch =
         (!startDate || taskCreatedDate >= startDate) &&
@@ -84,20 +84,20 @@ export default function Task({ setload }) {
       let pageRows = 100; // Adjust to your API's max rows per page
       let allRecords = [];
       let totalRecords = 0;
-  
+
       do {
         let url = urls.GetTaskForAgent + `/${page}/${pageRows}`;
         let result = await DoFetch(url);
-  console.log(result)
+        console.log(result)
         if (!result.success) {
           alert("Server issue occurred");
           return;
         }
-  
+
         if (page === 1) {
           totalRecords = result.payload.total;
         }
-  
+
         const pageRecords = result.payload.records.map((taskval, idx) => {
           if (!taskval?.orders) {
             return {
@@ -147,13 +147,13 @@ export default function Task({ setload }) {
             };
           }
         });
-  
+
         allRecords = [...allRecords, ...pageRecords];
         page++;
       } while (allRecords.length < totalRecords);
-  
+
       setTotalLeads(allRecords.length);
-  
+
       // Filter tasks by the selected date if any
       const filteredTasks = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, statusFilter, allRecords);
       settask(filteredTasks); // Set the filtered tasks
@@ -163,7 +163,7 @@ export default function Task({ setload }) {
       console.error("Error fetching leads:", error);
     }
   };
-  
+
   const [leadId, setLeadId] = useState(null);
   const AddLead = async (nameval, emailval, descriptionval, originval, phoneval, deadlineval) => {
     seterrors({});
@@ -310,8 +310,15 @@ export default function Task({ setload }) {
       //   return <span>abc@gmail.com</span>;
       // },
       render: (_, record) => {
-        return (record.email.slice(0, 3) + ".....@gmail.com");
-      },
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email.slice(0, 3) + ".....@gmail.com"}
+          </a>
+        );
+      }
     },
 
     {
@@ -535,6 +542,9 @@ export default function Task({ setload }) {
   ];
   return (
     <>
+    <div className="h-full">
+
+    
       {contextHolder}
       <AgentAddLead
         title={title}
@@ -558,13 +568,13 @@ export default function Task({ setload }) {
       />
       {/* DatePicker for selecting the filter date */}
       <div className="w-full border px-3 py-1">
-      <RangePicker
-          className="w-[30%] me-4 border rounded border-gray-500 p-1"
+        <RangePicker
+          className="w-[20%] me-3 border rounded border-gray-500 p-1"
           onChange={(dates, dateStrings) =>
             setDateRange(dates ? [dateStrings[0], dateStrings[1]] : null)
           }
         />
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+        <span className="w-[15%] me-3 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Name "
@@ -577,7 +587,7 @@ export default function Task({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+        <span className="w-[15%] me-3 border rounded border-gray-500 p-1">
           <input
             type="email "
             placeholder="Search By Email "
@@ -590,7 +600,7 @@ export default function Task({ setload }) {
             onClick={filterTasks}
           ></i>
         </span>
-        <span className="w-[20%] me-5 border rounded border-gray-500 p-1">
+        <span className="w-[20%] me-3 border rounded border-gray-500 p-1">
           <input
             type="text "
             placeholder="Search By Mobile No. "
@@ -609,7 +619,7 @@ export default function Task({ setload }) {
           onChange={(value) => setStatusFilter(value)} // value is passed directly
           style={{ width: "120px" }}
         />
-          <span className="bg-green-700 p-1 border rounded-3xl text-white fw-bold text-xl">{filteredLeadsCount}</span>
+        <span className="bg-green-700 p-1 border rounded-3xl text-white fw-bold text-xl">{filteredLeadsCount}</span>
       </div>
       <div className="h-calc-remaining flex flex-col justify-between ">
         <div className="h-[80%]">
@@ -635,7 +645,7 @@ export default function Task({ setload }) {
               },
             }}
             onChange={handleTablePageChange}
-            scroll={{ y: 400, x: "max-content" }} // Ensure table content is scrollable
+            scroll={{ y: "68vh", x: "max-content" }} // Ensure table content is scrollable
           />
         </div>
         <div className="flex justify-between m-8">
@@ -654,6 +664,7 @@ export default function Task({ setload }) {
        
        `}
       </style>
+      </div>
     </>
 
   );

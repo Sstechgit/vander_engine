@@ -336,6 +336,16 @@ export default function Super_VanderTransmission_Leads({ setload }) {
       title: "Client Email",
       dataIndex: "email",
       width: 100,
+      render: (_, record) => {
+        return (
+          <a 
+            href={`mailto:${record.email}`} 
+            className="flex gap-2 items-center"
+          >
+            {record.email}
+          </a>
+        );
+      }
      
     },
     {

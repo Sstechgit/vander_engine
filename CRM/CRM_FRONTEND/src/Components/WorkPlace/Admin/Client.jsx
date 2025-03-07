@@ -113,8 +113,15 @@ export default function Client({setload}) {
     { key: "_id", title: "Sno", dataIndex: "_id" },
     { key: "name", title: "Client Name", dataIndex: "name" },
     { key: "email", title: "Email", dataIndex: "email",    render: (_, record) => {
-      return (record.email.slice(0, 3) + ".....@gmail.com");
-    }, },
+      return (
+        <a 
+          href={`mailto:${record.email}`} 
+          className="flex gap-2 items-center"
+        >
+          {record.email.slice(0, 3) + ".....@gmail.com"}
+        </a>
+      );
+    } },
     { key: "task", title: "Tasks", dataIndex: "TotalTask",render:(_,task)=>{
       return <Button onClick={()=>viewTask(task)}>View Tasks</Button>
     } },
