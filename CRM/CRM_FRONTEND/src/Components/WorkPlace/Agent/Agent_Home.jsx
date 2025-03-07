@@ -4,7 +4,8 @@ import { DoFetch } from "../../../Utils/DoFetch";
 import { parseCustomDate } from "../../../Utils/parseAndFormatDate";
 import { Button, Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
-import ViewLeads from "./ViewLeads"; // Import ViewLeads to use in this component
+import ViewLeads from "./ViewLeads";
+
 const statusColors = {
   Refund: "green",
   Pending: "orange",
@@ -15,137 +16,116 @@ const statusColors = {
   Sale: "#52bf3d",
   "Hot Lead": "#ff5722",
   "Quotation Given": "black",
-  "Exchange":"brown",
+  Exchange: "brown",
   "No Response": "gray",
 };
 
 const Agent_Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(200);
+  const [pageSize, setPageSize] = useState(100000000);
   const [task, setTask] = useState([]);
   const [totalData, setTotalData] = useState(0);
-  const [leadCounts, setLeadCounts] = useState({
-    total: 0,
-    Refund: 0,
-    Pending: 0,
-    Failed: 0,
-    "Not Interested": 0,
-    "Voice Mail": 0,
-    "Already Purchased": 0,
-    Sale: 0,
-    "Hot Lead": 0,
-    "Quotation Given": 0,
-    "Exchange": 0,
-    "No Response": 0,
-  });
+  const [leadCounts, setLeadCounts] = useState({});
+  const [selectedStatus, setSelectedStatus] = useState("All");
 
-  
-  const [selectedStatus, setSelectedStatus] = useState("All"); // Track selected status for filter
-
-  // Fetch task data based on the current status filter
   const fetchTask = async (page, pageRows, status = "All") => {
-    // Modify URL based on the selected status filter
-    let url = `${urls.GetTaskForAgent}/${page}/${pageRows}`;
-    if (status !== "All") {
-      url = `${urls.GetTaskForAgent}/${page}/${pageRows}?status=${status}`; // Add status as query param
-    }
-
-    const result = await DoFetch(url);
-    // console.log(result);
-    if (result.success) {
-      const taskData = result.payload.records.map((taskval, idx) => {
-        const lead = taskval.leads[0] || {}; // Get the first lead (in case there are multiple)
-        return {
-          id: idx + (currentPage - 1) * pageSize + 1,
-          key: taskval._id,
-          leadId: lead._id,
-          name: lead.name,
-          email: lead.email,
-          phone: lead.phone,
-          description: lead.description,
-          status: taskval.state,
-          origin: lead.origin,
-          deadline: parseCustomDate(
-            taskval.deadline || "Thu, Aug 22, 2024 at 2:17 PM"
-          ),
-          created: parseCustomDate(
-            taskval.leads[0].createdAt || "Thu, Aug 22, 2024 at 2:17 PM"
-          ),
-          TaskAssignedDate: parseCustomDate(taskval.createdAt),
-          type: "leads",
-          yard: taskval.yard,
-          invoice: taskval.invoice,
-          invoiceSaved: taskval.invoiceSaved,
-        };
-      });
-
-      setTask(taskData);
-      setTotalData(result.payload.total);
-
-      // Update lead counts based on the filtered data
-      const counts = {
-        total: result.payload.total,
-        Refund: result.payload.records.filter(
-          (record) => record.state === "Refund"
-        ).length,
-        Pending: result.payload.records.filter(
-          (record) => record.state === "Pending"
-        ).length,
-        Failed: result.payload.records.filter(
-          (record) => record.state === "Failed"
-        ).length,
-        "Not Interested": result.payload.records.filter(
-          (record) => record.state === "Not Interested"
-        ).length,
-        "Voice Mail": result.payload.records.filter(
-          (record) => record.state === "Voice Mail"
-        ).length,
-        "Already Purchased": result.payload.records.filter(
-          (record) => record.state === "Already Purchased"
-        ).length,
-        Sale: result.payload.records.filter((record) => record.state === "Sale")
-          .length,
-        "Hot Lead": result.payload.records.filter(
-          (record) => record.state === "Hot Lead"
-        ).length,
-        "Quotation Given": result.payload.records.filter(
-          (record) => record.state ===  "Quotation Given"
-        ).length,
-        "Exchange": result.payload.records.filter(
-          (record) => record.state === "Exchange"
-        ).length,
-        "No Response": result.payload.records.filter(
-          (record) => record.state === "No Response"
-        ).length,
-      };
-
-      setLeadCounts(counts);
-    } else {
+    try {
+      let url = `${urls.GetTaskForAgent}/${page}/${pageRows}`;
+      if (status !== "All") {
+        url += `?status=${status}`;
+      }
+      const result = await DoFetch(url);
+      if (result.success) {
+        const taskData = result.payload.records.map((taskval, idx) => {
+          const lead = taskval.leads[0] || {};
+          return taskval?.orders
+            ? {
+                key: taskval._id,
+                orderId: taskval.orders[0]._id,
+                _id: (page - 1) * pageRows + idx + 1,
+                name: taskval.orders[0].name,
+                email: taskval.orders[0].email,
+                phone: taskval.orders[0].phone,
+                description: `${taskval.orders[0].description} ${taskval.orders[0].part}`,
+                origin: taskval.orders[0]?.origin,
+                order: true,
+                deadline: parseCustomDate(taskval.deadline),
+                createdLead: parseCustomDate(taskval.orders[0]?.date),
+                TaskAssignedDate: parseCustomDate(taskval.createdAt),
+                status: taskval.state,
+                yard: taskval.yard,
+              }
+            : {
+                id: idx + (currentPage - 1) * pageSize + 1,
+                key: taskval._id,
+                leadId: lead._id,
+                name: lead.name,
+                email: lead.email,
+                phone: lead.phone,
+                description: lead.description,
+                status: taskval.state,
+                origin: lead.origin,
+                deadline: parseCustomDate(taskval.deadline || "Thu, Aug 22, 2024 at 2:17 PM"),
+                created: parseCustomDate(lead.createdAt || "Thu, Aug 22, 2024 at 2:17 PM"),
+                TaskAssignedDate: parseCustomDate(taskval.createdAt),
+                type: "leads",
+                yard: taskval.yard,
+              };
+        });
+        setTask(taskData);
+        setTotalData(result.payload.total);
+        const counts = result.payload.records.reduce((acc, record) => {
+          acc[record.state] = (acc[record.state] || 0) + 1;
+          return acc;
+        }, { total: result.payload.total });
+        setLeadCounts(counts);
+      }
+    } catch (error) {
+      console.error("Error fetching task data", error);
       alert("Server issue occurred");
     }
   };
 
-  // Fetch tasks on initial load or when status/page/size changes
   useEffect(() => {
-    if (!sessionStorage.getItem("accessT")) {
-      return;
-    }
+    if (!sessionStorage.getItem("accessT")) return;
     fetchTask(currentPage, pageSize, selectedStatus);
-
-    const intervalId = setInterval(() => {
-      fetchTask(currentPage, pageSize, selectedStatus);
-    }, 12000);
-
+    const intervalId = setInterval(() => fetchTask(currentPage, pageSize, selectedStatus), 12000);
     return () => clearInterval(intervalId);
   }, [currentPage, pageSize, selectedStatus]);
 
+  const renderStatusCard = (status) => (
+    <div className="card" key={status}>
+      <div className="content">
+        <div className="details">
+          <div className="data">
+            <h3>
+              {leadCounts[status] || 0}
+              <br />
+              <span>{status}</span>
+            </h3>
+          </div>
+          <div className="actionBtn">
+            <Button
+              size="large"
+              ghost
+              block
+              style={{ backgroundColor: statusColors[status], color: "white" }}
+              onClick={() => setSelectedStatus(status)}
+            >
+              <ViewLeads task={task} state={status} />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <div style={{overflowX:"hidden"}}>
+    <div style={{ overflowX: "hidden" }}>
       <div className="details mb-3">
         <h2>{sessionStorage.getItem("name") || ""}</h2>
       </div>
       <div className="container flex items-center justify-center h-full flex-wrap gap-4">
-        {/* Card for Total Leads */}
         <div className="card">
           <div className="content">
             <div className="details">
@@ -157,73 +137,16 @@ const Agent_Home = () => {
                 </h3>
               </div>
               <div className="actionBtn">
-                <Button
-                  type="primary"
-                  size="large"
-                  block
-                  // ghost
-                  onClick={() => {
-                    setSelectedStatus("All"); // Set status to "All" when Total Leads is clicked
-                  }}
-                >
-                  {/* View All Leads */}
+                <Button type="primary" size="large" block onClick={() => setSelectedStatus("All")}>
                   <ViewLeads task={task} state="All" />
                 </Button>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Other Status Cards */}
-        {[
-          "Refund",
-          "Pending",
-          "Failed",
-          "Not Interested",
-          "Voice Mail",
-          "Already Purchased",
-          "Sale",
-          "Hot Lead",
-          "Exchange",
-          "No Response",
-          "Quotation Given",
-          
-        ].map((status) => (
-          <div className="card" key={status}>
-            <div className="content">
-              <div className="details">
-                <div className="data">
-                  <h3>
-                    {leadCounts[status] || 0}{" "}
-                    {/* Access the corresponding count */}
-                    <br />
-                    <span>{status}</span>
-                  </h3>
-                </div>
-                <div className="actionBtn">
-                  <Button
-                    size="large"
-                    ghost
-                    block
-                    style={{
-                      backgroundColor: statusColors[status],
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      setSelectedStatus(status); // Update status on button click
-                    }}
-                  >
-                    {/* {status} */}
-                    <ViewLeads task={task} state={status} />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+        {["Refund", "Pending", "Failed", "Not Interested", "Voice Mail", "Already Purchased", "Sale", "Hot Lead", "Exchange", "No Response", "Quotation Given"].map(renderStatusCard)}
       </div>
-
-      <style>
+       <style>
         {`
 * {
   margin: 0;

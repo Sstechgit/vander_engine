@@ -161,8 +161,6 @@ export default function Task({ setload }) {
     }
   };
   
-
-
   const [leadId, setLeadId] = useState(null);
   const AddLead = async (nameval, emailval, descriptionval, originval, phoneval, deadlineval) => {
     seterrors({});
