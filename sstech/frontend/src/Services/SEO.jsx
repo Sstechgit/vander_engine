@@ -70,7 +70,7 @@ export default function SEO() {
           content="Best SEO Agency in Chicago. find best SEO strategy expert in chicago .Top SEO of service provider in Chicago."
         />
       </Helmet>
-      <Popup />
+      {/* <Popup /> */}
       <div id="seo-img" className="py-4">
         <div className="container h-100">
           <div className="row d-flex align-items-center h-100">

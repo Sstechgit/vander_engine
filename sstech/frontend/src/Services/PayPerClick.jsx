@@ -70,7 +70,7 @@ export default function PayPerClick() {
           content="Find best PPC Company in Chicago. 100+ campaigns management experience. We are #1 google Ads marketing agency Chicago."
         />
       </Helmet>
-      <Popup />
+      {/* <Popup /> */}
       <div className="ppc py-4">
         <div className="container h-100 ">
           <div className="row h-100 align-items-center">

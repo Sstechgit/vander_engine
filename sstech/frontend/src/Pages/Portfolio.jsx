@@ -9,8 +9,8 @@ import '../Portfolio/Portfolio.css'
 import Popup from "./Popup";
 export default function Portfolio() {
   return (
-    <div>
-      <Popup/>
+    <div className="overflowX-hidden">
+      {/* <Popup/> */}
       <Header />
       <Services />
       <Expertise />

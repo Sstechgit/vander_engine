@@ -75,7 +75,7 @@ export default function BPO() {
 
   return (
     <div>
-      <Popup/>
+      {/* <Popup/> */}
       <div className="bpo py-4">
         <div className="container">
           <div className="row align-items-center justify-align-center">
