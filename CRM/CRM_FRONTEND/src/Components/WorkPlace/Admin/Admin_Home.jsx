@@ -17,6 +17,8 @@ const Admin_Home = () => {
   const [facebookLeads, setfacebookLeads] = useState(0);
   const [notassignedLeads, setNotAssignedLeads] = useState(0);
   const [refundleads, setrefundleads] = useState(0);
+  const [dailyleads, setDailyLeads] = useState(0);
+
 
 
 
@@ -42,7 +44,42 @@ const Admin_Home = () => {
   const handleViewAllAgents = () => {
     navigate("/crm/TrackAgent");
   };
-
+  //--------------------------------Daily Leads--------------------------------------
+  const fetchDailyLeads = async (page = currentPage, pageRows = pageSize) => {
+    const todayDate = new Date().toISOString().split("T")[0]; // Cached today's date
+  
+    try {
+      const url = `${urls.FetchLeads}/${page}/${pageRows}`;
+      const result = await DoFetch(url);
+  
+      if (result.success) {
+        const allLeads = result.payload.records || [];
+        settotalLeads(result.payload.total || 0);
+  
+        // Filter today's leads
+        const todayLeads = allLeads.filter(
+          (lead) => new Date(lead.createdAt).toISOString().split("T")[0] === todayDate
+        );
+  
+        setDailyLeads(todayLeads.length);
+      } else {
+        console.error("Server issue occurred");
+        message.error("Server issue occurred, please try again.");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      message.error("Failed to fetch data. Please try again.");
+    }
+  };
+  
+  useEffect(() => {
+    fetchDailyLeads();
+  }, [currentPage, pageSize]); // Ensure dependencies are correctly managed
+  
+  const dailybasisleads = () => {
+    navigate("/crm/daily_leads");
+  };
+  
   //--------------------------------All Leads--------------------------------------
   const fetchLeads = async (page = currentPage, pageRows = pageSize) => {
     let url = `${urls.FetchLeads}/${page}/${pageRows}`;
@@ -333,6 +370,37 @@ const Admin_Home = () => {
                   size="large"
                   block
                   onClick={handleViewAllAgents} // Trigger state change to show Lead component
+                >
+                  View All
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+         {/*-----------------------daily Leads--------------------------*/}
+         <div className="card">
+          <div className="content">
+            <div className="details">
+              <div className="data">
+                <h3>
+                  {totalLeads !== null ? (
+                    <>
+                      <h3>{dailyleads}</h3>
+                      <br />
+                      <span>Daily Basis</span>
+                    </>
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </h3>
+              </div>
+              <div className="actionBtn">
+                <Button
+                  type="primary"
+                  size="large"
+                  block
+                  className=" bg-pink-500"
+                  onClick={dailybasisleads} // Trigger state change to show Lead component
                 >
                   View All
                 </Button>

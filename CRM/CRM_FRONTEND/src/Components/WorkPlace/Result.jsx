@@ -48,9 +48,10 @@ import Super_LLC_Leads from "./Super/Super_LLC_Leads.jsx";
 import Super_SSTech_Leads from "./Super/Super_SSTech_Leads.jsx";
 import Super_Facebook_Leads from "./Super/Super_Facebook_Leads.jsx";
 import Super_NotAssigned_Leads from "./Super/Super_NotAssigned_Leads.jsx";
+import Daily_Leads from "./Admin/Daily_Leads.jsx";
+
+
 //------------------------------
-
-
 
 export default function Result({ setload }) {
   return (
@@ -71,6 +72,7 @@ export default function Result({ setload }) {
           element={<SalesPeople setload={setload} />}
         ></Route>
         <Route path="/Leads" element={<Lead setload={setload} />}></Route>
+        <Route path="/daily_leads" element={<Daily_Leads />} />
         <Route path="/vanderengines_leads" element={<VanderEngine_Leads />} />
         <Route path="/vandertransmission_leads" element={<VanderTransmisssion_Leads />} />
         <Route path="/autoparts_leads" element={<Autoparts_Leads />} />

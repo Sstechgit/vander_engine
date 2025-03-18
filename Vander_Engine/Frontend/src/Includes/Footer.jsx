@@ -12,21 +12,20 @@ export default function Footer() {
         height="0" width="0" style="display:none;visibility:hidden"></iframe>
     `;
     document.body.appendChild(noscriptTag);
-  
+
     return () => {
       document.body.removeChild(noscriptTag);
     };
   }, []);
-  
 
-  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-  (function(){
-  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-  s1.async=true;
-  s1.src='https://embed.tawk.to/672e984c4304e3196adf7e51/1ic705qrg';
-  s1.charset='UTF-8';
-  s1.setAttribute('crossorigin','*');
-  s0.parentNode.insertBefore(s1,s0);
+  var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+  (function () {
+    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+    s1.async = true;
+    s1.src = 'https://embed.tawk.to/672e984c4304e3196adf7e51/1ic705qrg';
+    s1.charset = 'UTF-8';
+    s1.setAttribute('crossorigin', '*');
+    s0.parentNode.insertBefore(s1, s0);
   })();
 
   return (
@@ -123,30 +122,39 @@ export default function Footer() {
                     About Us
                   </Link>
                 </p>
-                <p>
-                  <Link to="/contact" className="text-reset">
-                    Contact Us
-                  </Link>
-                </p>
+
                 {/* <p>
                   <Link to="/search" className="text-reset">
                     Search Car Parts
                   </Link>
                 </p> */}
 
-                <Link to="/blog" className="text-reset">
-                  blog
-                </Link>
+
               </div>
 
               <div className="col-md-3 col-lg-2 col-xl-3 mx-auto mb-4">
-                <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
+                <h6 className="text-uppercase fw-bold mb-2">Useful links</h6>
+                <p>
+                  <a href="https://vanderengines.com/blog/" className="text-reset" target="_blank" rel="noopener noreferrer">
+                    Blog
+                  </a>
+                </p>
+                <p>
+                  <Link to="/contact" className="text-reset">
+                    Contact Us
+                  </Link>
+                </p>
+                <p>
+                  <Link to="/Privacy_Policies" className="text-reset">
+                    Our Policies
+                  </Link>
+                </p>
                 <p>
                   <Link to="/return" className="text-reset">
                     Return And Cancel Policy
                   </Link>
                 </p>
-                <p>
+                {/* <p>
                   <Link to="/warranty" className="text-reset">
                     Warranty Policy
                   </Link>
@@ -165,7 +173,7 @@ export default function Footer() {
                   <Link to="/shipping" className="text-reset">
                     Shipping Policy
                   </Link>
-                </p>
+                </p> */}
               </div>
 
               <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">

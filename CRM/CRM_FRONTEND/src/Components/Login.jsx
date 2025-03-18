@@ -83,11 +83,11 @@ const Login = () => {
       localStorage.setItem("userId", userId);
       // navigate(designation === "Admin" ? "/crm/admin" : "/crm/agent");
       navigate(
-        designation === "super" 
-          ? "/crm/superadmin" 
+        designation === "super"
+          ? "/crm/superadmin"
           : designation === "Admin"
-          ? "/crm/admin"
-          : "/crm/agent" 
+            ? "/crm/admin"
+            : "/crm/agent"
       );
     } else {
       messageApi.error("Invalid OTP. Please try again.");
@@ -143,7 +143,7 @@ const Login = () => {
       navigate("crm");
     }
   }, []);
-  
+
   const handleSignUpClick = () => {
     setIsSignUp(true);
   };
@@ -175,7 +175,7 @@ const Login = () => {
                 className=" h-full  p-2 flex flex-col items-center gap-4 "
                 onSubmit={Register}
               >
-                <div className="w-full flex-1 flex flex-col justify-center items-center gap-4">
+                <div className="w-full flex-1 flex flex-col justify-center items-center gap-3">
                   <InputField
                     placeholder="Enter Name"
                     name="name"
@@ -220,7 +220,7 @@ const Login = () => {
                     changeValue={setPassword}
                   />
                   <div className="w-full flex flex-col items-center p-1 px-2 gap-2">
-                    <div className="flex items-center w-[80%] gap-4 ">
+                    <div className="flex items-center gap-4 ">
                       <label className="flex items-center cursor-pointer">
                         <input
                           type="radio"
@@ -261,11 +261,11 @@ const Login = () => {
                         </span>
                       </label>
                     </div>
-                    <span className="w-[80%] text-red-600 transition-all duration-300 text-md  font-['Poppins'] h-8 ">
+                    <span className=" text-red-600 transition-all duration-300 font-['Poppins'] h-8 ">
                       {errors?.designation ? errors.designation : ""}
                     </span>
                   </div>
-                  <button className=" py-1 px-4 text-lg hover:bg-blue-700 font-['Poppins'] mr-16  bg-blue-500 text-white ">
+                  <button className=" py-1 px-4 text-lg hover:bg-blue-700 font-['Poppins'] bg-blue-500 text-white  ">
                     Sign Up
                   </button>
                 </div>
@@ -302,7 +302,7 @@ const Login = () => {
                   className="h-full bg-[#1ACA81] p-2 flex flex-col items-center gap-4 "
                   onSubmit={Login}
                 >
-                  <div className=" flex-1 flex flex-col justify-center items-center gap-8 ">
+                  <div className=" flex-1 flex flex-col justify-center items-center gap-6 ">
                     <InputField
                       placeholder="Enter Email"
                       name="email"
@@ -312,7 +312,6 @@ const Login = () => {
                       value={email}
                       error={errors?.email}
                       changeValue={setEmail}
-
                     />
                     <InputField
                       placeholder="Enter Password"
@@ -326,9 +325,10 @@ const Login = () => {
                       error={errors?.password}
                       value={password}
                       changeValue={setPassword}
+
                     />
                     <div className="w-full flex flex-col items-center p-1 px-2 gap-2">
-                      <div className="flex items-center w-[80%] gap-4 ">
+                      <div className="flex items-center gap-4 ">
                         <label className="flex items-center cursor-pointer">
                           <input
                             type="radio"
@@ -356,24 +356,25 @@ const Login = () => {
                           </span>
                         </label>
                         <label className="flex items-center cursor-pointer">
-                        <input
-                          type="radio"
-                          name="role"
-                          value="super"
-                          onChange={handleRoleChange}
-                          className="form-radio text-green-600"
-                          required
-                        />
-                        <span className="ml-2 text-black font-['Poppins']">
-                          Super
-                        </span>
-                      </label>
+                          <input
+                            type="radio"
+                            name="role"
+                            value="super"
+                            onChange={handleRoleChange}
+                            className="form-radio text-green-600"
+                            required
+                          />
+                          <span className="ml-2 text-black font-['Poppins']">
+                            Super
+                          </span>
+                        </label>
                       </div>
-                      <span className="w-[80%] text-red-600 transition-all duration-300 text-md  font-['Poppins'] h-8 ">
+                     
+                    </div>
+                    <span className=" text-red-600 transition-all duration-300 font-['Poppins'] ">
                         {errors?.designation ? errors.designation : ""}
                       </span>
-                    </div>
-                    <button className="p-2 px-4 text-xl hover:bg-blue-700 font-['Poppins'] mr-16  bg-blue-500 text-white ">
+                    <button className="p-2 px-4 text-xl hover:bg-blue-700 font-['Poppins'] bg-blue-500 text-white ">
                       Login
                     </button>
                   </div>
