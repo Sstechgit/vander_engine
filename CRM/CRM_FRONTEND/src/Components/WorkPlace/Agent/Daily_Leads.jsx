@@ -7,7 +7,7 @@ import EmailConversation from "./EmailConversation";
 import View_Quotation from "./View_Quotation";
 import Status from "./Status";
 
-export default function ViewLeads({ task = [], state = "" }) {
+export default function Daily_Leads({ task = [], state = "" }) {
   const [open, setOpen] = useState(false);
   const [filteredLeads, setFilteredLeads] = useState([]);
   const [columns, setColumns] = useState([]); // State for dynamic columns
@@ -23,13 +23,24 @@ export default function ViewLeads({ task = [], state = "" }) {
 
   // Filter leads based on the passed `state` prop
   useEffect(() => {
-    if (state && state !== "All") {
-      const filtered = task.filter((lead) => lead.status === state);
-      setFilteredLeads(filtered);
-    } else {
-      setFilteredLeads(task); // If no state filter, show all leads
+    const todayDate = new Date().toISOString().split("T")[0];
+  
+    let filtered = task;
+    
+    // If state is "Daily", filter by today's date
+    if (state === "Daily") {
+      filtered = task.filter((lead) => {
+        if (!lead.TaskAssignedDate) return false;
+        const assignedDate = new Date(lead.TaskAssignedDate).toISOString().split("T")[0];
+        return assignedDate === todayDate;
+      });
+    } else if (state && state !== "All") {
+      filtered = task.filter((lead) => lead.status === state);
     }
+  
+    setFilteredLeads(filtered);
   }, [task, state]);
+  
 
   // Dynamically set columns based on the state
   useEffect(() => {

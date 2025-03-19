@@ -146,65 +146,11 @@ export default function Footer() {
                   </Link>
                 </p>
               </div>
-              {/* <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                <h6 className="text-uppercase fw-bold mb-4 footer-link">
-                  Our Services
-                </h6>
-                <p>
-                  <Link
-                    to="/social-media-marketing-agency-chicago"
-                    className="text-reset"
-                  >
-                    SMO
-                  </Link>
-                </p>
-                <p>
-                  <Link
-                    to="/web-development-agency-chicago"
-                    className="text-reset"
-                  >
-                    Web Development
-                  </Link>
-                </p>
-                <p>
-                  <Link
-                    to="/content-writing-agency-chicago"
-                    className="text-reset"
-                  >
-                    Content Writing
-                  </Link>
-                </p>
-                <p>
-                  <Link to="/ppc-company-chicago" className="text-reset">
-                    Pay Per Click
-                  </Link>
-                </p>
-                <p>
-                  <Link to="/graphic" className="text-reset">
-                    Graphic Design
-                  </Link>
-                </p>
-                <p>
-                  <Link to="/bpo" className="text-reset">
-                    BPO Solutions
-                  </Link>
-                </p>
-                <p>
-                  <Link to="/seo-agency-chicago" className="text-reset">
-                    SEO
-                  </Link>
-                </p>
-              </div> */}
-
               <div className="col-md-4 col-lg-3 col-xl-5 mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
                 <p class="social-link">
                   <i class="fa-solid fa-location-pin me-1"></i>
-                  15150 Cicero Avenue, Oak Forest, IL 60452
-                  <br />
-                  <i class="fa-solid fa-location-pin me-1"></i>
-                  Office No. 2510, Building The Iconic Corenthum, Block A,
-                  Industrial Area, Sector 62, Noida, Uttar Pradesh 201301
+                  H.N 208 Sector 12 Phase 2 Buddhi Vihar, Moradabad
                 </p>
                 <p className="social-link">
                   <i class="fa-solid fa-envelope me-1"></i>
@@ -217,7 +163,6 @@ export default function Footer() {
             </div>
           </div>
         </section>
-
         <div
           className="text-center p-4"
           style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}

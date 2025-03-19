@@ -434,11 +434,11 @@ export default function Task({ setload }) {
       ],
       onFilter: (value, record) => record.order === value,
     },
-    {
-      title: "Origin",
-      dataIndex: "origin",
-      key: "origin",
-    },
+    // {
+    //   title: "Origin",
+    //   dataIndex: "origin",
+    //   key: "origin",
+    // },
     {
       title: "Add Note",
       dataIndex: "datepicker",

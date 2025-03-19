@@ -5,6 +5,7 @@ import { parseCustomDate } from "../../../Utils/parseAndFormatDate";
 import { Button, Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
 import ViewLeads from "./ViewLeads";
+import Daily_Leads from "./Daily_Leads";
 
 const statusColors = {
   Refund: "green",
@@ -27,6 +28,7 @@ const Agent_Home = () => {
   const [totalData, setTotalData] = useState(0);
   const [leadCounts, setLeadCounts] = useState({});
   const [selectedStatus, setSelectedStatus] = useState("All");
+  const [dailyleads, setDailyLeads] = useState(0);
 
   const fetchTask = async (page, pageRows, status = "All") => {
     try {
@@ -40,37 +42,37 @@ const Agent_Home = () => {
           const lead = taskval.leads[0] || {};
           return taskval?.orders
             ? {
-                key: taskval._id,
-                orderId: taskval.orders[0]._id,
-                _id: (page - 1) * pageRows + idx + 1,
-                name: taskval.orders[0].name,
-                email: taskval.orders[0].email,
-                phone: taskval.orders[0].phone,
-                description: `${taskval.orders[0].description} ${taskval.orders[0].part}`,
-                origin: taskval.orders[0]?.origin,
-                order: true,
-                deadline: parseCustomDate(taskval.deadline),
-                createdLead: parseCustomDate(taskval.orders[0]?.date),
-                TaskAssignedDate: parseCustomDate(taskval.createdAt),
-                status: taskval.state,
-                yard: taskval.yard,
-              }
+              key: taskval._id,
+              orderId: taskval.orders[0]._id,
+              _id: (page - 1) * pageRows + idx + 1,
+              name: taskval.orders[0].name,
+              email: taskval.orders[0].email,
+              phone: taskval.orders[0].phone,
+              description: `${taskval.orders[0].description} ${taskval.orders[0].part}`,
+              origin: taskval.orders[0]?.origin,
+              order: true,
+              deadline: parseCustomDate(taskval.deadline),
+              createdLead: parseCustomDate(taskval.orders[0]?.date),
+              TaskAssignedDate: parseCustomDate(taskval.createdAt),
+              status: taskval.state,
+              yard: taskval.yard,
+            }
             : {
-                id: idx + (currentPage - 1) * pageSize + 1,
-                key: taskval._id,
-                leadId: lead._id,
-                name: lead.name,
-                email: lead.email,
-                phone: lead.phone,
-                description: lead.description,
-                status: taskval.state,
-                origin: lead.origin,
-                deadline: parseCustomDate(taskval.deadline || "Thu, Aug 22, 2024 at 2:17 PM"),
-                created: parseCustomDate(lead.createdAt || "Thu, Aug 22, 2024 at 2:17 PM"),
-                TaskAssignedDate: parseCustomDate(taskval.createdAt),
-                type: "leads",
-                yard: taskval.yard,
-              };
+              id: idx + (currentPage - 1) * pageSize + 1,
+              key: taskval._id,
+              leadId: lead._id,
+              name: lead.name,
+              email: lead.email,
+              phone: lead.phone,
+              description: lead.description,
+              status: taskval.state,
+              origin: lead.origin,
+              deadline: parseCustomDate(taskval.deadline || "Thu, Aug 22, 2024 at 2:17 PM"),
+              created: parseCustomDate(lead.createdAt || "Thu, Aug 22, 2024 at 2:17 PM"),
+              TaskAssignedDate: parseCustomDate(taskval.createdAt),
+              type: "leads",
+              yard: taskval.yard,
+            };
         });
         setTask(taskData);
         setTotalData(result.payload.total);
@@ -85,6 +87,39 @@ const Agent_Home = () => {
       alert("Server issue occurred");
     }
   };
+  //--------------------------------Daily Leads--------------------------------------
+  const fetchDailyLeads = async (page = currentPage, pageRows = pageSize) => {
+    try {
+      const todayDate = new Date().toISOString().split("T")[0];
+      const url = `${urls.GetTaskForAgent}/${page}/${pageRows}`;
+      const result = await DoFetch(url);
+
+      if (!result.success) {
+        console.error("Server issue occurred");
+        message.error("Server issue occurred, please try again.");
+        return;
+      }
+
+      const allTasks = result.payload.records || [];
+      setTotalData(result.payload.total || 0);
+
+      // Filter tasks assigned today
+      const todayTasks = allTasks.filter((task) => {
+        if (!task.createdAt) return false; // Ensure createdAt exists
+        const assignedDate = new Date(task.createdAt);
+        return assignedDate.toISOString().split("T")[0] === todayDate;
+      });
+
+      setDailyLeads(todayTasks.length || 0);
+    } catch (error) {
+      console.error("Error fetching daily assigned tasks:", error);
+      message.error("Failed to fetch data. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    fetchDailyLeads(currentPage, pageSize);
+  }, [currentPage, pageSize]);
 
   useEffect(() => {
     if (!sessionStorage.getItem("accessT")) return;
@@ -126,6 +161,39 @@ const Agent_Home = () => {
         <h2>{sessionStorage.getItem("name") || ""}</h2>
       </div>
       <div className="container flex items-center justify-center h-full flex-wrap gap-4">
+        {/*-----------------------daily Leads--------------------------*/}
+        <div className="card">
+          <div className="content">
+            <div className="details">
+              <div className="data">
+                <h3>
+                  {totalData !== null ? (
+                    <>
+                      <h3>{dailyleads}</h3>
+                      <br />
+                      <span>Daily Basis</span>
+                    </>
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </h3>
+              </div>
+              <div className="actionBtn">
+                <Button
+                  type="primary"
+                  size="large"
+                  block
+                  className=" bg-pink-500"
+                  onClick={() => setSelectedStatus("Daily")}
+
+                >
+                  <Daily_Leads task={task.filter(t => new Date(t.TaskAssignedDate).toISOString().split("T")[0] === new Date().toISOString().split("T")[0])} state="Daily" />
+
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="card">
           <div className="content">
             <div className="details">
@@ -146,7 +214,7 @@ const Agent_Home = () => {
         </div>
         {["Refund", "Pending", "Failed", "Not Interested", "Voice Mail", "Already Purchased", "Sale", "Hot Lead", "Exchange", "No Response", "Quotation Given"].map(renderStatusCard)}
       </div>
-       <style>
+      <style>
         {`
 * {
   margin: 0;

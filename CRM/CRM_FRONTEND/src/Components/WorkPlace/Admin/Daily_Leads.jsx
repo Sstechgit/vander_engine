@@ -91,50 +91,55 @@ export default function Daily_Leads({ setload }) {
       let pageRows = 100; // Adjust to your API's max rows per page
       let allRecords = [];
       let totalRecords = 0;
+      // Get today's date in YYYY-MM-DD format
+      const today = new Date().toISOString().split("T")[0];
       do {
         let url = `${urls.FetchLeads}/${page}/${pageRows}`;
         let result = await DoFetch(url);
-
         if (!result.success) {
           alert("Server issue occurred");
           return;
         }
-
+  
         if (page === 1) {
           totalRecords = result.payload.total;
         }
-        let pageRecords = result.payload.records.map((lead, idx) => ({
-          key: lead._id,
-          _id: (page - 1) * pageRows + idx + 1,
-          name: lead.name,
-          email: lead.email,
-          phone: lead.phone,
-          description: lead.description,
-          origin: lead?.origin,
-          created: parseCustomDate(lead?.createdAt),
-          assigned: lead.task[0]?._id ? true : false,
-          agent: lead.user[0],
-          task: lead.task[0],
-        }));
-
+  
+        let pageRecords = result.payload.records.map((lead, idx) => {
+          const createdDate = new Date(lead?.createdAt).toISOString().split("T")[0]; // Extract YYYY-MM-DD
+          return {
+            key: lead._id,
+            _id: (page - 1) * pageRows + idx + 1,
+            name: lead.name,
+            email: lead.email,
+            phone: lead.phone,
+            description: lead.description,
+            origin: lead?.origin,
+            created: parseCustomDate(lead?.createdAt),
+            assigned: lead.task[0]?._id ? true : false,
+            agent: lead.user[0],
+            task: lead.task[0],
+            createdDate, // Add for filtering
+          };
+        });
+  
         allRecords = [...allRecords, ...pageRecords];
         page++;
       } while (allRecords.length < totalRecords);
-      setLeads(allRecords); // Set all leads first
-      // setTotalLeads(allRecords.length)
-      // Apply filter for "Vander Engines"
-      let filteredLeads = allRecords.filter(lead => lead?.origin?.toLowerCase() === "Vander Engines".toLocaleLowerCase());
-
-      // Apply other filters if needed
-      const finalFilteredLeads = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, filteredLeads);
-
+  
+      // Filter leads created today
+      let todayLeads = allRecords.filter(lead => lead.createdDate === today);
+     // Apply other filters if needed
+     const finalFilteredLeads = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, todayLeads);
       setLeads(finalFilteredLeads); // Set the filtered leads
-      setFilteredLeadsCount(finalFilteredLeads.length)
-      setTotalData(result.payload.total);
+      setFilteredLeadsCount(finalFilteredLeads.length);
+      setTotalData(finalFilteredLeads.length); // Update the total count
+  
     } catch (error) {
       console.error("Error fetching leads:", error);
     }
   };
+  
 
   //Delete a lead
   const handleDelete = async (records, Selected = false) => {

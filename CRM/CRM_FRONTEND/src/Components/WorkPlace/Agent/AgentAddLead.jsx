@@ -79,10 +79,10 @@ export default function AgentAddLead({
       open={open}
       onCancel={dropModal}
       footer={[
-        <Button key="save" onClick={DoFunction}>Save</Button>,
         <Button key="cancel" onClick={dropModal} danger type="primary">
           Cancel
         </Button>,
+        <Button key="save" onClick={DoFunction} type="primary">Save</Button>,
       ]}
     >
       <div className="mb-4">
@@ -158,7 +158,7 @@ export default function AgentAddLead({
           onChange={(value) => setOrigin(value)} // Directly receive value
           style={{ width: '100%' }} // Correct property name for inline styles
         >
-           <Option value="Vander Engines">Vander Engines</Option>
+          <Option value="Vander Engines">Vander Engines</Option>
           <Option value="USA AUTO PARTS LLC">USA Auto Parts LLC</Option>
           <Option value="Facebook">Facebook</Option>
           <Option value="AutoPartsLeads">Auto Parts Lead</Option>

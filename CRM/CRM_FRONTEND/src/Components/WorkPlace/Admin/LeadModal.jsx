@@ -45,10 +45,11 @@ export default function LeadModal({
       open={open}
       onCancel={dropModal}
       footer={[
-        <Button key="save" onClick={DoFunction}>Save</Button>,
+       
         <Button key="cancel" onClick={dropModal} danger type="primary">
           Cancel
         </Button>,
+         <Button key="save" onClick={DoFunction} type="primary">Save</Button>,
       ]}
     >
       <div className="mb-4">

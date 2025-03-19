@@ -102,11 +102,11 @@ export default function FollowUp({setload}) {
       ],
       onFilter: (value, record) => record.order === value,
     },
-    {
-      title: "Origin",
-      key: "origin",
-      dataIndex: "origin",
-    },
+    // {
+    //   title: "Origin",
+    //   key: "origin",
+    //   dataIndex: "origin",
+    // },
     {
       title: "Date",
       key: "date",

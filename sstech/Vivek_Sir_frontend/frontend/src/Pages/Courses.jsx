@@ -264,7 +264,7 @@ const Courses = () => {
                 <img
                   src={course.image}
                   alt={course.title}
-                  style={{ height: "150px" }}
+                  style={{ height: "150px" , objectFit:"cover" }}
                 />
                 <div className="card-body">
                   <h5 className="card-title">{course.title}</h5>
