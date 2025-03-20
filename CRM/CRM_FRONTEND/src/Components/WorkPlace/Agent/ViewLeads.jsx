@@ -37,33 +37,38 @@ export default function ViewLeads({ task = [], state = "" }) {
       { key: "id", title: "Sno", dataIndex: "id", width: 100 },
       { key: "lead_name", title: "Client Name", dataIndex: "name", width: 130 },
       {
-        key: "lead_email",
-        title: "Client Email",
+        title: "Email",
         dataIndex: "email",
-        width: 100,
+        key: "email",
         render: (_, record) => {
           return (
             <a 
               href={`mailto:${record.email}`} 
               className="flex gap-2 items-center"
             >
-              {record.email.slice(0, 3) + ".....@gmail.com"}
+              {record.email
+            ? record.email.slice(0, 3) + ".....@gmail.com"
+            : "No email available"}
             </a>
           );
         }
+        
       },
       {
-        key: "lead_phone",
-        title: "Client Contact",
+        title: "Phone",
+        key: "phone",
         dataIndex: "phone",
-        width: 100,
-        render: (_, record) => (
-          <a href={`tel:${record.phone}`} className="flex gap-2 items-center">
-            <i className="fa-solid fa-phone"></i>
-            {record.phone.slice(0, 5) + "xxxxx..."}
-          </a>
-        ),
-
+        render: (_, record) => {
+          const phone = record?.phone; // Optional chaining for safety
+          return phone ? (
+            <a href={`tel:${phone}`} className="flex gap-2 items-center">
+              <i className="fa-solid fa-phone"></i>
+              {phone.slice(0, 5) + "xxxxx..."}
+            </a>
+          ) : (
+            <span>No phone available</span>
+          );
+        },
       },
       {
         title: "Status",

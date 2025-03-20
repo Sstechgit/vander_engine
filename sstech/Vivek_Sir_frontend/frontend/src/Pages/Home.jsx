@@ -145,21 +145,61 @@ export default function Home() {
               <h3 className="animate__animated animate__fadeInDown fw-bold text-white">
                 {/* Target Right Audience */}
               </h3>
-              <h1 className="animate__animated animate__fadeInLeft fw-bold hero-text ">
-                Choose Right <span> Digital Marketing </span>
-                Agency{" "}
-              </h1>
+              <p>Boost Your Career With <span style={{color:"#ff9c00"}}> Future Skills Academy </span> </p>
+                <h1 className="animate__animated animate__fadeInLeft hero-text  ">
+                  100% Placement <span> Guranteed </span>
+                  {" "}
+                </h1>
+                <div className="row justify-content-center bg-white border rounded mx-1 py-3" style={{boxShadow:"0 0 3px"}}>
+                  <div className="col-6">
+                    <div className="card card-1 d-flex flex-row align-items-center " style={{background:"none", border :"none"}}>
+                      <img src="/asset/course-5.png" width={40} height={40} className=" border rounded-circle" />
+                      <div className=" ">
+                        <h6 style={{color:"#ff9c00"}}>
+                          10.5 LPA
+                        </h6>
+                        <p> Highest Package </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-6">
+                  <div className="card card-1 d-flex flex-row align-items-center " style={{background:"none", border :"none"}}>
+                  <img src="/asset/course-4.webp" width={40} height={40} className="border rounded-circle"/>
 
-              <button
-                className="btn btn-lg mt-3 text-white"
-                onClick={() => {
-                  console.log("Download Brochure button clicked");
-                  setShowModal(true);
-                }}
-                style={{ background: "#ff9c00" }}
-              >
-                Download Brochure
-              </button>
+                      <div className="">
+                        <h6 style={{color:"#ff9c00"}}>
+                          4.5 LPA
+                        </h6>
+                        <p> Average Package </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-6">
+                  <div className="card card-1 d-flex flex-row align-items-center " style={{background:"none", border :"none"}}>
+                  <img src="/asset/course-1.png" width={40} height={40} className="border rounded-circle"/>
+
+                      <div className="">
+                        <h6 style={{color:"#ff9c00"}}>
+                          93%
+                        </h6>
+                        <p> Placement Rate </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-6">
+                  <div className="card card-1 d-flex flex-row align-items-center " style={{background:"none", border :"none"}}>
+                  <img src="/asset/course-3.webp" width={40} height={40} className="border rounded-circle"/>
+
+                      <div className="">
+                        <h6 style={{color:"#ff9c00"}}>
+                          54%
+                        </h6>
+                        <p> Average Salary Increase </p>
+                      </div>
+                    </div>
+                  </div>
+                 <p className="text-black text-center"> Placement stats as per the internal 2025 report </p>
+                </div>
             </div>
             <div className="col-lg-6 form-section">
               <Home_form />
