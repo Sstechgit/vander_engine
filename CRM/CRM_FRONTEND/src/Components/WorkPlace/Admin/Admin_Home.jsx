@@ -46,21 +46,22 @@ const Admin_Home = () => {
   };
   //--------------------------------Daily Leads--------------------------------------
   const fetchDailyLeads = async (page = currentPage, pageRows = pageSize) => {
-    const todayDate = new Date().toISOString().split("T")[0]; // Cached today's date
-  
+    const now = new Date();
+    const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0).getTime(); // Midnight timestamp
+
     try {
       const url = `${urls.FetchLeads}/${page}/${pageRows}`;
       const result = await DoFetch(url);
-  
+
       if (result.success) {
         const allLeads = result.payload.records || [];
         settotalLeads(result.payload.total || 0);
-  
-        // Filter today's leads
+
+        // Filter leads created from 12 AM today
         const todayLeads = allLeads.filter(
-          (lead) => new Date(lead.createdAt).toISOString().split("T")[0] === todayDate
+          (lead) => new Date(lead.createdAt).getTime() >= todayMidnight
         );
-  
+
         setDailyLeads(todayLeads.length);
       } else {
         console.error("Server issue occurred");
@@ -71,6 +72,7 @@ const Admin_Home = () => {
       message.error("Failed to fetch data. Please try again.");
     }
   };
+
   
   useEffect(() => {
     fetchDailyLeads();

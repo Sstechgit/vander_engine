@@ -3,7 +3,7 @@ import { urls } from "../../../../links";
 import { DoFetch } from "../../../Utils/DoFetch";
 import { parseCustomDate } from "../../../Utils/parseAndFormatDate";
 import { Button, Pagination } from "antd";
-import { useNavigate } from "react-router-dom";
+
 import ViewLeads from "./ViewLeads";
 import Daily_Leads from "./Daily_Leads";
 
@@ -90,7 +90,9 @@ const Agent_Home = () => {
   //--------------------------------Daily Leads--------------------------------------
   const fetchDailyLeads = async (page = currentPage, pageRows = pageSize) => {
     try {
-      const todayDate = new Date().toISOString().split("T")[0];
+      const now = new Date();
+      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0); // 12:00 AM today
+
       const url = `${urls.GetTaskForAgent}/${page}/${pageRows}`;
       const result = await DoFetch(url);
 
@@ -103,19 +105,21 @@ const Agent_Home = () => {
       const allTasks = result.payload.records || [];
       setTotalData(result.payload.total || 0);
 
-      // Filter tasks assigned today
+      // Filter tasks assigned today from 12:00 AM onwards
       const todayTasks = allTasks.filter((task) => {
         if (!task.createdAt) return false; // Ensure createdAt exists
         const assignedDate = new Date(task.createdAt);
-        return assignedDate.toISOString().split("T")[0] === todayDate;
+        return assignedDate >= todayStart; // Compare timestamps
       });
 
       setDailyLeads(todayTasks.length || 0);
+      console.log("Today's Leads Count:", todayTasks.length);
     } catch (error) {
       console.error("Error fetching daily assigned tasks:", error);
       message.error("Failed to fetch data. Please try again.");
     }
   };
+
 
   useEffect(() => {
     fetchDailyLeads(currentPage, pageSize);
@@ -185,9 +189,11 @@ const Agent_Home = () => {
                   block
                   className=" bg-pink-500"
                   onClick={() => setSelectedStatus("Daily")}
-
                 >
-                  <Daily_Leads task={task.filter(t => new Date(t.TaskAssignedDate).toISOString().split("T")[0] === new Date().toISOString().split("T")[0])} state="Daily" />
+                  <Daily_Leads
+                    task={task.filter(t => new Date(t.TaskAssignedDate) >= new Date(new Date().setHours(0, 0, 0, 0)))}
+                    state="Daily"
+                  />
 
                 </Button>
               </div>

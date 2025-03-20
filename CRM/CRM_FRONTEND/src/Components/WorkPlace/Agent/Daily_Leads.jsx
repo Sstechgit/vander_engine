@@ -23,16 +23,17 @@ export default function Daily_Leads({ task = [], state = "" }) {
 
   // Filter leads based on the passed `state` prop
   useEffect(() => {
-    const todayDate = new Date().toISOString().split("T")[0];
-  
-    let filtered = task;
+    const now = new Date(); // Declare `now`
+    const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
     
+    let filtered = task;
+  
     // If state is "Daily", filter by today's date
     if (state === "Daily") {
       filtered = task.filter((lead) => {
         if (!lead.TaskAssignedDate) return false;
-        const assignedDate = new Date(lead.TaskAssignedDate).toISOString().split("T")[0];
-        return assignedDate === todayDate;
+        const assignedDate = new Date(lead.TaskAssignedDate);
+        return assignedDate >= todayDate; // Compare timestamps
       });
     } else if (state && state !== "All") {
       filtered = task.filter((lead) => lead.status === state);
@@ -40,6 +41,7 @@ export default function Daily_Leads({ task = [], state = "" }) {
   
     setFilteredLeads(filtered);
   }, [task, state]);
+  
   
 
   // Dynamically set columns based on the state

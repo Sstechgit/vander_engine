@@ -49,6 +49,7 @@ import Super_SSTech_Leads from "./Super/Super_SSTech_Leads.jsx";
 import Super_Facebook_Leads from "./Super/Super_Facebook_Leads.jsx";
 import Super_NotAssigned_Leads from "./Super/Super_NotAssigned_Leads.jsx";
 import Daily_Leads from "./Admin/Daily_Leads.jsx";
+import Super_Daily_Leads from "./Super/Super_Daily_Leads.jsx";
 
 
 //------------------------------
@@ -96,6 +97,7 @@ export default function Result({ setload }) {
         <Route path="superadmin/Client" element={<Super_Client setload={setload} />} />
         <Route path="superadmin/Invoice" element={<Super_Invoice setload={setload} />} />
         <Route path="superadmin/SearchForAdmin" element={<Super_SearchForAdmin setload={setload} />} />
+        <Route path="superadmin/daily_leads" element={<Super_Daily_Leads/>} />
         <Route path="superadmin/vanderengines_leads" element={<Super_VanderEngine_Leads />} />
         <Route path="superadmin/vandertransmission_leads" element={<Super_VanderTransmission_Leads />} />
         <Route path="superadmin/autoparts_leads" element={<Super_Autoparts_Leads />} />

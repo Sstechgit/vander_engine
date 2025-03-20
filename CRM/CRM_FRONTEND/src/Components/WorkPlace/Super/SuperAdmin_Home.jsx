@@ -18,6 +18,8 @@ const SuperAdmin_Home = () => {
   const [facebookLeads, setfacebookLeads] = useState(0);
   const [notassignedLeads, setNotAssignedLeads] = useState(0);
   const [refundleads, setrefundleads] = useState(0);
+  const [dailyleads, setDailyLeads] = useState(0);
+
 
 
 
@@ -34,7 +36,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+
     }
   };
   useEffect(() => {
@@ -43,6 +45,44 @@ const SuperAdmin_Home = () => {
   const handleViewAllAgents = () => {
     navigate("/crm/superadmin/TrackAgent");
   };
+  //--------------------------------Daily Leads--------------------------------------
+  const fetchDailyLeads = async (page = currentPage, pageRows = pageSize) => {
+    const now = new Date();
+    const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0).getTime(); // Midnight timestamp
+
+    try {
+      const url = `${urls.FetchLeads}/${page}/${pageRows}`;
+      const result = await DoFetch(url);
+
+      if (result.success) {
+        const allLeads = result.payload.records || [];
+        settotalLeads(result.payload.total || 0);
+
+        // Filter leads created from 12 AM today
+        const todayLeads = allLeads.filter(
+          (lead) => new Date(lead.createdAt).getTime() >= todayMidnight
+        );
+
+        setDailyLeads(todayLeads.length);
+      } else {
+        console.error("Server issue occurred");
+        message.error("Server issue occurred, please try again.");
+      }
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      message.error("Failed to fetch data. Please try again.");
+    }
+  };
+
+
+  useEffect(() => {
+    fetchDailyLeads();
+  }, [currentPage, pageSize]); // Ensure dependencies are correctly managed
+
+  const dailybasisleads = () => {
+    navigate("/crm/superadmin/daily_leads");
+  };
+
   //--------------------------------All Admins--------------------------------------
   const fetchAdmin = async () => {
     let url = urls.GET_USER;
@@ -57,7 +97,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+      // alert("Failed to fetch data. Please try again.");
     }
   };
   useEffect(() => {
@@ -80,7 +120,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+      // alert("Failed to fetch data. Please try again.");
     }
   };
   useEffect(() => {
@@ -106,7 +146,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+      // alert("Failed to fetch data. Please try again.");
     }
   };
   useEffect(() => {
@@ -132,7 +172,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+      // alert("Failed to fetch data. Please try again.");
     }
   };
   useEffect(() => {
@@ -158,7 +198,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+      // alert("Failed to fetch data. Please try again.");
     }
   };
   useEffect(() => {
@@ -184,7 +224,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+      // alert("Failed to fetch data. Please try again.");
     }
   };
   useEffect(() => {
@@ -209,7 +249,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+      // alert("Failed to fetch data. Please try again.");
     }
   };
   useEffect(() => {
@@ -234,7 +274,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+      // alert("Failed to fetch data. Please try again.");
     }
   };
   useEffect(() => {
@@ -259,7 +299,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+      // alert("Failed to fetch data. Please try again.");
     }
   };
   useEffect(() => {
@@ -307,7 +347,7 @@ const SuperAdmin_Home = () => {
       }
     } catch (error) {
       console.error("Error fetching leads:", error);
-      alert("Failed to fetch data. Please try again.");
+      // alert("Failed to fetch data. Please try again.");
     }
   };
 
@@ -358,6 +398,37 @@ const SuperAdmin_Home = () => {
                   size="large"
                   block
                   onClick={handleViewAllAgents} // Trigger state change to show Lead component
+                >
+                  View All
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*-----------------------daily Leads--------------------------*/}
+        <div className="card">
+          <div className="content">
+            <div className="details">
+              <div className="data">
+                <h3>
+                  {totalLeads !== null ? (
+                    <>
+                      <h3>{dailyleads}</h3>
+                      <br />
+                      <span>Daily Basis</span>
+                    </>
+                  ) : (
+                    <span>Loading...</span>
+                  )}
+                </h3>
+              </div>
+              <div className="actionBtn">
+                <Button
+                  type="primary"
+                  size="large"
+                  block
+                  className=" bg-pink-500"
+                  onClick={dailybasisleads} // Trigger state change to show Lead component
                 >
                   View All
                 </Button>

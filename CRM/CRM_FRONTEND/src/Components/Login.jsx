@@ -221,6 +221,19 @@ const Login = () => {
                   />
                   <div className="w-full flex flex-col items-center p-1 px-2 gap-2">
                     <div className="flex items-center gap-4 ">
+                    <label className="flex items-center cursor-pointer">
+                        <input
+                          type="radio"
+                          name="role"
+                          value="super"
+                          onChange={handleRoleChange}
+                          className="form-radio text-green-600"
+                          required
+                        />
+                        <span className="ml-2 text-black font-['Poppins']">
+                          Super
+                        </span>
+                      </label>
                       <label className="flex items-center cursor-pointer">
                         <input
                           type="radio"
@@ -247,19 +260,7 @@ const Login = () => {
                           Agent
                         </span>
                       </label>
-                      <label className="flex items-center cursor-pointer">
-                        <input
-                          type="radio"
-                          name="role"
-                          value="super"
-                          onChange={handleRoleChange}
-                          className="form-radio text-green-600"
-                          required
-                        />
-                        <span className="ml-2 text-black font-['Poppins']">
-                          Super
-                        </span>
-                      </label>
+                      
                     </div>
                     <span className=" text-red-600 transition-all duration-300 font-['Poppins'] h-8 ">
                       {errors?.designation ? errors.designation : ""}
@@ -329,6 +330,19 @@ const Login = () => {
                     />
                     <div className="w-full flex flex-col items-center p-1 px-2 gap-2">
                       <div className="flex items-center gap-4 ">
+                      <label className="flex items-center cursor-pointer">
+                          <input
+                            type="radio"
+                            name="role"
+                            value="super"
+                            onChange={handleRoleChange}
+                            className="form-radio text-green-600"
+                            required
+                          />
+                          <span className="ml-2 text-black font-['Poppins']">
+                            Super
+                          </span>
+                        </label>
                         <label className="flex items-center cursor-pointer">
                           <input
                             type="radio"
@@ -355,19 +369,7 @@ const Login = () => {
                             Agent
                           </span>
                         </label>
-                        <label className="flex items-center cursor-pointer">
-                          <input
-                            type="radio"
-                            name="role"
-                            value="super"
-                            onChange={handleRoleChange}
-                            className="form-radio text-green-600"
-                            required
-                          />
-                          <span className="ml-2 text-black font-['Poppins']">
-                            Super
-                          </span>
-                        </label>
+                        
                       </div>
                      
                     </div>
