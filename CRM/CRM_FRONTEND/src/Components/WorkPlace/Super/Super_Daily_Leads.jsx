@@ -1,4 +1,4 @@
-import { Pagination, Table, Button, message, DatePicker } from "antd";
+import { Pagination, Table, Button, message, DatePicker, Select } from "antd";
 const { RangePicker } = DatePicker;
 import * as XLSX from "xlsx"; // Import XLSX for Excel generation
 import { saveAs } from "file-saver"; // Save file in browser
@@ -44,10 +44,15 @@ export default function Super_Daily_Leads({ setload }) {
     const [mobileFilter, setMobileFilter] = useState("");
     const [nameFilter, setNameFilter] = useState("");
     const [emailFilter, setEmailFilter] = useState("");
+    const [originFilter, setOriginFilter] = useState("");
+    const [stateFilter, setStateFilter] = useState("");
     const [dateRange, setDateRange] = useState(null);
-    const [totalLeads, setTotalLeads] = useState(0);
     const [filteredLeadsCount, setFilteredLeadsCount] = useState(0);
-    const filterTasks = (dateRange, mobileFilter, nameFilter, emailFilter, tasks) => {
+    const [originOptions, setOriginOptions] = useState([]);
+    const [stateOptions, setStateOptions] = useState([]);
+
+
+    const filterTasks = (dateRange, mobileFilter, nameFilter, emailFilter, originFilter, stateFilter, tasks) => {
         return tasks.filter((task) => {
             const taskCreatedDate = new Date(task.created);
             const startDate = dateRange?.[0] ? new Date(dateRange[0] + "T00:00:00") : null;
@@ -66,8 +71,17 @@ export default function Super_Daily_Leads({ setload }) {
 
             // Check Name number condition
             const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
+            const isOriginMatch = !originFilter?.length || originFilter.includes(task.origin);
+            // ✅ Corrected state filtering & included unassigned leads
+            const taskState = task?.task?.state ?? ""; // Get state or empty if no task
+            const isUnassigned = !task?.task?._id; // Check if task is not assigned
 
-            return isDateMatch && isMobileMatch && isNameMatch && isEmailMatch;
+            const isStateMatch =
+                !stateFilter?.length ||
+                isUnassigned ||  // Include unassigned leads
+                stateFilter.some(state => state.trim().toLowerCase() === taskState.trim().toLowerCase());
+
+            return isDateMatch && isMobileMatch && isNameMatch && isEmailMatch && isOriginMatch && isStateMatch;
         });
     };
     const [opArr, setopArr] = useState({
@@ -91,10 +105,10 @@ export default function Super_Daily_Leads({ setload }) {
             let pageRows = 100; // Adjust to your API's max rows per page
             let allRecords = [];
             let totalRecords = 0;
-    
+
             const now = new Date();
-            const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0).getTime(); // Timestamp for 12 AM today
-    
+            const last24Hours = now.getTime() - 24 * 60 * 60 * 1000;  // Timestamp for 12 AM today
+
             do {
                 let url = `${urls.FetchLeads}/${page}/${pageRows}`;
                 let result = await DoFetch(url);
@@ -102,11 +116,11 @@ export default function Super_Daily_Leads({ setload }) {
                     alert("Server issue occurred");
                     return;
                 }
-    
+
                 if (page === 1) {
                     totalRecords = result.payload.total;
                 }
-    
+
                 let pageRecords = result.payload.records.map((lead, idx) => ({
                     key: lead._id,
                     _id: (page - 1) * pageRows + idx + 1,
@@ -121,26 +135,38 @@ export default function Super_Daily_Leads({ setload }) {
                     task: lead.task[0],
                     createdAt: new Date(lead?.createdAt).getTime(), // Convert to timestamp
                 }));
-    
+
                 allRecords = [...allRecords, ...pageRecords];
                 page++;
             } while (allRecords.length < totalRecords);
-    
+            const uniqueOrigins = [...new Set(allRecords.map((lead) => lead.origin).filter(Boolean))];
+            setOriginOptions(uniqueOrigins);
+            const uniqueStates = [
+                ...new Set(
+                    allRecords
+                        .map((lead) => lead.task?._id ? lead.task.state?.trim().toLowerCase() : "Not Assigned") // Add "unassigned" if no task
+                        .filter(Boolean)
+                ),
+            ];
+
+            setStateOptions(uniqueStates);
             // ✅ Correct filtering: Compare timestamps
-            let todayLeads = allRecords.filter(lead => lead.createdAt >= todayMidnight);
-    
+            const recentLeads = allRecords.filter(
+                (lead) => new Date(lead.createdAt).getTime() >= last24Hours
+            );
+
             // Apply other filters if needed
-            const finalFilteredLeads = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, todayLeads);
-    
+            const finalFilteredLeads = filterTasks(dateRange, mobileFilter, nameFilter, emailFilter, originFilter, stateFilter, recentLeads);
+            console.log(finalFilteredLeads)
             setLeads(finalFilteredLeads); // Set the filtered leads
             setFilteredLeadsCount(finalFilteredLeads.length);
             setTotalData(finalFilteredLeads.length); // Update the total count
-    
+
         } catch (error) {
             console.error("Error fetching leads:", error);
         }
     };
-    
+
 
     //Delete a lead
     const handleDelete = async (records, Selected = false) => {
@@ -540,6 +566,7 @@ export default function Super_Daily_Leads({ setload }) {
         }));
     }, [selectedLeads, Leads]); // Ensure Leads is included
 
+    console.log("Origin state:", origin);
 
     useEffect(() => {
         if (!sessionStorage.getItem("accessT")) {
@@ -553,7 +580,7 @@ export default function Super_Daily_Leads({ setload }) {
         return () => {
             clearInterval(id);
         };
-    }, [currentPage, pageSize, dateRange, mobileFilter, nameFilter, emailFilter]);
+    }, [currentPage, pageSize, dateRange, mobileFilter, nameFilter, emailFilter, originFilter, stateFilter]);
     return (
         <>
             {contextHolder}
@@ -589,55 +616,90 @@ export default function Super_Daily_Leads({ setload }) {
             />
             <div className="w-full border  py-2">
                 <RangePicker
-                    className="w-[30%] me-4 border rounded border-gray-500 p-1"
+                    className="w-[15%] me-2 border rounded border-gray-500 p-1"
                     onChange={(dates, dateStrings) =>
                         setDateRange(dates ? [dateStrings[0], dateStrings[1]] : null)
                     }
                 />
-                <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
+                <span className="w-[2%] me-1 border rounded border-gray-500 p-1">
                     <input
                         type="text "
                         placeholder="Search By Name "
                         value={nameFilter}
                         onChange={(e) => setNameFilter(e.target.value)}
-                        className="ms-5 mobile-filter-input"
+                        className=" mobile-filter-input"
                     />
-                    <i
-                        class="fa-solid fa-magnifying-glass  mt-2"
-                        onClick={filterTasks}
-                    ></i>
                 </span>
 
-                <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
+                <span className="w-[5%] me-2 border rounded border-gray-500 p-1">
                     <input
                         type="email "
                         placeholder="Search By Email "
                         value={emailFilter}
                         onChange={(e) => setEmailFilter(e.target.value)}
-                        className="ms-5 mobile-filter-input"
+                        className=" mobile-filter-input"
                     />
-                    <i
-                        class="fa-solid fa-magnifying-glass  mt-2"
-                        onClick={filterTasks}
-                    ></i>
                 </span>
 
-                <span className="w-[20%] me-4 border rounded border-gray-500 p-1">
+                <span className="w-[5%] me-2 border rounded border-gray-500 p-1">
                     <input
                         type="text "
-                        placeholder="Search By Mobile No. "
+                        placeholder="Search By Mobile "
                         value={mobileFilter}
                         onChange={(e) => setMobileFilter(e.target.value)}
-                        className="ms-5 mobile-filter-input"
+                        className=" mobile-filter-input"
                     />
-                    <i
-                        class="fa-solid fa-magnifying-glass  mt-2"
-                        onClick={filterTasks}
-                    ></i>
                 </span>
+                <span className="w-[5%] me-2 border rounded border-gray-500 p-1">
+                    <select
+                        className=""
+                        value={originFilter.length ? originFilter : [""]} // Default to empty string when no selection
+                        onChange={(e) =>
+                            setOriginFilter([...e.target.selectedOptions].map((opt) => opt.value))
+                        }
+                        style={{
+                            border: "none",
+                            outline: "none", // Removes focus outline
+                        }}
+                    >
+                        {/* Default Placeholder Option */}
+                        <option value="" disabled>
+                            Select Origin
+                        </option>
 
-                <span className="bg-green-700 p-1 border rounded-3xl text-white fw-bold text-xl">{filteredLeadsCount}</span>
+                        {originOptions.map((origin) => (
+                            <option key={origin} value={origin}>
+                                {origin}
+                            </option>
+                        ))}
+                    </select>
+                </span>
+                <span className="w-[5%] me-1 border rounded border-gray-500 p-1">
+                    <select
+                        className=""
+                        value={stateFilter}  // Default to empty string when no selection
+                        onChange={(e) =>
+                            setStateFilter([...e.target.selectedOptions].map((opt) => opt.value))
+                        }
+                        style={{
+                            border: "none",
+                            outline: "none", // Removes focus outline
+                        }}
+                    >
+                        {/* Default Placeholder Option */}
+                        <option value="" disabled>
+                            Select State
+                        </option>
 
+                        {stateOptions.map((state) => (
+                            <option key={state} value={state}>
+                                {state}
+                            </option>
+                        ))}
+                    </select>
+
+                </span>
+                <div className="bg-green-700 p-1 border rounded-3xl text-white fw-bold text-xl float-end me-5">{filteredLeadsCount}</div>
             </div>
 
             <div className="h-calc-remaining flex flex-col justify-between  ">
