@@ -1,7 +1,13 @@
+import "./App.css";
+import Home from "./Components/Home";
+import React, { useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { urls } from "../links";
+
 function App() {
   useEffect(() => {
     const pingServer = () => {
-      fetch("https://autotesting.sstechcrm.com/api/user-active", {
+      fetch(urls.ACTIVE_USER, {
         method: "POST",
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("accessToken"),
@@ -49,8 +55,5 @@ export default App;
 // export default App
 
 
-// import "./App.css";
-// import Home from "./Components/Home";
-// import React, { useEffect } from "react";
-// import { BrowserRouter } from "react-router-dom";
+
 

@@ -7,6 +7,7 @@ export const urls = {
   LOGIN: base + "/api/login",
   REGISTER: base + "/api/user",
   GET_USER: base + "/api/users",
+  ACTIVE_USER: base + "/api/user-active",
   VERIFY_OTP: base + "/api/verify-otp",
   LOGOUT: base + "/api/logout",
   ADDTASK: base + "/api/addTask",
