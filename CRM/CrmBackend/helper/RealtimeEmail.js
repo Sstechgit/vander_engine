@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 
 const imap = new Imap({
   user: "info@vanderengines.com",
-  password: "Shobhitrastogi@881037",
+  password: "Shobhit@1256",
   host: "imap.hostinger.com",
   port: 993,
   tls: true,

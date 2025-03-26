@@ -71,8 +71,9 @@ export default function Super_Daily_Leads({ setload }) {
 
             // Check Name number condition
             const isEmailMatch = !emailFilter || task.email.toLowerCase().includes(emailFilter.toLowerCase());
+            
             const isOriginMatch = !originFilter?.length || originFilter.includes(task.origin);
-            // ✅ Corrected state filtering & included unassigned leads
+
             const taskState = task?.task?.state ?? ""; // Get state or empty if no task
             const isUnassigned = !task?.task?._id; // Check if task is not assigned
 

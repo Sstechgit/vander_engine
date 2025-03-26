@@ -16,12 +16,12 @@ const transporter = nodemailer.createTransport({
   secure: false, // Set to true for SSL, false for TLS
   auth: {
     user: smtpEmail,
-    pass: "Shobhitrastogi@881037",
+    pass: "Shobhit@1256",
   },
 });
 const imap = new Imap({
   user: "contactus@vanderengines.com",
-  password: "Shobhitrastogi@881037",
+  password: "Shobhit@1256",
   host: "imap.hostinger.com",
   port: 993,
   tls: true,

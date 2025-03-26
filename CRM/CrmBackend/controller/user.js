@@ -63,7 +63,7 @@ const sendOTP = async (email, otp) => {
     secure: true,
     auth: {
       user: 'crmsstech@usaautopartsllc.com',
-      pass: 'Crmsstech@9219',
+      pass: 'Shobhit@1256',
     },
   });
 
@@ -193,9 +193,12 @@ const GetAllAgents = asyncHandler(async (req, res) => {
     )
   );
 });
+
+
+
 //delete an id
 const DeleteAgent = asyncHandler(async (req, res) => {
-  if (req.designation != "Admin") {
+  if (req.designation !== "Admin" && req.designation !== "super")  {
     return res.send(
       new ErrorResponse(400, "NoAgentAccess", "You should be Admin")
     );

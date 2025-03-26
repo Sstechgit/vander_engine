@@ -41,7 +41,7 @@ const SendQuotations = asyncHandler(async (req, res) => {
     secure: true,
     auth: {
       user: 'contactus@vanderengines.com',
-      pass: 'Shobhitrastogi@881037',
+      pass: 'Shobhit@1256',
     },
   });
  
