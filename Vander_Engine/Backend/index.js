@@ -13,10 +13,12 @@ const crmroute = require("./src/routes/crmSearchProduct");
 const productRoutes = require("./src/routes/productRoutes");
 const app = express();
 const PORT = 4020;
+const path = require('path');
 
 // Initialize the database connection
 connectDB();
 connectToDb();
+
 
 app.use(express.json());
 applyMiddleware(app);
@@ -43,5 +45,10 @@ app.use('/api/transmission', transmission_route);
 app.use("/api/products", productRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build",'index.html'));
+})  
