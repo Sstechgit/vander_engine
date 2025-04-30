@@ -15,7 +15,7 @@ const contact_mid_form = async ({ part, make, model, year, variant, name, email,
   const mailOptions = {
     from: `"Vander Engines" <Info@vanderengines.com>`,
     replyTo: email,
-    to: 'Info@vanderengines.com,vanderengines1@gmail.com,spthelpdesk99@gmail.com',
+    to: "Info@vanderengines.com,vanderengines1@gmail.com,spthelpdesk99@gmail.com,knightrander94@gmail.com",
     subject: `Query Through www.vanderengines.com Connect At ${phone}`, // Keep subject as is
     text: `
       Part: ${part}
@@ -26,9 +26,11 @@ const contact_mid_form = async ({ part, make, model, year, variant, name, email,
       
       Timestamp: ${Date.now()}  // Unique identifier in the body
     `,
-    messageId: `<${Date.now()}-${Math.random().toString(36).substring(2)}@vanderengines.com>`, // Unique Message-ID
+    messageId: `<${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2)}@vanderengines.com>`, // Unique Message-ID
     headers: {
-      'In-Reply-To': null,
+      "In-Reply-To": null,
       References: null, // Prevent Gmail from threading emails
     },
   };
