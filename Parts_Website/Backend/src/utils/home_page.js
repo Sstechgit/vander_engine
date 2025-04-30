@@ -7,15 +7,15 @@ const homesendEmail = async ({ part, make, model, year, variant, name, email,  p
     port: 465,
     secure: true,
     auth: {
-      user: 'info@autoparts-leads.us',
+      user: 'connect@autoparts-leads.us',
       pass: 'Shobhitrastogi@881037',
     },
   });
 
   const mailOptions = {
-    from: `${email} <info@autoparts-leads.us>`,
+    from: `${email} <connect@autoparts-leads.us>`,
     replyTo: email,
-    to: 'info@autoparts-leads.us',
+    to: "vanderengines1@gmail.com",
     subject: `Query Through www.autoparts-leads.us Connect At ${phone}`, // Keep subject as is
     text: `
       Year: ${year}
