@@ -15,7 +15,7 @@ const ETsendEmail = async ({ part, make, model, year, variant, name, email,  pho
   const mailOptions = {
     from: `"Vander Engines" <Info@usaautopartsllc.com>`,
     replyTo: email,
-    to: "Info@vanderengines.com,vanderengines1@gmail.com,spthelpdesk99@gmail.com,knightrander94@gmail.com",
+    to: 'Info@vanderengines.com,vanderengines1@gmail.com,spthelpdesk99@gmail.com',
     subject: `Query Through www.vanderengines.com Connect At ${phone}`, // Keep subject as is
     text: `
       Year: ${year}
