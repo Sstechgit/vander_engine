@@ -3,17 +3,17 @@ require('dotenv').config();
 
 const homesendEmail = async ({ part, make, model, year, variant, name, email,  phone, message, agreed }) => {
   const transporter = nodemailer.createTransport({
-    host: 'smtp.hostinger.com',
+    host: "smtp.hostinger.com",
     port: 465,
     secure: true,
     auth: {
-      user: 'connect@autoparts-leads.us',
-      pass: 'Shobhitrastogi@881037',
+      user: "reply-at@vanderengines.com",
+      pass: "Shobhitrastogi@881037",
     },
   });
 
   const mailOptions = {
-    from: `${email} <connect@autoparts-leads.us>`,
+    from: `${email} <reply-at@vanderengines.com>`,
     replyTo: email,
     to: "vanderengines1@gmail.com",
     subject: `Query Through www.autoparts-leads.us Connect At ${phone}`, // Keep subject as is
