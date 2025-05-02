@@ -15,7 +15,7 @@ const homesendEmail = async ({ part, make, model, year, variant, name, email,  p
   const mailOptions = {
     from: `${email} <peter@vanderengines.com>`,
     replyTo: email,
-    to: 'vanderengines1@gmail.com',
+    to: 'vanderengines1@gmail.com, vanderengines1@gmail.com', 
     subject: `Query Through www.vanderengines.com Connect At ${phone}`, // Keep subject as is
     text: `
       Year: ${year}
