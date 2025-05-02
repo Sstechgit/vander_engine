@@ -7,6 +7,7 @@ import Cart from "./Form/Cart";
 import Home from "./Home/Home";
 import Engine from "./Engine/Engine";
 import Transmission from "./Transmission/Transmission";
+import Search from "./SearchCP/Search"
 import About from "./AboutUs/About";
 import Financing from "./Financing/Financing";
 import ShippingPolicy from "./Policy/ShippingPolicy";
@@ -158,6 +159,14 @@ export default function App() {
             element={
               <LayoutWithHeaderFooter>
                 <Transmission handleAddToCart={handleAddToCart} showproduct={showproduct} />
+              </LayoutWithHeaderFooter>
+            }
+          />
+          <Route
+            path="search-car-parts"
+            element={
+              <LayoutWithHeaderFooter>
+                <Search handleAddToCart={handleAddToCart} showproduct={showproduct} />
               </LayoutWithHeaderFooter>
             }
           />

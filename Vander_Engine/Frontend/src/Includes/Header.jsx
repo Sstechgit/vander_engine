@@ -91,6 +91,16 @@ export default function Header() {
                 </li>
                 <li className="nav-item">
                   <NavLink
+                    to="/search-car-parts"
+                    className="nav-link"
+                    activeClassName="active"
+                    onClick={closeNavbar}
+                  >
+                    Search Car Parts
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
                     to="/about"
                     className="nav-link"
                     activeClassName="active"
